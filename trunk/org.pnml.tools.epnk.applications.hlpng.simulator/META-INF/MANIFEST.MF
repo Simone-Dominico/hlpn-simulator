@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: HLPNG Simulator
+Bundle-SymbolicName: org.pnml.tools.epnk.applications.hlpng.simulator; singleton:=true
+Bundle-Version: 0.1
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.pnml.tools.epnk.editor;bundle-version="0.9.3",
+ org.pnml.tools.epnk.applications;bundle-version="0.1.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Activator: org.pnml.tools.epnk.applications.hlpng.simulator.Activator
