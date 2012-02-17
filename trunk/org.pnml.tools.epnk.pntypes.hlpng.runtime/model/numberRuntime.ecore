@@ -4,7 +4,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="numberRuntime"
     nsURI="http://numberruntime/1.0" nsPrefix="numberruntime">
   <eClassifiers xsi:type="ecore:EClass" name="NumberValue" abstract="true" eSuperTypes="runtime.ecore#//AbstractValue">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="namespace" value=""/>
       </eAnnotations>
