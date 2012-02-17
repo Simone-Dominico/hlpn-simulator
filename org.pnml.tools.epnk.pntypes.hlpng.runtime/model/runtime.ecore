@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="runtime"
+    nsURI="http://runtime/1.0" nsPrefix="runtime">
+  <eClassifiers xsi:type="ecore:EClass" name="MSValue" eSuperTypes="#//AbstractValue">
+    <eOperations name="getMultiplicity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eParameters name="value" eType="#//AbstractValue"/>
+    </eOperations>
+    <eOperations name="add">
+      <eParameters name="value" eType="#//AbstractValue"/>
+    </eOperations>
+    <eOperations name="append">
+      <eParameters name="ms" eType="#//MSValue"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="msSort" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/MultiSetSort"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
+        eType="#//ValueToIntegerMap" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//ObjectAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="msValue" lowerBound="1"
+        eType="#//MSValue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1" eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.ecore#//Place"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NetMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//NetAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="markings" upperBound="-1"
+        eType="#//PlaceMarking" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MSElementValue" eSuperTypes="#//AbstractValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="msElement" lowerBound="1"
+        eType="#//AbstractValue"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueToIntegerMap" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//AbstractValue"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractValue" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sort" lowerBound="1" eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/Sort"/>
+  </eClassifiers>
+</ecore:EPackage>

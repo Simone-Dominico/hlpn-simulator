@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="numberRuntime"
+    nsURI="http://numberruntime/1.0" nsPrefix="numberruntime">
+  <eClassifiers xsi:type="ecore:EClass" name="NumberValue" abstract="true" eSuperTypes="runtime.ecore#//AbstractValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+      <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
+        <details key="namespace" value=""/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="numSort" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Number"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntValue" eSuperTypes="#//NumberValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="intSort" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Integer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PosValue" eSuperTypes="#//NumberValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="posSort" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Positive"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NatValue" eSuperTypes="#//NumberValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="natSort" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Natural"/>
+  </eClassifiers>
+</ecore:EPackage>
