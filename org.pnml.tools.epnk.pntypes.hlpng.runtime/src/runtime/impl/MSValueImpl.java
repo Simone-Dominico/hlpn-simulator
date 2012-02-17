@@ -147,9 +147,9 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
      */
     public int getMultiplicity(AbstractValue value)
     {
-        if(values.containsKey(value))
+        if(getValues().containsKey(value))
         {
-        	return values.get(value);
+        	return getValues().get(value);
         }
         return 0;
     }
@@ -167,12 +167,26 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     	if(value instanceof MSElementValue)
     	{
     		MSElementValue elemValue = (MSElementValue) value;
-    		updateValue(values, elemValue.getMsElement(), elemValue.getMultiplicity());
+    		updateValue(getValues(), elemValue.getMsElement(), elemValue.getMultiplicity());
     	}
     	else
     	{
-    		updateValue(values, value, 1);
+    		updateValue(getValues(), value, 1);
     	}
+    }
+    
+    /**
+     * <!-- begin-user-doc -->
+     * Appends a shallow copy of the multiset
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public void append(MSValue ms)
+    {    	
+        for(AbstractValue key : ms.getValues().keySet())
+        {
+        	updateValue(getValues(), key, ms.getValues().get(key));
+        }
     }
     
     private static void updateValue(EMap<AbstractValue, Integer> values, AbstractValue value,
@@ -186,17 +200,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     	{
     		values.put(value, multiplicity);
     	}
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * Appends a shellow copy of the multiset
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public void append(MSValue ms)
-    {
-        
     }
 
     /**
