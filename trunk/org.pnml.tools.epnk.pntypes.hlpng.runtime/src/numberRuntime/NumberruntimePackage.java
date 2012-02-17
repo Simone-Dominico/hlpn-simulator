@@ -82,7 +82,7 @@ public interface NumberruntimePackage extends EPackage
     int NUMBER_VALUE__SORT = RuntimePackage.ABSTRACT_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>N</b></em>' attribute list.
+     * The feature id for the '<em><b>N</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -128,7 +128,7 @@ public interface NumberruntimePackage extends EPackage
     int INT_VALUE__SORT = NUMBER_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>N</b></em>' attribute list.
+     * The feature id for the '<em><b>N</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -183,7 +183,7 @@ public interface NumberruntimePackage extends EPackage
     int POS_VALUE__SORT = NUMBER_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>N</b></em>' attribute list.
+     * The feature id for the '<em><b>N</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -238,7 +238,7 @@ public interface NumberruntimePackage extends EPackage
     int NAT_VALUE__SORT = NUMBER_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>N</b></em>' attribute list.
+     * The feature id for the '<em><b>N</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -285,10 +285,10 @@ public interface NumberruntimePackage extends EPackage
     EClass getNumberValue();
 
     /**
-     * Returns the meta object for the attribute list '{@link numberRuntime.NumberValue#getN <em>N</em>}'.
+     * Returns the meta object for the attribute '{@link numberRuntime.NumberValue#getN <em>N</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute list '<em>N</em>'.
+     * @return the meta object for the attribute '<em>N</em>'.
      * @see numberRuntime.NumberValue#getN()
      * @see #getNumberValue()
      * @generated
@@ -403,7 +403,7 @@ public interface NumberruntimePackage extends EPackage
         EClass NUMBER_VALUE = eINSTANCE.getNumberValue();
 
         /**
-         * The meta object literal for the '<em><b>N</b></em>' attribute list feature.
+         * The meta object literal for the '<em><b>N</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

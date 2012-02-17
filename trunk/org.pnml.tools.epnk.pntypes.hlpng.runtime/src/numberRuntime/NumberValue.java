@@ -6,8 +6,6 @@
  */
 package numberRuntime;
 
-import org.eclipse.emf.common.util.EList;
-
 import runtime.AbstractValue;
 
 /**
@@ -30,20 +28,31 @@ import runtime.AbstractValue;
 public interface NumberValue extends AbstractValue
 {
     /**
-     * Returns the value of the '<em><b>N</b></em>' attribute list.
-     * The list contents are of type {@link java.lang.Integer}.
+     * Returns the value of the '<em><b>N</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>N</em>' attribute list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>N</em>' attribute list.
+     * @return the value of the '<em>N</em>' attribute.
+     * @see #setN(int)
      * @see numberRuntime.NumberruntimePackage#getNumberValue_N()
-     * @model extendedMetaData="namespace=''"
+     * @model required="true"
+     *        extendedMetaData="namespace=''"
      * @generated
      */
-    EList<Integer> getN();
+    int getN();
+
+    /**
+     * Sets the value of the '{@link numberRuntime.NumberValue#getN <em>N</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>N</em>' attribute.
+     * @see #getN()
+     * @generated
+     */
+    void setN(int value);
 
     /**
      * Returns the value of the '<em><b>Num Sort</b></em>' reference.

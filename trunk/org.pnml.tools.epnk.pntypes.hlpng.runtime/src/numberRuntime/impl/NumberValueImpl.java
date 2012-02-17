@@ -6,21 +6,15 @@
  */
 package numberRuntime.impl;
 
-import java.util.Collection;
-
 import numberRuntime.NumberValue;
 import numberRuntime.NumberruntimePackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 
 import runtime.impl.AbstractValueImpl;
 
@@ -41,14 +35,24 @@ import runtime.impl.AbstractValueImpl;
 public abstract class NumberValueImpl extends AbstractValueImpl implements NumberValue
 {
     /**
-     * The cached value of the '{@link #getN() <em>N</em>}' attribute list.
+     * The default value of the '{@link #getN() <em>N</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getN()
      * @generated
      * @ordered
      */
-    protected EList<Integer> n;
+    protected static final int N_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getN() <em>N</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getN()
+     * @generated
+     * @ordered
+     */
+    protected int n = N_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getNumSort() <em>Num Sort</em>}' reference.
@@ -86,13 +90,22 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Integer> getN()
+    public int getN()
     {
-        if (n == null)
-        {
-            n = new EDataTypeUniqueEList<Integer>(Integer.class, this, NumberruntimePackage.NUMBER_VALUE__N);
-        }
         return n;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setN(int newN)
+    {
+        int oldN = n;
+        n = newN;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, NumberruntimePackage.NUMBER_VALUE__N, oldN, n));
     }
 
     /**
@@ -162,15 +175,13 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue)
     {
         switch (featureID)
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
-                getN().clear();
-                getN().addAll((Collection<? extends Integer>)newValue);
+                setN((Integer)newValue);
                 return;
             case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
                 setNumSort((org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)newValue);
@@ -184,13 +195,20 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
      * <!-- end-user-doc -->
      * @generated
      */
+
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public void eUnset(int featureID)
     {
         switch (featureID)
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
-                getN().clear();
+                setN(N_EDEFAULT);
                 return;
             case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
                 setNumSort((org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)null);
@@ -210,7 +228,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         switch (featureID)
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
-                return n != null && !n.isEmpty();
+                return n != N_EDEFAULT;
             case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
                 return numSort != null;
         }
