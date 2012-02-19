@@ -85,7 +85,7 @@ public interface MSValue extends AbstractValue
      * @model
      * @generated
      */
-    void add(AbstractValue value);
+    void add(AbstractValue value, int multiplicity);
 
     /**
      * <!-- begin-user-doc -->

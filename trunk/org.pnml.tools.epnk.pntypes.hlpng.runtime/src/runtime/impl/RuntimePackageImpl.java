@@ -23,7 +23,6 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.HlpngdefinitionPac
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsPackage;
 
 import runtime.AbstractValue;
-import runtime.MSElementValue;
 import runtime.MSValue;
 import runtime.NetMarking;
 import runtime.PlaceMarking;
@@ -58,13 +57,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * @generated
      */
     private EClass netMarkingEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass msElementValueEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -232,36 +224,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getMSElementValue()
-    {
-        return msElementValueEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getMSElementValue_Multiplicity()
-    {
-        return (EAttribute)msElementValueEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getMSElementValue_MsElement()
-    {
-        return (EReference)msElementValueEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getValueToIntegerMap()
     {
         return valueToIntegerMapEClass;
@@ -348,10 +310,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         netMarkingEClass = createEClass(NET_MARKING);
         createEReference(netMarkingEClass, NET_MARKING__MARKINGS);
 
-        msElementValueEClass = createEClass(MS_ELEMENT_VALUE);
-        createEAttribute(msElementValueEClass, MS_ELEMENT_VALUE__MULTIPLICITY);
-        createEReference(msElementValueEClass, MS_ELEMENT_VALUE__MS_ELEMENT);
-
         valueToIntegerMapEClass = createEClass(VALUE_TO_INTEGER_MAP);
         createEReference(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__KEY);
         createEAttribute(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__VALUE);
@@ -397,7 +355,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         msValueEClass.getESuperTypes().add(this.getAbstractValue());
         placeMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getObjectAnnotation());
         netMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getNetAnnotation());
-        msElementValueEClass.getESuperTypes().add(this.getAbstractValue());
 
         // Initialize classes and features; add operations and parameters
         initEClass(msValueEClass, MSValue.class, "MSValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -409,6 +366,7 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         op = addEOperation(msValueEClass, null, "add", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, this.getAbstractValue(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+        addEParameter(op, ecorePackage.getEInt(), "multiplicity", 0, 1, IS_UNIQUE, IS_ORDERED);
 
         op = addEOperation(msValueEClass, null, "append", 0, 1, IS_UNIQUE, IS_ORDERED);
         addEParameter(op, this.getMSValue(), "ms", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -419,10 +377,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         initEClass(netMarkingEClass, NetMarking.class, "NetMarking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNetMarking_Markings(), this.getPlaceMarking(), null, "markings", null, 0, -1, NetMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(msElementValueEClass, MSElementValue.class, "MSElementValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getMSElementValue_Multiplicity(), ecorePackage.getEInt(), "multiplicity", null, 1, 1, MSElementValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getMSElementValue_MsElement(), this.getAbstractValue(), null, "msElement", null, 1, 1, MSElementValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(valueToIntegerMapEClass, Map.Entry.class, "ValueToIntegerMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEReference(getValueToIntegerMap_Key(), this.getAbstractValue(), null, "key", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
