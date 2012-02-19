@@ -16,7 +16,7 @@
             </separator>
          </menu>
          <action
-               class="org.pnml.tools.epnk.applications.hlpng.simulator.popup.actions.StartSimulatorApp"
+               class="org.pnml.tools.epnk.applications.hlpng.simulator.StartSimulatorApp"
                enablesFor="1"
                id="org.pnml.tools.epnk.applications.hlpng.simulator.newAction"
                label="Start Simulator App"
