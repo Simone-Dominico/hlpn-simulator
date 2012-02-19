@@ -15,9 +15,10 @@ import runtime.AbstractValue;
 public class NumberConstantOperator extends AbstractOperator
 {
 
-	public NumberConstantOperator(Map<Class, AbstractOperator> handlers)
+	public NumberConstantOperator(Map<Class, AbstractOperator> handlers, 
+			AbstractOperator next)
     {
-	    super(handlers);
+	    super(handlers, next);
     }
 
 	@Override
@@ -54,7 +55,7 @@ public class NumberConstantOperator extends AbstractOperator
 			}
 			return v;
 		}
-		throw new RuntimeException("Mismatch: " + term);
+		return next.handle(term);
 	}
 
 }

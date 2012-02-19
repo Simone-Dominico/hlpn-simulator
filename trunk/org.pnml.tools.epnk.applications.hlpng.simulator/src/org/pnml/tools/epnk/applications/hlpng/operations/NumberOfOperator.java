@@ -13,9 +13,10 @@ import runtime.RuntimeFactory;
 public class NumberOfOperator extends AbstractOperator
 {
 
-	public NumberOfOperator(Map<Class, AbstractOperator> handlers)
+	public NumberOfOperator(Map<Class, AbstractOperator> handlers, 
+			AbstractOperator next)
     {
-	    super(handlers);
+	    super(handlers, next);
     }
 
 	@Override
@@ -43,7 +44,7 @@ public class NumberOfOperator extends AbstractOperator
 			
 			return set;
 		}
-		throw new RuntimeException("Mismatch: " + term);
+		return next.handle(term);
 	}
 
 }
