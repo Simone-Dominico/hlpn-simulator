@@ -99,11 +99,6 @@ public class RuntimeAdapterFactory extends AdapterFactoryImpl
                 return createNetMarkingAdapter();
             }
             @Override
-            public Adapter caseMSElementValue(MSElementValue object)
-            {
-                return createMSElementValueAdapter();
-            }
-            @Override
             public Adapter caseValueToIntegerMap(Map.Entry<AbstractValue, Integer> object)
             {
                 return createValueToIntegerMapAdapter();
@@ -191,21 +186,6 @@ public class RuntimeAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createNetMarkingAdapter()
-    {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link runtime.MSElementValue <em>MS Element Value</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see runtime.MSElementValue
-     * @generated
-     */
-    public Adapter createMSElementValueAdapter()
     {
         return null;
     }

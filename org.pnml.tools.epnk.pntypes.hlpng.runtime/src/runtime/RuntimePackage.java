@@ -70,7 +70,7 @@ public interface RuntimePackage extends EPackage
      * @see runtime.impl.RuntimePackageImpl#getAbstractValue()
      * @generated
      */
-    int ABSTRACT_VALUE = 5;
+    int ABSTRACT_VALUE = 4;
 
     /**
      * The feature id for the '<em><b>Sort</b></em>' reference.
@@ -239,53 +239,6 @@ public interface RuntimePackage extends EPackage
 
 
     /**
-     * The meta object id for the '{@link runtime.impl.MSElementValueImpl <em>MS Element Value</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see runtime.impl.MSElementValueImpl
-     * @see runtime.impl.RuntimePackageImpl#getMSElementValue()
-     * @generated
-     */
-    int MS_ELEMENT_VALUE = 3;
-
-    /**
-     * The feature id for the '<em><b>Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MS_ELEMENT_VALUE__SORT = ABSTRACT_VALUE__SORT;
-
-    /**
-     * The feature id for the '<em><b>Multiplicity</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MS_ELEMENT_VALUE__MULTIPLICITY = ABSTRACT_VALUE_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Ms Element</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MS_ELEMENT_VALUE__MS_ELEMENT = ABSTRACT_VALUE_FEATURE_COUNT + 1;
-
-    /**
-     * The number of structural features of the '<em>MS Element Value</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MS_ELEMENT_VALUE_FEATURE_COUNT = ABSTRACT_VALUE_FEATURE_COUNT + 2;
-
-
-    /**
      * The meta object id for the '{@link runtime.impl.ValueToIntegerMapImpl <em>Value To Integer Map</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -293,7 +246,7 @@ public interface RuntimePackage extends EPackage
      * @see runtime.impl.RuntimePackageImpl#getValueToIntegerMap()
      * @generated
      */
-    int VALUE_TO_INTEGER_MAP = 4;
+    int VALUE_TO_INTEGER_MAP = 3;
 
     /**
      * The feature id for the '<em><b>Key</b></em>' reference.
@@ -407,38 +360,6 @@ public interface RuntimePackage extends EPackage
      * @generated
      */
     EReference getNetMarking_Markings();
-
-    /**
-     * Returns the meta object for class '{@link runtime.MSElementValue <em>MS Element Value</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>MS Element Value</em>'.
-     * @see runtime.MSElementValue
-     * @generated
-     */
-    EClass getMSElementValue();
-
-    /**
-     * Returns the meta object for the attribute '{@link runtime.MSElementValue#getMultiplicity <em>Multiplicity</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Multiplicity</em>'.
-     * @see runtime.MSElementValue#getMultiplicity()
-     * @see #getMSElementValue()
-     * @generated
-     */
-    EAttribute getMSElementValue_Multiplicity();
-
-    /**
-     * Returns the meta object for the reference '{@link runtime.MSElementValue#getMsElement <em>Ms Element</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Ms Element</em>'.
-     * @see runtime.MSElementValue#getMsElement()
-     * @see #getMSElementValue()
-     * @generated
-     */
-    EReference getMSElementValue_MsElement();
 
     /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Value To Integer Map</em>}'.
@@ -587,32 +508,6 @@ public interface RuntimePackage extends EPackage
          * @generated
          */
         EReference NET_MARKING__MARKINGS = eINSTANCE.getNetMarking_Markings();
-
-        /**
-         * The meta object literal for the '{@link runtime.impl.MSElementValueImpl <em>MS Element Value</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see runtime.impl.MSElementValueImpl
-         * @see runtime.impl.RuntimePackageImpl#getMSElementValue()
-         * @generated
-         */
-        EClass MS_ELEMENT_VALUE = eINSTANCE.getMSElementValue();
-
-        /**
-         * The meta object literal for the '<em><b>Multiplicity</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute MS_ELEMENT_VALUE__MULTIPLICITY = eINSTANCE.getMSElementValue_Multiplicity();
-
-        /**
-         * The meta object literal for the '<em><b>Ms Element</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference MS_ELEMENT_VALUE__MS_ELEMENT = eINSTANCE.getMSElementValue_MsElement();
 
         /**
          * The meta object literal for the '{@link runtime.impl.ValueToIntegerMapImpl <em>Value To Integer Map</em>}' class.

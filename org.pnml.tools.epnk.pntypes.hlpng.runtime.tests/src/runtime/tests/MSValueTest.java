@@ -11,7 +11,6 @@ import numberRuntime.NumberruntimeFactory;
 
 import junit.textui.TestRunner;
 
-import runtime.MSElementValue;
 import runtime.MSValue;
 import runtime.RuntimeFactory;
 
@@ -23,7 +22,7 @@ import runtime.RuntimeFactory;
  * The following operations are tested:
  * <ul>
  *   <li>{@link runtime.MSValue#getMultiplicity(runtime.AbstractValue) <em>Get Multiplicity</em>}</li>
- *   <li>{@link runtime.MSValue#add(runtime.AbstractValue) <em>Add</em>}</li>
+ *   <li>{@link runtime.MSValue#add(runtime.AbstractValue, int) <em>Add</em>}</li>
  *   <li>{@link runtime.MSValue#append(runtime.MSValue) <em>Append</em>}</li>
  * </ul>
  * </p>
@@ -31,7 +30,7 @@ import runtime.RuntimeFactory;
  */
 public class MSValueTest extends AbstractValueTest
 {
-	private MSElementValue msElementValue = null;
+	private int multiplicity = 8;
 	private IntValue intValue9 = null;
 	
 	private MSValue msAppend = null;
@@ -84,25 +83,20 @@ public class MSValueTest extends AbstractValueTest
     {
         setFixture(RuntimeFactory.eINSTANCE.createMSValue());
         {
-        	msElementValue = RuntimeFactory.eINSTANCE.createMSElementValue();
-        	msElementValue.setMultiplicity(8);
-        	{
-        		intValue9 = NumberruntimeFactory.eINSTANCE.createIntValue();
-                intValue9.setN(9);
-        	}
-        	msElementValue.setMsElement(intValue9);
+        	intValue9 = NumberruntimeFactory.eINSTANCE.createIntValue();
+            intValue9.setN(9);
         }
-        getFixture().add(msElementValue);
+        getFixture().add(intValue9, multiplicity);
         
         {
         	msAppend = RuntimeFactory.eINSTANCE.createMSValue();
         	intAppend9 = NumberruntimeFactory.eINSTANCE.createIntValue();
         	intAppend9.setN(9);
-        	msAppend.add(intAppend9);
+        	msAppend.add(intAppend9, 1);
         	
         	intAppend19 = NumberruntimeFactory.eINSTANCE.createIntValue();
         	intAppend19.setN(19);
-        	msAppend.add(intAppend19);
+        	msAppend.add(intAppend19, 1);
         }
         {
         	tmpValue10 = NumberruntimeFactory.eINSTANCE.createIntValue();
@@ -120,7 +114,6 @@ public class MSValueTest extends AbstractValueTest
     protected void tearDown() throws Exception
     {
     	intValue9 = null;
-    	msElementValue = null;
     	
     	msAppend = null;
     	intAppend9 = null;
@@ -140,20 +133,19 @@ public class MSValueTest extends AbstractValueTest
      */
     public void testGetMultiplicity__AbstractValue()
     {
-        assertEquals(msElementValue.getMultiplicity(),
-        		getFixture().getMultiplicity(intValue9));
+        assertEquals(multiplicity, getFixture().getMultiplicity(intValue9));
     }
 
     /**
-     * Tests the '{@link runtime.MSValue#add(runtime.AbstractValue) <em>Add</em>}' operation.
+     * Tests the '{@link runtime.MSValue#add(runtime.AbstractValue, int) <em>Add</em>}' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see runtime.MSValue#add(runtime.AbstractValue)
+     * @see runtime.MSValue#add(runtime.AbstractValue, int)
      * @generated NOT
      */
-    public void testAdd__AbstractValue()
+    public void testAdd__AbstractValue_int()
     {
-        getFixture().add(tmpValue10);
+    	getFixture().add(tmpValue10, 1);
         
         assertEquals(1, getFixture().getMultiplicity(tmpValue10));
     }
@@ -169,11 +161,10 @@ public class MSValueTest extends AbstractValueTest
     {
     	getFixture().append(msAppend);
     	
-    	assertTrue(msElementValue.getMultiplicity() + 1 == 
+    	assertTrue(multiplicity + 1 == 
     			getFixture().getValues().get(intAppend9));
     	
     	assertTrue(1 == getFixture().getValues().get(intAppend19));
-    	System.err.println(getFixture().getValues().keySet().size());
     }
 
 } //MSValueTest

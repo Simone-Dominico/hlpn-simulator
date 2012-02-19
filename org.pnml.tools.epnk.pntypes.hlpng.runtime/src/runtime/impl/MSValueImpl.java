@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetSort;
 
 import runtime.AbstractValue;
-import runtime.MSElementValue;
 import runtime.MSValue;
 import runtime.RuntimePackage;
 
@@ -112,7 +111,33 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
         return msSort;
     }
 
-    /**
+    // @generated NOT
+    @Override
+    public String toString()
+    {
+    	StringBuffer buffer = new StringBuffer();
+    	
+    	for(AbstractValue value : values.keySet())
+    	{
+    		buffer.append(values.get(value));
+    		buffer.append("`");
+    		
+    		if(value instanceof MSValue)
+    		{
+    			buffer.append("(" + value.toString() + ")");
+    		}
+    		else
+    		{
+    			buffer.append(value.toString());    			
+    		}
+
+    		buffer.append(" ++ ");
+    	}
+    	
+	    return buffer.toString().replaceAll("(.*)\\s+\\+\\+\\s*$", "$1");
+    }
+
+	/**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -156,22 +181,19 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
 
     /**
      * <!-- begin-user-doc -->
-     * Adds a value to the multiset:
-     *  1. Chaeck if it is an instance of MSElementValue
-     * 	2. Checks if it is already presented in the multiset 
+     * Adds an element to a multiset
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public void add(AbstractValue value)
+    public void add(AbstractValue value, int multiplicity)
     {
-    	if(value instanceof MSElementValue)
-    	{
-    		MSElementValue elemValue = (MSElementValue) value;
-    		updateValue(getValues(), elemValue.getMsElement(), elemValue.getMultiplicity());
-    	}
+    	if(getValues().containsKey(value))
+        {
+    		getValues().put(value, getValues().get(value) + multiplicity);
+        }
     	else
     	{
-    		updateValue(getValues(), value, 1);
+    		getValues().put(value, multiplicity);
     	}
     }
     
@@ -185,23 +207,10 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     {    	
         for(AbstractValue key : ms.getValues().keySet())
         {
-        	updateValue(getValues(), key, ms.getValues().get(key));
+        	add(key, ms.getValues().get(key));
         }
     }
     
-    private static void updateValue(EMap<AbstractValue, Integer> values, AbstractValue value,
-    		Integer multiplicity)
-    {
-    	if(values.containsKey(value))
-        {
-        	values.put(value, values.get(value) + multiplicity);
-        }
-    	else
-    	{
-    		values.put(value, multiplicity);
-    	}
-    }
-
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

@@ -72,7 +72,6 @@ public class RuntimeFactoryImpl extends EFactoryImpl implements RuntimeFactory
             case RuntimePackage.MS_VALUE: return createMSValue();
             case RuntimePackage.PLACE_MARKING: return createPlaceMarking();
             case RuntimePackage.NET_MARKING: return createNetMarking();
-            case RuntimePackage.MS_ELEMENT_VALUE: return createMSElementValue();
             case RuntimePackage.VALUE_TO_INTEGER_MAP: return (EObject)createValueToIntegerMap();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -110,17 +109,6 @@ public class RuntimeFactoryImpl extends EFactoryImpl implements RuntimeFactory
     {
         NetMarkingImpl netMarking = new NetMarkingImpl();
         return netMarking;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public MSElementValue createMSElementValue()
-    {
-        MSElementValueImpl msElementValue = new MSElementValueImpl();
-        return msElementValue;
     }
 
     /**
