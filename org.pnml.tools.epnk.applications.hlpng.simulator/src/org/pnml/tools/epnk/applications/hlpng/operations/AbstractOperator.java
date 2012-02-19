@@ -9,10 +9,13 @@ import runtime.AbstractValue;
 public abstract class AbstractOperator
 {
 	protected Map<Class, AbstractOperator> handlers = null;
+	protected AbstractOperator next = null;
 	
-	public AbstractOperator(Map<Class, AbstractOperator> handlers)
+	public AbstractOperator(Map<Class, AbstractOperator> handlers, 
+			AbstractOperator next)
 	{
 		this.handlers = handlers;
+		this.next = next;
 	}
 	
 	public abstract AbstractValue handle(Term term);

@@ -13,9 +13,10 @@ import runtime.AbstractValue;
 public class TupleOperator extends AbstractOperator
 {
 
-	public TupleOperator(Map<Class, AbstractOperator> handlers)
+	public TupleOperator(Map<Class, AbstractOperator> handlers, 
+			AbstractOperator next)
 	{
-		super(handlers);
+		super(handlers, next);
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class TupleOperator extends AbstractOperator
 			}
 			return product;
 		}
-		throw new RuntimeException("Mismatch: " + term);
+		return next.handle(term);
 	}
 
 }
