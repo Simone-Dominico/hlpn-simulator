@@ -238,18 +238,12 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     @Override
     public String toString()
     {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (n: ");
-        result.append(n);
-        result.append(')');
-        return result.toString();
+        return String.valueOf(n);
     }
 
 	@Override

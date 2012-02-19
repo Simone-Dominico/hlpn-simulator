@@ -239,4 +239,16 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
         return super.eIsSet(featureID);
     }
 
+    // @generated NOT
+	@Override
+    public String toString()
+    {
+		StringBuffer buffer = new StringBuffer("(");
+		for(AbstractValue value : components)
+		{
+			buffer.append(value.toString() + ", ");
+		}
+	    return buffer.toString().replaceAll("(.*),\\s+$", "$1") + ")";
+    }
+
 } //ProductValueImpl
