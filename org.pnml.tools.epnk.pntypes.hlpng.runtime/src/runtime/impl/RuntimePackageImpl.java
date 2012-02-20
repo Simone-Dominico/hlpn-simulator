@@ -154,19 +154,9 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getMSValue_MsSort()
-    {
-        return (EReference)msValueEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getMSValue_Values()
     {
-        return (EReference)msValueEClass.getEStructuralFeatures().get(1);
+        return (EReference)msValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -300,7 +290,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         // Create classes and their features
         msValueEClass = createEClass(MS_VALUE);
-        createEReference(msValueEClass, MS_VALUE__MS_SORT);
         createEReference(msValueEClass, MS_VALUE__VALUES);
 
         placeMarkingEClass = createEClass(PLACE_MARKING);
@@ -343,9 +332,9 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        TermsPackage theTermsPackage = (TermsPackage)EPackage.Registry.INSTANCE.getEPackage(TermsPackage.eNS_URI);
         NetannotationsPackage theNetannotationsPackage = (NetannotationsPackage)EPackage.Registry.INSTANCE.getEPackage(NetannotationsPackage.eNS_URI);
         HlpngdefinitionPackage theHlpngdefinitionPackage = (HlpngdefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(HlpngdefinitionPackage.eNS_URI);
+        TermsPackage theTermsPackage = (TermsPackage)EPackage.Registry.INSTANCE.getEPackage(TermsPackage.eNS_URI);
 
         // Create type parameters
 
@@ -358,7 +347,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         // Initialize classes and features; add operations and parameters
         initEClass(msValueEClass, MSValue.class, "MSValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getMSValue_MsSort(), theTermsPackage.getMultiSetSort(), null, "msSort", null, 1, 1, MSValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getMSValue_Values(), this.getValueToIntegerMap(), null, "values", null, 0, -1, MSValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         EOperation op = addEOperation(msValueEClass, ecorePackage.getEInt(), "getMultiplicity", 0, 1, IS_UNIQUE, IS_ORDERED);

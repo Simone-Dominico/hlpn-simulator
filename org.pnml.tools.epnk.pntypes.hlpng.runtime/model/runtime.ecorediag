@@ -28,25 +28,6 @@
     <element xmi:type="ecore:EClass" href="runtime.ecore#//MSValue"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QgMXYVWhEeGpZbQwx5hCPw" x="264" y="192" width="267" height="111"/>
   </children>
-  <children xmi:type="notation:Node" xmi:id="_QEoAQFWiEeGpZbQwx5hCPw" type="1001">
-    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_QEpOYFWiEeGpZbQwx5hCPw" source="Shortcut">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_QEpOYVWiEeGpZbQwx5hCPw" key="modelID" value="EcoreTools"/>
-    </eAnnotations>
-    <children xmi:type="notation:Node" xmi:id="_QEonUFWiEeGpZbQwx5hCPw" type="4001"/>
-    <children xmi:type="notation:Node" xmi:id="_QEonUVWiEeGpZbQwx5hCPw" type="5001">
-      <styles xmi:type="notation:DrawerStyle" xmi:id="_QEonUlWiEeGpZbQwx5hCPw"/>
-      <styles xmi:type="notation:SortingStyle" xmi:id="_QEonU1WiEeGpZbQwx5hCPw"/>
-      <styles xmi:type="notation:FilteringStyle" xmi:id="_QEonVFWiEeGpZbQwx5hCPw"/>
-    </children>
-    <children xmi:type="notation:Node" xmi:id="_QEonVVWiEeGpZbQwx5hCPw" type="5002">
-      <styles xmi:type="notation:DrawerStyle" xmi:id="_QEonVlWiEeGpZbQwx5hCPw"/>
-      <styles xmi:type="notation:SortingStyle" xmi:id="_QEonV1WiEeGpZbQwx5hCPw"/>
-      <styles xmi:type="notation:FilteringStyle" xmi:id="_QEonWFWiEeGpZbQwx5hCPw"/>
-    </children>
-    <styles xmi:type="notation:ShapeStyle" xmi:id="_QEoAQVWiEeGpZbQwx5hCPw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="15053796" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="platform:/resource/org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/MultiSetSort"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QEoAQlWiEeGpZbQwx5hCPw" x="36" y="204"/>
-  </children>
   <children xmi:type="notation:Node" xmi:id="_lgIfkFWiEeGpZbQwx5hCPw" type="1001">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_lgMJ8FWiEeGpZbQwx5hCPw" source="Shortcut">
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_lgMJ8VWiEeGpZbQwx5hCPw" key="modelID" value="EcoreTools"/>
@@ -193,20 +174,6 @@
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_oi1i8FWfEeGpZbQwx5hCPw"/>
   <element xmi:type="ecore:EPackage" href="runtime.ecore#/"/>
-  <edges xmi:type="notation:Edge" xmi:id="_vZaR0FWiEeGpZbQwx5hCPw" type="3002" source="_QgLwUFWhEeGpZbQwx5hCPw" target="_QEoAQFWiEeGpZbQwx5hCPw">
-    <children xmi:type="notation:Node" xmi:id="_vZa44FWiEeGpZbQwx5hCPw" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_vZa44VWiEeGpZbQwx5hCPw" x="-10" y="-10"/>
-    </children>
-    <children xmi:type="notation:Node" xmi:id="_vZa44lWiEeGpZbQwx5hCPw" type="4012">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_vZa441WiEeGpZbQwx5hCPw" x="10" y="10"/>
-    </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_vZaR0VWiEeGpZbQwx5hCPw" lineColor="4210752"/>
-    <styles xmi:type="notation:FontStyle" xmi:id="_vZaR0lWiEeGpZbQwx5hCPw" fontColor="4210752" fontName="Ubuntu" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="runtime.ecore#//MSValue/msSort"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_vZaR01WiEeGpZbQwx5hCPw" points="[-22, 1, 205, 1]$[-225, -17, 2, -17]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vZcuEFWiEeGpZbQwx5hCPw" id="(0.011235955056179775,0.21951219512195122)"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_vZcuEVWiEeGpZbQwx5hCPw" id="(0.9509803921568627,0.3103448275862069)"/>
-  </edges>
   <edges xmi:type="notation:Edge" xmi:id="_Cx1fEFWjEeGpZbQwx5hCPw" type="3002" source="_6p35cFWiEeGpZbQwx5hCPw" target="_QgLwUFWhEeGpZbQwx5hCPw">
     <children xmi:type="notation:Node" xmi:id="_Cx2GIFWjEeGpZbQwx5hCPw" type="4011">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_Cx2GIVWjEeGpZbQwx5hCPw" x="4" y="46"/>

@@ -9,19 +9,8 @@
         <details key="namespace" value=""/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="numSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Number"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IntValue" eSuperTypes="#//NumberValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="intSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Integer"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PosValue" eSuperTypes="#//NumberValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="posSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Positive"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NatValue" eSuperTypes="#//NumberValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="natSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//integers/Natural"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntValue" eSuperTypes="#//NumberValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PosValue" eSuperTypes="#//NumberValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NatValue" eSuperTypes="#//NumberValue"/>
 </ecore:EPackage>

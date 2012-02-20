@@ -9,7 +9,6 @@ package numberRuntime;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 
 import runtime.RuntimePackage;
 
@@ -91,22 +90,13 @@ public interface NumberruntimePackage extends EPackage
     int NUMBER_VALUE__N = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Num Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NUMBER_VALUE__NUM_SORT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 1;
-
-    /**
      * The number of structural features of the '<em>Number Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NUMBER_VALUE_FEATURE_COUNT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 2;
+    int NUMBER_VALUE_FEATURE_COUNT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link numberRuntime.impl.IntValueImpl <em>Int Value</em>}' class.
@@ -137,31 +127,13 @@ public interface NumberruntimePackage extends EPackage
     int INT_VALUE__N = NUMBER_VALUE__N;
 
     /**
-     * The feature id for the '<em><b>Num Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INT_VALUE__NUM_SORT = NUMBER_VALUE__NUM_SORT;
-
-    /**
-     * The feature id for the '<em><b>Int Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int INT_VALUE__INT_SORT = NUMBER_VALUE_FEATURE_COUNT + 0;
-
-    /**
      * The number of structural features of the '<em>Int Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int INT_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 1;
+    int INT_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link numberRuntime.impl.PosValueImpl <em>Pos Value</em>}' class.
@@ -192,31 +164,13 @@ public interface NumberruntimePackage extends EPackage
     int POS_VALUE__N = NUMBER_VALUE__N;
 
     /**
-     * The feature id for the '<em><b>Num Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POS_VALUE__NUM_SORT = NUMBER_VALUE__NUM_SORT;
-
-    /**
-     * The feature id for the '<em><b>Pos Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int POS_VALUE__POS_SORT = NUMBER_VALUE_FEATURE_COUNT + 0;
-
-    /**
      * The number of structural features of the '<em>Pos Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int POS_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 1;
+    int POS_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link numberRuntime.impl.NatValueImpl <em>Nat Value</em>}' class.
@@ -247,31 +201,13 @@ public interface NumberruntimePackage extends EPackage
     int NAT_VALUE__N = NUMBER_VALUE__N;
 
     /**
-     * The feature id for the '<em><b>Num Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NAT_VALUE__NUM_SORT = NUMBER_VALUE__NUM_SORT;
-
-    /**
-     * The feature id for the '<em><b>Nat Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NAT_VALUE__NAT_SORT = NUMBER_VALUE_FEATURE_COUNT + 0;
-
-    /**
      * The number of structural features of the '<em>Nat Value</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NAT_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 1;
+    int NAT_VALUE_FEATURE_COUNT = NUMBER_VALUE_FEATURE_COUNT + 0;
 
 
     /**
@@ -296,17 +232,6 @@ public interface NumberruntimePackage extends EPackage
     EAttribute getNumberValue_N();
 
     /**
-     * Returns the meta object for the reference '{@link numberRuntime.NumberValue#getNumSort <em>Num Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Num Sort</em>'.
-     * @see numberRuntime.NumberValue#getNumSort()
-     * @see #getNumberValue()
-     * @generated
-     */
-    EReference getNumberValue_NumSort();
-
-    /**
      * Returns the meta object for class '{@link numberRuntime.IntValue <em>Int Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -315,17 +240,6 @@ public interface NumberruntimePackage extends EPackage
      * @generated
      */
     EClass getIntValue();
-
-    /**
-     * Returns the meta object for the reference '{@link numberRuntime.IntValue#getIntSort <em>Int Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Int Sort</em>'.
-     * @see numberRuntime.IntValue#getIntSort()
-     * @see #getIntValue()
-     * @generated
-     */
-    EReference getIntValue_IntSort();
 
     /**
      * Returns the meta object for class '{@link numberRuntime.PosValue <em>Pos Value</em>}'.
@@ -338,17 +252,6 @@ public interface NumberruntimePackage extends EPackage
     EClass getPosValue();
 
     /**
-     * Returns the meta object for the reference '{@link numberRuntime.PosValue#getPosSort <em>Pos Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Pos Sort</em>'.
-     * @see numberRuntime.PosValue#getPosSort()
-     * @see #getPosValue()
-     * @generated
-     */
-    EReference getPosValue_PosSort();
-
-    /**
      * Returns the meta object for class '{@link numberRuntime.NatValue <em>Nat Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -357,17 +260,6 @@ public interface NumberruntimePackage extends EPackage
      * @generated
      */
     EClass getNatValue();
-
-    /**
-     * Returns the meta object for the reference '{@link numberRuntime.NatValue#getNatSort <em>Nat Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Nat Sort</em>'.
-     * @see numberRuntime.NatValue#getNatSort()
-     * @see #getNatValue()
-     * @generated
-     */
-    EReference getNatValue_NatSort();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -411,14 +303,6 @@ public interface NumberruntimePackage extends EPackage
         EAttribute NUMBER_VALUE__N = eINSTANCE.getNumberValue_N();
 
         /**
-         * The meta object literal for the '<em><b>Num Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference NUMBER_VALUE__NUM_SORT = eINSTANCE.getNumberValue_NumSort();
-
-        /**
          * The meta object literal for the '{@link numberRuntime.impl.IntValueImpl <em>Int Value</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -427,14 +311,6 @@ public interface NumberruntimePackage extends EPackage
          * @generated
          */
         EClass INT_VALUE = eINSTANCE.getIntValue();
-
-        /**
-         * The meta object literal for the '<em><b>Int Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference INT_VALUE__INT_SORT = eINSTANCE.getIntValue_IntSort();
 
         /**
          * The meta object literal for the '{@link numberRuntime.impl.PosValueImpl <em>Pos Value</em>}' class.
@@ -447,14 +323,6 @@ public interface NumberruntimePackage extends EPackage
         EClass POS_VALUE = eINSTANCE.getPosValue();
 
         /**
-         * The meta object literal for the '<em><b>Pos Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference POS_VALUE__POS_SORT = eINSTANCE.getPosValue_PosSort();
-
-        /**
          * The meta object literal for the '{@link numberRuntime.impl.NatValueImpl <em>Nat Value</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -463,14 +331,6 @@ public interface NumberruntimePackage extends EPackage
          * @generated
          */
         EClass NAT_VALUE = eINSTANCE.getNatValue();
-
-        /**
-         * The meta object literal for the '<em><b>Nat Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference NAT_VALUE__NAT_SORT = eINSTANCE.getNatValue_NatSort();
 
     }
 

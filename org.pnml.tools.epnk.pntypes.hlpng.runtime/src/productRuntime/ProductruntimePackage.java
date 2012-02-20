@@ -81,22 +81,13 @@ public interface ProductruntimePackage extends EPackage
     int PRODUCT_VALUE__SORT = RuntimePackage.ABSTRACT_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>Prod Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PRODUCT_VALUE__PROD_SORT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 0;
-
-    /**
      * The feature id for the '<em><b>Components</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PRODUCT_VALUE__COMPONENTS = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 1;
+    int PRODUCT_VALUE__COMPONENTS = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Product Value</em>' class.
@@ -105,7 +96,7 @@ public interface ProductruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PRODUCT_VALUE_FEATURE_COUNT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 2;
+    int PRODUCT_VALUE_FEATURE_COUNT = RuntimePackage.ABSTRACT_VALUE_FEATURE_COUNT + 1;
 
 
     /**
@@ -117,17 +108,6 @@ public interface ProductruntimePackage extends EPackage
      * @generated
      */
     EClass getProductValue();
-
-    /**
-     * Returns the meta object for the reference '{@link productRuntime.ProductValue#getProdSort <em>Prod Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Prod Sort</em>'.
-     * @see productRuntime.ProductValue#getProdSort()
-     * @see #getProductValue()
-     * @generated
-     */
-    EReference getProductValue_ProdSort();
 
     /**
      * Returns the meta object for the containment reference list '{@link productRuntime.ProductValue#getComponents <em>Components</em>}'.
@@ -172,14 +152,6 @@ public interface ProductruntimePackage extends EPackage
          * @generated
          */
         EClass PRODUCT_VALUE = eINSTANCE.getProductValue();
-
-        /**
-         * The meta object literal for the '<em><b>Prod Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference PRODUCT_VALUE__PROD_SORT = eINSTANCE.getProductValue_ProdSort();
 
         /**
          * The meta object literal for the '<em><b>Components</b></em>' containment reference list feature.

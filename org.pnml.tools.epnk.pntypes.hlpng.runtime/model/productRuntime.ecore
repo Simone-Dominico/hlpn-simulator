@@ -4,8 +4,6 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="productRuntime"
     nsURI="http://productruntime/1.0" nsPrefix="productruntime">
   <eClassifiers xsi:type="ecore:EClass" name="ProductValue" eSuperTypes="runtime.ecore#//AbstractValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prodSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/ProductSort"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
         eType="ecore:EClass runtime.ecore#//AbstractValue" containment="true"/>
   </eClassifiers>

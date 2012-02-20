@@ -14,8 +14,6 @@
     <eOperations name="append">
       <eParameters name="ms" eType="#//MSValue"/>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="msSort" lowerBound="1"
-        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/MultiSetSort"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//ValueToIntegerMap" containment="true"/>
   </eClassifiers>
