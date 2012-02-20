@@ -180,6 +180,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         return String.valueOf(n);
     }
 
+	// @generated NOT
 	@Override
     public int hashCode()
     {
@@ -187,21 +188,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
 	    int result = 1;
 	    result = prime * result + n;
 	    return result;
-    }
-
-	@Override
-    public boolean equals(Object obj)
-    {
-	    if(this == obj)
-		    return true;
-	    if(obj == null)
-		    return false;
-	    if(getClass() != obj.getClass())
-		    return false;
-	    NumberValueImpl other = (NumberValueImpl) obj;
-	    if(n != other.n)
-		    return false;
-	    return true;
     }
 
 } //NumberValueImpl
