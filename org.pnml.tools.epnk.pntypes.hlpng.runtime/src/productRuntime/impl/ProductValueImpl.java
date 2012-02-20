@@ -169,8 +169,19 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
         }
         return super.eIsSet(featureID);
     }
-
+    
     // @generated NOT
+	@Override
+    public int hashCode()
+    {
+	    final int prime = 31;
+
+	    int result = prime
+	            + ((components == null) ? 0 : components.hashCode());
+	    return result;
+    }
+
+	// @generated NOT
 	@Override
     public String toString()
     {
