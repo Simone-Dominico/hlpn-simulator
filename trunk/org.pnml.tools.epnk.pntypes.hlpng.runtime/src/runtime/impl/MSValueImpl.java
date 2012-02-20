@@ -6,19 +6,14 @@
  */
 package runtime.impl;
 
-import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetSort;
 
 import runtime.AbstractValue;
 import runtime.MSValue;
@@ -31,7 +26,6 @@ import runtime.RuntimePackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link runtime.impl.MSValueImpl#getMsSort <em>Ms Sort</em>}</li>
  *   <li>{@link runtime.impl.MSValueImpl#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
@@ -41,16 +35,6 @@ import runtime.RuntimePackage;
 public class MSValueImpl extends AbstractValueImpl implements MSValue
 {
 	/**
-     * The cached value of the '{@link #getMsSort() <em>Ms Sort</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getMsSort()
-     * @generated
-     * @ordered
-     */
-    protected MultiSetSort msSort;
-
-    /**
      * The cached value of the '{@link #getValues() <em>Values</em>}' map.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -81,36 +65,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
         return RuntimePackage.Literals.MS_VALUE;
     }
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public MultiSetSort getMsSort()
-    {
-        if (msSort != null && msSort.eIsProxy())
-        {
-            InternalEObject oldMsSort = (InternalEObject)msSort;
-            msSort = (MultiSetSort)eResolveProxy(oldMsSort);
-            if (msSort != oldMsSort)
-            {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, RuntimePackage.MS_VALUE__MS_SORT, oldMsSort, msSort));
-            }
-        }
-        return msSort;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public MultiSetSort basicGetMsSort()
-    {
-        return msSort;
-    }
-
     // @generated NOT
     @Override
     public String toString()
@@ -138,19 +92,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     }
 
 	/**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setMsSort(MultiSetSort newMsSort)
-    {
-        MultiSetSort oldMsSort = msSort;
-        msSort = newMsSort;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RuntimePackage.MS_VALUE__MS_SORT, oldMsSort, msSort));
-    }
-
-    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -237,9 +178,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     {
         switch (featureID)
         {
-            case RuntimePackage.MS_VALUE__MS_SORT:
-                if (resolve) return getMsSort();
-                return basicGetMsSort();
             case RuntimePackage.MS_VALUE__VALUES:
                 if (coreType) return getValues();
                 else return getValues().map();
@@ -257,9 +195,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     {
         switch (featureID)
         {
-            case RuntimePackage.MS_VALUE__MS_SORT:
-                setMsSort((MultiSetSort)newValue);
-                return;
             case RuntimePackage.MS_VALUE__VALUES:
                 ((EStructuralFeature.Setting)getValues()).set(newValue);
                 return;
@@ -277,9 +212,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     {
         switch (featureID)
         {
-            case RuntimePackage.MS_VALUE__MS_SORT:
-                setMsSort((MultiSetSort)null);
-                return;
             case RuntimePackage.MS_VALUE__VALUES:
                 getValues().clear();
                 return;
@@ -297,8 +229,6 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     {
         switch (featureID)
         {
-            case RuntimePackage.MS_VALUE__MS_SORT:
-                return msSort != null;
             case RuntimePackage.MS_VALUE__VALUES:
                 return values != null && !values.isEmpty();
         }

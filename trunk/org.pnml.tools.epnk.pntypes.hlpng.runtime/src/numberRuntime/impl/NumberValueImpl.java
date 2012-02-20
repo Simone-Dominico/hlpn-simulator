@@ -12,7 +12,6 @@ import numberRuntime.NumberruntimePackage;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -26,7 +25,6 @@ import runtime.impl.AbstractValueImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link numberRuntime.impl.NumberValueImpl#getN <em>N</em>}</li>
- *   <li>{@link numberRuntime.impl.NumberValueImpl#getNumSort <em>Num Sort</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,16 +51,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
      * @ordered
      */
     protected int n = N_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getNumSort() <em>Num Sort</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getNumSort()
-     * @generated
-     * @ordered
-     */
-    protected org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number numSort;
 
     /**
      * <!-- begin-user-doc -->
@@ -113,49 +101,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
      * <!-- end-user-doc -->
      * @generated
      */
-    public org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number getNumSort()
-    {
-        if (numSort != null && numSort.eIsProxy())
-        {
-            InternalEObject oldNumSort = (InternalEObject)numSort;
-            numSort = (org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)eResolveProxy(oldNumSort);
-            if (numSort != oldNumSort)
-            {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, NumberruntimePackage.NUMBER_VALUE__NUM_SORT, oldNumSort, numSort));
-            }
-        }
-        return numSort;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number basicGetNumSort()
-    {
-        return numSort;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setNumSort(org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number newNumSort)
-    {
-        org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number oldNumSort = numSort;
-        numSort = newNumSort;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, NumberruntimePackage.NUMBER_VALUE__NUM_SORT, oldNumSort, numSort));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType)
     {
@@ -163,9 +108,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
                 return getN();
-            case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
-                if (resolve) return getNumSort();
-                return basicGetNumSort();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -182,9 +124,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
                 setN((Integer)newValue);
-                return;
-            case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
-                setNumSort((org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -210,9 +149,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
             case NumberruntimePackage.NUMBER_VALUE__N:
                 setN(N_EDEFAULT);
                 return;
-            case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
-                setNumSort((org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)null);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -229,8 +165,6 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         {
             case NumberruntimePackage.NUMBER_VALUE__N:
                 return n != N_EDEFAULT;
-            case NumberruntimePackage.NUMBER_VALUE__NUM_SORT:
-                return numSort != null;
         }
         return super.eIsSet(featureID);
     }

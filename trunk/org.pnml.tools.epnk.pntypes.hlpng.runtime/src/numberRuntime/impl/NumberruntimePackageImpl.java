@@ -16,11 +16,8 @@ import numberRuntime.PosValue;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersPackage;
 
 import runtime.RuntimePackage;
 
@@ -151,29 +148,9 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getNumberValue_NumSort()
-    {
-        return (EReference)numberValueEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getIntValue()
     {
         return intValueEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getIntValue_IntSort()
-    {
-        return (EReference)intValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -191,29 +168,9 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getPosValue_PosSort()
-    {
-        return (EReference)posValueEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getNatValue()
     {
         return natValueEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getNatValue_NatSort()
-    {
-        return (EReference)natValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -248,16 +205,12 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
         // Create classes and their features
         numberValueEClass = createEClass(NUMBER_VALUE);
         createEAttribute(numberValueEClass, NUMBER_VALUE__N);
-        createEReference(numberValueEClass, NUMBER_VALUE__NUM_SORT);
 
         intValueEClass = createEClass(INT_VALUE);
-        createEReference(intValueEClass, INT_VALUE__INT_SORT);
 
         posValueEClass = createEClass(POS_VALUE);
-        createEReference(posValueEClass, POS_VALUE__POS_SORT);
 
         natValueEClass = createEClass(NAT_VALUE);
-        createEReference(natValueEClass, NAT_VALUE__NAT_SORT);
     }
 
     /**
@@ -286,7 +239,6 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
 
         // Obtain other dependent packages
         RuntimePackage theRuntimePackage = (RuntimePackage)EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI);
-        IntegersPackage theIntegersPackage = (IntegersPackage)EPackage.Registry.INSTANCE.getEPackage(IntegersPackage.eNS_URI);
 
         // Create type parameters
 
@@ -301,16 +253,12 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
         // Initialize classes and features; add operations and parameters
         initEClass(numberValueEClass, NumberValue.class, "NumberValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNumberValue_N(), ecorePackage.getEInt(), "n", null, 1, 1, NumberValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getNumberValue_NumSort(), theIntegersPackage.getNumber(), null, "numSort", null, 1, 1, NumberValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(intValueEClass, IntValue.class, "IntValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getIntValue_IntSort(), theIntegersPackage.getInteger(), null, "intSort", null, 1, 1, IntValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(posValueEClass, PosValue.class, "PosValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getPosValue_PosSort(), theIntegersPackage.getPositive(), null, "posSort", null, 1, 1, PosValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(natValueEClass, NatValue.class, "NatValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getNatValue_NatSort(), theIntegersPackage.getNatural(), null, "natSort", null, 1, 1, NatValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

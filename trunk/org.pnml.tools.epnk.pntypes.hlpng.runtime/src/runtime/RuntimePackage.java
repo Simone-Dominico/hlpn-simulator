@@ -110,22 +110,13 @@ public interface RuntimePackage extends EPackage
     int MS_VALUE__SORT = ABSTRACT_VALUE__SORT;
 
     /**
-     * The feature id for the '<em><b>Ms Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int MS_VALUE__MS_SORT = ABSTRACT_VALUE_FEATURE_COUNT + 0;
-
-    /**
      * The feature id for the '<em><b>Values</b></em>' map.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int MS_VALUE__VALUES = ABSTRACT_VALUE_FEATURE_COUNT + 1;
+    int MS_VALUE__VALUES = ABSTRACT_VALUE_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>MS Value</em>' class.
@@ -134,7 +125,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int MS_VALUE_FEATURE_COUNT = ABSTRACT_VALUE_FEATURE_COUNT + 2;
+    int MS_VALUE_FEATURE_COUNT = ABSTRACT_VALUE_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link runtime.impl.PlaceMarkingImpl <em>Place Marking</em>}' class.
@@ -287,17 +278,6 @@ public interface RuntimePackage extends EPackage
     EClass getMSValue();
 
     /**
-     * Returns the meta object for the reference '{@link runtime.MSValue#getMsSort <em>Ms Sort</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Ms Sort</em>'.
-     * @see runtime.MSValue#getMsSort()
-     * @see #getMSValue()
-     * @generated
-     */
-    EReference getMSValue_MsSort();
-
-    /**
      * Returns the meta object for the map '{@link runtime.MSValue#getValues <em>Values</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -448,14 +428,6 @@ public interface RuntimePackage extends EPackage
          * @generated
          */
         EClass MS_VALUE = eINSTANCE.getMSValue();
-
-        /**
-         * The meta object literal for the '<em><b>Ms Sort</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference MS_VALUE__MS_SORT = eINSTANCE.getMSValue_MsSort();
 
         /**
          * The meta object literal for the '<em><b>Values</b></em>' map feature.

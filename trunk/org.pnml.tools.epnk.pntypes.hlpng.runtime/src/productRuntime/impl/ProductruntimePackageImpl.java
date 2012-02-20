@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsPackage;
-
 import productRuntime.ProductValue;
 import productRuntime.ProductruntimeFactory;
 import productRuntime.ProductruntimePackage;
@@ -116,19 +114,9 @@ public class ProductruntimePackageImpl extends EPackageImpl implements Productru
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProductValue_ProdSort()
-    {
-        return (EReference)productValueEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getProductValue_Components()
     {
-        return (EReference)productValueEClass.getEStructuralFeatures().get(1);
+        return (EReference)productValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -162,7 +150,6 @@ public class ProductruntimePackageImpl extends EPackageImpl implements Productru
 
         // Create classes and their features
         productValueEClass = createEClass(PRODUCT_VALUE);
-        createEReference(productValueEClass, PRODUCT_VALUE__PROD_SORT);
         createEReference(productValueEClass, PRODUCT_VALUE__COMPONENTS);
     }
 
@@ -192,7 +179,6 @@ public class ProductruntimePackageImpl extends EPackageImpl implements Productru
 
         // Obtain other dependent packages
         RuntimePackage theRuntimePackage = (RuntimePackage)EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI);
-        TermsPackage theTermsPackage = (TermsPackage)EPackage.Registry.INSTANCE.getEPackage(TermsPackage.eNS_URI);
 
         // Create type parameters
 
@@ -203,7 +189,6 @@ public class ProductruntimePackageImpl extends EPackageImpl implements Productru
 
         // Initialize classes and features; add operations and parameters
         initEClass(productValueEClass, ProductValue.class, "ProductValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getProductValue_ProdSort(), theTermsPackage.getProductSort(), null, "prodSort", null, 1, 1, ProductValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProductValue_Components(), theRuntimePackage.getAbstractValue(), null, "components", null, 0, -1, ProductValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource

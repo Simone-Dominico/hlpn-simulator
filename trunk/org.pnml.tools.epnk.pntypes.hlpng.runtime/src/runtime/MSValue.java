@@ -7,7 +7,6 @@
 package runtime;
 
 import org.eclipse.emf.common.util.EMap;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetSort;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,7 +16,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetSort;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link runtime.MSValue#getMsSort <em>Ms Sort</em>}</li>
  *   <li>{@link runtime.MSValue#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
@@ -28,32 +26,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetSort;
  */
 public interface MSValue extends AbstractValue
 {
-    /**
-     * Returns the value of the '<em><b>Ms Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Ms Sort</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Ms Sort</em>' reference.
-     * @see #setMsSort(MultiSetSort)
-     * @see runtime.RuntimePackage#getMSValue_MsSort()
-     * @model required="true"
-     * @generated
-     */
-    MultiSetSort getMsSort();
-
-    /**
-     * Sets the value of the '{@link runtime.MSValue#getMsSort <em>Ms Sort</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Ms Sort</em>' reference.
-     * @see #getMsSort()
-     * @generated
-     */
-    void setMsSort(MultiSetSort value);
-
     /**
      * Returns the value of the '<em><b>Values</b></em>' map.
      * The key is of type {@link runtime.AbstractValue},

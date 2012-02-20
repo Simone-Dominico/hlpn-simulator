@@ -17,7 +17,6 @@ import runtime.AbstractValue;
  * The following features are supported:
  * <ul>
  *   <li>{@link numberRuntime.NumberValue#getN <em>N</em>}</li>
- *   <li>{@link numberRuntime.NumberValue#getNumSort <em>Num Sort</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,31 +52,5 @@ public interface NumberValue extends AbstractValue
      * @generated
      */
     void setN(int value);
-
-    /**
-     * Returns the value of the '<em><b>Num Sort</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Num Sort</em>' reference isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Num Sort</em>' reference.
-     * @see #setNumSort(org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)
-     * @see numberRuntime.NumberruntimePackage#getNumberValue_NumSort()
-     * @model required="true"
-     * @generated
-     */
-    org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number getNumSort();
-
-    /**
-     * Sets the value of the '{@link numberRuntime.NumberValue#getNumSort <em>Num Sort</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Num Sort</em>' reference.
-     * @see #getNumSort()
-     * @generated
-     */
-    void setNumSort(org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number value);
 
 } // NumberValue
