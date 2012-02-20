@@ -175,4 +175,34 @@ public abstract class AbstractValueImpl extends EObjectImpl implements AbstractV
         return super.eIsSet(featureID);
     }
 
+	@Override
+    public boolean equals(Object obj)
+    {
+	    if(this == obj)
+	    {
+		    return true;
+	    }
+	    if(obj == null)
+	    {
+		    return false;
+	    }
+	    if(!(obj instanceof AbstractValueImpl))
+	    {
+		    return false;
+	    }
+	    AbstractValueImpl other = (AbstractValueImpl) obj;
+	    if(sort == null)
+	    {
+		    if(other.sort != null)
+		    {
+			    return false;
+		    }
+	    }
+	    else if(!sort.equals(other.sort))
+	    {
+		    return false;
+	    }
+	    return true;
+    }
+
 } //AbstractValueImpl

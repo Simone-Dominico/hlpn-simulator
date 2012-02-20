@@ -235,4 +235,14 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
         return super.eIsSet(featureID);
     }
 
+	@Override
+    public int hashCode()
+    {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((values == null) ? 0 : values.keySet().hashCode());
+	    return result;
+    }
+
+
 } //MSValueImpl
