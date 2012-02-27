@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.graphics;
+package org.pnml.tools.epnk.applications.hlpng.view;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
