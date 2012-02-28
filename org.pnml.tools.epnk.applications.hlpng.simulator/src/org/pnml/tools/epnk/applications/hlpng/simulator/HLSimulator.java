@@ -11,6 +11,7 @@ import org.pnml.tools.epnk.annotations.netannotations.NetannotationsFactory;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
+import org.pnml.tools.epnk.applications.hlpng.actions.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.operations.AbstractOperator;
 import org.pnml.tools.epnk.applications.hlpng.operations.AddOperator;
 import org.pnml.tools.epnk.applications.hlpng.operations.DefaultOperator;
@@ -34,7 +35,8 @@ import runtime.NetMarking;
 import runtime.PlaceMarking;
 import runtime.RuntimeFactory;
 
-public class HLSimulator extends Application implements IApplicationWithPresentation
+public class HLSimulator extends Application 
+	implements IApplicationWithPresentation, ISimulator
 {
 	protected NetMarking netMarking = null;
 	protected PetriNet petrinet = null;
@@ -67,18 +69,8 @@ public class HLSimulator extends Application implements IApplicationWithPresenta
     	}
 	    
 	    this.presentationManager = new SimulatorPresentationManager(runtimeValues,
-	    		netMarking);
+	    		netMarking, this);
     }
-
-	public void auto()
-	{
-		System.out.println(HLSimulator.class + ": auto");
-	}
-	
-	public void stop()
-	{
-		System.out.println(HLSimulator.class + ": stop");
-	}
 	
 	@Override
 	public void initializeContents()
@@ -200,7 +192,7 @@ public class HLSimulator extends Application implements IApplicationWithPresenta
 			
 			actions[0] = new Action() {
 				public void run() {
-					previousAnnotation();
+					previous();
 				}
 			};
 			actions[0].setId("previous");
@@ -222,7 +214,7 @@ public class HLSimulator extends Application implements IApplicationWithPresenta
 			
 			actions[2] = new Action() {
 				public void run() {
-					nextAnnotation();
+					stop();
 				}
 			};
 			actions[2].setId("stop");
@@ -234,7 +226,7 @@ public class HLSimulator extends Application implements IApplicationWithPresenta
 			
 			actions[3] = new Action() {
 				public void run() {
-					stop();
+					next();
 				}
 			};
 			actions[3].setId("next");
@@ -245,4 +237,30 @@ public class HLSimulator extends Application implements IApplicationWithPresenta
 	    }
 	    return actions;
     }
+
+	@Override
+    public void next()
+    {
+		System.out.println(HLSimulator.class + ": next");
+		super.nextAnnotation();
+    }
+
+	@Override
+    public void previous()
+    {
+		System.out.println(HLSimulator.class + ": previous");
+		super.previousAnnotation();
+    }
+	
+	public void auto()
+	{
+		System.out.println(HLSimulator.class + ": auto");
+	}
+	
+	public void stop()
+	{
+		System.out.println(HLSimulator.class + ": stop");
+	}
+	
+
 }

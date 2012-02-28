@@ -10,6 +10,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
+import org.pnml.tools.epnk.applications.hlpng.actions.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.actions.SelectionHandler;
 import org.pnml.tools.epnk.applications.hlpng.view.LabelLayer;
 import org.pnml.tools.epnk.applications.hlpng.view.RectangleOverlay;
@@ -27,12 +28,14 @@ public class SimulatorPresentationManager implements IPresentationManager
 	protected NetMarking netMarking = null;
 	
 	protected SelectionHandler selectionHandler = null;
+	protected ISimulator simulator = null;
 	
 	public SimulatorPresentationManager(Map<Place, MSValue> runtimeValues,
-			NetMarking netMarking)
+			NetMarking netMarking, ISimulator simulator)
 	{
 		this.runtimeValues = runtimeValues;
 		this.netMarking = netMarking;
+		this.simulator = simulator;
 		
 		this.selectionHandler = new SelectionHandler();
 	}
@@ -45,8 +48,8 @@ public class SimulatorPresentationManager implements IPresentationManager
 		{			
 			Transition transition = (Transition)owner;
 
-			IFigure coloredMarking = new RectangleOverlay(graphicalEditPart.getFigure(),
-					transition, runtimeValues);
+			IFigure coloredMarking = new RectangleOverlay(simulator,
+					graphicalEditPart.getFigure(), transition, runtimeValues);
 			coloredMarking.addMouseListener(selectionHandler);
 
 			return coloredMarking;
