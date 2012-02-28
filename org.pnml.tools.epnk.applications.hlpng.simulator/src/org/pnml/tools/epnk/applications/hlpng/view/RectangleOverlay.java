@@ -1,54 +1,47 @@
 package org.pnml.tools.epnk.applications.hlpng.view;
 
-import org.eclipse.draw2d.ColorConstants;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.MouseEvent;
-import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.swt.widgets.Menu;
+import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
+import org.pnml.tools.epnk.applications.hlpng.actions.IState;
+import org.pnml.tools.epnk.applications.hlpng.actions.IStateContext;
+import org.pnml.tools.epnk.pnmlcoremodel.Arc;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
-public class RectangleOverlay extends RectangleFigure
+import runtime.AbstractValue;
+import runtime.MSValue;
+
+public class RectangleOverlay extends RectangleFigure implements IStateContext,
+	IActionProvider
 {
 	final protected IFigure figure;
+	protected IState currentState = null;
+	final protected Transition transition;
+	final protected Map<Place, MSValue> runtimeValues;
 
-	public RectangleOverlay(AbstractGraphicalEditPart editPart, final Menu menu)
+	public RectangleOverlay(final IFigure figure, final Transition transition,
+			final Map<Place, MSValue> runtimeValues)
 	{
 		super();
-		this.figure = editPart.getFigure();
+		this.figure = figure;
+		this.transition = transition;
+		this.runtimeValues = runtimeValues;
 		
-		this.addMouseListener(new MouseListener()
-		{
-			@Override
-			public void mouseReleased(MouseEvent arg0){}
-			
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				// left-click
-				if(e.button == 1)
-				{
-					menu.setVisible(true);
-				}
-			}
-			
-			@Override
-			public void mouseDoubleClicked(MouseEvent arg0)
-			{
-				System.out.println(RectangleOverlay.class + ": mouseDoubleClicked");
-			}
-		});
-
+		currentState = new GreenOverlay(this);
+		currentState.handle();
 	}
 	
 	@Override
 	protected void fillShape(Graphics graphics)
 	{
 		graphics.pushState();
-		graphics.setForegroundColor(ColorConstants.green);
-		graphics.setBackgroundColor(ColorConstants.green);
 		graphics.setAlpha(150);
 		graphics.setLineWidth(4);
 		Rectangle bounds = getBounds();
@@ -69,4 +62,59 @@ public class RectangleOverlay extends RectangleFigure
 		return bounds;
 	}
 
+	@Override
+    public void setState(IState state)
+    {
+	    this.currentState = state;
+    }
+
+	@Override
+    public void request()
+    {
+	    this.currentState.handle();
+    }
+
+	@Override
+    public List<PopupMenuItem> getActions()
+    {
+		List<PopupMenuItem> actions = new ArrayList<PopupMenuItem>();
+		
+		for(Arc arc : transition.getIn())
+		{
+			Place place = (Place)arc.getSource();
+			
+			actions.add(getCategory(place, runtimeValues.get(place)));
+		}
+		return actions;
+    }
+
+	@Override
+    public void executeAction(PopupMenuItem action)
+    {
+	    System.out.println(RectangleOverlay.class + ": executing: " + action.getName());
+    }
+	
+	private static PopupMenuItem getCategory(Place place, MSValue value)
+	{
+		String categoryName = null;
+		{
+			if(place.getName() != null)
+			{
+				categoryName = place.getName().getText();
+			}
+			else
+			{
+				categoryName = "No name";
+			}
+			categoryName += " (" + place.getId() + ")";
+		}
+		PopupMenuCategory category = new PopupMenuCategory(categoryName);
+		
+		for(final AbstractValue aValue : value.getValues().keySet())
+		{
+			category.getItems().add(new PopupMenuItem(aValue.toString()));
+		}
+		
+		return category;
+	}
 }
