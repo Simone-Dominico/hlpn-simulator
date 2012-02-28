@@ -17,7 +17,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="228" y="180" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="132" y="180" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.1">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -71,7 +71,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="117" y="43" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="24" y="48" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2008" element="//@net.0/@page.0/@pageLabelProxy.1">
             <children xsi:type="notation:DecorationNode" visible="true" type="5003"/>
@@ -193,7 +193,7 @@
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="-10.0" y="-23.0"/>
+            <offset x="-106.0" y="-23.0"/>
           </graphics>
           <structure>
             <add>
@@ -370,7 +370,7 @@
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="-28.0" y="-26.0"/>
+            <offset x="-121.0" y="-21.0"/>
           </graphics>
           <structure>
             <add>
