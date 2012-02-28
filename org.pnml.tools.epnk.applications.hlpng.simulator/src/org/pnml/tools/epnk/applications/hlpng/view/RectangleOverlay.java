@@ -94,7 +94,7 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	@Override
     public void executeAction(AbstractMenuItem action)
     {
-	    simulator.next();
+	    simulator.fire(transition, action);
     }
 	
 	private static AbstractMenuItem getCategory(Place place, MSValue value)

@@ -18,6 +18,7 @@ import org.pnml.tools.epnk.applications.hlpng.operations.DefaultOperator;
 import org.pnml.tools.epnk.applications.hlpng.operations.NumberConstantOperator;
 import org.pnml.tools.epnk.applications.hlpng.operations.NumberOfOperator;
 import org.pnml.tools.epnk.applications.hlpng.operations.TupleOperator;
+import org.pnml.tools.epnk.applications.hlpng.view.AbstractMenuItem;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.Arc;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -241,26 +242,29 @@ public class HLSimulator extends Application
 	@Override
     public void next()
     {
-		System.out.println(HLSimulator.class + ": next");
 		super.nextAnnotation();
     }
 
 	@Override
     public void previous()
     {
-		System.out.println(HLSimulator.class + ": previous");
 		super.previousAnnotation();
     }
 	
-	public void auto()
-	{
-		System.out.println(HLSimulator.class + ": auto");
-	}
+	@Override
+	public void auto(){}
 	
-	public void stop()
-	{
-		System.out.println(HLSimulator.class + ": stop");
-	}
+	@Override
+	public void stop(){}
+
+	@Override
+    public void fire(
+            org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition transition,
+            AbstractMenuItem action)
+    {
+		super.nextAnnotation();
+	    
+    }
 	
 
 }
