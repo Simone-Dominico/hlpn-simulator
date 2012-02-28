@@ -7,24 +7,22 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 
-public class RuntimeMarkingLayer extends Layer
+public class LabelLayer extends Layer
 {	
-	private IFigure coloredMarking = null;
+	private IFigure figure = null;
 	private Label label = null;
 	
-	public RuntimeMarkingLayer(IFigure coloredMarking, Label label)
+	public LabelLayer(IFigure figure, Label label)
 	{
 		this.label = label;
-		this.coloredMarking = coloredMarking;
+		this.figure = figure;
 		
 		XYLayout layout = new XYLayout();
 		layout.setConstraint(label, label.getBounds());
-		layout.setConstraint(coloredMarking, coloredMarking.getBounds());
 
 		this.setLayoutManager(layout);
 		
 		this.add(label);
-		this.add(coloredMarking);
 	}
 
 	@Override
@@ -33,7 +31,7 @@ public class RuntimeMarkingLayer extends Layer
 		int margin = 0;
 		
 		Rectangle lBounds = label.getBounds();
-		Rectangle fBounds = coloredMarking.getBounds();
+		Rectangle fBounds = figure.getBounds();
 		
 		int rootX = Math.min(fBounds.x, lBounds.x) - margin;
 		int rootY = Math.min(fBounds.y, lBounds.y) - margin;
