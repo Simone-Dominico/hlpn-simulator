@@ -86,7 +86,12 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 		{
 			Place place = (Place)arc.getSource();
 			
-			actions.add(getCategory(place, runtimeValues.get(place)));
+			AbstractMenuItem item = getCategory(place, runtimeValues.get(place));
+			
+			if(item != null)
+			{
+				actions.add(item);
+			}
 		}
 		return actions;
     }
@@ -99,6 +104,11 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	
 	private static AbstractMenuItem getCategory(Place place, MSValue value)
 	{
+		if(value.getValues().size() == 0)
+		{
+			return null;
+		}
+		
 		String categoryName = null;
 		{
 			if(place.getName() != null)
@@ -115,7 +125,8 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 		
 		for(final AbstractValue aValue : value.getValues().keySet())
 		{
-			category.getItems().add(new PopupMenuItem(aValue.toString()));
+			category.getItems().add(new PopupMenuItem(aValue.toString(), 
+					aValue, value));
 		}
 		
 		return category;

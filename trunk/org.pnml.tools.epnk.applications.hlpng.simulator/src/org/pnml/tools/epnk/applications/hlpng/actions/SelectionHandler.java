@@ -50,7 +50,10 @@ public class SelectionHandler implements SelectionListener, MouseListener
 				final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow(); 
 				final Shell shell = window.getShell();
 				IActionProvider handler = (IActionProvider)e.getSource();
-				new PopupMenu(shell, SWT.POP_UP, handler.getActions(), this, handler);
+				if(handler.getActions().size() > 0)
+				{
+					new PopupMenu(shell, SWT.POP_UP, handler.getActions(), this, handler);
+				}
 			}
 		}
 	}
