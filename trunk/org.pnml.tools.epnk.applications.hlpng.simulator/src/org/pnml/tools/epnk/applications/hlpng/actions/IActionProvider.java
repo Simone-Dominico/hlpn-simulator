@@ -2,11 +2,11 @@ package org.pnml.tools.epnk.applications.hlpng.actions;
 
 import java.util.List;
 
-import org.pnml.tools.epnk.applications.hlpng.view.PopupMenuItem;
+import org.pnml.tools.epnk.applications.hlpng.view.AbstractMenuItem;
 
 public interface IActionProvider
 {
-	public List<PopupMenuItem> getActions();
+	public List<AbstractMenuItem> getActions();
     
-    public void executeAction(PopupMenuItem action);
+    public void executeAction(AbstractMenuItem action);
 }

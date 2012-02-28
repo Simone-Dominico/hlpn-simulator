@@ -17,7 +17,7 @@ public class PopupMenu
 	protected SelectionListener selectionListener = null;
 	
 	public PopupMenu(Decorations parent, int style, 
-			List<PopupMenuItem> categories, SelectionListener selectionListener,
+			List<AbstractMenuItem> categories, SelectionListener selectionListener,
 			IActionProvider owner)
     {
 		this.selectionListener = selectionListener;
@@ -26,7 +26,7 @@ public class PopupMenu
 	    
 		root.setVisible(false);
 	    
-	    for(PopupMenuItem item : categories)
+	    for(AbstractMenuItem item : categories)
 	    {
 	    	createMenuItems(item, root, parent, selectionListener, owner);	
 	    }
@@ -34,7 +34,7 @@ public class PopupMenu
 	    root.setVisible(true);
     }
 	
-	private static void createMenuItems(PopupMenuItem item, Menu menu, 
+	private static void createMenuItems(AbstractMenuItem item, Menu menu, 
 			final Decorations parent, final SelectionListener selectionListener,
 			IActionProvider owner)
 	{
@@ -54,7 +54,7 @@ public class PopupMenu
 			}
 			subMenu.setVisible(false);
 		}
-		else
+		else if(item instanceof PopupMenuItem)
 		{
 			MenuItem subItem = new MenuItem(menu, SWT.CASCADE);
 			subItem.setText(item.getName());

@@ -9,6 +9,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
+import org.pnml.tools.epnk.applications.hlpng.actions.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.actions.IState;
 import org.pnml.tools.epnk.applications.hlpng.actions.IStateContext;
 import org.pnml.tools.epnk.pnmlcoremodel.Arc;
@@ -25,14 +26,16 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	protected IState currentState = null;
 	final protected Transition transition;
 	final protected Map<Place, MSValue> runtimeValues;
+	final protected ISimulator simulator;
 
-	public RectangleOverlay(final IFigure figure, final Transition transition,
-			final Map<Place, MSValue> runtimeValues)
+	public RectangleOverlay(final ISimulator simulator, final IFigure figure, 
+			final Transition transition, final Map<Place, MSValue> runtimeValues)
 	{
 		super();
 		this.figure = figure;
 		this.transition = transition;
 		this.runtimeValues = runtimeValues;
+		this.simulator = simulator;
 		
 		currentState = new GreenOverlay(this);
 		currentState.handle();
@@ -75,9 +78,9 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     }
 
 	@Override
-    public List<PopupMenuItem> getActions()
+    public List<AbstractMenuItem> getActions()
     {
-		List<PopupMenuItem> actions = new ArrayList<PopupMenuItem>();
+		List<AbstractMenuItem> actions = new ArrayList<AbstractMenuItem>();
 		
 		for(Arc arc : transition.getIn())
 		{
@@ -89,12 +92,12 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     }
 
 	@Override
-    public void executeAction(PopupMenuItem action)
+    public void executeAction(AbstractMenuItem action)
     {
-	    System.out.println(RectangleOverlay.class + ": executing: " + action.getName());
+	    simulator.next();
     }
 	
-	private static PopupMenuItem getCategory(Place place, MSValue value)
+	private static AbstractMenuItem getCategory(Place place, MSValue value)
 	{
 		String categoryName = null;
 		{
