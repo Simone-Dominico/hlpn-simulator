@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="transitionruntime"
+    nsURI="http://transitionruntime/1.0" nsPrefix="transitionruntime">
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//ObjectAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.ecore#//Transition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modes" upperBound="-1"
+        eType="#//FiringMode" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FiringMode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
+        eType="#//PlaceMarkingToValueMap" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceMarkingToValueMap" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass runtime.ecore#//PlaceMarking"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass runtime.ecore#//AbstractValue"/>
+  </eClassifiers>
+</ecore:EPackage>

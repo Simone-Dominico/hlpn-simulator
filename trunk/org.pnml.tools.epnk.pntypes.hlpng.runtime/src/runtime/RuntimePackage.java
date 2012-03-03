@@ -174,13 +174,22 @@ public interface RuntimePackage extends EPackage
     int PLACE_MARKING__PLACE = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Dirty</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLACE_MARKING__DIRTY = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Place Marking</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLACE_MARKING_FEATURE_COUNT = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 2;
+    int PLACE_MARKING_FEATURE_COUNT = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link runtime.impl.NetMarkingImpl <em>Net Marking</em>}' class.
@@ -220,13 +229,22 @@ public interface RuntimePackage extends EPackage
     int NET_MARKING__MARKINGS = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Transition Markings</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NET_MARKING__TRANSITION_MARKINGS = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Net Marking</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NET_MARKING_FEATURE_COUNT = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 1;
+    int NET_MARKING_FEATURE_COUNT = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 2;
 
 
     /**
@@ -321,6 +339,17 @@ public interface RuntimePackage extends EPackage
     EReference getPlaceMarking_Place();
 
     /**
+     * Returns the meta object for the attribute '{@link runtime.PlaceMarking#isDirty <em>Dirty</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Dirty</em>'.
+     * @see runtime.PlaceMarking#isDirty()
+     * @see #getPlaceMarking()
+     * @generated
+     */
+    EAttribute getPlaceMarking_Dirty();
+
+    /**
      * Returns the meta object for class '{@link runtime.NetMarking <em>Net Marking</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -340,6 +369,17 @@ public interface RuntimePackage extends EPackage
      * @generated
      */
     EReference getNetMarking_Markings();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link runtime.NetMarking#getTransitionMarkings <em>Transition Markings</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Transition Markings</em>'.
+     * @see runtime.NetMarking#getTransitionMarkings()
+     * @see #getNetMarking()
+     * @generated
+     */
+    EReference getNetMarking_TransitionMarkings();
 
     /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Value To Integer Map</em>}'.
@@ -464,6 +504,14 @@ public interface RuntimePackage extends EPackage
         EReference PLACE_MARKING__PLACE = eINSTANCE.getPlaceMarking_Place();
 
         /**
+         * The meta object literal for the '<em><b>Dirty</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PLACE_MARKING__DIRTY = eINSTANCE.getPlaceMarking_Dirty();
+
+        /**
          * The meta object literal for the '{@link runtime.impl.NetMarkingImpl <em>Net Marking</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -480,6 +528,14 @@ public interface RuntimePackage extends EPackage
          * @generated
          */
         EReference NET_MARKING__MARKINGS = eINSTANCE.getNetMarking_Markings();
+
+        /**
+         * The meta object literal for the '<em><b>Transition Markings</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference NET_MARKING__TRANSITION_MARKINGS = eINSTANCE.getNetMarking_TransitionMarkings();
 
         /**
          * The meta object literal for the '{@link runtime.impl.ValueToIntegerMapImpl <em>Value To Integer Map</em>}' class.

@@ -50,6 +50,10 @@
   <children xmi:type="notation:Node" xmi:id="_6p35cFWiEeGpZbQwx5hCPw" type="1001">
     <children xmi:type="notation:Node" xmi:id="_6p5HkFWiEeGpZbQwx5hCPw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_6p5HkVWiEeGpZbQwx5hCPw" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_vxvtwGRSEeGMGuoqj6qAyQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="runtime.ecore#//PlaceMarking/dirty"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_vxvtwWRSEeGMGuoqj6qAyQ"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_6p5HklWiEeGpZbQwx5hCPw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_6p5Hk1WiEeGpZbQwx5hCPw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_6p5HlFWiEeGpZbQwx5hCPw"/>
@@ -61,7 +65,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_6p35cVWiEeGpZbQwx5hCPw" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="runtime.ecore#//PlaceMarking"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6p35clWiEeGpZbQwx5hCPw" x="336" y="420"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6p35clWiEeGpZbQwx5hCPw" x="312" y="420"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_gO1TIFWkEeGpZbQwx5hCPw" type="1001">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_gO2hQFWkEeGpZbQwx5hCPw" source="Shortcut">
@@ -203,7 +207,7 @@
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_dkNFMFYuEeGh19Y7hP8ptA" type="3002" source="_b45Z8VYuEeGh19Y7hP8ptA" target="_6p35cFWiEeGpZbQwx5hCPw">
     <children xmi:type="notation:Node" xmi:id="_dkOTUFYuEeGh19Y7hP8ptA" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_dkOTUVYuEeGh19Y7hP8ptA" x="-2" y="-31"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_dkOTUVYuEeGh19Y7hP8ptA" x="-17" y="-29"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_dkO6YFYuEeGh19Y7hP8ptA" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_dkO6YVYuEeGh19Y7hP8ptA" x="-8" y="-19"/>

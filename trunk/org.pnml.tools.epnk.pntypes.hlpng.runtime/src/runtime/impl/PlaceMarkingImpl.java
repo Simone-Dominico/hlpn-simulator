@@ -30,6 +30,7 @@ import runtime.RuntimePackage;
  * <ul>
  *   <li>{@link runtime.impl.PlaceMarkingImpl#getMsValue <em>Ms Value</em>}</li>
  *   <li>{@link runtime.impl.PlaceMarkingImpl#getPlace <em>Place</em>}</li>
+ *   <li>{@link runtime.impl.PlaceMarkingImpl#isDirty <em>Dirty</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,6 +57,26 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
      * @ordered
      */
     protected Place place;
+
+    /**
+     * The default value of the '{@link #isDirty() <em>Dirty</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDirty()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean DIRTY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isDirty() <em>Dirty</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDirty()
+     * @generated
+     * @ordered
+     */
+    protected boolean dirty = DIRTY_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -169,6 +190,29 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isDirty()
+    {
+        return dirty;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDirty(boolean newDirty)
+    {
+        boolean oldDirty = dirty;
+        dirty = newDirty;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, RuntimePackage.PLACE_MARKING__DIRTY, oldDirty, dirty));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType)
     {
@@ -180,6 +224,8 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
             case RuntimePackage.PLACE_MARKING__PLACE:
                 if (resolve) return getPlace();
                 return basicGetPlace();
+            case RuntimePackage.PLACE_MARKING__DIRTY:
+                return isDirty();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -199,6 +245,9 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
                 return;
             case RuntimePackage.PLACE_MARKING__PLACE:
                 setPlace((Place)newValue);
+                return;
+            case RuntimePackage.PLACE_MARKING__DIRTY:
+                setDirty((Boolean)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -220,6 +269,9 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
             case RuntimePackage.PLACE_MARKING__PLACE:
                 setPlace((Place)null);
                 return;
+            case RuntimePackage.PLACE_MARKING__DIRTY:
+                setDirty(DIRTY_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -238,8 +290,27 @@ public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarki
                 return msValue != null;
             case RuntimePackage.PLACE_MARKING__PLACE:
                 return place != null;
+            case RuntimePackage.PLACE_MARKING__DIRTY:
+                return dirty != DIRTY_EDEFAULT;
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString()
+    {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (dirty: ");
+        result.append(dirty);
+        result.append(')');
+        return result.toString();
     }
 
 } //PlaceMarkingImpl
