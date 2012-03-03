@@ -1,28 +1,20 @@
 package org.pnml.tools.epnk.applications.hlpng.view;
 
-import runtime.AbstractValue;
-import runtime.MSValue;
+import transitionruntime.FiringMode;
 
 public class PopupMenuItem extends AbstractMenuItem
 {
-	private AbstractValue value = null;
-	private MSValue msValue = null;
+	private FiringMode mode = null;
 	
-	public MSValue getMsValue()
+	public FiringMode getMode()
     {
-    	return msValue;
+    	return mode;
     }
 
-	public AbstractValue getValue()
-    {
-    	return value;
-    }
-
-	public PopupMenuItem(String name, AbstractValue value, MSValue msValue)
+	public PopupMenuItem(String name, FiringMode mode)
 	{
 		super(name);
-		this.value = value;
-		this.msValue = msValue;
+		this.mode = mode;
 	}
 	
 }
