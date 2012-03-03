@@ -2,7 +2,6 @@ package org.pnml.tools.epnk.applications.hlpng.view;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -12,12 +11,10 @@ import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.hlpng.actions.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.actions.IState;
 import org.pnml.tools.epnk.applications.hlpng.actions.IStateContext;
-import org.pnml.tools.epnk.pnmlcoremodel.Arc;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
-import runtime.AbstractValue;
-import runtime.MSValue;
+import transitionruntime.FiringMode;
+import transitionruntime.TransitionMarking;
 
 public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	IActionProvider
@@ -25,16 +22,16 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	final protected IFigure figure;
 	protected IState currentState = null;
 	final protected Transition transition;
-	final protected Map<Place, MSValue> runtimeValues;
+	final protected TransitionMarking marking;
 	final protected ISimulator simulator;
 
 	public RectangleOverlay(final ISimulator simulator, final IFigure figure, 
-			final Transition transition, final Map<Place, MSValue> runtimeValues)
+			final Transition transition, final TransitionMarking marking)
 	{
 		super();
 		this.figure = figure;
 		this.transition = transition;
-		this.runtimeValues = runtimeValues;
+		this.marking = marking;
 		this.simulator = simulator;
 		
 		currentState = new GreenOverlay(this);
@@ -82,16 +79,9 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     {
 		List<AbstractMenuItem> actions = new ArrayList<AbstractMenuItem>();
 		
-		for(Arc arc : transition.getIn())
+		for(FiringMode mode : marking.getModes())
 		{
-			Place place = (Place)arc.getSource();
-			
-			AbstractMenuItem item = getCategory(place, runtimeValues.get(place));
-			
-			if(item != null)
-			{
-				actions.add(item);
-			}
+			actions.add(getCategory(mode));
 		}
 		return actions;
     }
@@ -102,33 +92,10 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	    simulator.fire(transition, action);
     }
 	
-	private static AbstractMenuItem getCategory(Place place, MSValue value)
+	private static AbstractMenuItem getCategory(FiringMode mode)
 	{
-		if(value.getValues().size() == 0)
-		{
-			return null;
-		}
+		PopupMenuItem item = new PopupMenuItem(mode.toString(), mode);
 		
-		String categoryName = null;
-		{
-			if(place.getName() != null)
-			{
-				categoryName = place.getName().getText();
-			}
-			else
-			{
-				categoryName = "No name";
-			}
-			categoryName += " (" + place.getId() + ")";
-		}
-		PopupMenuCategory category = new PopupMenuCategory(categoryName);
-		
-		for(final AbstractValue aValue : value.getValues().keySet())
-		{
-			category.getItems().add(new PopupMenuItem(aValue.toString(), 
-					aValue, value));
-		}
-		
-		return category;
+		return item;
 	}
 }
