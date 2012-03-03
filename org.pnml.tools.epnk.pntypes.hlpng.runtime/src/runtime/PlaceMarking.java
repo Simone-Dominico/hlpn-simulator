@@ -20,6 +20,7 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
  * <ul>
  *   <li>{@link runtime.PlaceMarking#getMsValue <em>Ms Value</em>}</li>
  *   <li>{@link runtime.PlaceMarking#getPlace <em>Place</em>}</li>
+ *   <li>{@link runtime.PlaceMarking#isDirty <em>Dirty</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,5 +81,31 @@ public interface PlaceMarking extends ObjectAnnotation
      * @generated
      */
     void setPlace(Place value);
+
+    /**
+     * Returns the value of the '<em><b>Dirty</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Dirty</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Dirty</em>' attribute.
+     * @see #setDirty(boolean)
+     * @see runtime.RuntimePackage#getPlaceMarking_Dirty()
+     * @model
+     * @generated
+     */
+    boolean isDirty();
+
+    /**
+     * Sets the value of the '{@link runtime.PlaceMarking#isDirty <em>Dirty</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Dirty</em>' attribute.
+     * @see #isDirty()
+     * @generated
+     */
+    void setDirty(boolean value);
 
 } // PlaceMarking
