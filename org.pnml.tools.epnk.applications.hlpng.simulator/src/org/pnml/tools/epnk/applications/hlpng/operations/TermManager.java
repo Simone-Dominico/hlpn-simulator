@@ -7,6 +7,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstant
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
 public class TermManager
 {
@@ -21,6 +22,7 @@ public class TermManager
 			handlers.put(NumberOfImpl.class, new NumberOfOperator(this, defaultOp));
 			handlers.put(AddImpl.class, new AddOperator(this, defaultOp));
 			handlers.put(TupleImpl.class, new TupleOperator(this, defaultOp));
+			handlers.put(VariableImpl.class, new VariableHandler(this, defaultOp));
 		}
 	}
 	
