@@ -21,7 +21,9 @@ import runtime.MSValue;
 import runtime.NetMarking;
 import runtime.PlaceMarking;
 import runtime.RuntimeFactory;
+import transitionruntime.FiringData;
 import transitionruntime.FiringMode;
+import transitionruntime.MSTerm;
 import transitionruntime.TransitionMarking;
 import transitionruntime.TransitionruntimeFactory;
 
@@ -104,13 +106,16 @@ public class NetMarkingManager
 		}
 		// replace "dirty" places. Copy on demand
 		{
-			for(PlaceMarking oldMarking : firingMode.getValues().keySet())
+			for(FiringData firingData : firingMode.getValues())
 			{
+				PlaceMarking oldMarking = firingData.getPlaceMarking();
 				oldRuntimeValues.remove(oldMarking.getPlace().getId());
 				
 				MSValue newMsValue = EcoreUtil.copy(oldMarking.getMsValue());
-				AbstractValue value = firingMode.getValues().get(oldMarking);
-				int n = newMsValue.getMultiplicity(value) - 1;
+				AbstractValue value = firingData.getMsTerm().getValue();
+				int multiplicity = firingData.getMsTerm().getMultiplicity();
+				
+				int n = newMsValue.getMultiplicity(value) - multiplicity;
 				if(n > 0)
 				{
 					newMsValue.getValues().put(value, n);
@@ -167,20 +172,20 @@ public class NetMarkingManager
 	private static TransitionMarking checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues, ArcInscriptionManager arcInscriptionManager)
 	{
-		List<Pair<String, List<AbstractValue>>> entries = 
-				new ArrayList<Pair<String,List<AbstractValue>>>();
+		List<Pair<String, List<Pair<AbstractValue, Integer>>>> entries = 
+				new ArrayList<Pair<String, List<Pair<AbstractValue, Integer>>>>();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : transition.getIn())
 		{
 			Place place = (Place) arc.getSource();
 			PlaceMarking placeMarking = runtimeValues.get(place.getId());
 			
-			List<AbstractValue> matches = arcInscriptionManager
+			List<Pair<AbstractValue, Integer>> matches = arcInscriptionManager
 					.matchesInscription((Arc)arc, placeMarking, placeMarking.isDirty());
 			
 			if(matches != null)
 			{
-				entries.add(new Pair<String, List<AbstractValue>>(place.getId(),
+				entries.add(new Pair<String, List<Pair<AbstractValue, Integer>>>(place.getId(),
 						matches));
 			}
 		}
@@ -193,42 +198,60 @@ public class NetMarkingManager
 		return null;
 	}
 	
-	private static TransitionMarking cartesianProduct(List<Pair<String, List<AbstractValue>>> modes,
+	private static TransitionMarking cartesianProduct(
+			List<Pair<String, List<Pair<AbstractValue, Integer>>>> modes,
 			Map<String, PlaceMarking> runtimeValues)
 	{
 		TransitionMarking marking = TransitionruntimeFactory.eINSTANCE.createTransitionMarking();
 		
 		if(modes.size() == 1)
 		{
-			for(Pair<String, List<AbstractValue>> pair : modes)
+			for(Pair<String, List<Pair<AbstractValue, Integer>>> pair : modes)
 			{			
 				String placeId = pair.getKey();
 				
-				for(AbstractValue value : pair.getValue())
+				for(Pair<AbstractValue, Integer> value : pair.getValue())
 				{
+					MSTerm msTerm = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+					msTerm.setMultiplicity(value.getValue());
+					msTerm.setPlaceId(placeId);
+					msTerm.setValue(value.getKey());
+
+					FiringData data = TransitionruntimeFactory.eINSTANCE.createFiringData();
+					data.setPlaceMarking(runtimeValues.get(placeId));
+					data.setMsTerm(msTerm);
+					
 					FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
-					mode.getValues().put(runtimeValues.get(placeId), value);
+					mode.getValues().add(data);
 					marking.getModes().add(mode);
 				}
 			}
 		}
 		else if(modes.size() > 1)
 		{
-			List<List<Pair<String, AbstractValue>>> partialModes = cartesianProduct(
-					modes.get(0), modes.get(1));
+			List<List<MSTerm>> partialModes = cartesianProduct(modes.get(0), modes.get(1));
 			
 			for(int i = 2; i < modes.size(); i++)
 			{
 				partialModes = cartesianProduct(partialModes, modes.get(i));
 			}
 			
-			for(List<Pair<String, AbstractValue>> partialMode : partialModes)
+			for(List<MSTerm> partialMode : partialModes)
 			{
 				FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
 				
-				for(Pair<String, AbstractValue> pair : partialMode)
+				for(MSTerm term : partialMode)
 				{
-					mode.getValues().put(runtimeValues.get(pair.getKey()), pair.getValue());
+					MSTerm msTerm = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+					msTerm.setMultiplicity(term.getMultiplicity());
+					msTerm.setPlaceId(term.getPlaceId());
+					msTerm.setValue(term.getValue());
+					
+					FiringData data = TransitionruntimeFactory.eINSTANCE.createFiringData();
+					data.setPlaceMarking(runtimeValues.get(term.getPlaceId()));
+					data.setMsTerm(msTerm);
+		
+					mode.getValues().add(data);
 				}
 				
 				if(mode.getValues().size() > 0)
@@ -240,19 +263,34 @@ public class NetMarkingManager
 		return marking;
 	}
 	
-	private static List<List<Pair<String, AbstractValue>>> cartesianProduct(
-			Pair<String, List<AbstractValue>> p1,
-			Pair<String, List<AbstractValue>> p2)
+	private static List<List<MSTerm>> cartesianProduct(
+			Pair<String, List<Pair<AbstractValue, Integer>>> p1,
+			Pair<String, List<Pair<AbstractValue, Integer>>> p2)
 	{
-		List<List<Pair<String, AbstractValue>>> result = new ArrayList<List<Pair<String, AbstractValue>>>();
+		List<List<MSTerm>> result = new ArrayList<List<MSTerm>>();
 		
-		for(AbstractValue a1 : p1.getValue())
+		for(Pair<AbstractValue, Integer> a1 : p1.getValue())
 		{
-			for(AbstractValue a2 : p2.getValue())
+			for(Pair<AbstractValue, Integer> a2 : p2.getValue())
 			{
-				List<Pair<String, AbstractValue>> l = new ArrayList<Pair<String, AbstractValue>>();
-				l.add(new Pair<String, AbstractValue>(p1.getKey(), a1));
-				l.add(new Pair<String, AbstractValue>(p2.getKey(), a2));
+				List<MSTerm> l = new ArrayList<MSTerm>();
+				
+				{
+					MSTerm term = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+					term.setMultiplicity(a1.getValue());
+					term.setPlaceId(p1.getKey());
+					term.setValue(a1.getKey());
+					
+					l.add(term);
+				}
+				{
+					MSTerm term = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+					term.setMultiplicity(a2.getValue());
+					term.setPlaceId(p2.getKey());
+					term.setValue(a2.getKey());
+					
+					l.add(term);
+				}
 				
 				result.add(l);
 			}
@@ -260,21 +298,26 @@ public class NetMarkingManager
 		return result;
 	}
 	
-	private static List<List<Pair<String, AbstractValue>>> cartesianProduct(
-			List<List<Pair<String, AbstractValue>>> oldResult,
-			Pair<String, List<AbstractValue>> p)
+	private static List<List<MSTerm>> cartesianProduct(
+			List<List<MSTerm>> oldResult, 
+			Pair<String, List<Pair<AbstractValue, Integer>>> p)
 	{
-		List<List<Pair<String, AbstractValue>>> result = new ArrayList<List<Pair<String, AbstractValue>>>();
+		List<List<MSTerm>> result = new ArrayList<List<MSTerm>>();
 		
-		for(List<Pair<String, AbstractValue>> subset : oldResult)
+		for(List<MSTerm> subset : oldResult)
 		{
-			List<Pair<String, AbstractValue>> l = new ArrayList<Pair<String, AbstractValue>>();
-			for(Pair<String, AbstractValue> p1 : subset)
+			List<MSTerm> l = new ArrayList<MSTerm>();
+			for(MSTerm p1 : subset)
 			{
 				l.add(p1);
-				for(AbstractValue a : p.getValue())
+				for(Pair<AbstractValue, Integer> a : p.getValue())
 				{
-					l.add(new Pair<String, AbstractValue>(p.getKey(), a));
+					MSTerm term = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+					term.setMultiplicity(a.getValue());
+					term.setPlaceId(p.getKey());
+					term.setValue(a.getKey());
+					
+					l.add(term);
 				}
 			}
 			result.add(l);
