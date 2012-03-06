@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.comparators;
 
-import java.util.Map;
-
 import productRuntime.ProductValue;
 
 import runtime.AbstractValue;
@@ -9,7 +7,7 @@ import runtime.AbstractValue;
 public class ProductComparator implements IComparator
 {
 	@Override
-    public boolean equals(Map<Class, IComparator> comparators,
+    public boolean equals(ComparatorManager manager,
             AbstractValue value1, AbstractValue value2)
     {
 	    if(!(value1 instanceof ProductValue || value2 instanceof ProductValue) ||
@@ -26,7 +24,7 @@ public class ProductComparator implements IComparator
     		AbstractValue c1 = v1.getComponents().get(i);
     		AbstractValue c2 = v2.getComponents().get(i);
     		
-    		if(!comparators.get(c1.getClass()).equals(comparators, c1, c2))
+    		if(!manager.getComparator(c1.getClass()).equals(manager, c1, c2))
     		{
     			return false;
     		}
