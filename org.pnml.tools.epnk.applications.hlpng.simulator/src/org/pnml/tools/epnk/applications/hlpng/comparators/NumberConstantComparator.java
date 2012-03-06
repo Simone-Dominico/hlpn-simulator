@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.comparators;
 
-import java.util.Map;
-
 import numberRuntime.NumberValue;
 
 import runtime.AbstractValue;
@@ -9,7 +7,7 @@ import runtime.AbstractValue;
 public class NumberConstantComparator implements IComparator
 {
 	@Override
-    public boolean equals(Map<Class, IComparator> comparators,
+    public boolean equals(ComparatorManager manager,
             AbstractValue value1, AbstractValue value2)
     {
 	    if(value1 instanceof NumberValue && value2 instanceof NumberValue &&

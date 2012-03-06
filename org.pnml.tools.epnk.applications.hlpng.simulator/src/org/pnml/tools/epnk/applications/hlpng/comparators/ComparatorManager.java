@@ -41,9 +41,4 @@ public class ComparatorManager
 	{
 		return handlers.get(targetClass);
 	}
-	
-	public Map<Class, IComparator> getHandlers()
-    {
-    	return handlers;
-    }
 }

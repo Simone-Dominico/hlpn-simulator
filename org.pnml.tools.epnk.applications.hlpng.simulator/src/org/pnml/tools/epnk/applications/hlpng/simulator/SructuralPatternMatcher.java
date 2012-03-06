@@ -46,7 +46,7 @@ public class SructuralPatternMatcher
 		for(AbstractValue refValue : reference.getValues().keySet())
 		{
 			if(comparatorManager.getComparator(refValue.getClass())
-					.equals(comparatorManager.getHandlers(), refValue, value))
+					.equals(comparatorManager, refValue, value))
 			{
 				return true;
 			}
