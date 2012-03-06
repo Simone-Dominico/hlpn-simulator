@@ -1,0 +1,15 @@
+package org.pnml.tools.epnk.applications.hlpng.selection;
+
+import java.util.ArrayList;
+
+public class PopupMenuCategory extends AbstractMenuCategory
+{
+	public PopupMenuCategory(String name)
+    {
+	    super(name);
+	    
+	    this.items = new ArrayList<PopupMenuItem>();
+    }
+
+	
+}
