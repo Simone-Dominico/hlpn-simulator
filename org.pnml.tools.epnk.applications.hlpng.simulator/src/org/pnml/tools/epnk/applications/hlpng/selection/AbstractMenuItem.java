@@ -1,6 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.selection;
 
-public class AbstractMenuItem
+import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
+
+public class AbstractMenuItem implements IAction
 {
 
 	protected String name = null;
