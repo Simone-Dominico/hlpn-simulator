@@ -2,7 +2,7 @@ package org.pnml.tools.epnk.applications.hlpng.actions;
 
 import java.util.List;
 
-import org.pnml.tools.epnk.applications.hlpng.view.AbstractMenuItem;
+import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 
 public interface IActionProvider
 {

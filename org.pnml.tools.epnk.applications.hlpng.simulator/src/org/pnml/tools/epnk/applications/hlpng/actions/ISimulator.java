@@ -1,6 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.actions;
 
-import org.pnml.tools.epnk.applications.hlpng.view.AbstractMenuItem;
+import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public interface ISimulator
