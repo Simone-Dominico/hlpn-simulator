@@ -6,8 +6,7 @@
  */
 package transitionruntime.impl;
 
-import java.util.Map;
-
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -21,7 +20,9 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.HlpngdefinitionPac
 import runtime.RuntimePackage;
 
 import runtime.impl.RuntimePackageImpl;
+import transitionruntime.FiringData;
 import transitionruntime.FiringMode;
+import transitionruntime.MSTerm;
 import transitionruntime.TransitionMarking;
 import transitionruntime.TransitionruntimeFactory;
 import transitionruntime.TransitionruntimePackage;
@@ -53,7 +54,14 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass placeMarkingToValueMapEClass = null;
+    private EClass firingDataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass msTermEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -182,9 +190,9 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getPlaceMarkingToValueMap()
+    public EClass getFiringData()
     {
-        return placeMarkingToValueMapEClass;
+        return firingDataEClass;
     }
 
     /**
@@ -192,9 +200,9 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getPlaceMarkingToValueMap_Key()
+    public EReference getFiringData_PlaceMarking()
     {
-        return (EReference)placeMarkingToValueMapEClass.getEStructuralFeatures().get(0);
+        return (EReference)firingDataEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -202,9 +210,49 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getPlaceMarkingToValueMap_Value()
+    public EReference getFiringData_MsTerm()
     {
-        return (EReference)placeMarkingToValueMapEClass.getEStructuralFeatures().get(1);
+        return (EReference)firingDataEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getMSTerm()
+    {
+        return msTermEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMSTerm_PlaceId()
+    {
+        return (EAttribute)msTermEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMSTerm_Multiplicity()
+    {
+        return (EAttribute)msTermEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getMSTerm_Value()
+    {
+        return (EReference)msTermEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -244,9 +292,14 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         firingModeEClass = createEClass(FIRING_MODE);
         createEReference(firingModeEClass, FIRING_MODE__VALUES);
 
-        placeMarkingToValueMapEClass = createEClass(PLACE_MARKING_TO_VALUE_MAP);
-        createEReference(placeMarkingToValueMapEClass, PLACE_MARKING_TO_VALUE_MAP__KEY);
-        createEReference(placeMarkingToValueMapEClass, PLACE_MARKING_TO_VALUE_MAP__VALUE);
+        firingDataEClass = createEClass(FIRING_DATA);
+        createEReference(firingDataEClass, FIRING_DATA__PLACE_MARKING);
+        createEReference(firingDataEClass, FIRING_DATA__MS_TERM);
+
+        msTermEClass = createEClass(MS_TERM);
+        createEAttribute(msTermEClass, MS_TERM__PLACE_ID);
+        createEAttribute(msTermEClass, MS_TERM__MULTIPLICITY);
+        createEReference(msTermEClass, MS_TERM__VALUE);
     }
 
     /**
@@ -291,11 +344,16 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         initEReference(getTransitionMarking_Modes(), this.getFiringMode(), null, "modes", null, 0, -1, TransitionMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(firingModeEClass, FiringMode.class, "FiringMode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getFiringMode_Values(), this.getPlaceMarkingToValueMap(), null, "values", null, 0, -1, FiringMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFiringMode_Values(), this.getFiringData(), null, "values", null, 0, -1, FiringMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(placeMarkingToValueMapEClass, Map.Entry.class, "PlaceMarkingToValueMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getPlaceMarkingToValueMap_Key(), theRuntimePackage.getPlaceMarking(), null, "key", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getPlaceMarkingToValueMap_Value(), theRuntimePackage.getAbstractValue(), null, "value", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(firingDataEClass, FiringData.class, "FiringData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getFiringData_PlaceMarking(), theRuntimePackage.getPlaceMarking(), null, "placeMarking", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFiringData_MsTerm(), this.getMSTerm(), null, "msTerm", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(msTermEClass, MSTerm.class, "MSTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getMSTerm_PlaceId(), ecorePackage.getEString(), "placeId", null, 0, 1, MSTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMSTerm_Multiplicity(), ecorePackage.getEInt(), "multiplicity", null, 0, 1, MSTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getMSTerm_Value(), theRuntimePackage.getAbstractValue(), null, "value", null, 1, 1, MSTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

@@ -6,22 +6,21 @@
  */
 package transitionruntime.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 
-import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import runtime.AbstractValue;
-import runtime.PlaceMarking;
-
+import transitionruntime.FiringData;
 import transitionruntime.FiringMode;
 import transitionruntime.TransitionruntimePackage;
 
@@ -41,14 +40,14 @@ import transitionruntime.TransitionruntimePackage;
 public class FiringModeImpl extends EObjectImpl implements FiringMode
 {
     /**
-     * The cached value of the '{@link #getValues() <em>Values</em>}' map.
+     * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getValues()
      * @generated
      * @ordered
      */
-    protected EMap<PlaceMarking, AbstractValue> values;
+    protected EList<FiringData> values;
 
     /**
      * <!-- begin-user-doc -->
@@ -76,11 +75,11 @@ public class FiringModeImpl extends EObjectImpl implements FiringMode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EMap<PlaceMarking, AbstractValue> getValues()
+    public EList<FiringData> getValues()
     {
         if (values == null)
         {
-            values = new EcoreEMap<PlaceMarking,AbstractValue>(TransitionruntimePackage.Literals.PLACE_MARKING_TO_VALUE_MAP, PlaceMarkingToValueMapImpl.class, this, TransitionruntimePackage.FIRING_MODE__VALUES);
+            values = new EObjectContainmentEList<FiringData>(FiringData.class, this, TransitionruntimePackage.FIRING_MODE__VALUES);
         }
         return values;
     }
@@ -112,8 +111,7 @@ public class FiringModeImpl extends EObjectImpl implements FiringMode
         switch (featureID)
         {
             case TransitionruntimePackage.FIRING_MODE__VALUES:
-                if (coreType) return getValues();
-                else return getValues().map();
+                return getValues();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -123,31 +121,21 @@ public class FiringModeImpl extends EObjectImpl implements FiringMode
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue)
     {
         switch (featureID)
         {
             case TransitionruntimePackage.FIRING_MODE__VALUES:
-                ((EStructuralFeature.Setting)getValues()).set(newValue);
+                getValues().clear();
+                getValues().addAll((Collection<? extends FiringData>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
     }
 
-    @Override
-    // @generated NOT
-    public String toString()
-    {
-    	StringBuffer buffer = new StringBuffer();
-    	for(AbstractValue value : values.values())
-    	{
-    		buffer.append(value.toString() + "\n");
-    	}
-	    return buffer.toString().replaceAll("\\s+$", "");
-    }
-
-	/**
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -178,6 +166,19 @@ public class FiringModeImpl extends EObjectImpl implements FiringMode
                 return values != null && !values.isEmpty();
         }
         return super.eIsSet(featureID);
+    }
+
+	@Override
+	// @generated NOT
+    public String toString()
+    {
+		StringBuffer buffer = new StringBuffer();
+		for(FiringData data : values)
+		{
+			buffer.append(data.getMsTerm().getValue() + "\n");
+		}
+		
+	    return buffer.toString().replaceAll("\\s+$", "");
     }
 
 } //FiringModeImpl

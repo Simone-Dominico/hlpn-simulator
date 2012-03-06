@@ -6,8 +6,6 @@
  */
 package transitionruntime.impl;
 
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -15,9 +13,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import runtime.AbstractValue;
-import runtime.PlaceMarking;
 
 import transitionruntime.*;
 
@@ -75,7 +70,8 @@ public class TransitionruntimeFactoryImpl extends EFactoryImpl implements Transi
         {
             case TransitionruntimePackage.TRANSITION_MARKING: return createTransitionMarking();
             case TransitionruntimePackage.FIRING_MODE: return createFiringMode();
-            case TransitionruntimePackage.PLACE_MARKING_TO_VALUE_MAP: return (EObject)createPlaceMarkingToValueMap();
+            case TransitionruntimePackage.FIRING_DATA: return createFiringData();
+            case TransitionruntimePackage.MS_TERM: return createMSTerm();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -108,10 +104,21 @@ public class TransitionruntimeFactoryImpl extends EFactoryImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
-    public Map.Entry<PlaceMarking, AbstractValue> createPlaceMarkingToValueMap()
+    public FiringData createFiringData()
     {
-        PlaceMarkingToValueMapImpl placeMarkingToValueMap = new PlaceMarkingToValueMapImpl();
-        return placeMarkingToValueMap;
+        FiringDataImpl firingData = new FiringDataImpl();
+        return firingData;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public MSTerm createMSTerm()
+    {
+        MSTermImpl msTerm = new MSTermImpl();
+        return msTerm;
     }
 
     /**

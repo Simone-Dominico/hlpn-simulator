@@ -6,8 +6,6 @@
  */
 package transitionruntime.util;
 
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -15,9 +13,6 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.pnml.tools.epnk.annotations.netannotations.Annotation;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
-
-import runtime.AbstractValue;
-import runtime.PlaceMarking;
 
 import transitionruntime.*;
 
@@ -100,10 +95,17 @@ public class TransitionruntimeSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case TransitionruntimePackage.PLACE_MARKING_TO_VALUE_MAP:
+            case TransitionruntimePackage.FIRING_DATA:
             {
-                @SuppressWarnings("unchecked") Map.Entry<PlaceMarking, AbstractValue> placeMarkingToValueMap = (Map.Entry<PlaceMarking, AbstractValue>)theEObject;
-                T result = casePlaceMarkingToValueMap(placeMarkingToValueMap);
+                FiringData firingData = (FiringData)theEObject;
+                T result = caseFiringData(firingData);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case TransitionruntimePackage.MS_TERM:
+            {
+                MSTerm msTerm = (MSTerm)theEObject;
+                T result = caseMSTerm(msTerm);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -144,17 +146,33 @@ public class TransitionruntimeSwitch<T> extends Switch<T>
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Place Marking To Value Map</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Firing Data</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Place Marking To Value Map</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Firing Data</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T casePlaceMarkingToValueMap(Map.Entry<PlaceMarking, AbstractValue> object)
+    public T caseFiringData(FiringData object)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>MS Term</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>MS Term</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseMSTerm(MSTerm object)
     {
         return null;
     }

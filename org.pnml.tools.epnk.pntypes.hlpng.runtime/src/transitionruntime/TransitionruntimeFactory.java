@@ -45,6 +45,24 @@ public interface TransitionruntimeFactory extends EFactory
     FiringMode createFiringMode();
 
     /**
+     * Returns a new object of class '<em>Firing Data</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Firing Data</em>'.
+     * @generated
+     */
+    FiringData createFiringData();
+
+    /**
+     * Returns a new object of class '<em>MS Term</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>MS Term</em>'.
+     * @generated
+     */
+    MSTerm createMSTerm();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
