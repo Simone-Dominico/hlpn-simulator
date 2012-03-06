@@ -1,5 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +76,7 @@ public class NetMarkingManager
 
 			TransitionMarking marking = checkTransition(hlTransition, 
 					runtimeValues, this.arcInscriptionManager);
-			if(marking != null)
+			if(marking != null && marking.getModes().size() > 0)
 			{
 				marking.setTransition(hlTransition);
 				marking.setObject(hlTransition);
@@ -149,7 +150,7 @@ public class NetMarkingManager
 
 			TransitionMarking marking = checkTransition(hlTransition, 
 					runtimeValues, this.arcInscriptionManager);
-			if(marking != null)
+			if(marking != null && marking.getModes().size() > 0)
 			{
 				marking.setTransition(hlTransition);
 				marking.setObject(hlTransition);
@@ -165,46 +166,118 @@ public class NetMarkingManager
 	private static TransitionMarking checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues, ArcInscriptionManager arcInscriptionManager)
 	{
-		TransitionMarking marking = TransitionruntimeFactory.eINSTANCE.createTransitionMarking();
-		
-		Map<String, List<List<AbstractValue>>> modes = new HashMap<String, List<List<AbstractValue>>>();
+		List<Pair<String, List<AbstractValue>>> entries = 
+				new ArrayList<Pair<String,List<AbstractValue>>>();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : transition.getIn())
 		{
 			Place place = (Place) arc.getSource();
 			PlaceMarking placeMarking = runtimeValues.get(place.getId());
 			
-			List<List<AbstractValue>> matches = arcInscriptionManager
+			List<AbstractValue> matches = arcInscriptionManager
 					.matchesInscription((Arc)arc, placeMarking, placeMarking.isDirty());
 			
 			if(matches != null)
 			{
-				modes.put(place.getId(), matches);
+				entries.add(new Pair<String, List<AbstractValue>>(place.getId(),
+						matches));
 			}
 		}
 
-		if(modes.size() == transition.getIn().size())
+		if(entries.size() == transition.getIn().size())
 		{
-			FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
-			
-			for(String placeId : modes.keySet())
-			{			
-				for(List<AbstractValue> listOfValues : modes.get(placeId))
-				{
-					for(AbstractValue value : listOfValues)
-					{
-						mode.getValues().put(runtimeValues.get(placeId), value);
-					}
-				}
-			}
-			
-			if(mode.getValues().size() > 0)
-			{
-				marking.getModes().add(mode);
-				return marking;
-			}	
+			return cartesianProduct(entries, runtimeValues);
 		}
 		
 		return null;
+	}
+	
+	private static TransitionMarking cartesianProduct(List<Pair<String, List<AbstractValue>>> modes,
+			Map<String, PlaceMarking> runtimeValues)
+	{
+		TransitionMarking marking = TransitionruntimeFactory.eINSTANCE.createTransitionMarking();
+		
+		if(modes.size() == 1)
+		{
+			for(Pair<String, List<AbstractValue>> pair : modes)
+			{			
+				String placeId = pair.getKey();
+				
+				for(AbstractValue value : pair.getValue())
+				{
+					FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
+					mode.getValues().put(runtimeValues.get(placeId), value);
+					marking.getModes().add(mode);
+				}
+			}
+		}
+		else if(modes.size() > 1)
+		{
+			List<List<Pair<String, AbstractValue>>> partialModes = cartesianProduct(
+					modes.get(0), modes.get(1));
+			
+			for(int i = 2; i < modes.size(); i++)
+			{
+				partialModes = cartesianProduct(partialModes, modes.get(i));
+			}
+			
+			for(List<Pair<String, AbstractValue>> partialMode : partialModes)
+			{
+				FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
+				
+				for(Pair<String, AbstractValue> pair : partialMode)
+				{
+					mode.getValues().put(runtimeValues.get(pair.getKey()), pair.getValue());
+				}
+				
+				if(mode.getValues().size() > 0)
+				{
+					marking.getModes().add(mode);
+				}
+			}
+		}
+		return marking;
+	}
+	
+	private static List<List<Pair<String, AbstractValue>>> cartesianProduct(
+			Pair<String, List<AbstractValue>> p1,
+			Pair<String, List<AbstractValue>> p2)
+	{
+		List<List<Pair<String, AbstractValue>>> result = new ArrayList<List<Pair<String, AbstractValue>>>();
+		
+		for(AbstractValue a1 : p1.getValue())
+		{
+			for(AbstractValue a2 : p2.getValue())
+			{
+				List<Pair<String, AbstractValue>> l = new ArrayList<Pair<String, AbstractValue>>();
+				l.add(new Pair<String, AbstractValue>(p1.getKey(), a1));
+				l.add(new Pair<String, AbstractValue>(p2.getKey(), a2));
+				
+				result.add(l);
+			}
+		}
+		return result;
+	}
+	
+	private static List<List<Pair<String, AbstractValue>>> cartesianProduct(
+			List<List<Pair<String, AbstractValue>>> oldResult,
+			Pair<String, List<AbstractValue>> p)
+	{
+		List<List<Pair<String, AbstractValue>>> result = new ArrayList<List<Pair<String, AbstractValue>>>();
+		
+		for(List<Pair<String, AbstractValue>> subset : oldResult)
+		{
+			List<Pair<String, AbstractValue>> l = new ArrayList<Pair<String, AbstractValue>>();
+			for(Pair<String, AbstractValue> p1 : subset)
+			{
+				l.add(p1);
+				for(AbstractValue a : p.getValue())
+				{
+					l.add(new Pair<String, AbstractValue>(p.getKey(), a));
+				}
+			}
+			result.add(l);
+		}
+		return result;
 	}
 }

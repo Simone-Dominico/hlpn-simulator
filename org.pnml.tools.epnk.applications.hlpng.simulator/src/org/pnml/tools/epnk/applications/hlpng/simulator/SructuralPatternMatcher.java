@@ -19,19 +19,16 @@ public class SructuralPatternMatcher
 		this.comparatorManager = comparatorManager;
 	}
 	
-	public List<List<AbstractValue>> match(MSValue value)
+	public List<AbstractValue> match(MSValue value)
 	{
-		List<List<AbstractValue>> list = new ArrayList<List<AbstractValue>>();
+		List<AbstractValue> list = new ArrayList<AbstractValue>();
 		
 		for(AbstractValue aValue : value.getValues().keySet())
 		{
 			if(cachedValue == null || contains(cachedValue, aValue, 
 					value.getValues().get(aValue), comparatorManager))
 			{
-				List<AbstractValue> valueList = new ArrayList<AbstractValue>();
-				valueList.add(aValue);
-				
-				list.add(valueList);
+				list.add(aValue);
 			}
 		}
 		
