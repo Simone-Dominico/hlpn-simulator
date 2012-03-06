@@ -7,6 +7,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
@@ -78,9 +79,9 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     }
 
 	@Override
-    public List<AbstractMenuItem> getActions()
+    public List<IAction> getActions()
     {
-		List<AbstractMenuItem> actions = new ArrayList<AbstractMenuItem>();
+		List<IAction> actions = new ArrayList<IAction>();
 		
 		for(FiringMode mode : marking.getModes())
 		{
@@ -90,9 +91,9 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     }
 
 	@Override
-    public void executeAction(AbstractMenuItem action)
+    public void executeAction(IAction action)
     {
-	    simulator.fire(transition, action);
+	    simulator.fire(transition, (AbstractMenuItem)action);
     }
 	
 	private static AbstractMenuItem getCategory(FiringMode mode)

@@ -7,6 +7,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
 
 public class PopupMenu
@@ -17,7 +18,7 @@ public class PopupMenu
 	protected SelectionListener selectionListener = null;
 	
 	public PopupMenu(Decorations parent, int style, 
-			List<AbstractMenuItem> categories, SelectionListener selectionListener,
+			List<IAction> categories, SelectionListener selectionListener,
 			IActionProvider owner)
     {
 		this.selectionListener = selectionListener;
@@ -26,8 +27,9 @@ public class PopupMenu
 	    
 		root.setVisible(false);
 	    
-	    for(AbstractMenuItem item : categories)
+	    for(IAction action : categories)
 	    {
+	    	AbstractMenuItem item = (AbstractMenuItem) action;
 	    	createMenuItems(item, root, parent, selectionListener, owner);	
 	    }
 	    
