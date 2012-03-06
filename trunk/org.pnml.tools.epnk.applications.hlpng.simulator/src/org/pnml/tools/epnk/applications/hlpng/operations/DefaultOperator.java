@@ -4,10 +4,10 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 import runtime.AbstractValue;
 
-public class DefaultOperator extends AbstractOperator
+public class DefaultOperator extends AbstractTermHandler
 {
 
-	public DefaultOperator(TermManager termManager, AbstractOperator next)
+	public DefaultOperator(TermManager termManager, AbstractTermHandler next)
 	{
 		super(termManager, next);
 	}

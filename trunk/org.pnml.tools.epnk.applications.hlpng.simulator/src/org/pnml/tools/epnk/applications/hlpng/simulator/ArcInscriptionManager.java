@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
-import org.pnml.tools.epnk.applications.hlpng.operations.AbstractOperator;
+import org.pnml.tools.epnk.applications.hlpng.operations.AbstractTermHandler;
 import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
@@ -39,7 +39,7 @@ public class ArcInscriptionManager
 				if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
 				{
 					Term term = hlArc.getHlinscription().getStructure();
-					AbstractOperator handler = operatorManager.getHandler(term.getClass());
+					AbstractTermHandler handler = operatorManager.getHandler(term.getClass());
 					arcMap.put(hlArc.getId(), new SructuralPatternMatcher((MSValue)handler.handle(term),
 							comparatorManager));
 				}
