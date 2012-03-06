@@ -39,7 +39,7 @@ public class ArcInscriptionManager
 				if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
 				{
 					Term term = hlArc.getHlinscription().getStructure();
-					AbstractOperator handler = operatorManager.getOperator(term.getClass());
+					AbstractOperator handler = operatorManager.getHandler(term.getClass());
 					arcMap.put(hlArc.getId(), new SructuralPatternMatcher((MSValue)handler.handle(term),
 							comparatorManager));
 				}

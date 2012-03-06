@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -13,10 +11,10 @@ import runtime.RuntimeFactory;
 public class NumberOfOperator extends AbstractOperator
 {
 
-	public NumberOfOperator(Map<Class, AbstractOperator> handlers, 
+	public NumberOfOperator(TermManager termManager, 
 			AbstractOperator next)
     {
-	    super(handlers, next);
+	    super(termManager, next);
     }
 
 	@Override
@@ -36,7 +34,7 @@ public class NumberOfOperator extends AbstractOperator
 			int muliplicity = nc.getValue();
 			
 			Term t = operator.getSubterm().get(1);
-			AbstractValue value = handlers.get(t.getClass()).handle(t);
+			AbstractValue value = termManager.getHandler(t.getClass()).handle(t);
 			
 			MSValue set = RuntimeFactory.eINSTANCE.createMSValue();
 			set.setSort(operator.getSort());

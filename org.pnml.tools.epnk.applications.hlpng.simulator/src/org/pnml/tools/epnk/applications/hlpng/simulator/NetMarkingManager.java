@@ -52,7 +52,7 @@ public class NetMarkingManager
 					hlPlace.getHlinitialMarking().getStructure() != null)
 			{
 				Term term = hlPlace.getHlinitialMarking().getStructure();
-				AbstractValue value = operatorManager.getOperator(term.getClass()).handle(term);
+				AbstractValue value = operatorManager.getHandler(term.getClass()).handle(term);
 				
 				PlaceMarking marking  = RuntimeFactory.eINSTANCE.createPlaceMarking();
 				marking.setPlace(hlPlace);

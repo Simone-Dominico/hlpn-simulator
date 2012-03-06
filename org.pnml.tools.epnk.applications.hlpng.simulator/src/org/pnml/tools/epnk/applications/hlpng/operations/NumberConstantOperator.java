@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import numberRuntime.NumberValue;
 import numberRuntime.NumberruntimeFactory;
 
@@ -15,10 +13,9 @@ import runtime.AbstractValue;
 public class NumberConstantOperator extends AbstractOperator
 {
 
-	public NumberConstantOperator(Map<Class, AbstractOperator> handlers, 
-			AbstractOperator next)
+	public NumberConstantOperator(TermManager termManager, AbstractOperator next)
     {
-	    super(handlers, next);
+	    super(termManager, next);
     }
 
 	@Override

@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 import runtime.AbstractValue;
@@ -9,10 +7,9 @@ import runtime.AbstractValue;
 public class DefaultOperator extends AbstractOperator
 {
 
-	public DefaultOperator(Map<Class, AbstractOperator> handlers,
-	        AbstractOperator next)
+	public DefaultOperator(TermManager termManager, AbstractOperator next)
 	{
-		super(handlers, next);
+		super(termManager, next);
 	}
 
 	@Override
