@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="variableruntime"
+    nsURI="http://variableruntime/1.0" nsPrefix="variableruntime">
+  <eClassifiers xsi:type="ecore:EClass" name="RuntimeVariable" eSuperTypes="runtime.ecore#//AbstractValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/Variable"/>
+  </eClassifiers>
+</ecore:EPackage>
