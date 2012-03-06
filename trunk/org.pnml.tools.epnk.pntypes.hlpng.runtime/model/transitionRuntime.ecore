@@ -11,10 +11,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FiringMode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
-        eType="#//PlaceMarkingToValueMap" containment="true"/>
+        eType="#//FiringData" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PlaceMarkingToValueMap" instanceClassName="java.util.Map$Entry">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass runtime.ecore#//PlaceMarking"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FiringData">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeMarking" lowerBound="1"
+        eType="ecore:EClass runtime.ecore#//PlaceMarking"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="msTerm" lowerBound="1"
+        eType="#//MSTerm"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MSTerm">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="placeId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="ecore:EClass runtime.ecore#//AbstractValue"/>
   </eClassifiers>
 </ecore:EPackage>

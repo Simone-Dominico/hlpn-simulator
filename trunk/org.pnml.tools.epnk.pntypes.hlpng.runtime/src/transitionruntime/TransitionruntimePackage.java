@@ -6,6 +6,7 @@
  */
 package transitionruntime;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -127,7 +128,7 @@ public interface TransitionruntimePackage extends EPackage
     int FIRING_MODE = 1;
 
     /**
-     * The feature id for the '<em><b>Values</b></em>' map.
+     * The feature id for the '<em><b>Values</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -145,23 +146,69 @@ public interface TransitionruntimePackage extends EPackage
     int FIRING_MODE_FEATURE_COUNT = 1;
 
     /**
-     * The meta object id for the '{@link transitionruntime.impl.PlaceMarkingToValueMapImpl <em>Place Marking To Value Map</em>}' class.
+     * The meta object id for the '{@link transitionruntime.impl.FiringDataImpl <em>Firing Data</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see transitionruntime.impl.PlaceMarkingToValueMapImpl
-     * @see transitionruntime.impl.TransitionruntimePackageImpl#getPlaceMarkingToValueMap()
+     * @see transitionruntime.impl.FiringDataImpl
+     * @see transitionruntime.impl.TransitionruntimePackageImpl#getFiringData()
      * @generated
      */
-    int PLACE_MARKING_TO_VALUE_MAP = 2;
+    int FIRING_DATA = 2;
 
     /**
-     * The feature id for the '<em><b>Key</b></em>' reference.
+     * The feature id for the '<em><b>Place Marking</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLACE_MARKING_TO_VALUE_MAP__KEY = 0;
+    int FIRING_DATA__PLACE_MARKING = 0;
+
+    /**
+     * The feature id for the '<em><b>Ms Term</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FIRING_DATA__MS_TERM = 1;
+
+    /**
+     * The number of structural features of the '<em>Firing Data</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FIRING_DATA_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link transitionruntime.impl.MSTermImpl <em>MS Term</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see transitionruntime.impl.MSTermImpl
+     * @see transitionruntime.impl.TransitionruntimePackageImpl#getMSTerm()
+     * @generated
+     */
+    int MS_TERM = 3;
+
+    /**
+     * The feature id for the '<em><b>Place Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MS_TERM__PLACE_ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Multiplicity</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int MS_TERM__MULTIPLICITY = 1;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' reference.
@@ -170,16 +217,16 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING_TO_VALUE_MAP__VALUE = 1;
+    int MS_TERM__VALUE = 2;
 
     /**
-     * The number of structural features of the '<em>Place Marking To Value Map</em>' class.
+     * The number of structural features of the '<em>MS Term</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PLACE_MARKING_TO_VALUE_MAP_FEATURE_COUNT = 2;
+    int MS_TERM_FEATURE_COUNT = 3;
 
 
     /**
@@ -225,10 +272,10 @@ public interface TransitionruntimePackage extends EPackage
     EClass getFiringMode();
 
     /**
-     * Returns the meta object for the map '{@link transitionruntime.FiringMode#getValues <em>Values</em>}'.
+     * Returns the meta object for the containment reference list '{@link transitionruntime.FiringMode#getValues <em>Values</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the map '<em>Values</em>'.
+     * @return the meta object for the containment reference list '<em>Values</em>'.
      * @see transitionruntime.FiringMode#getValues()
      * @see #getFiringMode()
      * @generated
@@ -236,38 +283,79 @@ public interface TransitionruntimePackage extends EPackage
     EReference getFiringMode_Values();
 
     /**
-     * Returns the meta object for class '{@link java.util.Map.Entry <em>Place Marking To Value Map</em>}'.
+     * Returns the meta object for class '{@link transitionruntime.FiringData <em>Firing Data</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Place Marking To Value Map</em>'.
-     * @see java.util.Map.Entry
-     * @model keyType="runtime.PlaceMarking" keyRequired="true"
-     *        valueType="runtime.AbstractValue" valueRequired="true"
+     * @return the meta object for class '<em>Firing Data</em>'.
+     * @see transitionruntime.FiringData
      * @generated
      */
-    EClass getPlaceMarkingToValueMap();
+    EClass getFiringData();
 
     /**
-     * Returns the meta object for the reference '{@link java.util.Map.Entry <em>Key</em>}'.
+     * Returns the meta object for the reference '{@link transitionruntime.FiringData#getPlaceMarking <em>Place Marking</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Key</em>'.
-     * @see java.util.Map.Entry
-     * @see #getPlaceMarkingToValueMap()
+     * @return the meta object for the reference '<em>Place Marking</em>'.
+     * @see transitionruntime.FiringData#getPlaceMarking()
+     * @see #getFiringData()
      * @generated
      */
-    EReference getPlaceMarkingToValueMap_Key();
+    EReference getFiringData_PlaceMarking();
 
     /**
-     * Returns the meta object for the reference '{@link java.util.Map.Entry <em>Value</em>}'.
+     * Returns the meta object for the reference '{@link transitionruntime.FiringData#getMsTerm <em>Ms Term</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Ms Term</em>'.
+     * @see transitionruntime.FiringData#getMsTerm()
+     * @see #getFiringData()
+     * @generated
+     */
+    EReference getFiringData_MsTerm();
+
+    /**
+     * Returns the meta object for class '{@link transitionruntime.MSTerm <em>MS Term</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>MS Term</em>'.
+     * @see transitionruntime.MSTerm
+     * @generated
+     */
+    EClass getMSTerm();
+
+    /**
+     * Returns the meta object for the attribute '{@link transitionruntime.MSTerm#getPlaceId <em>Place Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Place Id</em>'.
+     * @see transitionruntime.MSTerm#getPlaceId()
+     * @see #getMSTerm()
+     * @generated
+     */
+    EAttribute getMSTerm_PlaceId();
+
+    /**
+     * Returns the meta object for the attribute '{@link transitionruntime.MSTerm#getMultiplicity <em>Multiplicity</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Multiplicity</em>'.
+     * @see transitionruntime.MSTerm#getMultiplicity()
+     * @see #getMSTerm()
+     * @generated
+     */
+    EAttribute getMSTerm_Multiplicity();
+
+    /**
+     * Returns the meta object for the reference '{@link transitionruntime.MSTerm#getValue <em>Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the reference '<em>Value</em>'.
-     * @see java.util.Map.Entry
-     * @see #getPlaceMarkingToValueMap()
+     * @see transitionruntime.MSTerm#getValue()
+     * @see #getMSTerm()
      * @generated
      */
-    EReference getPlaceMarkingToValueMap_Value();
+    EReference getMSTerm_Value();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -329,7 +417,7 @@ public interface TransitionruntimePackage extends EPackage
         EClass FIRING_MODE = eINSTANCE.getFiringMode();
 
         /**
-         * The meta object literal for the '<em><b>Values</b></em>' map feature.
+         * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
@@ -337,22 +425,56 @@ public interface TransitionruntimePackage extends EPackage
         EReference FIRING_MODE__VALUES = eINSTANCE.getFiringMode_Values();
 
         /**
-         * The meta object literal for the '{@link transitionruntime.impl.PlaceMarkingToValueMapImpl <em>Place Marking To Value Map</em>}' class.
+         * The meta object literal for the '{@link transitionruntime.impl.FiringDataImpl <em>Firing Data</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see transitionruntime.impl.PlaceMarkingToValueMapImpl
-         * @see transitionruntime.impl.TransitionruntimePackageImpl#getPlaceMarkingToValueMap()
+         * @see transitionruntime.impl.FiringDataImpl
+         * @see transitionruntime.impl.TransitionruntimePackageImpl#getFiringData()
          * @generated
          */
-        EClass PLACE_MARKING_TO_VALUE_MAP = eINSTANCE.getPlaceMarkingToValueMap();
+        EClass FIRING_DATA = eINSTANCE.getFiringData();
 
         /**
-         * The meta object literal for the '<em><b>Key</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Place Marking</b></em>' reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference PLACE_MARKING_TO_VALUE_MAP__KEY = eINSTANCE.getPlaceMarkingToValueMap_Key();
+        EReference FIRING_DATA__PLACE_MARKING = eINSTANCE.getFiringData_PlaceMarking();
+
+        /**
+         * The meta object literal for the '<em><b>Ms Term</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FIRING_DATA__MS_TERM = eINSTANCE.getFiringData_MsTerm();
+
+        /**
+         * The meta object literal for the '{@link transitionruntime.impl.MSTermImpl <em>MS Term</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see transitionruntime.impl.MSTermImpl
+         * @see transitionruntime.impl.TransitionruntimePackageImpl#getMSTerm()
+         * @generated
+         */
+        EClass MS_TERM = eINSTANCE.getMSTerm();
+
+        /**
+         * The meta object literal for the '<em><b>Place Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MS_TERM__PLACE_ID = eINSTANCE.getMSTerm_PlaceId();
+
+        /**
+         * The meta object literal for the '<em><b>Multiplicity</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute MS_TERM__MULTIPLICITY = eINSTANCE.getMSTerm_Multiplicity();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' reference feature.
@@ -360,7 +482,7 @@ public interface TransitionruntimePackage extends EPackage
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference PLACE_MARKING_TO_VALUE_MAP__VALUE = eINSTANCE.getPlaceMarkingToValueMap_Value();
+        EReference MS_TERM__VALUE = eINSTANCE.getMSTerm_Value();
 
     }
 

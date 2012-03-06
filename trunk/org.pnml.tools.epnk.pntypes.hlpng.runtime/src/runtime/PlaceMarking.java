@@ -93,7 +93,7 @@ public interface PlaceMarking extends ObjectAnnotation
      * @return the value of the '<em>Dirty</em>' attribute.
      * @see #setDirty(boolean)
      * @see runtime.RuntimePackage#getPlaceMarking_Dirty()
-     * @model
+     * @model required="true"
      * @generated
      */
     boolean isDirty();

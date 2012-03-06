@@ -6,8 +6,6 @@
  */
 package transitionruntime.util;
 
-import java.util.Map;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -17,9 +15,6 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.pnml.tools.epnk.annotations.netannotations.Annotation;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
-
-import runtime.AbstractValue;
-import runtime.PlaceMarking;
 
 import transitionruntime.*;
 
@@ -97,9 +92,14 @@ public class TransitionruntimeAdapterFactory extends AdapterFactoryImpl
                 return createFiringModeAdapter();
             }
             @Override
-            public Adapter casePlaceMarkingToValueMap(Map.Entry<PlaceMarking, AbstractValue> object)
+            public Adapter caseFiringData(FiringData object)
             {
-                return createPlaceMarkingToValueMapAdapter();
+                return createFiringDataAdapter();
+            }
+            @Override
+            public Adapter caseMSTerm(MSTerm object)
+            {
+                return createMSTermAdapter();
             }
             @Override
             public Adapter caseAnnotation(Annotation object)
@@ -164,16 +164,31 @@ public class TransitionruntimeAdapterFactory extends AdapterFactoryImpl
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>Place Marking To Value Map</em>}'.
+     * Creates a new adapter for an object of class '{@link transitionruntime.FiringData <em>Firing Data</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see java.util.Map.Entry
+     * @see transitionruntime.FiringData
      * @generated
      */
-    public Adapter createPlaceMarkingToValueMapAdapter()
+    public Adapter createFiringDataAdapter()
+    {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link transitionruntime.MSTerm <em>MS Term</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see transitionruntime.MSTerm
+     * @generated
+     */
+    public Adapter createMSTermAdapter()
     {
         return null;
     }

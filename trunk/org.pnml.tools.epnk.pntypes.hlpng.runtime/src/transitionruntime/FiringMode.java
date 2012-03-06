@@ -6,12 +6,9 @@
  */
 package transitionruntime;
 
-import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
-
-import runtime.AbstractValue;
-import runtime.PlaceMarking;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,20 +29,19 @@ import runtime.PlaceMarking;
 public interface FiringMode extends EObject
 {
     /**
-     * Returns the value of the '<em><b>Values</b></em>' map.
-     * The key is of type {@link runtime.PlaceMarking},
-     * and the value is of type {@link runtime.AbstractValue},
+     * Returns the value of the '<em><b>Values</b></em>' containment reference list.
+     * The list contents are of type {@link transitionruntime.FiringData}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Values</em>' map isn't clear,
+     * If the meaning of the '<em>Values</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Values</em>' map.
+     * @return the value of the '<em>Values</em>' containment reference list.
      * @see transitionruntime.TransitionruntimePackage#getFiringMode_Values()
-     * @model mapType="transitionruntime.PlaceMarkingToValueMap<runtime.PlaceMarking, runtime.AbstractValue>"
+     * @model containment="true"
      * @generated
      */
-    EMap<PlaceMarking, AbstractValue> getValues();
+    EList<FiringData> getValues();
 
 } // FiringMode
