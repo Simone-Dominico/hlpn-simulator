@@ -7,7 +7,7 @@ import runtime.AbstractValue;
 public class ProductComparator implements IComparator
 {
 	@Override
-    public boolean equals(ComparatorManager manager,
+    public boolean compare(ComparatorManager manager,
             AbstractValue value1, AbstractValue value2)
     {
 	    if(!(value1 instanceof ProductValue || value2 instanceof ProductValue) ||
@@ -24,7 +24,7 @@ public class ProductComparator implements IComparator
     		AbstractValue c1 = v1.getComponents().get(i);
     		AbstractValue c2 = v2.getComponents().get(i);
     		
-    		if(!manager.getComparator(c1.getClass()).equals(manager, c1, c2))
+    		if(!manager.getComparator(c1.getClass()).compare(manager, c1, c2))
     		{
     			return false;
     		}

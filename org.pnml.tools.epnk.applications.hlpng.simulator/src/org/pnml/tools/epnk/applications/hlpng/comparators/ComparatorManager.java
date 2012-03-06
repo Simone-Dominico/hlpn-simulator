@@ -9,6 +9,7 @@ import numberRuntime.impl.PosValueImpl;
 
 import productRuntime.impl.ProductValueImpl;
 import runtime.impl.MSValueImpl;
+import variableruntime.impl.RuntimeVariableImpl;
 
 public class ComparatorManager
 {
@@ -24,6 +25,8 @@ public class ComparatorManager
 			
 			handlers.put(ProductValueImpl.class, new ProductComparator());
 			handlers.put(MSValueImpl.class, new MultisetComparator());
+			
+			handlers.put(RuntimeVariableImpl.class, new VariableMatcher());
 		}
 	}
 	
