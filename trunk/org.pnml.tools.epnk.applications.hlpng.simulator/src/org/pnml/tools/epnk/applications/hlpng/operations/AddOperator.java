@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
@@ -12,10 +10,9 @@ import runtime.RuntimeFactory;
 public class AddOperator extends AbstractOperator
 {
 
-	public AddOperator(Map<Class, AbstractOperator> handlers, 
-			AbstractOperator next)
+	public AddOperator(TermManager termManager, AbstractOperator next)
 	{
-		super(handlers, next);
+		super(termManager, next);
 	}
 
 	@Override
@@ -32,12 +29,12 @@ public class AddOperator extends AbstractOperator
 			set.setSort(op.getSort());
 			{
 				Term t = op.getSubterm().get(0);
-				AbstractOperator handler = handlers.get(t.getClass());
+				AbstractOperator handler = termManager.getHandler(t.getClass());
 				set.append((MSValue)handler.handle(t));
 			}
 			{
 				Term t = op.getSubterm().get(1);
-				AbstractOperator handler = handlers.get(t.getClass());
+				AbstractOperator handler = termManager.getHandler(t.getClass());
 				set.append((MSValue)handler.handle(t));
 			}
 

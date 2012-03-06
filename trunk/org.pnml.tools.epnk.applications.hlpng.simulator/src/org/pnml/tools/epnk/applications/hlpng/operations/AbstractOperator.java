@@ -1,20 +1,17 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 import runtime.AbstractValue;
 
 public abstract class AbstractOperator
 {
-	protected Map<Class, AbstractOperator> handlers = null;
+	protected TermManager termManager = null;
 	protected AbstractOperator next = null;
 	
-	public AbstractOperator(Map<Class, AbstractOperator> handlers, 
-			AbstractOperator next)
+	public AbstractOperator(TermManager termManager, AbstractOperator next)
 	{
-		this.handlers = handlers;
+		this.termManager = termManager;
 		this.next = next;
 	}
 	

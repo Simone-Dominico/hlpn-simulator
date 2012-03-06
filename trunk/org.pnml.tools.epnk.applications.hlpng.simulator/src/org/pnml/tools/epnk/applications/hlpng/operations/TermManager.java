@@ -16,11 +16,11 @@ public class TermManager
 	{
 		handlers = new HashMap<Class, AbstractOperator>();
 		{
-			AbstractOperator defaultOp = new DefaultOperator(handlers, null);
-			handlers.put(NumberConstantImpl.class, new NumberConstantOperator(handlers, defaultOp));
-			handlers.put(NumberOfImpl.class, new NumberOfOperator(handlers, defaultOp));
-			handlers.put(AddImpl.class, new AddOperator(handlers, defaultOp));
-			handlers.put(TupleImpl.class, new TupleOperator(handlers, defaultOp));
+			AbstractOperator defaultOp = new DefaultOperator(this, null);
+			handlers.put(NumberConstantImpl.class, new NumberConstantOperator(this, defaultOp));
+			handlers.put(NumberOfImpl.class, new NumberOfOperator(this, defaultOp));
+			handlers.put(AddImpl.class, new AddOperator(this, defaultOp));
+			handlers.put(TupleImpl.class, new TupleOperator(this, defaultOp));
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class TermManager
 		handlers.remove(targetClass);
 	}
 	
-	public AbstractOperator getOperator(Class targetClass)
+	public AbstractOperator getHandler(Class targetClass)
 	{
 		return handlers.get(targetClass);
 	}

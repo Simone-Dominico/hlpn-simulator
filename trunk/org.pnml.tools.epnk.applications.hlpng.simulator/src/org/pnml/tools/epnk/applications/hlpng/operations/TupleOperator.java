@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
-import java.util.Map;
-
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
@@ -13,10 +11,9 @@ import runtime.AbstractValue;
 public class TupleOperator extends AbstractOperator
 {
 
-	public TupleOperator(Map<Class, AbstractOperator> handlers, 
-			AbstractOperator next)
+	public TupleOperator(TermManager termManager, AbstractOperator next)
 	{
-		super(handlers, next);
+		super(termManager, next);
 	}
 
 	@Override
@@ -31,7 +28,7 @@ public class TupleOperator extends AbstractOperator
 
 			for(Term t : op.getSubterm())
 			{
-				AbstractValue v = handlers.get(t.getClass()).handle(t);
+				AbstractValue v = termManager.getHandler(t.getClass()).handle(t);
 				if(v != null)
 				{
 					product.getComponents().add(v);
