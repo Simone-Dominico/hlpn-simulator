@@ -7,10 +7,10 @@ import runtime.AbstractValue;
 import runtime.MSValue;
 import runtime.RuntimeFactory;
 
-public class AddOperator extends AbstractOperator
+public class AddOperator extends AbstractTermHandler
 {
 
-	public AddOperator(TermManager termManager, AbstractOperator next)
+	public AddOperator(TermManager termManager, AbstractTermHandler next)
 	{
 		super(termManager, next);
 	}
@@ -29,12 +29,12 @@ public class AddOperator extends AbstractOperator
 			set.setSort(op.getSort());
 			{
 				Term t = op.getSubterm().get(0);
-				AbstractOperator handler = termManager.getHandler(t.getClass());
+				AbstractTermHandler handler = termManager.getHandler(t.getClass());
 				set.append((MSValue)handler.handle(t));
 			}
 			{
 				Term t = op.getSubterm().get(1);
-				AbstractOperator handler = termManager.getHandler(t.getClass());
+				AbstractTermHandler handler = termManager.getHandler(t.getClass());
 				set.append((MSValue)handler.handle(t));
 			}
 

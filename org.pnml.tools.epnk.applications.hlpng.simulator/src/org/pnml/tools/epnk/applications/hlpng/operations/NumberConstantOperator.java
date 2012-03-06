@@ -10,10 +10,10 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 import runtime.AbstractValue;
 
-public class NumberConstantOperator extends AbstractOperator
+public class NumberConstantOperator extends AbstractTermHandler
 {
 
-	public NumberConstantOperator(TermManager termManager, AbstractOperator next)
+	public NumberConstantOperator(TermManager termManager, AbstractTermHandler next)
     {
 	    super(termManager, next);
     }

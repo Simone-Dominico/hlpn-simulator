@@ -10,13 +10,13 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 
 public class TermManager
 {
-	private Map<Class, AbstractOperator> handlers = null;
+	private Map<Class, AbstractTermHandler> handlers = null;
 	
 	public TermManager()
 	{
-		handlers = new HashMap<Class, AbstractOperator>();
+		handlers = new HashMap<Class, AbstractTermHandler>();
 		{
-			AbstractOperator defaultOp = new DefaultOperator(this, null);
+			AbstractTermHandler defaultOp = new DefaultOperator(this, null);
 			handlers.put(NumberConstantImpl.class, new NumberConstantOperator(this, defaultOp));
 			handlers.put(NumberOfImpl.class, new NumberOfOperator(this, defaultOp));
 			handlers.put(AddImpl.class, new AddOperator(this, defaultOp));
@@ -24,7 +24,7 @@ public class TermManager
 		}
 	}
 	
-	public void register(Class targetClass, AbstractOperator operator)
+	public void register(Class targetClass, AbstractTermHandler operator)
 	{
 		handlers.put(targetClass, operator);
 	}
@@ -34,7 +34,7 @@ public class TermManager
 		handlers.remove(targetClass);
 	}
 	
-	public AbstractOperator getHandler(Class targetClass)
+	public AbstractTermHandler getHandler(Class targetClass)
 	{
 		return handlers.get(targetClass);
 	}

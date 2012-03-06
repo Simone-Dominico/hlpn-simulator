@@ -4,12 +4,12 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 import runtime.AbstractValue;
 
-public abstract class AbstractOperator
+public abstract class AbstractTermHandler
 {
 	protected TermManager termManager = null;
-	protected AbstractOperator next = null;
+	protected AbstractTermHandler next = null;
 	
-	public AbstractOperator(TermManager termManager, AbstractOperator next)
+	public AbstractTermHandler(TermManager termManager, AbstractTermHandler next)
 	{
 		this.termManager = termManager;
 		this.next = next;

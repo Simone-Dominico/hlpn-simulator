@@ -8,11 +8,11 @@ import runtime.AbstractValue;
 import runtime.MSValue;
 import runtime.RuntimeFactory;
 
-public class NumberOfOperator extends AbstractOperator
+public class NumberOfOperator extends AbstractTermHandler
 {
 
 	public NumberOfOperator(TermManager termManager, 
-			AbstractOperator next)
+			AbstractTermHandler next)
     {
 	    super(termManager, next);
     }

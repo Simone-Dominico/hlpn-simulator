@@ -8,10 +8,10 @@ import productRuntime.ProductruntimeFactory;
 
 import runtime.AbstractValue;
 
-public class TupleOperator extends AbstractOperator
+public class TupleOperator extends AbstractTermHandler
 {
 
-	public TupleOperator(TermManager termManager, AbstractOperator next)
+	public TupleOperator(TermManager termManager, AbstractTermHandler next)
 	{
 		super(termManager, next);
 	}
