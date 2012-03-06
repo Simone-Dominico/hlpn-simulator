@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -6,6 +6,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.pnml.tools.epnk.applications.activator.Activator;
+import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 

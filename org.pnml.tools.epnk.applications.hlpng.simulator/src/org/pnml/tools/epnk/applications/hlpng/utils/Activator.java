@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
