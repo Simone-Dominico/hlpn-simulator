@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
 import org.pnml.tools.epnk.applications.hlpng.operations.AbstractOperator;
-import org.pnml.tools.epnk.applications.hlpng.operations.OperatorManager;
+import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -20,7 +20,7 @@ public class ArcInscriptionManager
 {
 	private Map<String, SructuralPatternMatcher> arcMap = null;
 	
-	public ArcInscriptionManager(OperatorManager operatorManager, FlatAccess flatAccess)
+	public ArcInscriptionManager(TermManager operatorManager, FlatAccess flatAccess)
 	{
 		arcMap = new HashMap<String, SructuralPatternMatcher>();
 		

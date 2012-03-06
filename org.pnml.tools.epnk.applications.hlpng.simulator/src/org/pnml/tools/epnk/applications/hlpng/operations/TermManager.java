@@ -8,11 +8,11 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 
-public class OperatorManager
+public class TermManager
 {
 	private Map<Class, AbstractOperator> handlers = null;
 	
-	public OperatorManager()
+	public TermManager()
 	{
 		handlers = new HashMap<Class, AbstractOperator>();
 		{

@@ -5,7 +5,7 @@ import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
-import org.pnml.tools.epnk.applications.hlpng.operations.OperatorManager;
+import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
@@ -28,7 +28,7 @@ public class HLSimulator extends Application
     {
 	    super(petrinet);
 	    
-	    OperatorManager operatorManager = new OperatorManager();
+	    TermManager operatorManager = new TermManager();
 		FlatAccess flatAccess = new FlatAccess(this.petrinet);
 		
 	    this.presentationManager = new SimulatorPresentationManager(this);

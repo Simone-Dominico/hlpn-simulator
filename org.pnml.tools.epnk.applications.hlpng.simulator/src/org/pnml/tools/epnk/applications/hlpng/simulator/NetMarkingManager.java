@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.pnml.tools.epnk.applications.hlpng.operations.OperatorManager;
+import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
@@ -28,11 +28,11 @@ public class NetMarkingManager
 {
 	private PetriNet petrinet = null;
 	private FlatAccess flatAccess = null;
-	private OperatorManager operatorManager = null;
+	private TermManager operatorManager = null;
 	private ArcInscriptionManager arcInscriptionManager = null;
 	
 	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess,
-			OperatorManager operatorManager, ArcInscriptionManager arcInscriptionManager)
+			TermManager operatorManager, ArcInscriptionManager arcInscriptionManager)
 	{
 		this.petrinet = petrinet;
 		this.flatAccess = flatAccess;
