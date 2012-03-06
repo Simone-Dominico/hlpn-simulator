@@ -8,7 +8,7 @@ import runtime.MSValue;
 public class MultisetComparator implements IComparator
 {
 	@Override
-    public boolean equals(ComparatorManager manager,
+    public boolean compare(ComparatorManager manager,
             AbstractValue value1, AbstractValue value2)
     {
 		if(!(value1 instanceof MSValue || value2 instanceof MSValue) ||
@@ -28,7 +28,7 @@ public class MultisetComparator implements IComparator
     		{
     			Entry<AbstractValue, Integer> e2 = v2.getValues().get(j);
 
-        		if(!manager.getComparator(e1.getKey().getClass()).equals(manager, 
+        		if(!manager.getComparator(e1.getKey().getClass()).compare(manager, 
         				e1.getKey(), e2.getKey()))
         		{
         			return false;

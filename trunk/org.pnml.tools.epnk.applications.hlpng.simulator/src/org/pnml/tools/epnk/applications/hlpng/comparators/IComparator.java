@@ -4,6 +4,6 @@ import runtime.AbstractValue;
 
 public interface IComparator
 {
-	public boolean equals(ComparatorManager manager, 
+	public boolean compare(ComparatorManager manager, 
 			AbstractValue value1, AbstractValue value2);
 }

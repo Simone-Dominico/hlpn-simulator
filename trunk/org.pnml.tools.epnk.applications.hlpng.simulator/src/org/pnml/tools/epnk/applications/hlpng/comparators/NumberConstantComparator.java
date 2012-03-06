@@ -7,7 +7,7 @@ import runtime.AbstractValue;
 public class NumberConstantComparator implements IComparator
 {
 	@Override
-    public boolean equals(ComparatorManager manager,
+    public boolean compare(ComparatorManager manager,
             AbstractValue value1, AbstractValue value2)
     {
 	    if(value1 instanceof NumberValue && value2 instanceof NumberValue &&
