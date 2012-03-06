@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import java.util.ArrayList;
 import java.util.List;
