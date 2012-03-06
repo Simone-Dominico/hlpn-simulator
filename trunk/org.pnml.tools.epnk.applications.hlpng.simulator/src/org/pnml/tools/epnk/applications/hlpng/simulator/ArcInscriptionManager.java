@@ -52,7 +52,7 @@ public class ArcInscriptionManager
 		}
 	}
 	
-	public List<List<AbstractValue>> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
+	public List<AbstractValue> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
 	{
 		MSValue msValue = marking.getMsValue();
 		
