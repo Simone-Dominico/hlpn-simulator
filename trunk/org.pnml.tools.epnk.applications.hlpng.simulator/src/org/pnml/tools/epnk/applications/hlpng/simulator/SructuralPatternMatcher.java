@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 
 import runtime.AbstractValue;
 import runtime.MSValue;
@@ -19,16 +20,16 @@ public class SructuralPatternMatcher
 		this.comparatorManager = comparatorManager;
 	}
 	
-	public List<AbstractValue> match(MSValue value)
+	public List<Pair<AbstractValue, Integer>> match(MSValue value)
 	{
-		List<AbstractValue> list = new ArrayList<AbstractValue>();
+		List<Pair<AbstractValue, Integer>> list = new ArrayList<Pair<AbstractValue,Integer>>();
 		
 		for(AbstractValue aValue : value.getValues().keySet())
 		{
 			if(cachedValue == null || contains(cachedValue, aValue, 
 					value.getValues().get(aValue), comparatorManager))
 			{
-				list.add(aValue);
+				list.add(new Pair<AbstractValue, Integer>(value, 100));
 			}
 		}
 		
@@ -46,7 +47,7 @@ public class SructuralPatternMatcher
 		for(AbstractValue refValue : reference.getValues().keySet())
 		{
 			if(comparatorManager.getComparator(refValue.getClass())
-					.equals(comparatorManager, refValue, value))
+					.compare(comparatorManager, refValue, value))
 			{
 				return true;
 			}

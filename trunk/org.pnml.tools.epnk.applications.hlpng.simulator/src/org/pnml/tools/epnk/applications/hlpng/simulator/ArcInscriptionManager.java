@@ -8,6 +8,7 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
 import org.pnml.tools.epnk.applications.hlpng.operations.AbstractTermHandler;
 import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -52,7 +53,7 @@ public class ArcInscriptionManager
 		}
 	}
 	
-	public List<AbstractValue> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
+	public List<Pair<AbstractValue, Integer>> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
 	{
 		MSValue msValue = marking.getMsValue();
 		
