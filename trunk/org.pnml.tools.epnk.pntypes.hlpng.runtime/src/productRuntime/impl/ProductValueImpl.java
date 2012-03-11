@@ -19,8 +19,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import productRuntime.ProductRuntimePackage;
 import productRuntime.ProductValue;
-import productRuntime.ProductruntimePackage;
 
 import runtime.AbstractValue;
 
@@ -69,7 +69,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     @Override
     protected EClass eStaticClass()
     {
-        return ProductruntimePackage.Literals.PRODUCT_VALUE;
+        return ProductRuntimePackage.Literals.PRODUCT_VALUE;
     }
 
     /**
@@ -81,7 +81,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         if (components == null)
         {
-            components = new EObjectContainmentEList<AbstractValue>(AbstractValue.class, this, ProductruntimePackage.PRODUCT_VALUE__COMPONENTS);
+            components = new EObjectContainmentEList<AbstractValue>(AbstractValue.class, this, ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS);
         }
         return components;
     }
@@ -96,7 +96,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         switch (featureID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE__COMPONENTS:
+            case ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS:
                 return ((InternalEList<?>)getComponents()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -112,7 +112,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         switch (featureID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE__COMPONENTS:
+            case ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS:
                 return getComponents();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -129,7 +129,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         switch (featureID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE__COMPONENTS:
+            case ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS:
                 getComponents().clear();
                 getComponents().addAll((Collection<? extends AbstractValue>)newValue);
                 return;
@@ -147,7 +147,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         switch (featureID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE__COMPONENTS:
+            case ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS:
                 getComponents().clear();
                 return;
         }
@@ -164,7 +164,7 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
     {
         switch (featureID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE__COMPONENTS:
+            case ProductRuntimePackage.PRODUCT_VALUE__COMPONENTS:
                 return components != null && !components.isEmpty();
         }
         return super.eIsSet(featureID);

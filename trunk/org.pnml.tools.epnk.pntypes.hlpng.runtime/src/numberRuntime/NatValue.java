@@ -12,7 +12,7 @@ package numberRuntime;
  * <!-- end-user-doc -->
  *
  *
- * @see numberRuntime.NumberruntimePackage#getNatValue()
+ * @see numberRuntime.NumberRuntimePackage#getNatValue()
  * @model
  * @generated
  */

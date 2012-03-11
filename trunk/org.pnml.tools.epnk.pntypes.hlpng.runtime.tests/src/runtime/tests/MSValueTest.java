@@ -10,9 +10,9 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 import productRuntime.ProductValue;
-import productRuntime.ProductruntimeFactory;
+import productRuntime.ProductRuntimeFactory;
 import numberRuntime.IntValue;
-import numberRuntime.NumberruntimeFactory;
+import numberRuntime.NumberRuntimeFactory;
 
 import junit.textui.TestRunner;
 
@@ -88,7 +88,7 @@ public class MSValueTest extends AbstractValueTest
     {
         setFixture(RuntimeFactory.eINSTANCE.createMSValue());
         {
-        	intValue9 = NumberruntimeFactory.eINSTANCE.createIntValue();
+        	intValue9 = NumberRuntimeFactory.eINSTANCE.createIntValue();
             intValue9.setN(9);
             intValue9.setSort(IntegersFactory.eINSTANCE.createInteger());
         }
@@ -96,18 +96,18 @@ public class MSValueTest extends AbstractValueTest
         
         {
         	msAppend = RuntimeFactory.eINSTANCE.createMSValue();
-        	intAppend9 = NumberruntimeFactory.eINSTANCE.createIntValue();
+        	intAppend9 = NumberRuntimeFactory.eINSTANCE.createIntValue();
         	intAppend9.setN(9);
         	intAppend9.setSort(IntegersFactory.eINSTANCE.createInteger());
         	msAppend.add(intAppend9, 1);
         	
-        	intAppend19 = NumberruntimeFactory.eINSTANCE.createIntValue();
+        	intAppend19 = NumberRuntimeFactory.eINSTANCE.createIntValue();
         	intAppend19.setN(19);
         	intAppend19.setSort(IntegersFactory.eINSTANCE.createInteger());
         	msAppend.add(intAppend19, 1);
         }
         {
-        	tmpValue10 = NumberruntimeFactory.eINSTANCE.createIntValue();
+        	tmpValue10 = NumberRuntimeFactory.eINSTANCE.createIntValue();
         	tmpValue10.setN(10);
         	tmpValue10.setSort(IntegersFactory.eINSTANCE.createInteger());
         }
@@ -203,20 +203,20 @@ public class MSValueTest extends AbstractValueTest
     	{
     		MSValue msValue = RuntimeFactory.eINSTANCE.createMSValue();
     		{
-    			ProductValue pValue = ProductruntimeFactory.eINSTANCE.createProductValue();
+    			ProductValue pValue = ProductRuntimeFactory.eINSTANCE.createProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
     			pValue.getComponents().add(createMSValue(4, 5));
     			msValue.add(pValue, 1);
     			
     		}
     		{
-    			ProductValue pValue = ProductruntimeFactory.eINSTANCE.createProductValue();
+    			ProductValue pValue = ProductRuntimeFactory.eINSTANCE.createProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
     			pValue.getComponents().add(createMSValue(4, 5));
     			msValue.add(pValue, 2);
     		}
     		{
-    			ProductValue pValue = ProductruntimeFactory.eINSTANCE.createProductValue();
+    			ProductValue pValue = ProductRuntimeFactory.eINSTANCE.createProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
     			pValue.getComponents().add(createMSValue(5, 4));
     			
@@ -238,15 +238,15 @@ public class MSValueTest extends AbstractValueTest
     
     private static ProductValue createProductValue(int a, int b)
     {
-    	ProductValue pValue = ProductruntimeFactory.eINSTANCE.createProductValue();
+    	ProductValue pValue = ProductRuntimeFactory.eINSTANCE.createProductValue();
 		pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
 		{
-			IntValue v = NumberruntimeFactory.eINSTANCE.createIntValue();
+			IntValue v = NumberRuntimeFactory.eINSTANCE.createIntValue();
 			v.setN(a);
 			pValue.getComponents().add(v);
 		}
 		{
-			IntValue v = NumberruntimeFactory.eINSTANCE.createIntValue();
+			IntValue v = NumberRuntimeFactory.eINSTANCE.createIntValue();
 			v.setN(b);
 			pValue.getComponents().add(v);
 		}

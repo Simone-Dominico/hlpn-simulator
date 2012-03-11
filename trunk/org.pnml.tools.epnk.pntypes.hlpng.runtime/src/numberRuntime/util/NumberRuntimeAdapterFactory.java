@@ -22,10 +22,10 @@ import runtime.AbstractValue;
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see numberRuntime.NumberruntimePackage
+ * @see numberRuntime.NumberRuntimePackage
  * @generated
  */
-public class NumberruntimeAdapterFactory extends AdapterFactoryImpl
+public class NumberRuntimeAdapterFactory extends AdapterFactoryImpl
 {
     /**
      * The cached model package.
@@ -33,7 +33,7 @@ public class NumberruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    protected static NumberruntimePackage modelPackage;
+    protected static NumberRuntimePackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
@@ -41,11 +41,11 @@ public class NumberruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimeAdapterFactory()
+    public NumberRuntimeAdapterFactory()
     {
         if (modelPackage == null)
         {
-            modelPackage = NumberruntimePackage.eINSTANCE;
+            modelPackage = NumberRuntimePackage.eINSTANCE;
         }
     }
 
@@ -77,8 +77,8 @@ public class NumberruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    protected NumberruntimeSwitch<Adapter> modelSwitch =
-        new NumberruntimeSwitch<Adapter>()
+    protected NumberRuntimeSwitch<Adapter> modelSwitch =
+        new NumberRuntimeSwitch<Adapter>()
         {
             @Override
             public Adapter caseNumberValue(NumberValue object)
@@ -215,4 +215,4 @@ public class NumberruntimeAdapterFactory extends AdapterFactoryImpl
         return null;
     }
 
-} //NumberruntimeAdapterFactory
+} //NumberRuntimeAdapterFactory

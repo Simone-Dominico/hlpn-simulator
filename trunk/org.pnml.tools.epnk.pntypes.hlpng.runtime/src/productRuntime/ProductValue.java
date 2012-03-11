@@ -22,7 +22,7 @@ import runtime.AbstractValue;
  * </ul>
  * </p>
  *
- * @see productRuntime.ProductruntimePackage#getProductValue()
+ * @see productRuntime.ProductRuntimePackage#getProductValue()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface ProductValue extends AbstractValue
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Components</em>' containment reference list.
-     * @see productRuntime.ProductruntimePackage#getProductValue_Components()
+     * @see productRuntime.ProductRuntimePackage#getProductValue_Components()
      * @model containment="true"
      * @generated
      */

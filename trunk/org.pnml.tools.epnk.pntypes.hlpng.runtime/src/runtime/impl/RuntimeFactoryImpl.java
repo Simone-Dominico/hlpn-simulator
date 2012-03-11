@@ -73,6 +73,7 @@ public class RuntimeFactoryImpl extends EFactoryImpl implements RuntimeFactory
             case RuntimePackage.PLACE_MARKING: return createPlaceMarking();
             case RuntimePackage.NET_MARKING: return createNetMarking();
             case RuntimePackage.VALUE_TO_INTEGER_MAP: return (EObject)createValueToIntegerMap();
+            case RuntimePackage.RUNTIME_VARIABLE: return createRuntimeVariable();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -120,6 +121,17 @@ public class RuntimeFactoryImpl extends EFactoryImpl implements RuntimeFactory
     {
         ValueToIntegerMapImpl valueToIntegerMap = new ValueToIntegerMapImpl();
         return valueToIntegerMap;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RuntimeVariable createRuntimeVariable()
+    {
+        RuntimeVariableImpl runtimeVariable = new RuntimeVariableImpl();
+        return runtimeVariable;
     }
 
     /**

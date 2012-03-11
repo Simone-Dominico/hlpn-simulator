@@ -25,10 +25,10 @@ import runtime.AbstractValue;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see productRuntime.ProductruntimePackage
+ * @see productRuntime.ProductRuntimePackage
  * @generated
  */
-public class ProductruntimeSwitch<T> extends Switch<T>
+public class ProductRuntimeSwitch<T> extends Switch<T>
 {
     /**
      * The cached model package
@@ -36,7 +36,7 @@ public class ProductruntimeSwitch<T> extends Switch<T>
      * <!-- end-user-doc -->
      * @generated
      */
-    protected static ProductruntimePackage modelPackage;
+    protected static ProductRuntimePackage modelPackage;
 
     /**
      * Creates an instance of the switch.
@@ -44,11 +44,11 @@ public class ProductruntimeSwitch<T> extends Switch<T>
      * <!-- end-user-doc -->
      * @generated
      */
-    public ProductruntimeSwitch()
+    public ProductRuntimeSwitch()
     {
         if (modelPackage == null)
         {
-            modelPackage = ProductruntimePackage.eINSTANCE;
+            modelPackage = ProductRuntimePackage.eINSTANCE;
         }
     }
 
@@ -78,7 +78,7 @@ public class ProductruntimeSwitch<T> extends Switch<T>
     {
         switch (classifierID)
         {
-            case ProductruntimePackage.PRODUCT_VALUE:
+            case ProductRuntimePackage.PRODUCT_VALUE:
             {
                 ProductValue productValue = (ProductValue)theEObject;
                 T result = caseProductValue(productValue);
@@ -139,4 +139,4 @@ public class ProductruntimeSwitch<T> extends Switch<T>
         return null;
     }
 
-} //ProductruntimeSwitch
+} //ProductRuntimeSwitch

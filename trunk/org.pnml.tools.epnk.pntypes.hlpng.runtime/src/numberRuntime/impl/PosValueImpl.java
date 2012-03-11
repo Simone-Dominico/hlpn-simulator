@@ -6,7 +6,7 @@
  */
 package numberRuntime.impl;
 
-import numberRuntime.NumberruntimePackage;
+import numberRuntime.NumberRuntimePackage;
 import numberRuntime.PosValue;
 
 import org.eclipse.emf.ecore.EClass;
@@ -40,7 +40,7 @@ public class PosValueImpl extends NumberValueImpl implements PosValue
     @Override
     protected EClass eStaticClass()
     {
-        return NumberruntimePackage.Literals.POS_VALUE;
+        return NumberRuntimePackage.Literals.POS_VALUE;
     }
 
 } //PosValueImpl

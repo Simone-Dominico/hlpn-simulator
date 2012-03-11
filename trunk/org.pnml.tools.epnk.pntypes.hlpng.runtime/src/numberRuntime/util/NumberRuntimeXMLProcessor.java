@@ -4,9 +4,11 @@
  *
  * $Id$
  */
-package productRuntime.util;
+package numberRuntime.util;
 
 import java.util.Map;
+
+import numberRuntime.NumberRuntimePackage;
 
 import org.eclipse.emf.ecore.EPackage;
 
@@ -14,15 +16,13 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 
-import productRuntime.ProductruntimePackage;
-
 /**
  * This class contains helper methods to serialize and deserialize XML documents
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProductruntimeXMLProcessor extends XMLProcessor
+public class NumberRuntimeXMLProcessor extends XMLProcessor
 {
 
     /**
@@ -31,14 +31,14 @@ public class ProductruntimeXMLProcessor extends XMLProcessor
      * <!-- end-user-doc -->
      * @generated
      */
-    public ProductruntimeXMLProcessor()
+    public NumberRuntimeXMLProcessor()
     {
         super((EPackage.Registry.INSTANCE));
-        ProductruntimePackage.eINSTANCE.eClass();
+        NumberRuntimePackage.eINSTANCE.eClass();
     }
     
     /**
-     * Register for "*" and "xml" file extensions the ProductruntimeResourceFactoryImpl factory.
+     * Register for "*" and "xml" file extensions the NumberRuntimeResourceFactoryImpl factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -49,10 +49,10 @@ public class ProductruntimeXMLProcessor extends XMLProcessor
         if (registrations == null)
         {
             super.getRegistrations();
-            registrations.put(XML_EXTENSION, new ProductruntimeResourceFactoryImpl());
-            registrations.put(STAR_EXTENSION, new ProductruntimeResourceFactoryImpl());
+            registrations.put(XML_EXTENSION, new NumberRuntimeResourceFactoryImpl());
+            registrations.put(STAR_EXTENSION, new NumberRuntimeResourceFactoryImpl());
         }
         return registrations;
     }
 
-} //ProductruntimeXMLProcessor
+} //NumberRuntimeXMLProcessor

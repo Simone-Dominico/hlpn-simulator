@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package variableruntime.util;
+package productRuntime.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -13,19 +13,19 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import runtime.AbstractValue;
+import productRuntime.*;
 
-import variableruntime.*;
+import runtime.AbstractValue;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see variableruntime.VariableruntimePackage
+ * @see productRuntime.ProductRuntimePackage
  * @generated
  */
-public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
+public class ProductRuntimeAdapterFactory extends AdapterFactoryImpl
 {
     /**
      * The cached model package.
@@ -33,7 +33,7 @@ public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    protected static VariableruntimePackage modelPackage;
+    protected static ProductRuntimePackage modelPackage;
 
     /**
      * Creates an instance of the adapter factory.
@@ -41,11 +41,11 @@ public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public VariableruntimeAdapterFactory()
+    public ProductRuntimeAdapterFactory()
     {
         if (modelPackage == null)
         {
-            modelPackage = VariableruntimePackage.eINSTANCE;
+            modelPackage = ProductRuntimePackage.eINSTANCE;
         }
     }
 
@@ -77,13 +77,13 @@ public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    protected VariableruntimeSwitch<Adapter> modelSwitch =
-        new VariableruntimeSwitch<Adapter>()
+    protected ProductRuntimeSwitch<Adapter> modelSwitch =
+        new ProductRuntimeSwitch<Adapter>()
         {
             @Override
-            public Adapter caseRuntimeVariable(RuntimeVariable object)
+            public Adapter caseProductValue(ProductValue object)
             {
-                return createRuntimeVariableAdapter();
+                return createProductValueAdapter();
             }
             @Override
             public Adapter caseAbstractValue(AbstractValue object)
@@ -113,16 +113,16 @@ public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
 
 
     /**
-     * Creates a new adapter for an object of class '{@link variableruntime.RuntimeVariable <em>Runtime Variable</em>}'.
+     * Creates a new adapter for an object of class '{@link productRuntime.ProductValue <em>Product Value</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see variableruntime.RuntimeVariable
+     * @see productRuntime.ProductValue
      * @generated
      */
-    public Adapter createRuntimeVariableAdapter()
+    public Adapter createProductValueAdapter()
     {
         return null;
     }
@@ -155,4 +155,4 @@ public class VariableruntimeAdapterFactory extends AdapterFactoryImpl
         return null;
     }
 
-} //VariableruntimeAdapterFactory
+} //ProductRuntimeAdapterFactory

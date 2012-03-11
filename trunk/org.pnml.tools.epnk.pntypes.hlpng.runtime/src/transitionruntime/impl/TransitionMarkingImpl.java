@@ -21,10 +21,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.pnml.tools.epnk.annotations.netannotations.impl.ObjectAnnotationImpl;
-
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
+import runtime.impl.AbstractMarkingImpl;
 import transitionruntime.FiringMode;
 import transitionruntime.TransitionMarking;
 import transitionruntime.TransitionruntimePackage;
@@ -43,7 +42,7 @@ import transitionruntime.TransitionruntimePackage;
  *
  * @generated
  */
-public class TransitionMarkingImpl extends ObjectAnnotationImpl implements TransitionMarking
+public class TransitionMarkingImpl extends AbstractMarkingImpl implements TransitionMarking
 {
     /**
      * The cached value of the '{@link #getTransition() <em>Transition</em>}' reference.

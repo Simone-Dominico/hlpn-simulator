@@ -14,8 +14,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import runtime.AbstractValue;
 import runtime.PlaceMarking;
 
+import runtime.RuntimeVariable;
 import transitionruntime.FiringData;
 import transitionruntime.MSTerm;
 import transitionruntime.TransitionruntimePackage;
@@ -29,6 +31,8 @@ import transitionruntime.TransitionruntimePackage;
  * <ul>
  *   <li>{@link transitionruntime.impl.FiringDataImpl#getPlaceMarking <em>Place Marking</em>}</li>
  *   <li>{@link transitionruntime.impl.FiringDataImpl#getMsTerm <em>Ms Term</em>}</li>
+ *   <li>{@link transitionruntime.impl.FiringDataImpl#getVarValue <em>Var Value</em>}</li>
+ *   <li>{@link transitionruntime.impl.FiringDataImpl#getVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,6 +59,26 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
      * @ordered
      */
     protected MSTerm msTerm;
+
+    /**
+     * The cached value of the '{@link #getVarValue() <em>Var Value</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVarValue()
+     * @generated
+     * @ordered
+     */
+    protected AbstractValue varValue;
+
+    /**
+     * The cached value of the '{@link #getVariable() <em>Variable</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVariable()
+     * @generated
+     * @ordered
+     */
+    protected RuntimeVariable variable;
 
     /**
      * <!-- begin-user-doc -->
@@ -168,6 +192,92 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
      * <!-- end-user-doc -->
      * @generated
      */
+    public RuntimeVariable getVariable()
+    {
+        if (variable != null && variable.eIsProxy())
+        {
+            InternalEObject oldVariable = (InternalEObject)variable;
+            variable = (RuntimeVariable)eResolveProxy(oldVariable);
+            if (variable != oldVariable)
+            {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, TransitionruntimePackage.FIRING_DATA__VARIABLE, oldVariable, variable));
+            }
+        }
+        return variable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RuntimeVariable basicGetVariable()
+    {
+        return variable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVariable(RuntimeVariable newVariable)
+    {
+        RuntimeVariable oldVariable = variable;
+        variable = newVariable;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TransitionruntimePackage.FIRING_DATA__VARIABLE, oldVariable, variable));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AbstractValue getVarValue()
+    {
+        if (varValue != null && varValue.eIsProxy())
+        {
+            InternalEObject oldVarValue = (InternalEObject)varValue;
+            varValue = (AbstractValue)eResolveProxy(oldVarValue);
+            if (varValue != oldVarValue)
+            {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, TransitionruntimePackage.FIRING_DATA__VAR_VALUE, oldVarValue, varValue));
+            }
+        }
+        return varValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public AbstractValue basicGetVarValue()
+    {
+        return varValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVarValue(AbstractValue newVarValue)
+    {
+        AbstractValue oldVarValue = varValue;
+        varValue = newVarValue;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TransitionruntimePackage.FIRING_DATA__VAR_VALUE, oldVarValue, varValue));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType)
     {
@@ -179,6 +289,12 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
             case TransitionruntimePackage.FIRING_DATA__MS_TERM:
                 if (resolve) return getMsTerm();
                 return basicGetMsTerm();
+            case TransitionruntimePackage.FIRING_DATA__VAR_VALUE:
+                if (resolve) return getVarValue();
+                return basicGetVarValue();
+            case TransitionruntimePackage.FIRING_DATA__VARIABLE:
+                if (resolve) return getVariable();
+                return basicGetVariable();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -198,6 +314,12 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
                 return;
             case TransitionruntimePackage.FIRING_DATA__MS_TERM:
                 setMsTerm((MSTerm)newValue);
+                return;
+            case TransitionruntimePackage.FIRING_DATA__VAR_VALUE:
+                setVarValue((AbstractValue)newValue);
+                return;
+            case TransitionruntimePackage.FIRING_DATA__VARIABLE:
+                setVariable((RuntimeVariable)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -219,6 +341,12 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
             case TransitionruntimePackage.FIRING_DATA__MS_TERM:
                 setMsTerm((MSTerm)null);
                 return;
+            case TransitionruntimePackage.FIRING_DATA__VAR_VALUE:
+                setVarValue((AbstractValue)null);
+                return;
+            case TransitionruntimePackage.FIRING_DATA__VARIABLE:
+                setVariable((RuntimeVariable)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -237,6 +365,10 @@ public class FiringDataImpl extends EObjectImpl implements FiringData
                 return placeMarking != null;
             case TransitionruntimePackage.FIRING_DATA__MS_TERM:
                 return msTerm != null;
+            case TransitionruntimePackage.FIRING_DATA__VAR_VALUE:
+                return varValue != null;
+            case TransitionruntimePackage.FIRING_DATA__VARIABLE:
+                return variable != null;
         }
         return super.eIsSet(featureID);
     }

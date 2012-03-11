@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package numberRuntime.util;
+package productRuntime.util;
 
 import org.eclipse.emf.common.util.URI;
 
@@ -14,10 +14,10 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * <!-- begin-user-doc -->
  * The <b>Resource </b> associated with the package.
  * <!-- end-user-doc -->
- * @see numberRuntime.util.NumberruntimeResourceFactoryImpl
+ * @see productRuntime.util.ProductRuntimeResourceFactoryImpl
  * @generated
  */
-public class NumberruntimeResourceImpl extends XMLResourceImpl
+public class ProductRuntimeResourceImpl extends XMLResourceImpl
 {
     /**
      * Creates an instance of the resource.
@@ -26,9 +26,9 @@ public class NumberruntimeResourceImpl extends XMLResourceImpl
      * @param uri the URI of the new resource.
      * @generated
      */
-    public NumberruntimeResourceImpl(URI uri)
+    public ProductRuntimeResourceImpl(URI uri)
     {
         super(uri);
     }
 
-} //NumberruntimeResourceImpl
+} //ProductRuntimeResourceImpl

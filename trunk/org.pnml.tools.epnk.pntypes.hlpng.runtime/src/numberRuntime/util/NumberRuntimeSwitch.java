@@ -25,10 +25,10 @@ import runtime.AbstractValue;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see numberRuntime.NumberruntimePackage
+ * @see numberRuntime.NumberRuntimePackage
  * @generated
  */
-public class NumberruntimeSwitch<T> extends Switch<T>
+public class NumberRuntimeSwitch<T> extends Switch<T>
 {
     /**
      * The cached model package
@@ -36,7 +36,7 @@ public class NumberruntimeSwitch<T> extends Switch<T>
      * <!-- end-user-doc -->
      * @generated
      */
-    protected static NumberruntimePackage modelPackage;
+    protected static NumberRuntimePackage modelPackage;
 
     /**
      * Creates an instance of the switch.
@@ -44,11 +44,11 @@ public class NumberruntimeSwitch<T> extends Switch<T>
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimeSwitch()
+    public NumberRuntimeSwitch()
     {
         if (modelPackage == null)
         {
-            modelPackage = NumberruntimePackage.eINSTANCE;
+            modelPackage = NumberRuntimePackage.eINSTANCE;
         }
     }
 
@@ -78,7 +78,7 @@ public class NumberruntimeSwitch<T> extends Switch<T>
     {
         switch (classifierID)
         {
-            case NumberruntimePackage.NUMBER_VALUE:
+            case NumberRuntimePackage.NUMBER_VALUE:
             {
                 NumberValue numberValue = (NumberValue)theEObject;
                 T result = caseNumberValue(numberValue);
@@ -86,7 +86,7 @@ public class NumberruntimeSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case NumberruntimePackage.INT_VALUE:
+            case NumberRuntimePackage.INT_VALUE:
             {
                 IntValue intValue = (IntValue)theEObject;
                 T result = caseIntValue(intValue);
@@ -95,7 +95,7 @@ public class NumberruntimeSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case NumberruntimePackage.POS_VALUE:
+            case NumberRuntimePackage.POS_VALUE:
             {
                 PosValue posValue = (PosValue)theEObject;
                 T result = casePosValue(posValue);
@@ -104,7 +104,7 @@ public class NumberruntimeSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case NumberruntimePackage.NAT_VALUE:
+            case NumberRuntimePackage.NAT_VALUE:
             {
                 NatValue natValue = (NatValue)theEObject;
                 T result = caseNatValue(natValue);
@@ -214,4 +214,4 @@ public class NumberruntimeSwitch<T> extends Switch<T>
         return null;
     }
 
-} //NumberruntimeSwitch
+} //NumberRuntimeSwitch

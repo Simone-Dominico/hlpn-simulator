@@ -175,7 +175,7 @@ public class FiringModeImpl extends EObjectImpl implements FiringMode
 		StringBuffer buffer = new StringBuffer();
 		for(FiringData data : values)
 		{
-			buffer.append(data.getMsTerm().getValue() + "\n");
+			buffer.append(data.getVariable().getVariable().getName() + "=" + data.getVarValue() + "\n");
 		}
 		
 	    return buffer.toString().replaceAll("\\s+$", "");

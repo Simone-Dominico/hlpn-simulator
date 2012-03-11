@@ -7,19 +7,37 @@
     usedGenPackages="../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.genmodel#//datatypes ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.genmodel#//hlpngdefinition ../../org.pnml.tools.epnk.annotations/model/NetAnnotations.genmodel#//netannotations ../../org.pnml.tools.epnk/model/PNMLCoreModel.genmodel#//pnmlcoremodel ../../org.pnml.tools.epnk/model/PNMLStructuredPNTypeModel.genmodel#//structuredpntypemodel">
   <foreignModel>runtime.ecore</foreignModel>
   <genPackages prefix="Runtime" resource="XML" disposableProviderFactory="true" ecorePackage="runtime.ecore#/">
-    <genClasses ecoreClass="runtime.ecore#//Value">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//Value/sort"/>
-    </genClasses>
     <genClasses ecoreClass="runtime.ecore#//MSValue">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference runtime.ecore#//MSValue/values"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//MSValue/msSort"/>
+      <genOperations ecoreOperation="runtime.ecore#//MSValue/getMultiplicity">
+        <genParameters ecoreParameter="runtime.ecore#//MSValue/getMultiplicity/value"/>
+      </genOperations>
+      <genOperations ecoreOperation="runtime.ecore#//MSValue/add">
+        <genParameters ecoreParameter="runtime.ecore#//MSValue/add/value"/>
+        <genParameters ecoreParameter="runtime.ecore#//MSValue/add/multiplicity"/>
+      </genOperations>
+      <genOperations ecoreOperation="runtime.ecore#//MSValue/append">
+        <genParameters ecoreParameter="runtime.ecore#//MSValue/append/ms"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="runtime.ecore#//PlaceMarking">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//PlaceMarking/msValue"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//PlaceMarking/place"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute runtime.ecore#//PlaceMarking/dirty"/>
     </genClasses>
     <genClasses ecoreClass="runtime.ecore#//NetMarking">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference runtime.ecore#//NetMarking/markings"/>
     </genClasses>
+    <genClasses ecoreClass="runtime.ecore#//ValueToIntegerMap">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//ValueToIntegerMap/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute runtime.ecore#//ValueToIntegerMap/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="runtime.ecore#//AbstractValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//AbstractValue/sort"/>
+    </genClasses>
+    <genClasses ecoreClass="runtime.ecore#//RuntimeVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference runtime.ecore#//RuntimeVariable/variable"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="runtime.ecore#//AbstractMarking"/>
   </genPackages>
 </genmodel:GenModel>

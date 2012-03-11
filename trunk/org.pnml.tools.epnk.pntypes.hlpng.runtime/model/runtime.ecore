@@ -17,7 +17,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//ValueToIntegerMap" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PlaceMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//ObjectAnnotation">
+  <eClassifiers xsi:type="ecore:EClass" name="PlaceMarking" eSuperTypes="#//AbstractMarking">
     <eStructuralFeatures xsi:type="ecore:EReference" name="msValue" lowerBound="1"
         eType="#//MSValue"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1" eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.ecore#//Place"/>
@@ -25,9 +25,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NetMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//NetAnnotation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="markings" upperBound="-1"
-        eType="#//PlaceMarking" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transitionMarkings" upperBound="-1"
-        eType="ecore:EClass transitionRuntime.ecore#//TransitionMarking" containment="true"/>
+        eType="#//AbstractMarking" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueToIntegerMap" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//AbstractValue"/>
@@ -36,4 +34,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbstractValue" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sort" lowerBound="1" eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/Sort"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuntimeVariable" eSuperTypes="#//AbstractValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/Variable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractMarking" abstract="true" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//ObjectAnnotation"/>
 </ecore:EPackage>

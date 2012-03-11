@@ -23,11 +23,11 @@ import runtime.RuntimePackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see productRuntime.ProductruntimeFactory
+ * @see productRuntime.ProductRuntimeFactory
  * @model kind="package"
  * @generated
  */
-public interface ProductruntimePackage extends EPackage
+public interface ProductRuntimePackage extends EPackage
 {
     /**
      * The package name.
@@ -59,14 +59,14 @@ public interface ProductruntimePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    ProductruntimePackage eINSTANCE = productRuntime.impl.ProductruntimePackageImpl.init();
+    ProductRuntimePackage eINSTANCE = productRuntime.impl.ProductRuntimePackageImpl.init();
 
     /**
      * The meta object id for the '{@link productRuntime.impl.ProductValueImpl <em>Product Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see productRuntime.impl.ProductValueImpl
-     * @see productRuntime.impl.ProductruntimePackageImpl#getProductValue()
+     * @see productRuntime.impl.ProductRuntimePackageImpl#getProductValue()
      * @generated
      */
     int PRODUCT_VALUE = 0;
@@ -127,7 +127,7 @@ public interface ProductruntimePackage extends EPackage
      * @return the factory that creates the instances of the model.
      * @generated
      */
-    ProductruntimeFactory getProductruntimeFactory();
+    ProductRuntimeFactory getProductRuntimeFactory();
 
     /**
      * <!-- begin-user-doc -->
@@ -148,7 +148,7 @@ public interface ProductruntimePackage extends EPackage
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see productRuntime.impl.ProductValueImpl
-         * @see productRuntime.impl.ProductruntimePackageImpl#getProductValue()
+         * @see productRuntime.impl.ProductRuntimePackageImpl#getProductValue()
          * @generated
          */
         EClass PRODUCT_VALUE = eINSTANCE.getProductValue();
@@ -163,4 +163,4 @@ public interface ProductruntimePackage extends EPackage
 
     }
 
-} //ProductruntimePackage
+} //ProductRuntimePackage

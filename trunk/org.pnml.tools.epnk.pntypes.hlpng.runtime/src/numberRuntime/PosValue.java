@@ -12,7 +12,7 @@ package numberRuntime;
  * <!-- end-user-doc -->
  *
  *
- * @see numberRuntime.NumberruntimePackage#getPosValue()
+ * @see numberRuntime.NumberRuntimePackage#getPosValue()
  * @model
  * @generated
  */

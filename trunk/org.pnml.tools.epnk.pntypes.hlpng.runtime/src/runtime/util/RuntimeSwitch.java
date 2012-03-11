@@ -93,6 +93,7 @@ public class RuntimeSwitch<T> extends Switch<T>
             {
                 PlaceMarking placeMarking = (PlaceMarking)theEObject;
                 T result = casePlaceMarking(placeMarking);
+                if (result == null) result = caseAbstractMarking(placeMarking);
                 if (result == null) result = caseObjectAnnotation(placeMarking);
                 if (result == null) result = caseAnnotation(placeMarking);
                 if (result == null) result = defaultCase(theEObject);
@@ -118,6 +119,23 @@ public class RuntimeSwitch<T> extends Switch<T>
             {
                 AbstractValue abstractValue = (AbstractValue)theEObject;
                 T result = caseAbstractValue(abstractValue);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case RuntimePackage.RUNTIME_VARIABLE:
+            {
+                RuntimeVariable runtimeVariable = (RuntimeVariable)theEObject;
+                T result = caseRuntimeVariable(runtimeVariable);
+                if (result == null) result = caseAbstractValue(runtimeVariable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case RuntimePackage.ABSTRACT_MARKING:
+            {
+                AbstractMarking abstractMarking = (AbstractMarking)theEObject;
+                T result = caseAbstractMarking(abstractMarking);
+                if (result == null) result = caseObjectAnnotation(abstractMarking);
+                if (result == null) result = caseAnnotation(abstractMarking);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -201,6 +219,38 @@ public class RuntimeSwitch<T> extends Switch<T>
      * @generated
      */
     public T caseAbstractValue(AbstractValue object)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseRuntimeVariable(RuntimeVariable object)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Abstract Marking</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Abstract Marking</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseAbstractMarking(AbstractMarking object)
     {
         return null;
     }

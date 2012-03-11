@@ -20,10 +20,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.pnml.tools.epnk.annotations.netannotations.impl.NetAnnotationImpl;
 
+import runtime.AbstractMarking;
 import runtime.NetMarking;
-import runtime.PlaceMarking;
 import runtime.RuntimePackage;
-import transitionruntime.TransitionMarking;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,7 +32,6 @@ import transitionruntime.TransitionMarking;
  * The following features are implemented:
  * <ul>
  *   <li>{@link runtime.impl.NetMarkingImpl#getMarkings <em>Markings</em>}</li>
- *   <li>{@link runtime.impl.NetMarkingImpl#getTransitionMarkings <em>Transition Markings</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,17 +47,7 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
      * @generated
      * @ordered
      */
-    protected EList<PlaceMarking> markings;
-
-    /**
-     * The cached value of the '{@link #getTransitionMarkings() <em>Transition Markings</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getTransitionMarkings()
-     * @generated
-     * @ordered
-     */
-    protected EList<TransitionMarking> transitionMarkings;
+    protected EList<AbstractMarking> markings;
 
     /**
      * <!-- begin-user-doc -->
@@ -87,27 +75,13 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<PlaceMarking> getMarkings()
+    public EList<AbstractMarking> getMarkings()
     {
         if (markings == null)
         {
-            markings = new EObjectContainmentEList<PlaceMarking>(PlaceMarking.class, this, RuntimePackage.NET_MARKING__MARKINGS);
+            markings = new EObjectContainmentEList<AbstractMarking>(AbstractMarking.class, this, RuntimePackage.NET_MARKING__MARKINGS);
         }
         return markings;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList<TransitionMarking> getTransitionMarkings()
-    {
-        if (transitionMarkings == null)
-        {
-            transitionMarkings = new EObjectContainmentEList<TransitionMarking>(TransitionMarking.class, this, RuntimePackage.NET_MARKING__TRANSITION_MARKINGS);
-        }
-        return transitionMarkings;
     }
 
     /**
@@ -122,8 +96,6 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
         {
             case RuntimePackage.NET_MARKING__MARKINGS:
                 return ((InternalEList<?>)getMarkings()).basicRemove(otherEnd, msgs);
-            case RuntimePackage.NET_MARKING__TRANSITION_MARKINGS:
-                return ((InternalEList<?>)getTransitionMarkings()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -140,8 +112,6 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
         {
             case RuntimePackage.NET_MARKING__MARKINGS:
                 return getMarkings();
-            case RuntimePackage.NET_MARKING__TRANSITION_MARKINGS:
-                return getTransitionMarkings();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -159,11 +129,7 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
         {
             case RuntimePackage.NET_MARKING__MARKINGS:
                 getMarkings().clear();
-                getMarkings().addAll((Collection<? extends PlaceMarking>)newValue);
-                return;
-            case RuntimePackage.NET_MARKING__TRANSITION_MARKINGS:
-                getTransitionMarkings().clear();
-                getTransitionMarkings().addAll((Collection<? extends TransitionMarking>)newValue);
+                getMarkings().addAll((Collection<? extends AbstractMarking>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -182,9 +148,6 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
             case RuntimePackage.NET_MARKING__MARKINGS:
                 getMarkings().clear();
                 return;
-            case RuntimePackage.NET_MARKING__TRANSITION_MARKINGS:
-                getTransitionMarkings().clear();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -201,8 +164,6 @@ public class NetMarkingImpl extends NetAnnotationImpl implements NetMarking
         {
             case RuntimePackage.NET_MARKING__MARKINGS:
                 return markings != null && !markings.isEmpty();
-            case RuntimePackage.NET_MARKING__TRANSITION_MARKINGS:
-                return transitionMarkings != null && !transitionMarkings.isEmpty();
         }
         return super.eIsSet(featureID);
     }

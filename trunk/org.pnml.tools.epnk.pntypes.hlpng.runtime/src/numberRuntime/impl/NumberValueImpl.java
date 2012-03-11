@@ -6,8 +6,8 @@
  */
 package numberRuntime.impl;
 
+import numberRuntime.NumberRuntimePackage;
 import numberRuntime.NumberValue;
-import numberRuntime.NumberruntimePackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -70,7 +70,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     @Override
     protected EClass eStaticClass()
     {
-        return NumberruntimePackage.Literals.NUMBER_VALUE;
+        return NumberRuntimePackage.Literals.NUMBER_VALUE;
     }
 
     /**
@@ -93,7 +93,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
         int oldN = n;
         n = newN;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, NumberruntimePackage.NUMBER_VALUE__N, oldN, n));
+            eNotify(new ENotificationImpl(this, Notification.SET, NumberRuntimePackage.NUMBER_VALUE__N, oldN, n));
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     {
         switch (featureID)
         {
-            case NumberruntimePackage.NUMBER_VALUE__N:
+            case NumberRuntimePackage.NUMBER_VALUE__N:
                 return getN();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -122,7 +122,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     {
         switch (featureID)
         {
-            case NumberruntimePackage.NUMBER_VALUE__N:
+            case NumberRuntimePackage.NUMBER_VALUE__N:
                 setN((Integer)newValue);
                 return;
         }
@@ -146,7 +146,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     {
         switch (featureID)
         {
-            case NumberruntimePackage.NUMBER_VALUE__N:
+            case NumberRuntimePackage.NUMBER_VALUE__N:
                 setN(N_EDEFAULT);
                 return;
         }
@@ -163,7 +163,7 @@ public abstract class NumberValueImpl extends AbstractValueImpl implements Numbe
     {
         switch (featureID)
         {
-            case NumberruntimePackage.NUMBER_VALUE__N:
+            case NumberRuntimePackage.NUMBER_VALUE__N:
                 return n != N_EDEFAULT;
         }
         return super.eIsSet(featureID);
