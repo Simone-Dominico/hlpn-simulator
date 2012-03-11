@@ -14,6 +14,7 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
+import runtime.AbstractMarking;
 import runtime.AbstractValue;
 import runtime.MSValue;
 import runtime.NetMarking;
@@ -64,9 +65,13 @@ public class NetMarkingManager
 		}
 		
 		Map<String, PlaceMarking> runtimeValues = new HashMap<String, PlaceMarking>();
-	    for(PlaceMarking marking : netMarking.getMarkings())
+	    for(AbstractMarking marking : netMarking.getMarkings())
     	{
-    		runtimeValues.put(marking.getPlace().getId(), marking);
+	    	if(marking instanceof PlaceMarking)
+	    	{
+	    		PlaceMarking pMarking = (PlaceMarking) marking;
+	    		runtimeValues.put(pMarking.getPlace().getId(), pMarking);
+	    	}
     	}
 	    
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
@@ -81,7 +86,7 @@ public class NetMarkingManager
 				marking.setTransition(hlTransition);
 				marking.setObject(hlTransition);
 				
-				netMarking.getTransitionMarkings().add(marking);
+				netMarking.getMarkings().add(marking);
 				netMarking.getObjectAnnotations().add(marking);				
 			}
 		}
@@ -94,13 +99,18 @@ public class NetMarkingManager
 		NetMarking netMarking = RuntimeFactory.eINSTANCE.createNetMarking();
 		netMarking.setNet(petrinet);
 		
-		Collection<PlaceMarking> markings = EcoreUtil.copyAll(prevMarking.getMarkings());
+		Collection<AbstractMarking> markings = EcoreUtil.copyAll(prevMarking.getMarkings());
 		
 		Map<String, PlaceMarking> oldRuntimeValues = new HashMap<String, PlaceMarking>();
-		for(PlaceMarking marking : markings)
-		{
-			oldRuntimeValues.put(marking.getPlace().getId(), marking);
-		}
+		for(AbstractMarking marking : markings)
+    	{
+	    	if(marking instanceof PlaceMarking)
+	    	{
+	    		PlaceMarking pMarking = (PlaceMarking) marking;
+	    		oldRuntimeValues.put(pMarking.getPlace().getId(), pMarking);
+	    	}
+    	}
+
 		// replace "dirty" places. Copy on demand
 		{
 			for(FiringData firingData : firingMode.getValues())
@@ -142,9 +152,13 @@ public class NetMarkingManager
 		
 		// create a hash map for efficiency
 		Map<String, PlaceMarking> runtimeValues = new HashMap<String, PlaceMarking>();
-	    for(PlaceMarking marking : netMarking.getMarkings())
+		for(AbstractMarking marking : netMarking.getMarkings())
     	{
-    		runtimeValues.put(marking.getPlace().getId(), marking);
+	    	if(marking instanceof PlaceMarking)
+	    	{
+	    		PlaceMarking pMarking = (PlaceMarking) marking;
+	    		runtimeValues.put(pMarking.getPlace().getId(), pMarking);
+	    	}
     	}
 	    
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
@@ -158,7 +172,7 @@ public class NetMarkingManager
 				marking.setTransition(hlTransition);
 				marking.setObject(hlTransition);
 				
-				netMarking.getTransitionMarkings().add(marking);
+				netMarking.getMarkings().add(marking);
 				netMarking.getObjectAnnotations().add(marking);				
 			}
 		}

@@ -1,35 +1,36 @@
 package org.pnml.tools.epnk.applications.hlpng.comparators;
 
+import java.util.Map;
 import java.util.Map.Entry;
 
 import runtime.AbstractValue;
 import runtime.MSValue;
+import runtime.RuntimeVariable;
 
 public class MultisetComparator implements IComparator
 {
 	@Override
     public boolean compare(ComparatorManager manager,
-            AbstractValue value1, AbstractValue value2)
+            AbstractValue refValue, AbstractValue testValue,
+			Map<RuntimeVariable, AbstractValue> assignments)
     {
-		if(!(value1 instanceof MSValue || value2 instanceof MSValue) ||
-	    		!value1.getSort().equals(value2.getSort()))
+		if(!(refValue instanceof MSValue || testValue instanceof MSValue) ||
+	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||
+	    				refValue.getSort().equals(testValue.getSort())))
 	    {
 	    	return false;
 	    }
 	    
-		MSValue v1 = (MSValue)value1;
-		MSValue v2 = (MSValue)value2;
+		MSValue v1 = (MSValue)refValue;
+		MSValue v2 = (MSValue)testValue;
 
-    	for(int i = 0; i < v1.getValues().size(); i++)
-    	{
-    		Entry<AbstractValue, Integer> e1 = v1.getValues().get(i);
-    		
-    		for(int j = 0; j < v2.getValues().size(); j++)
+    	for(Entry<AbstractValue, Integer> e1 : v1.getValues())
+    	{    		
+    		for(Entry<AbstractValue, Integer> e2 : v2.getValues())
     		{
-    			Entry<AbstractValue, Integer> e2 = v2.getValues().get(j);
-
-        		if(!manager.getComparator(e1.getKey().getClass()).compare(manager, 
-        				e1.getKey(), e2.getKey()))
+        		if(e1.getValue() != e2.getValue() ||
+        				!manager.getComparator(e1.getKey().getClass()).compare(manager, 
+        				e1.getKey(), e2.getKey(), assignments))
         		{
         			return false;
         		}	

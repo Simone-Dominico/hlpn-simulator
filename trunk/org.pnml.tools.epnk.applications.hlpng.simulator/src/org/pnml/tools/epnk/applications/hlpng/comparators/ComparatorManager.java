@@ -9,7 +9,7 @@ import numberRuntime.impl.PosValueImpl;
 
 import productRuntime.impl.ProductValueImpl;
 import runtime.impl.MSValueImpl;
-import variableruntime.impl.RuntimeVariableImpl;
+import runtime.impl.RuntimeVariableImpl;
 
 public class ComparatorManager
 {

@@ -1,30 +1,35 @@
 package org.pnml.tools.epnk.applications.hlpng.comparators;
 
+import java.util.Map;
+
 import productRuntime.ProductValue;
 
 import runtime.AbstractValue;
+import runtime.RuntimeVariable;
 
 public class ProductComparator implements IComparator
 {
 	@Override
-    public boolean compare(ComparatorManager manager,
-            AbstractValue value1, AbstractValue value2)
+	public boolean compare(ComparatorManager manager,
+            AbstractValue refValue, AbstractValue testValue,
+			Map<RuntimeVariable, AbstractValue> assignments)
     {
-	    if(!(value1 instanceof ProductValue || value2 instanceof ProductValue) ||
-	    		!value1.getSort().equals(value2.getSort()))
+	    if(!(refValue instanceof ProductValue || testValue instanceof ProductValue) ||
+	    		!(refValue.getSort().equals(testValue.getSort()) ||
+	    				refValue.getSort().isSuperSortOf(testValue.getSort())))
 	    {
 	    	return false;
 	    }
 	    
-    	ProductValue v1 = (ProductValue)value1;
-    	ProductValue v2 = (ProductValue)value2;
+    	ProductValue v1 = (ProductValue)refValue;
+    	ProductValue v2 = (ProductValue)testValue;
     	
     	for(int i = 0; i < v1.getComponents().size(); i++)
     	{
     		AbstractValue c1 = v1.getComponents().get(i);
     		AbstractValue c2 = v2.getComponents().get(i);
     		
-    		if(!manager.getComparator(c1.getClass()).compare(manager, c1, c2))
+    		if(!manager.getComparator(c1.getClass()).compare(manager, c1, c2, assignments))
     		{
     			return false;
     		}
