@@ -1,7 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.operations;
 
 import numberRuntime.NumberValue;
-import numberRuntime.NumberruntimeFactory;
+import numberRuntime.NumberRuntimeFactory;
 
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Natural;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
@@ -34,15 +34,15 @@ public class NumberConstantOperator extends AbstractTermHandler
 			NumberValue v = null;
 			if(op.getSort() instanceof Natural)
 			{
-				v = NumberruntimeFactory.eINSTANCE.createNatValue();
+				v = NumberRuntimeFactory.eINSTANCE.createNatValue();
 			}
 			else if(op.getSort() instanceof Positive)
 			{
-				v = NumberruntimeFactory.eINSTANCE.createPosValue();
+				v = NumberRuntimeFactory.eINSTANCE.createPosValue();
 			}
 			else
 			{
-				v = NumberruntimeFactory.eINSTANCE.createIntValue();
+				v = NumberRuntimeFactory.eINSTANCE.createIntValue();
 			}
 
 			if(v != null)

@@ -4,8 +4,8 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 import runtime.AbstractValue;
-import variableruntime.RuntimeVariable;
-import variableruntime.VariableruntimeFactory;
+import runtime.RuntimeVariable;
+import runtime.RuntimeFactory;
 
 public class VariableHandler extends AbstractTermHandler
 {
@@ -22,7 +22,7 @@ public class VariableHandler extends AbstractTermHandler
 		{
 			Variable var = (Variable) term;
 			
-			RuntimeVariable rVariable = VariableruntimeFactory.eINSTANCE.createRuntimeVariable();
+			RuntimeVariable rVariable = RuntimeFactory.eINSTANCE.createRuntimeVariable();
 			rVariable.setSort(var.getSort());
 			rVariable.setVariable(var);
 			
