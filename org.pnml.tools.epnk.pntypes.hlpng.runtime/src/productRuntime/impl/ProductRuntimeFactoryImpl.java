@@ -22,7 +22,7 @@ import productRuntime.*;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ProductruntimeFactoryImpl extends EFactoryImpl implements ProductruntimeFactory
+public class ProductRuntimeFactoryImpl extends EFactoryImpl implements ProductRuntimeFactory
 {
     /**
      * Creates the default factory implementation.
@@ -30,21 +30,21 @@ public class ProductruntimeFactoryImpl extends EFactoryImpl implements Productru
      * <!-- end-user-doc -->
      * @generated
      */
-    public static ProductruntimeFactory init()
+    public static ProductRuntimeFactory init()
     {
         try
         {
-            ProductruntimeFactory theProductruntimeFactory = (ProductruntimeFactory)EPackage.Registry.INSTANCE.getEFactory("http://productruntime/1.0"); 
-            if (theProductruntimeFactory != null)
+            ProductRuntimeFactory theProductRuntimeFactory = (ProductRuntimeFactory)EPackage.Registry.INSTANCE.getEFactory("http://productruntime/1.0"); 
+            if (theProductRuntimeFactory != null)
             {
-                return theProductruntimeFactory;
+                return theProductRuntimeFactory;
             }
         }
         catch (Exception exception)
         {
             EcorePlugin.INSTANCE.log(exception);
         }
-        return new ProductruntimeFactoryImpl();
+        return new ProductRuntimeFactoryImpl();
     }
 
     /**
@@ -53,7 +53,7 @@ public class ProductruntimeFactoryImpl extends EFactoryImpl implements Productru
      * <!-- end-user-doc -->
      * @generated
      */
-    public ProductruntimeFactoryImpl()
+    public ProductRuntimeFactoryImpl()
     {
         super();
     }
@@ -68,7 +68,7 @@ public class ProductruntimeFactoryImpl extends EFactoryImpl implements Productru
     {
         switch (eClass.getClassifierID())
         {
-            case ProductruntimePackage.PRODUCT_VALUE: return createProductValue();
+            case ProductRuntimePackage.PRODUCT_VALUE: return createProductValue();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -90,9 +90,9 @@ public class ProductruntimeFactoryImpl extends EFactoryImpl implements Productru
      * <!-- end-user-doc -->
      * @generated
      */
-    public ProductruntimePackage getProductruntimePackage()
+    public ProductRuntimePackage getProductRuntimePackage()
     {
-        return (ProductruntimePackage)getEPackage();
+        return (ProductRuntimePackage)getEPackage();
     }
 
     /**
@@ -102,9 +102,9 @@ public class ProductruntimeFactoryImpl extends EFactoryImpl implements Productru
      * @generated
      */
     @Deprecated
-    public static ProductruntimePackage getPackage()
+    public static ProductRuntimePackage getPackage()
     {
-        return ProductruntimePackage.eINSTANCE;
+        return ProductRuntimePackage.eINSTANCE;
     }
 
-} //ProductruntimeFactoryImpl
+} //ProductRuntimeFactoryImpl

@@ -8,9 +8,9 @@ package numberRuntime.impl;
 
 import numberRuntime.IntValue;
 import numberRuntime.NatValue;
+import numberRuntime.NumberRuntimeFactory;
+import numberRuntime.NumberRuntimePackage;
 import numberRuntime.NumberValue;
-import numberRuntime.NumberruntimeFactory;
-import numberRuntime.NumberruntimePackage;
 import numberRuntime.PosValue;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -27,7 +27,7 @@ import runtime.RuntimePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberruntimePackageImpl extends EPackageImpl implements NumberruntimePackage
+public class NumberRuntimePackageImpl extends EPackageImpl implements NumberRuntimePackage
 {
     /**
      * <!-- begin-user-doc -->
@@ -68,13 +68,13 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see numberRuntime.NumberruntimePackage#eNS_URI
+     * @see numberRuntime.NumberRuntimePackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private NumberruntimePackageImpl()
+    private NumberRuntimePackageImpl()
     {
-        super(eNS_URI, NumberruntimeFactory.eINSTANCE);
+        super(eNS_URI, NumberRuntimeFactory.eINSTANCE);
     }
 
     /**
@@ -87,7 +87,7 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link NumberruntimePackage#eINSTANCE} when that field is accessed.
+     * <p>This method is used to initialize {@link NumberRuntimePackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -96,12 +96,12 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
      * @see #initializePackageContents()
      * @generated
      */
-    public static NumberruntimePackage init()
+    public static NumberRuntimePackage init()
     {
-        if (isInited) return (NumberruntimePackage)EPackage.Registry.INSTANCE.getEPackage(NumberruntimePackage.eNS_URI);
+        if (isInited) return (NumberRuntimePackage)EPackage.Registry.INSTANCE.getEPackage(NumberRuntimePackage.eNS_URI);
 
         // Obtain or create and register package
-        NumberruntimePackageImpl theNumberruntimePackage = (NumberruntimePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof NumberruntimePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new NumberruntimePackageImpl());
+        NumberRuntimePackageImpl theNumberRuntimePackage = (NumberRuntimePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof NumberRuntimePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new NumberRuntimePackageImpl());
 
         isInited = true;
 
@@ -109,18 +109,18 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
         RuntimePackage.eINSTANCE.eClass();
 
         // Create package meta-data objects
-        theNumberruntimePackage.createPackageContents();
+        theNumberRuntimePackage.createPackageContents();
 
         // Initialize created meta-data
-        theNumberruntimePackage.initializePackageContents();
+        theNumberRuntimePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theNumberruntimePackage.freeze();
+        theNumberRuntimePackage.freeze();
 
   
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(NumberruntimePackage.eNS_URI, theNumberruntimePackage);
-        return theNumberruntimePackage;
+        EPackage.Registry.INSTANCE.put(NumberRuntimePackage.eNS_URI, theNumberRuntimePackage);
+        return theNumberRuntimePackage;
     }
 
     /**
@@ -178,9 +178,9 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimeFactory getNumberruntimeFactory()
+    public NumberRuntimeFactory getNumberRuntimeFactory()
     {
-        return (NumberruntimeFactory)getEFactoryInstance();
+        return (NumberRuntimeFactory)getEFactoryInstance();
     }
 
     /**
@@ -286,4 +286,4 @@ public class NumberruntimePackageImpl extends EPackageImpl implements Numberrunt
            });
     }
 
-} //NumberruntimePackageImpl
+} //NumberRuntimePackageImpl

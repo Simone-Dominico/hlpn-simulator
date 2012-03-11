@@ -6,20 +6,13 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
     usedGenPackages="../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.genmodel#//datatypes ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.genmodel#//hlpngdefinition ../../org.pnml.tools.epnk.annotations/model/NetAnnotations.genmodel#//netannotations ../../org.pnml.tools.epnk/model/PNMLCoreModel.genmodel#//pnmlcoremodel ../../org.pnml.tools.epnk/model/PNMLStructuredPNTypeModel.genmodel#//structuredpntypemodel runtime.genmodel#//runtime">
   <foreignModel>numberRuntime.ecore</foreignModel>
-  <genPackages prefix="Numberruntime" resource="XML" disposableProviderFactory="true"
+  <genPackages prefix="NumberRuntime" resource="XML" disposableProviderFactory="true"
       ecorePackage="numberRuntime.ecore#/">
     <genClasses image="false" ecoreClass="numberRuntime.ecore#//NumberValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute numberRuntime.ecore#//NumberValue/n"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference numberRuntime.ecore#//NumberValue/numSort"/>
     </genClasses>
-    <genClasses ecoreClass="numberRuntime.ecore#//Intvalue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference numberRuntime.ecore#//Intvalue/intSort"/>
-    </genClasses>
-    <genClasses ecoreClass="numberRuntime.ecore#//PosValue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference numberRuntime.ecore#//PosValue/posSort"/>
-    </genClasses>
-    <genClasses ecoreClass="numberRuntime.ecore#//NatValue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference numberRuntime.ecore#//NatValue/natSort"/>
-    </genClasses>
+    <genClasses ecoreClass="numberRuntime.ecore#//IntValue"/>
+    <genClasses ecoreClass="numberRuntime.ecore#//PosValue"/>
+    <genClasses ecoreClass="numberRuntime.ecore#//NatValue"/>
   </genPackages>
 </genmodel:GenModel>

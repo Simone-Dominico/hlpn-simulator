@@ -18,6 +18,8 @@
     <genClasses ecoreClass="transitionRuntime.ecore#//FiringData">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference transitionRuntime.ecore#//FiringData/placeMarking"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference transitionRuntime.ecore#//FiringData/msTerm"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference transitionRuntime.ecore#//FiringData/varValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference transitionRuntime.ecore#//FiringData/variable"/>
     </genClasses>
     <genClasses ecoreClass="transitionRuntime.ecore#//MSTerm">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute transitionRuntime.ecore#//MSTerm/placeId"/>

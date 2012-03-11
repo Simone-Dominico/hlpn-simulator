@@ -13,8 +13,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.pnml.tools.epnk.annotations.netannotations.impl.ObjectAnnotationImpl;
-
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 import runtime.MSValue;
@@ -36,7 +34,7 @@ import runtime.RuntimePackage;
  *
  * @generated
  */
-public class PlaceMarkingImpl extends ObjectAnnotationImpl implements PlaceMarking
+public class PlaceMarkingImpl extends AbstractMarkingImpl implements PlaceMarking
 {
     /**
      * The cached value of the '{@link #getMsValue() <em>Ms Value</em>}' reference.

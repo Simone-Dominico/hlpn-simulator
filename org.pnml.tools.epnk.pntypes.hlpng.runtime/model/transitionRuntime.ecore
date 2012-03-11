@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="transitionruntime"
     nsURI="http://transitionruntime/1.0" nsPrefix="transitionruntime">
-  <eClassifiers xsi:type="ecore:EClass" name="TransitionMarking" eSuperTypes="../../org.pnml.tools.epnk.annotations/model/NetAnnotations.ecore#//ObjectAnnotation">
+  <eClassifiers xsi:type="ecore:EClass" name="TransitionMarking" eSuperTypes="runtime.ecore#//AbstractMarking">
     <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1"
         eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpng.pntd/model/HLPNGDefinition.ecore#//Transition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modes" upperBound="-1"
@@ -18,6 +18,10 @@
         eType="ecore:EClass runtime.ecore#//PlaceMarking"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="msTerm" lowerBound="1"
         eType="#//MSTerm"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="varValue" lowerBound="1"
+        eType="ecore:EClass runtime.ecore#//AbstractValue"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
+        eType="ecore:EClass runtime.ecore#//RuntimeVariable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MSTerm">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="placeId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import org.pnml.tools.epnk.annotations.netannotations.NetannotationsPackage;
+import runtime.RuntimePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,7 +79,7 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int TRANSITION_MARKING__NET_ANNOTATIONS = NetannotationsPackage.OBJECT_ANNOTATION__NET_ANNOTATIONS;
+    int TRANSITION_MARKING__NET_ANNOTATIONS = RuntimePackage.ABSTRACT_MARKING__NET_ANNOTATIONS;
 
     /**
      * The feature id for the '<em><b>Object</b></em>' reference.
@@ -88,7 +88,7 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int TRANSITION_MARKING__OBJECT = NetannotationsPackage.OBJECT_ANNOTATION__OBJECT;
+    int TRANSITION_MARKING__OBJECT = RuntimePackage.ABSTRACT_MARKING__OBJECT;
 
     /**
      * The feature id for the '<em><b>Transition</b></em>' reference.
@@ -97,7 +97,7 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int TRANSITION_MARKING__TRANSITION = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 0;
+    int TRANSITION_MARKING__TRANSITION = RuntimePackage.ABSTRACT_MARKING_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Modes</b></em>' containment reference list.
@@ -106,7 +106,7 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int TRANSITION_MARKING__MODES = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 1;
+    int TRANSITION_MARKING__MODES = RuntimePackage.ABSTRACT_MARKING_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Transition Marking</em>' class.
@@ -115,7 +115,7 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int TRANSITION_MARKING_FEATURE_COUNT = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 2;
+    int TRANSITION_MARKING_FEATURE_COUNT = RuntimePackage.ABSTRACT_MARKING_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link transitionruntime.impl.FiringModeImpl <em>Firing Mode</em>}' class.
@@ -174,13 +174,31 @@ public interface TransitionruntimePackage extends EPackage
     int FIRING_DATA__MS_TERM = 1;
 
     /**
+     * The feature id for the '<em><b>Var Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FIRING_DATA__VAR_VALUE = 2;
+
+    /**
+     * The feature id for the '<em><b>Variable</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FIRING_DATA__VARIABLE = 3;
+
+    /**
      * The number of structural features of the '<em>Firing Data</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FIRING_DATA_FEATURE_COUNT = 2;
+    int FIRING_DATA_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link transitionruntime.impl.MSTermImpl <em>MS Term</em>}' class.
@@ -313,6 +331,28 @@ public interface TransitionruntimePackage extends EPackage
      * @generated
      */
     EReference getFiringData_MsTerm();
+
+    /**
+     * Returns the meta object for the reference '{@link transitionruntime.FiringData#getVariable <em>Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Variable</em>'.
+     * @see transitionruntime.FiringData#getVariable()
+     * @see #getFiringData()
+     * @generated
+     */
+    EReference getFiringData_Variable();
+
+    /**
+     * Returns the meta object for the reference '{@link transitionruntime.FiringData#getVarValue <em>Var Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Var Value</em>'.
+     * @see transitionruntime.FiringData#getVarValue()
+     * @see #getFiringData()
+     * @generated
+     */
+    EReference getFiringData_VarValue();
 
     /**
      * Returns the meta object for class '{@link transitionruntime.MSTerm <em>MS Term</em>}'.
@@ -449,6 +489,22 @@ public interface TransitionruntimePackage extends EPackage
          * @generated
          */
         EReference FIRING_DATA__MS_TERM = eINSTANCE.getFiringData_MsTerm();
+
+        /**
+         * The meta object literal for the '<em><b>Variable</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FIRING_DATA__VARIABLE = eINSTANCE.getFiringData_Variable();
+
+        /**
+         * The meta object literal for the '<em><b>Var Value</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FIRING_DATA__VAR_VALUE = eINSTANCE.getFiringData_VarValue();
 
         /**
          * The meta object literal for the '{@link transitionruntime.impl.MSTermImpl <em>MS Term</em>}' class.

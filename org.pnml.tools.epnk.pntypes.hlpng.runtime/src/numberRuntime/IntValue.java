@@ -13,7 +13,7 @@ package numberRuntime;
  * <!-- end-user-doc -->
  *
  *
- * @see numberRuntime.NumberruntimePackage#getIntValue()
+ * @see numberRuntime.NumberRuntimePackage#getIntValue()
  * @model
  * @generated
  */

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.pnml.tools.epnk.annotations.netannotations.Annotation;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
 
+import runtime.AbstractMarking;
 import transitionruntime.*;
 
 /**
@@ -110,6 +111,11 @@ public class TransitionruntimeAdapterFactory extends AdapterFactoryImpl
             public Adapter caseObjectAnnotation(ObjectAnnotation object)
             {
                 return createObjectAnnotationAdapter();
+            }
+            @Override
+            public Adapter caseAbstractMarking(AbstractMarking object)
+            {
+                return createAbstractMarkingAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object)
@@ -219,6 +225,21 @@ public class TransitionruntimeAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createObjectAnnotationAdapter()
+    {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link runtime.AbstractMarking <em>Abstract Marking</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see runtime.AbstractMarking
+     * @generated
+     */
+    public Adapter createAbstractMarkingAdapter()
     {
         return null;
     }

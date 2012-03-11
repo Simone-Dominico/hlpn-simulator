@@ -22,14 +22,14 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.HlpngdefinitionPac
 
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsPackage;
 
+import runtime.AbstractMarking;
 import runtime.AbstractValue;
 import runtime.MSValue;
 import runtime.NetMarking;
 import runtime.PlaceMarking;
 import runtime.RuntimeFactory;
 import runtime.RuntimePackage;
-import transitionruntime.TransitionruntimePackage;
-import transitionruntime.impl.TransitionruntimePackageImpl;
+import runtime.RuntimeVariable;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,6 +73,20 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * @generated
      */
     private EClass abstractValueEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass runtimeVariableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass abstractMarkingEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -126,16 +140,11 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         HlpngdefinitionPackage.eINSTANCE.eClass();
         NetannotationsPackage.eINSTANCE.eClass();
 
-        // Obtain or create and register interdependencies
-        TransitionruntimePackageImpl theTransitionruntimePackage = (TransitionruntimePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TransitionruntimePackage.eNS_URI) instanceof TransitionruntimePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TransitionruntimePackage.eNS_URI) : TransitionruntimePackage.eINSTANCE);
-
         // Create package meta-data objects
         theRuntimePackage.createPackageContents();
-        theTransitionruntimePackage.createPackageContents();
 
         // Initialize created meta-data
         theRuntimePackage.initializePackageContents();
-        theTransitionruntimePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theRuntimePackage.freeze();
@@ -231,16 +240,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getNetMarking_TransitionMarkings()
-    {
-        return (EReference)netMarkingEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getValueToIntegerMap()
     {
         return valueToIntegerMapEClass;
@@ -291,6 +290,36 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getRuntimeVariable()
+    {
+        return runtimeVariableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getRuntimeVariable_Variable()
+    {
+        return (EReference)runtimeVariableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getAbstractMarking()
+    {
+        return abstractMarkingEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RuntimeFactory getRuntimeFactory()
     {
         return (RuntimeFactory)getEFactoryInstance();
@@ -326,7 +355,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         netMarkingEClass = createEClass(NET_MARKING);
         createEReference(netMarkingEClass, NET_MARKING__MARKINGS);
-        createEReference(netMarkingEClass, NET_MARKING__TRANSITION_MARKINGS);
 
         valueToIntegerMapEClass = createEClass(VALUE_TO_INTEGER_MAP);
         createEReference(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__KEY);
@@ -334,6 +362,11 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         abstractValueEClass = createEClass(ABSTRACT_VALUE);
         createEReference(abstractValueEClass, ABSTRACT_VALUE__SORT);
+
+        runtimeVariableEClass = createEClass(RUNTIME_VARIABLE);
+        createEReference(runtimeVariableEClass, RUNTIME_VARIABLE__VARIABLE);
+
+        abstractMarkingEClass = createEClass(ABSTRACT_MARKING);
     }
 
     /**
@@ -361,9 +394,8 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        NetannotationsPackage theNetannotationsPackage = (NetannotationsPackage)EPackage.Registry.INSTANCE.getEPackage(NetannotationsPackage.eNS_URI);
         HlpngdefinitionPackage theHlpngdefinitionPackage = (HlpngdefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(HlpngdefinitionPackage.eNS_URI);
-        TransitionruntimePackage theTransitionruntimePackage = (TransitionruntimePackage)EPackage.Registry.INSTANCE.getEPackage(TransitionruntimePackage.eNS_URI);
+        NetannotationsPackage theNetannotationsPackage = (NetannotationsPackage)EPackage.Registry.INSTANCE.getEPackage(NetannotationsPackage.eNS_URI);
         TermsPackage theTermsPackage = (TermsPackage)EPackage.Registry.INSTANCE.getEPackage(TermsPackage.eNS_URI);
 
         // Create type parameters
@@ -372,8 +404,10 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         // Add supertypes to classes
         msValueEClass.getESuperTypes().add(this.getAbstractValue());
-        placeMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getObjectAnnotation());
+        placeMarkingEClass.getESuperTypes().add(this.getAbstractMarking());
         netMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getNetAnnotation());
+        runtimeVariableEClass.getESuperTypes().add(this.getAbstractValue());
+        abstractMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getObjectAnnotation());
 
         // Initialize classes and features; add operations and parameters
         initEClass(msValueEClass, MSValue.class, "MSValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -395,8 +429,7 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         initEAttribute(getPlaceMarking_Dirty(), ecorePackage.getEBoolean(), "dirty", null, 1, 1, PlaceMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(netMarkingEClass, NetMarking.class, "NetMarking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getNetMarking_Markings(), this.getPlaceMarking(), null, "markings", null, 0, -1, NetMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getNetMarking_TransitionMarkings(), theTransitionruntimePackage.getTransitionMarking(), null, "transitionMarkings", null, 0, -1, NetMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNetMarking_Markings(), this.getAbstractMarking(), null, "markings", null, 0, -1, NetMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(valueToIntegerMapEClass, Map.Entry.class, "ValueToIntegerMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEReference(getValueToIntegerMap_Key(), this.getAbstractValue(), null, "key", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -404,6 +437,11 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         initEClass(abstractValueEClass, AbstractValue.class, "AbstractValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAbstractValue_Sort(), theTermsPackage.getSort(), null, "sort", null, 1, 1, AbstractValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(runtimeVariableEClass, RuntimeVariable.class, "RuntimeVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getRuntimeVariable_Variable(), theTermsPackage.getVariable(), null, "variable", null, 1, 1, RuntimeVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(abstractMarkingEClass, AbstractMarking.class, "AbstractMarking", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

@@ -8,7 +8,9 @@ package transitionruntime;
 
 import org.eclipse.emf.ecore.EObject;
 
+import runtime.AbstractValue;
 import runtime.PlaceMarking;
+import runtime.RuntimeVariable;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +22,8 @@ import runtime.PlaceMarking;
  * <ul>
  *   <li>{@link transitionruntime.FiringData#getPlaceMarking <em>Place Marking</em>}</li>
  *   <li>{@link transitionruntime.FiringData#getMsTerm <em>Ms Term</em>}</li>
+ *   <li>{@link transitionruntime.FiringData#getVarValue <em>Var Value</em>}</li>
+ *   <li>{@link transitionruntime.FiringData#getVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,5 +84,57 @@ public interface FiringData extends EObject
      * @generated
      */
     void setMsTerm(MSTerm value);
+
+    /**
+     * Returns the value of the '<em><b>Variable</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Variable</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Variable</em>' reference.
+     * @see #setVariable(RuntimeVariable)
+     * @see transitionruntime.TransitionruntimePackage#getFiringData_Variable()
+     * @model required="true"
+     * @generated
+     */
+    RuntimeVariable getVariable();
+
+    /**
+     * Sets the value of the '{@link transitionruntime.FiringData#getVariable <em>Variable</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Variable</em>' reference.
+     * @see #getVariable()
+     * @generated
+     */
+    void setVariable(RuntimeVariable value);
+
+    /**
+     * Returns the value of the '<em><b>Var Value</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Var Value</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Var Value</em>' reference.
+     * @see #setVarValue(AbstractValue)
+     * @see transitionruntime.TransitionruntimePackage#getFiringData_VarValue()
+     * @model required="true"
+     * @generated
+     */
+    AbstractValue getVarValue();
+
+    /**
+     * Sets the value of the '{@link transitionruntime.FiringData#getVarValue <em>Var Value</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Var Value</em>' reference.
+     * @see #getVarValue()
+     * @generated
+     */
+    void setVarValue(AbstractValue value);
 
 } // FiringData

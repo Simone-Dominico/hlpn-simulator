@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NumberruntimeFactoryImpl extends EFactoryImpl implements NumberruntimeFactory
+public class NumberRuntimeFactoryImpl extends EFactoryImpl implements NumberRuntimeFactory
 {
     /**
      * Creates the default factory implementation.
@@ -30,21 +30,21 @@ public class NumberruntimeFactoryImpl extends EFactoryImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public static NumberruntimeFactory init()
+    public static NumberRuntimeFactory init()
     {
         try
         {
-            NumberruntimeFactory theNumberruntimeFactory = (NumberruntimeFactory)EPackage.Registry.INSTANCE.getEFactory("http://numberruntime/1.0"); 
-            if (theNumberruntimeFactory != null)
+            NumberRuntimeFactory theNumberRuntimeFactory = (NumberRuntimeFactory)EPackage.Registry.INSTANCE.getEFactory("http://numberruntime/1.0"); 
+            if (theNumberRuntimeFactory != null)
             {
-                return theNumberruntimeFactory;
+                return theNumberRuntimeFactory;
             }
         }
         catch (Exception exception)
         {
             EcorePlugin.INSTANCE.log(exception);
         }
-        return new NumberruntimeFactoryImpl();
+        return new NumberRuntimeFactoryImpl();
     }
 
     /**
@@ -53,7 +53,7 @@ public class NumberruntimeFactoryImpl extends EFactoryImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimeFactoryImpl()
+    public NumberRuntimeFactoryImpl()
     {
         super();
     }
@@ -68,9 +68,9 @@ public class NumberruntimeFactoryImpl extends EFactoryImpl implements Numberrunt
     {
         switch (eClass.getClassifierID())
         {
-            case NumberruntimePackage.INT_VALUE: return createIntValue();
-            case NumberruntimePackage.POS_VALUE: return createPosValue();
-            case NumberruntimePackage.NAT_VALUE: return createNatValue();
+            case NumberRuntimePackage.INT_VALUE: return createIntValue();
+            case NumberRuntimePackage.POS_VALUE: return createPosValue();
+            case NumberRuntimePackage.NAT_VALUE: return createNatValue();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -114,9 +114,9 @@ public class NumberruntimeFactoryImpl extends EFactoryImpl implements Numberrunt
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimePackage getNumberruntimePackage()
+    public NumberRuntimePackage getNumberRuntimePackage()
     {
-        return (NumberruntimePackage)getEPackage();
+        return (NumberRuntimePackage)getEPackage();
     }
 
     /**
@@ -126,9 +126,9 @@ public class NumberruntimeFactoryImpl extends EFactoryImpl implements Numberrunt
      * @generated
      */
     @Deprecated
-    public static NumberruntimePackage getPackage()
+    public static NumberRuntimePackage getPackage()
     {
-        return NumberruntimePackage.eINSTANCE;
+        return NumberRuntimePackage.eINSTANCE;
     }
 
-} //NumberruntimeFactoryImpl
+} //NumberRuntimeFactoryImpl

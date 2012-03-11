@@ -4,22 +4,19 @@
  *
  * $Id$
  */
-package variableruntime.impl;
+package productRuntime.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsPackage;
+import productRuntime.ProductRuntimeFactory;
+import productRuntime.ProductRuntimePackage;
+import productRuntime.ProductValue;
+
 import runtime.RuntimePackage;
-
-import transitionruntime.TransitionruntimePackage;
-
-import variableruntime.RuntimeVariable;
-import variableruntime.VariableruntimeFactory;
-import variableruntime.VariableruntimePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,14 +24,14 @@ import variableruntime.VariableruntimePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class VariableruntimePackageImpl extends EPackageImpl implements VariableruntimePackage
+public class ProductRuntimePackageImpl extends EPackageImpl implements ProductRuntimePackage
 {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass runtimeVariableEClass = null;
+    private EClass productValueEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -47,13 +44,13 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see variableruntime.VariableruntimePackage#eNS_URI
+     * @see productRuntime.ProductRuntimePackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private VariableruntimePackageImpl()
+    private ProductRuntimePackageImpl()
     {
-        super(eNS_URI, VariableruntimeFactory.eINSTANCE);
+        super(eNS_URI, ProductRuntimeFactory.eINSTANCE);
     }
 
     /**
@@ -66,7 +63,7 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
     /**
      * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
      * 
-     * <p>This method is used to initialize {@link VariableruntimePackage#eINSTANCE} when that field is accessed.
+     * <p>This method is used to initialize {@link ProductRuntimePackage#eINSTANCE} when that field is accessed.
      * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -75,31 +72,31 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
      * @see #initializePackageContents()
      * @generated
      */
-    public static VariableruntimePackage init()
+    public static ProductRuntimePackage init()
     {
-        if (isInited) return (VariableruntimePackage)EPackage.Registry.INSTANCE.getEPackage(VariableruntimePackage.eNS_URI);
+        if (isInited) return (ProductRuntimePackage)EPackage.Registry.INSTANCE.getEPackage(ProductRuntimePackage.eNS_URI);
 
         // Obtain or create and register package
-        VariableruntimePackageImpl theVariableruntimePackage = (VariableruntimePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof VariableruntimePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new VariableruntimePackageImpl());
+        ProductRuntimePackageImpl theProductRuntimePackage = (ProductRuntimePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ProductRuntimePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ProductRuntimePackageImpl());
 
         isInited = true;
 
         // Initialize simple dependencies
-        TransitionruntimePackage.eINSTANCE.eClass();
+        RuntimePackage.eINSTANCE.eClass();
 
         // Create package meta-data objects
-        theVariableruntimePackage.createPackageContents();
+        theProductRuntimePackage.createPackageContents();
 
         // Initialize created meta-data
-        theVariableruntimePackage.initializePackageContents();
+        theProductRuntimePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theVariableruntimePackage.freeze();
+        theProductRuntimePackage.freeze();
 
   
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(VariableruntimePackage.eNS_URI, theVariableruntimePackage);
-        return theVariableruntimePackage;
+        EPackage.Registry.INSTANCE.put(ProductRuntimePackage.eNS_URI, theProductRuntimePackage);
+        return theProductRuntimePackage;
     }
 
     /**
@@ -107,9 +104,9 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getRuntimeVariable()
+    public EClass getProductValue()
     {
-        return runtimeVariableEClass;
+        return productValueEClass;
     }
 
     /**
@@ -117,9 +114,9 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getRuntimeVariable_Variable()
+    public EReference getProductValue_Components()
     {
-        return (EReference)runtimeVariableEClass.getEStructuralFeatures().get(0);
+        return (EReference)productValueEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -127,9 +124,9 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
      * <!-- end-user-doc -->
      * @generated
      */
-    public VariableruntimeFactory getVariableruntimeFactory()
+    public ProductRuntimeFactory getProductRuntimeFactory()
     {
-        return (VariableruntimeFactory)getEFactoryInstance();
+        return (ProductRuntimeFactory)getEFactoryInstance();
     }
 
     /**
@@ -152,8 +149,8 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
         isCreated = true;
 
         // Create classes and their features
-        runtimeVariableEClass = createEClass(RUNTIME_VARIABLE);
-        createEReference(runtimeVariableEClass, RUNTIME_VARIABLE__VARIABLE);
+        productValueEClass = createEClass(PRODUCT_VALUE);
+        createEReference(productValueEClass, PRODUCT_VALUE__COMPONENTS);
     }
 
     /**
@@ -182,21 +179,20 @@ public class VariableruntimePackageImpl extends EPackageImpl implements Variable
 
         // Obtain other dependent packages
         RuntimePackage theRuntimePackage = (RuntimePackage)EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI);
-        TermsPackage theTermsPackage = (TermsPackage)EPackage.Registry.INSTANCE.getEPackage(TermsPackage.eNS_URI);
 
         // Create type parameters
 
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        runtimeVariableEClass.getESuperTypes().add(theRuntimePackage.getAbstractValue());
+        productValueEClass.getESuperTypes().add(theRuntimePackage.getAbstractValue());
 
         // Initialize classes and features; add operations and parameters
-        initEClass(runtimeVariableEClass, RuntimeVariable.class, "RuntimeVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getRuntimeVariable_Variable(), theTermsPackage.getVariable(), null, "variable", null, 1, 1, RuntimeVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(productValueEClass, ProductValue.class, "ProductValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getProductValue_Components(), theRuntimePackage.getAbstractValue(), null, "components", null, 0, -1, ProductValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
     }
 
-} //VariableruntimePackageImpl
+} //ProductRuntimePackageImpl

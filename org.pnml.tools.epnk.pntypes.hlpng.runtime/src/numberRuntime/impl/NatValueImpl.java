@@ -7,7 +7,7 @@
 package numberRuntime.impl;
 
 import numberRuntime.NatValue;
-import numberRuntime.NumberruntimePackage;
+import numberRuntime.NumberRuntimePackage;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -40,7 +40,7 @@ public class NatValueImpl extends NumberValueImpl implements NatValue
     @Override
     protected EClass eStaticClass()
     {
-        return NumberruntimePackage.Literals.NAT_VALUE;
+        return NumberRuntimePackage.Literals.NAT_VALUE;
     }
 
 } //NatValueImpl

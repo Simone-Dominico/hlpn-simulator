@@ -4,27 +4,28 @@
  *
  * $Id$
  */
-package variableruntime.impl;
+package runtime.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
-import runtime.impl.AbstractValueImpl;
 
-import variableruntime.RuntimeVariable;
-import variableruntime.VariableruntimePackage;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
+
+import runtime.RuntimePackage;
+import runtime.RuntimeVariable;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Runtime Variable</b></em>'.
+ * An implementation of the model object '<em><b>Variable</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link variableruntime.impl.RuntimeVariableImpl#getVariable <em>Variable</em>}</li>
+ *   <li>{@link runtime.impl.RuntimeVariableImpl#getVariable <em>Variable</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,7 +61,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
     @Override
     protected EClass eStaticClass()
     {
-        return VariableruntimePackage.Literals.RUNTIME_VARIABLE;
+        return RuntimePackage.Literals.RUNTIME_VARIABLE;
     }
 
     /**
@@ -77,7 +78,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
             if (variable != oldVariable)
             {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE, oldVariable, variable));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, RuntimePackage.RUNTIME_VARIABLE__VARIABLE, oldVariable, variable));
             }
         }
         return variable;
@@ -103,7 +104,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
         Variable oldVariable = variable;
         variable = newVariable;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE, oldVariable, variable));
+            eNotify(new ENotificationImpl(this, Notification.SET, RuntimePackage.RUNTIME_VARIABLE__VARIABLE, oldVariable, variable));
     }
 
     /**
@@ -116,7 +117,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
     {
         switch (featureID)
         {
-            case VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE:
+            case RuntimePackage.RUNTIME_VARIABLE__VARIABLE:
                 if (resolve) return getVariable();
                 return basicGetVariable();
         }
@@ -133,7 +134,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
     {
         switch (featureID)
         {
-            case VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE:
+            case RuntimePackage.RUNTIME_VARIABLE__VARIABLE:
                 setVariable((Variable)newValue);
                 return;
         }
@@ -150,7 +151,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
     {
         switch (featureID)
         {
-            case VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE:
+            case RuntimePackage.RUNTIME_VARIABLE__VARIABLE:
                 setVariable((Variable)null);
                 return;
         }
@@ -167,7 +168,7 @@ public class RuntimeVariableImpl extends AbstractValueImpl implements RuntimeVar
     {
         switch (featureID)
         {
-            case VariableruntimePackage.RUNTIME_VARIABLE__VARIABLE:
+            case RuntimePackage.RUNTIME_VARIABLE__VARIABLE:
                 return variable != null;
         }
         return super.eIsSet(featureID);

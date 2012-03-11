@@ -20,7 +20,7 @@ import runtime.AbstractValue;
  * </ul>
  * </p>
  *
- * @see numberRuntime.NumberruntimePackage#getNumberValue()
+ * @see numberRuntime.NumberRuntimePackage#getNumberValue()
  * @model abstract="true"
  * @generated
  */
@@ -36,7 +36,7 @@ public interface NumberValue extends AbstractValue
      * <!-- end-user-doc -->
      * @return the value of the '<em>N</em>' attribute.
      * @see #setN(int)
-     * @see numberRuntime.NumberruntimePackage#getNumberValue_N()
+     * @see numberRuntime.NumberRuntimePackage#getNumberValue_N()
      * @model required="true"
      *        extendedMetaData="namespace=''"
      * @generated

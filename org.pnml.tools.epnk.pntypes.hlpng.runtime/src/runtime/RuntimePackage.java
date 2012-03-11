@@ -128,6 +128,43 @@ public interface RuntimePackage extends EPackage
     int MS_VALUE_FEATURE_COUNT = ABSTRACT_VALUE_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link runtime.impl.AbstractMarkingImpl <em>Abstract Marking</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see runtime.impl.AbstractMarkingImpl
+     * @see runtime.impl.RuntimePackageImpl#getAbstractMarking()
+     * @generated
+     */
+    int ABSTRACT_MARKING = 6;
+
+    /**
+     * The feature id for the '<em><b>Net Annotations</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_MARKING__NET_ANNOTATIONS = NetannotationsPackage.OBJECT_ANNOTATION__NET_ANNOTATIONS;
+
+    /**
+     * The feature id for the '<em><b>Object</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_MARKING__OBJECT = NetannotationsPackage.OBJECT_ANNOTATION__OBJECT;
+
+    /**
+     * The number of structural features of the '<em>Abstract Marking</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_MARKING_FEATURE_COUNT = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link runtime.impl.PlaceMarkingImpl <em>Place Marking</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -144,7 +181,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING__NET_ANNOTATIONS = NetannotationsPackage.OBJECT_ANNOTATION__NET_ANNOTATIONS;
+    int PLACE_MARKING__NET_ANNOTATIONS = ABSTRACT_MARKING__NET_ANNOTATIONS;
 
     /**
      * The feature id for the '<em><b>Object</b></em>' reference.
@@ -153,7 +190,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING__OBJECT = NetannotationsPackage.OBJECT_ANNOTATION__OBJECT;
+    int PLACE_MARKING__OBJECT = ABSTRACT_MARKING__OBJECT;
 
     /**
      * The feature id for the '<em><b>Ms Value</b></em>' reference.
@@ -162,7 +199,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING__MS_VALUE = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 0;
+    int PLACE_MARKING__MS_VALUE = ABSTRACT_MARKING_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Place</b></em>' reference.
@@ -171,7 +208,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING__PLACE = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 1;
+    int PLACE_MARKING__PLACE = ABSTRACT_MARKING_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>Dirty</b></em>' attribute.
@@ -180,7 +217,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING__DIRTY = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 2;
+    int PLACE_MARKING__DIRTY = ABSTRACT_MARKING_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Place Marking</em>' class.
@@ -189,7 +226,7 @@ public interface RuntimePackage extends EPackage
      * @generated
      * @ordered
      */
-    int PLACE_MARKING_FEATURE_COUNT = NetannotationsPackage.OBJECT_ANNOTATION_FEATURE_COUNT + 3;
+    int PLACE_MARKING_FEATURE_COUNT = ABSTRACT_MARKING_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link runtime.impl.NetMarkingImpl <em>Net Marking</em>}' class.
@@ -229,22 +266,13 @@ public interface RuntimePackage extends EPackage
     int NET_MARKING__MARKINGS = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Transition Markings</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int NET_MARKING__TRANSITION_MARKINGS = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 1;
-
-    /**
      * The number of structural features of the '<em>Net Marking</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NET_MARKING_FEATURE_COUNT = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 2;
+    int NET_MARKING_FEATURE_COUNT = NetannotationsPackage.NET_ANNOTATION_FEATURE_COUNT + 1;
 
 
     /**
@@ -283,6 +311,44 @@ public interface RuntimePackage extends EPackage
      * @ordered
      */
     int VALUE_TO_INTEGER_MAP_FEATURE_COUNT = 2;
+
+
+    /**
+     * The meta object id for the '{@link runtime.impl.RuntimeVariableImpl <em>Variable</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see runtime.impl.RuntimeVariableImpl
+     * @see runtime.impl.RuntimePackageImpl#getRuntimeVariable()
+     * @generated
+     */
+    int RUNTIME_VARIABLE = 5;
+
+    /**
+     * The feature id for the '<em><b>Sort</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RUNTIME_VARIABLE__SORT = ABSTRACT_VALUE__SORT;
+
+    /**
+     * The feature id for the '<em><b>Variable</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RUNTIME_VARIABLE__VARIABLE = ABSTRACT_VALUE_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Variable</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int RUNTIME_VARIABLE_FEATURE_COUNT = ABSTRACT_VALUE_FEATURE_COUNT + 1;
 
 
     /**
@@ -371,17 +437,6 @@ public interface RuntimePackage extends EPackage
     EReference getNetMarking_Markings();
 
     /**
-     * Returns the meta object for the containment reference list '{@link runtime.NetMarking#getTransitionMarkings <em>Transition Markings</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Transition Markings</em>'.
-     * @see runtime.NetMarking#getTransitionMarkings()
-     * @see #getNetMarking()
-     * @generated
-     */
-    EReference getNetMarking_TransitionMarkings();
-
-    /**
      * Returns the meta object for class '{@link java.util.Map.Entry <em>Value To Integer Map</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -435,6 +490,37 @@ public interface RuntimePackage extends EPackage
      * @generated
      */
     EReference getAbstractValue_Sort();
+
+    /**
+     * Returns the meta object for class '{@link runtime.RuntimeVariable <em>Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Variable</em>'.
+     * @see runtime.RuntimeVariable
+     * @generated
+     */
+    EClass getRuntimeVariable();
+
+    /**
+     * Returns the meta object for the reference '{@link runtime.RuntimeVariable#getVariable <em>Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Variable</em>'.
+     * @see runtime.RuntimeVariable#getVariable()
+     * @see #getRuntimeVariable()
+     * @generated
+     */
+    EReference getRuntimeVariable_Variable();
+
+    /**
+     * Returns the meta object for class '{@link runtime.AbstractMarking <em>Abstract Marking</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Abstract Marking</em>'.
+     * @see runtime.AbstractMarking
+     * @generated
+     */
+    EClass getAbstractMarking();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -530,14 +616,6 @@ public interface RuntimePackage extends EPackage
         EReference NET_MARKING__MARKINGS = eINSTANCE.getNetMarking_Markings();
 
         /**
-         * The meta object literal for the '<em><b>Transition Markings</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference NET_MARKING__TRANSITION_MARKINGS = eINSTANCE.getNetMarking_TransitionMarkings();
-
-        /**
          * The meta object literal for the '{@link runtime.impl.ValueToIntegerMapImpl <em>Value To Integer Map</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -580,6 +658,34 @@ public interface RuntimePackage extends EPackage
          * @generated
          */
         EReference ABSTRACT_VALUE__SORT = eINSTANCE.getAbstractValue_Sort();
+
+        /**
+         * The meta object literal for the '{@link runtime.impl.RuntimeVariableImpl <em>Variable</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see runtime.impl.RuntimeVariableImpl
+         * @see runtime.impl.RuntimePackageImpl#getRuntimeVariable()
+         * @generated
+         */
+        EClass RUNTIME_VARIABLE = eINSTANCE.getRuntimeVariable();
+
+        /**
+         * The meta object literal for the '<em><b>Variable</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference RUNTIME_VARIABLE__VARIABLE = eINSTANCE.getRuntimeVariable_Variable();
+
+        /**
+         * The meta object literal for the '{@link runtime.impl.AbstractMarkingImpl <em>Abstract Marking</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see runtime.impl.AbstractMarkingImpl
+         * @see runtime.impl.RuntimePackageImpl#getAbstractMarking()
+         * @generated
+         */
+        EClass ABSTRACT_MARKING = eINSTANCE.getAbstractMarking();
 
     }
 

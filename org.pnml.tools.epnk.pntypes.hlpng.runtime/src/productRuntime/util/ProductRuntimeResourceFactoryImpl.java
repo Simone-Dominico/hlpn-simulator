@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package variableruntime.util;
+package productRuntime.util;
 
 import org.eclipse.emf.common.util.URI;
 
@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
  * <!-- begin-user-doc -->
  * The <b>Resource Factory</b> associated with the package.
  * <!-- end-user-doc -->
- * @see variableruntime.util.VariableruntimeResourceImpl
+ * @see productRuntime.util.ProductRuntimeResourceImpl
  * @generated
  */
-public class VariableruntimeResourceFactoryImpl extends ResourceFactoryImpl
+public class ProductRuntimeResourceFactoryImpl extends ResourceFactoryImpl
 {
     /**
      * Creates an instance of the resource factory.
@@ -29,7 +29,7 @@ public class VariableruntimeResourceFactoryImpl extends ResourceFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public VariableruntimeResourceFactoryImpl()
+    public ProductRuntimeResourceFactoryImpl()
     {
         super();
     }
@@ -43,7 +43,7 @@ public class VariableruntimeResourceFactoryImpl extends ResourceFactoryImpl
     @Override
     public Resource createResource(URI uri)
     {
-        XMLResource result = new VariableruntimeResourceImpl(uri);
+        XMLResource result = new ProductRuntimeResourceImpl(uri);
         result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
         result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 
@@ -56,4 +56,4 @@ public class VariableruntimeResourceFactoryImpl extends ResourceFactoryImpl
         return result;
     }
 
-} //VariableruntimeResourceFactoryImpl
+} //ProductRuntimeResourceFactoryImpl

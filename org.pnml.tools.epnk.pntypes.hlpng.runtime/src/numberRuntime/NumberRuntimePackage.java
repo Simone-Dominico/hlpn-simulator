@@ -23,11 +23,11 @@ import runtime.RuntimePackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see numberRuntime.NumberruntimeFactory
+ * @see numberRuntime.NumberRuntimeFactory
  * @model kind="package"
  * @generated
  */
-public interface NumberruntimePackage extends EPackage
+public interface NumberRuntimePackage extends EPackage
 {
     /**
      * The package name.
@@ -59,14 +59,14 @@ public interface NumberruntimePackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    NumberruntimePackage eINSTANCE = numberRuntime.impl.NumberruntimePackageImpl.init();
+    NumberRuntimePackage eINSTANCE = numberRuntime.impl.NumberRuntimePackageImpl.init();
 
     /**
      * The meta object id for the '{@link numberRuntime.impl.NumberValueImpl <em>Number Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see numberRuntime.impl.NumberValueImpl
-     * @see numberRuntime.impl.NumberruntimePackageImpl#getNumberValue()
+     * @see numberRuntime.impl.NumberRuntimePackageImpl#getNumberValue()
      * @generated
      */
     int NUMBER_VALUE = 0;
@@ -103,7 +103,7 @@ public interface NumberruntimePackage extends EPackage
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see numberRuntime.impl.IntValueImpl
-     * @see numberRuntime.impl.NumberruntimePackageImpl#getIntValue()
+     * @see numberRuntime.impl.NumberRuntimePackageImpl#getIntValue()
      * @generated
      */
     int INT_VALUE = 1;
@@ -140,7 +140,7 @@ public interface NumberruntimePackage extends EPackage
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see numberRuntime.impl.PosValueImpl
-     * @see numberRuntime.impl.NumberruntimePackageImpl#getPosValue()
+     * @see numberRuntime.impl.NumberRuntimePackageImpl#getPosValue()
      * @generated
      */
     int POS_VALUE = 2;
@@ -177,7 +177,7 @@ public interface NumberruntimePackage extends EPackage
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see numberRuntime.impl.NatValueImpl
-     * @see numberRuntime.impl.NumberruntimePackageImpl#getNatValue()
+     * @see numberRuntime.impl.NumberRuntimePackageImpl#getNatValue()
      * @generated
      */
     int NAT_VALUE = 3;
@@ -268,7 +268,7 @@ public interface NumberruntimePackage extends EPackage
      * @return the factory that creates the instances of the model.
      * @generated
      */
-    NumberruntimeFactory getNumberruntimeFactory();
+    NumberRuntimeFactory getNumberRuntimeFactory();
 
     /**
      * <!-- begin-user-doc -->
@@ -289,7 +289,7 @@ public interface NumberruntimePackage extends EPackage
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see numberRuntime.impl.NumberValueImpl
-         * @see numberRuntime.impl.NumberruntimePackageImpl#getNumberValue()
+         * @see numberRuntime.impl.NumberRuntimePackageImpl#getNumberValue()
          * @generated
          */
         EClass NUMBER_VALUE = eINSTANCE.getNumberValue();
@@ -307,7 +307,7 @@ public interface NumberruntimePackage extends EPackage
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see numberRuntime.impl.IntValueImpl
-         * @see numberRuntime.impl.NumberruntimePackageImpl#getIntValue()
+         * @see numberRuntime.impl.NumberRuntimePackageImpl#getIntValue()
          * @generated
          */
         EClass INT_VALUE = eINSTANCE.getIntValue();
@@ -317,7 +317,7 @@ public interface NumberruntimePackage extends EPackage
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see numberRuntime.impl.PosValueImpl
-         * @see numberRuntime.impl.NumberruntimePackageImpl#getPosValue()
+         * @see numberRuntime.impl.NumberRuntimePackageImpl#getPosValue()
          * @generated
          */
         EClass POS_VALUE = eINSTANCE.getPosValue();
@@ -327,11 +327,11 @@ public interface NumberruntimePackage extends EPackage
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @see numberRuntime.impl.NatValueImpl
-         * @see numberRuntime.impl.NumberruntimePackageImpl#getNatValue()
+         * @see numberRuntime.impl.NumberRuntimePackageImpl#getNatValue()
          * @generated
          */
         EClass NAT_VALUE = eINSTANCE.getNatValue();
 
     }
 
-} //NumberruntimePackage
+} //NumberRuntimePackage

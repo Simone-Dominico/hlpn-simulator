@@ -4,31 +4,32 @@
  *
  * $Id$
  */
-package numberRuntime.impl;
-
-import numberRuntime.IntValue;
-import numberRuntime.NumberRuntimePackage;
+package runtime.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.pnml.tools.epnk.annotations.netannotations.impl.ObjectAnnotationImpl;
+
+import runtime.AbstractMarking;
+import runtime.RuntimePackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Int Value</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Marking</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class IntValueImpl extends NumberValueImpl implements IntValue
+public abstract class AbstractMarkingImpl extends ObjectAnnotationImpl implements AbstractMarking
 {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected IntValueImpl()
+    protected AbstractMarkingImpl()
     {
         super();
     }
@@ -41,7 +42,7 @@ public class IntValueImpl extends NumberValueImpl implements IntValue
     @Override
     protected EClass eStaticClass()
     {
-        return NumberRuntimePackage.Literals.INT_VALUE;
+        return RuntimePackage.Literals.ABSTRACT_MARKING;
     }
 
-} //IntValueImpl
+} //AbstractMarkingImpl

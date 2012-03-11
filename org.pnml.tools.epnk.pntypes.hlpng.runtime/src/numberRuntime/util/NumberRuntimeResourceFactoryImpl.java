@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
  * <!-- begin-user-doc -->
  * The <b>Resource Factory</b> associated with the package.
  * <!-- end-user-doc -->
- * @see numberRuntime.util.NumberruntimeResourceImpl
+ * @see numberRuntime.util.NumberRuntimeResourceImpl
  * @generated
  */
-public class NumberruntimeResourceFactoryImpl extends ResourceFactoryImpl
+public class NumberRuntimeResourceFactoryImpl extends ResourceFactoryImpl
 {
     /**
      * Creates an instance of the resource factory.
@@ -29,7 +29,7 @@ public class NumberruntimeResourceFactoryImpl extends ResourceFactoryImpl
      * <!-- end-user-doc -->
      * @generated
      */
-    public NumberruntimeResourceFactoryImpl()
+    public NumberRuntimeResourceFactoryImpl()
     {
         super();
     }
@@ -43,7 +43,7 @@ public class NumberruntimeResourceFactoryImpl extends ResourceFactoryImpl
     @Override
     public Resource createResource(URI uri)
     {
-        XMLResource result = new NumberruntimeResourceImpl(uri);
+        XMLResource result = new NumberRuntimeResourceImpl(uri);
         result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
         result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 
@@ -56,4 +56,4 @@ public class NumberruntimeResourceFactoryImpl extends ResourceFactoryImpl
         return result;
     }
 
-} //NumberruntimeResourceFactoryImpl
+} //NumberRuntimeResourceFactoryImpl

@@ -6,8 +6,6 @@
  */
 package runtime;
 
-import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
-
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 /**
@@ -28,7 +26,7 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
  * @model
  * @generated
  */
-public interface PlaceMarking extends ObjectAnnotation
+public interface PlaceMarking extends AbstractMarking
 {
     /**
      * Returns the value of the '<em><b>Ms Value</b></em>' reference.

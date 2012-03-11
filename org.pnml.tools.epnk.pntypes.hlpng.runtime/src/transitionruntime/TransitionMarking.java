@@ -8,9 +8,8 @@ package transitionruntime;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
-
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
+import runtime.AbstractMarking;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,7 +28,7 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
  * @model
  * @generated
  */
-public interface TransitionMarking extends ObjectAnnotation
+public interface TransitionMarking extends AbstractMarking
 {
     /**
      * Returns the value of the '<em><b>Transition</b></em>' reference.

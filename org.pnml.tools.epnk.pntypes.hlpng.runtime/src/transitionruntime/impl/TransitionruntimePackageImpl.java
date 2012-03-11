@@ -13,13 +13,10 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.pnml.tools.epnk.annotations.netannotations.NetannotationsPackage;
-
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.HlpngdefinitionPackage;
 
 import runtime.RuntimePackage;
 
-import runtime.impl.RuntimePackageImpl;
 import transitionruntime.FiringData;
 import transitionruntime.FiringMode;
 import transitionruntime.MSTerm;
@@ -112,19 +109,13 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         isInited = true;
 
         // Initialize simple dependencies
-        HlpngdefinitionPackage.eINSTANCE.eClass();
-        NetannotationsPackage.eINSTANCE.eClass();
-
-        // Obtain or create and register interdependencies
-        RuntimePackageImpl theRuntimePackage = (RuntimePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI) instanceof RuntimePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI) : RuntimePackage.eINSTANCE);
+        RuntimePackage.eINSTANCE.eClass();
 
         // Create package meta-data objects
         theTransitionruntimePackage.createPackageContents();
-        theRuntimePackage.createPackageContents();
 
         // Initialize created meta-data
         theTransitionruntimePackage.initializePackageContents();
-        theRuntimePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         theTransitionruntimePackage.freeze();
@@ -220,6 +211,26 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getFiringData_Variable()
+    {
+        return (EReference)firingDataEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFiringData_VarValue()
+    {
+        return (EReference)firingDataEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getMSTerm()
     {
         return msTermEClass;
@@ -295,6 +306,8 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         firingDataEClass = createEClass(FIRING_DATA);
         createEReference(firingDataEClass, FIRING_DATA__PLACE_MARKING);
         createEReference(firingDataEClass, FIRING_DATA__MS_TERM);
+        createEReference(firingDataEClass, FIRING_DATA__VAR_VALUE);
+        createEReference(firingDataEClass, FIRING_DATA__VARIABLE);
 
         msTermEClass = createEClass(MS_TERM);
         createEAttribute(msTermEClass, MS_TERM__PLACE_ID);
@@ -327,16 +340,15 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        NetannotationsPackage theNetannotationsPackage = (NetannotationsPackage)EPackage.Registry.INSTANCE.getEPackage(NetannotationsPackage.eNS_URI);
-        HlpngdefinitionPackage theHlpngdefinitionPackage = (HlpngdefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(HlpngdefinitionPackage.eNS_URI);
         RuntimePackage theRuntimePackage = (RuntimePackage)EPackage.Registry.INSTANCE.getEPackage(RuntimePackage.eNS_URI);
+        HlpngdefinitionPackage theHlpngdefinitionPackage = (HlpngdefinitionPackage)EPackage.Registry.INSTANCE.getEPackage(HlpngdefinitionPackage.eNS_URI);
 
         // Create type parameters
 
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        transitionMarkingEClass.getESuperTypes().add(theNetannotationsPackage.getObjectAnnotation());
+        transitionMarkingEClass.getESuperTypes().add(theRuntimePackage.getAbstractMarking());
 
         // Initialize classes and features; add operations and parameters
         initEClass(transitionMarkingEClass, TransitionMarking.class, "TransitionMarking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -349,6 +361,8 @@ public class TransitionruntimePackageImpl extends EPackageImpl implements Transi
         initEClass(firingDataEClass, FiringData.class, "FiringData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getFiringData_PlaceMarking(), theRuntimePackage.getPlaceMarking(), null, "placeMarking", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFiringData_MsTerm(), this.getMSTerm(), null, "msTerm", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFiringData_VarValue(), theRuntimePackage.getAbstractValue(), null, "varValue", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFiringData_Variable(), theRuntimePackage.getRuntimeVariable(), null, "variable", null, 1, 1, FiringData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(msTermEClass, MSTerm.class, "MSTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMSTerm_PlaceId(), ecorePackage.getEString(), "placeId", null, 0, 1, MSTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -109,6 +109,16 @@ public class RuntimeAdapterFactory extends AdapterFactoryImpl
                 return createAbstractValueAdapter();
             }
             @Override
+            public Adapter caseRuntimeVariable(RuntimeVariable object)
+            {
+                return createRuntimeVariableAdapter();
+            }
+            @Override
+            public Adapter caseAbstractMarking(AbstractMarking object)
+            {
+                return createAbstractMarkingAdapter();
+            }
+            @Override
             public Adapter caseAnnotation(Annotation object)
             {
                 return createAnnotationAdapter();
@@ -216,6 +226,36 @@ public class RuntimeAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createAbstractValueAdapter()
+    {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link runtime.RuntimeVariable <em>Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see runtime.RuntimeVariable
+     * @generated
+     */
+    public Adapter createRuntimeVariableAdapter()
+    {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link runtime.AbstractMarking <em>Abstract Marking</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see runtime.AbstractMarking
+     * @generated
+     */
+    public Adapter createAbstractMarkingAdapter()
     {
         return null;
     }
