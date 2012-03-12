@@ -12,6 +12,7 @@ import org.eclipse.emf.common.notify.Notifier;
 
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import org.pnml.tools.epnk.annotations.netannotations.Annotation;
@@ -99,7 +100,7 @@ public class RuntimeAdapterFactory extends AdapterFactoryImpl
                 return createNetMarkingAdapter();
             }
             @Override
-            public Adapter caseValueToIntegerMap(Map.Entry<AbstractValue, Integer> object)
+            public Adapter caseValueToIntegerMap(Map.Entry<AbstractValue, EList<AbstractValue>> object)
             {
                 return createValueToIntegerMapAdapter();
             }
