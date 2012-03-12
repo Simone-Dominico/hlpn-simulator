@@ -188,9 +188,9 @@ public class ProductValueImpl extends AbstractValueImpl implements ProductValue
 		StringBuffer buffer = new StringBuffer("(");
 		for(AbstractValue value : components)
 		{
-			buffer.append(value.toString() + ", ");
+			buffer.append(value.toString() + ",");
 		}
-	    return buffer.toString().replaceAll("(.*),\\s+$", "$1") + ")";
+	    return buffer.toString().replaceAll("(.*),\\s*$", "$1") + ")";
     }
 
 } //ProductValueImpl

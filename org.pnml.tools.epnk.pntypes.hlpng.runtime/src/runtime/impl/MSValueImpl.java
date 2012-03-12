@@ -85,10 +85,10 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
     			buffer.append(value.toString());    			
     		}
 
-    		buffer.append(" ++ ");
+    		buffer.append("++");
     	}
     	
-	    return buffer.toString().replaceAll("(.*)\\s+\\+\\+\\s*$", "$1");
+	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
     }
 
 	/**
