@@ -17,7 +17,7 @@ public class NumberConstantComparator implements IComparator
 	    if(refValue instanceof NumberValue && testValue instanceof NumberValue &&
 	    		(refValue.getSort().equals(testValue.getSort()) ||
 	    				refValue.getSort().isSuperSortOf(testValue.getSort())) && 
-	    		((NumberValue)refValue).getN() == ((NumberValue)refValue).getN())
+	    		((NumberValue)refValue).getN() == ((NumberValue)testValue).getN())
 	    {
 	    	return true;
 	    }
