@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.operations;
+package org.pnml.tools.epnk.applications.hlpng.operators;
 
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
