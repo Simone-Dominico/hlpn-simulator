@@ -7,6 +7,7 @@
 package runtime.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -42,7 +43,7 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
      * @generated
      * @ordered
      */
-    protected EMap<AbstractValue, Integer> values;
+    protected EMap<AbstractValue, EList<AbstractValue>> values;
 
     /**
      * <!-- begin-user-doc -->
@@ -96,62 +97,15 @@ public class MSValueImpl extends AbstractValueImpl implements MSValue
      * <!-- end-user-doc -->
      * @generated
      */
-    public EMap<AbstractValue, Integer> getValues()
+    public EMap<AbstractValue, EList<AbstractValue>> getValues()
     {
         if (values == null)
         {
-            values = new EcoreEMap<AbstractValue,Integer>(RuntimePackage.Literals.VALUE_TO_INTEGER_MAP, ValueToIntegerMapImpl.class, this, RuntimePackage.MS_VALUE__VALUES);
+            values = new EcoreEMap<AbstractValue,EList<AbstractValue>>(RuntimePackage.Literals.VALUE_TO_INTEGER_MAP, ValueToIntegerMapImpl.class, this, RuntimePackage.MS_VALUE__VALUES);
         }
         return values;
     }
 
-    /**
-     * <!-- begin-user-doc -->
-     * Returns a multiplicity of the multiset element
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public int getMultiplicity(AbstractValue value)
-    {
-        if(getValues().containsKey(value))
-        {
-        	return getValues().get(value);
-        }
-        return 0;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * Adds an element to a multiset
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public void add(AbstractValue value, int multiplicity)
-    {
-    	if(getValues().containsKey(value))
-        {
-    		getValues().put(value, getValues().get(value) + multiplicity);
-        }
-    	else
-    	{
-    		getValues().put(value, multiplicity);
-    	}
-    }
-    
-    /**
-     * <!-- begin-user-doc -->
-     * Appends a shallow copy of the multiset
-     * <!-- end-user-doc -->
-     * @generated NOT
-     */
-    public void append(MSValue ms)
-    {    	
-        for(AbstractValue key : ms.getValues().keySet())
-        {
-        	add(key, ms.getValues().get(key));
-        }
-    }
-    
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

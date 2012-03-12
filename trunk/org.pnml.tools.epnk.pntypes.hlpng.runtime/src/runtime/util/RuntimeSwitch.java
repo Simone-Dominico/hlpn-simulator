@@ -7,6 +7,7 @@
 package runtime.util;
 
 import java.util.Map;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -110,7 +111,7 @@ public class RuntimeSwitch<T> extends Switch<T>
             }
             case RuntimePackage.VALUE_TO_INTEGER_MAP:
             {
-                @SuppressWarnings("unchecked") Map.Entry<AbstractValue, Integer> valueToIntegerMap = (Map.Entry<AbstractValue, Integer>)theEObject;
+                @SuppressWarnings("unchecked") Map.Entry<AbstractValue, EList<AbstractValue>> valueToIntegerMap = (Map.Entry<AbstractValue, EList<AbstractValue>>)theEObject;
                 T result = caseValueToIntegerMap(valueToIntegerMap);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -202,7 +203,7 @@ public class RuntimeSwitch<T> extends Switch<T>
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseValueToIntegerMap(Map.Entry<AbstractValue, Integer> object)
+    public T caseValueToIntegerMap(Map.Entry<AbstractValue, EList<AbstractValue>> object)
     {
         return null;
     }

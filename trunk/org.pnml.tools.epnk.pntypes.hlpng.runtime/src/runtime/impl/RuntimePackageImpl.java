@@ -10,7 +10,6 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -260,9 +259,9 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getValueToIntegerMap_Value()
+    public EReference getValueToIntegerMap_Value()
     {
-        return (EAttribute)valueToIntegerMapEClass.getEStructuralFeatures().get(1);
+        return (EReference)valueToIntegerMapEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -358,7 +357,7 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         valueToIntegerMapEClass = createEClass(VALUE_TO_INTEGER_MAP);
         createEReference(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__KEY);
-        createEAttribute(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__VALUE);
+        createEReference(valueToIntegerMapEClass, VALUE_TO_INTEGER_MAP__VALUE);
 
         abstractValueEClass = createEClass(ABSTRACT_VALUE);
         createEReference(abstractValueEClass, ABSTRACT_VALUE__SORT);
@@ -413,16 +412,6 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
         initEClass(msValueEClass, MSValue.class, "MSValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getMSValue_Values(), this.getValueToIntegerMap(), null, "values", null, 0, -1, MSValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        EOperation op = addEOperation(msValueEClass, ecorePackage.getEInt(), "getMultiplicity", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, this.getAbstractValue(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-        op = addEOperation(msValueEClass, null, "add", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, this.getAbstractValue(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, ecorePackage.getEInt(), "multiplicity", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-        op = addEOperation(msValueEClass, null, "append", 0, 1, IS_UNIQUE, IS_ORDERED);
-        addEParameter(op, this.getMSValue(), "ms", 0, 1, IS_UNIQUE, IS_ORDERED);
-
         initEClass(placeMarkingEClass, PlaceMarking.class, "PlaceMarking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getPlaceMarking_MsValue(), this.getMSValue(), null, "msValue", null, 1, 1, PlaceMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getPlaceMarking_Place(), theHlpngdefinitionPackage.getPlace(), null, "place", null, 1, 1, PlaceMarking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -433,7 +422,7 @@ public class RuntimePackageImpl extends EPackageImpl implements RuntimePackage
 
         initEClass(valueToIntegerMapEClass, Map.Entry.class, "ValueToIntegerMap", !IS_ABSTRACT, !IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
         initEReference(getValueToIntegerMap_Key(), this.getAbstractValue(), null, "key", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getValueToIntegerMap_Value(), ecorePackage.getEIntegerObject(), "value", null, 1, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getValueToIntegerMap_Value(), this.getAbstractValue(), null, "value", null, 1, -1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(abstractValueEClass, AbstractValue.class, "AbstractValue", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getAbstractValue_Sort(), theTermsPackage.getSort(), null, "sort", null, 1, 1, AbstractValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

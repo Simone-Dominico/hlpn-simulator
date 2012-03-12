@@ -295,7 +295,7 @@ public interface RuntimePackage extends EPackage
     int VALUE_TO_INTEGER_MAP__KEY = 0;
 
     /**
-     * The feature id for the '<em><b>Value</b></em>' attribute.
+     * The feature id for the '<em><b>Value</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -443,7 +443,7 @@ public interface RuntimePackage extends EPackage
      * @return the meta object for class '<em>Value To Integer Map</em>'.
      * @see java.util.Map.Entry
      * @model keyType="runtime.AbstractValue" keyRequired="true"
-     *        valueDataType="org.eclipse.emf.ecore.EIntegerObject" valueRequired="true"
+     *        valueType="runtime.AbstractValue" valueContainment="true" valueRequired="true" valueMany="true"
      * @generated
      */
     EClass getValueToIntegerMap();
@@ -460,15 +460,15 @@ public interface RuntimePackage extends EPackage
     EReference getValueToIntegerMap_Key();
 
     /**
-     * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+     * Returns the meta object for the containment reference list '{@link java.util.Map.Entry <em>Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Value</em>'.
+     * @return the meta object for the containment reference list '<em>Value</em>'.
      * @see java.util.Map.Entry
      * @see #getValueToIntegerMap()
      * @generated
      */
-    EAttribute getValueToIntegerMap_Value();
+    EReference getValueToIntegerMap_Value();
 
     /**
      * Returns the meta object for class '{@link runtime.AbstractValue <em>Abstract Value</em>}'.
@@ -634,12 +634,12 @@ public interface RuntimePackage extends EPackage
         EReference VALUE_TO_INTEGER_MAP__KEY = eINSTANCE.getValueToIntegerMap_Key();
 
         /**
-         * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Value</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute VALUE_TO_INTEGER_MAP__VALUE = eINSTANCE.getValueToIntegerMap_Value();
+        EReference VALUE_TO_INTEGER_MAP__VALUE = eINSTANCE.getValueToIntegerMap_Value();
 
         /**
          * The meta object literal for the '{@link runtime.impl.AbstractValueImpl <em>Abstract Value</em>}' class.

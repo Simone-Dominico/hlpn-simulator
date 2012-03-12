@@ -4,16 +4,6 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="runtime"
     nsURI="http://runtime/1.0" nsPrefix="runtime">
   <eClassifiers xsi:type="ecore:EClass" name="MSValue" eSuperTypes="#//AbstractValue">
-    <eOperations name="getMultiplicity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-      <eParameters name="value" eType="#//AbstractValue"/>
-    </eOperations>
-    <eOperations name="add">
-      <eParameters name="value" eType="#//AbstractValue"/>
-      <eParameters name="multiplicity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    </eOperations>
-    <eOperations name="append">
-      <eParameters name="ms" eType="#//MSValue"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//ValueToIntegerMap" containment="true"/>
   </eClassifiers>
@@ -29,7 +19,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueToIntegerMap" instanceClassName="java.util.Map$Entry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//AbstractValue"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" upperBound="-1"
+        eType="#//AbstractValue" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractValue" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sort" lowerBound="1" eType="ecore:EClass ../../org.pnml.tools.epnk.pntypes.hlpngs.datatypes/model/HLPNGDataTypes.ecore#//terms/Sort"/>

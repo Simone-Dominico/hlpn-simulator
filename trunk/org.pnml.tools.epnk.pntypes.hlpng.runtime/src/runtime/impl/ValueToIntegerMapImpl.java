@@ -6,9 +6,12 @@
  */
 package runtime.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEMap;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 
 import org.eclipse.emf.ecore.EClass;
@@ -18,6 +21,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import runtime.AbstractValue;
 import runtime.RuntimePackage;
 
@@ -35,7 +40,7 @@ import runtime.RuntimePackage;
  *
  * @generated
  */
-public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entry<AbstractValue,Integer>
+public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entry<AbstractValue,EList<AbstractValue>>
 {
     /**
      * The cached value of the '{@link #getTypedKey() <em>Key</em>}' reference.
@@ -48,24 +53,14 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
     protected AbstractValue key;
 
     /**
-     * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
+     * The cached value of the '{@link #getTypedValue() <em>Value</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getTypedValue()
      * @generated
      * @ordered
      */
-    protected static final Integer VALUE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getTypedValue()
-     * @generated
-     * @ordered
-     */
-    protected Integer value = VALUE_EDEFAULT;
+    protected EList<AbstractValue> value;
 
     /**
      * <!-- begin-user-doc -->
@@ -136,8 +131,12 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public Integer getTypedValue()
+    public EList<AbstractValue> getTypedValue()
     {
+        if (value == null)
+        {
+            value = new EObjectContainmentEList<AbstractValue>(AbstractValue.class, this, RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE);
+        }
         return value;
     }
 
@@ -146,12 +145,15 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setTypedValue(Integer newValue)
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
     {
-        Integer oldValue = value;
-        value = newValue;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE, oldValue, value));
+        switch (featureID)
+        {
+            case RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE:
+                return ((InternalEList<?>)getTypedValue()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
@@ -178,6 +180,7 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue)
     {
@@ -187,7 +190,8 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
                 setTypedKey((AbstractValue)newValue);
                 return;
             case RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE:
-                setTypedValue((Integer)newValue);
+                getTypedValue().clear();
+                getTypedValue().addAll((Collection<? extends AbstractValue>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -207,7 +211,7 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
                 setTypedKey((AbstractValue)null);
                 return;
             case RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE:
-                setTypedValue(VALUE_EDEFAULT);
+                getTypedValue().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -226,26 +230,9 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
             case RuntimePackage.VALUE_TO_INTEGER_MAP__KEY:
                 return key != null;
             case RuntimePackage.VALUE_TO_INTEGER_MAP__VALUE:
-                return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+                return value != null && !value.isEmpty();
         }
         return super.eIsSet(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public String toString()
-    {
-        if (eIsProxy()) return super.toString();
-
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (value: ");
-        result.append(value);
-        result.append(')');
-        return result.toString();
     }
 
     /**
@@ -305,7 +292,7 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public Integer getValue()
+    public EList<AbstractValue> getValue()
     {
         return getTypedValue();
     }
@@ -315,10 +302,11 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * <!-- end-user-doc -->
      * @generated
      */
-    public Integer setValue(Integer value)
+    public EList<AbstractValue> setValue(EList<AbstractValue> value)
     {
-        Integer oldValue = getValue();
-        setTypedValue(value);
+        EList<AbstractValue> oldValue = getValue();
+        getTypedValue().clear();
+        getTypedValue().addAll(value);
         return oldValue;
     }
 
@@ -328,10 +316,10 @@ public class ValueToIntegerMapImpl extends EObjectImpl implements BasicEMap.Entr
      * @generated
      */
     @SuppressWarnings("unchecked")
-    public EMap<AbstractValue, Integer> getEMap()
+    public EMap<AbstractValue, EList<AbstractValue>> getEMap()
     {
         EObject container = eContainer();
-        return container == null ? null : (EMap<AbstractValue, Integer>)container.eGet(eContainmentFeature());
+        return container == null ? null : (EMap<AbstractValue, EList<AbstractValue>>)container.eGet(eContainmentFeature());
     }
 
 } //ValueToIntegerMapImpl

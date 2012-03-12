@@ -7,6 +7,7 @@
 package runtime.impl;
 
 import java.util.Map;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -117,7 +118,7 @@ public class RuntimeFactoryImpl extends EFactoryImpl implements RuntimeFactory
      * <!-- end-user-doc -->
      * @generated
      */
-    public Map.Entry<AbstractValue, Integer> createValueToIntegerMap()
+    public Map.Entry<AbstractValue, EList<AbstractValue>> createValueToIntegerMap()
     {
         ValueToIntegerMapImpl valueToIntegerMap = new ValueToIntegerMapImpl();
         return valueToIntegerMap;
