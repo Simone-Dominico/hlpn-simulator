@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.operations;
+package org.pnml.tools.epnk.applications.hlpng.operators;
 
 import numberRuntime.NumberValue;
 import numberRuntime.NumberRuntimeFactory;
