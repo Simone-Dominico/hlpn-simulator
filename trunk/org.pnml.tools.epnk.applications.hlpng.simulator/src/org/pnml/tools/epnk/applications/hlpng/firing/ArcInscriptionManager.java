@@ -8,12 +8,10 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
 import org.pnml.tools.epnk.applications.hlpng.operations.AbstractTermHandler;
 import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-import runtime.AbstractValue;
 import runtime.MSValue;
 import runtime.PlaceMarking;
 
@@ -44,21 +42,25 @@ public class ArcInscriptionManager
 					arcMap.put(hlArc.getId(), new SructuralPatternMatcher((MSValue)handler.handle(term),
 							comparatorManager));
 				}
-				else
-				{
-					arcMap.put(hlArc.getId(), new SructuralPatternMatcher(null,
-							comparatorManager));
-				}
 			}
 		}
 	}
 	
-	public List<Pair<AbstractValue, Integer>> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
+	public List<InscriptionMatch> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)
 	{
 		MSValue msValue = marking.getMsValue();
 		
 		SructuralPatternMatcher matcher = arcMap.get(arc.getId());
 		
-		return matcher.match(msValue);
+		List<InscriptionMatch> result = matcher.match(msValue);
+		if(result != null)
+		{
+			for(InscriptionMatch match : result)
+			{
+				match.setPlaceId(marking.getPlace().getId());
+			}
+		}
+		
+		return result;
 	}
 }

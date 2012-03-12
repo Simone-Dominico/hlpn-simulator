@@ -1,13 +1,15 @@
 package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 
 import runtime.AbstractValue;
 import runtime.MSValue;
+import runtime.RuntimeVariable;
 
 public class SructuralPatternMatcher
 {
@@ -20,16 +22,22 @@ public class SructuralPatternMatcher
 		this.comparatorManager = comparatorManager;
 	}
 	
-	public List<Pair<AbstractValue, Integer>> match(MSValue value)
+	public List<InscriptionMatch> match(MSValue value)
 	{
-		List<Pair<AbstractValue, Integer>> list = new ArrayList<Pair<AbstractValue,Integer>>();
+		List<InscriptionMatch> list = new ArrayList<InscriptionMatch>();
 		
-		for(AbstractValue aValue : value.getValues().keySet())
+		for(AbstractValue refValue : cachedValue.getValues().keySet())
 		{
-			if(cachedValue == null || contains(cachedValue, aValue, 
-					value.getValues().get(aValue), comparatorManager))
+			List<VariableAssignmnet> assignments = contains(value, comparatorManager,
+					refValue, cachedValue.getMultiplicity(refValue));
+			if(assignments.size() > 0)
 			{
-				list.add(new Pair<AbstractValue, Integer>(value, 100));
+				InscriptionMatch match = new InscriptionMatch();
+
+				match.setMultiplicity(cachedValue.getMultiplicity(refValue));
+				match.setAssignmnets(assignments);
+				
+				list.add(match);
 			}
 		}
 		
@@ -41,17 +49,29 @@ public class SructuralPatternMatcher
 		return list;
 	}
 	
-	private static boolean contains(MSValue reference, AbstractValue value, 
-			int multiplicity, ComparatorManager comparatorManager)
+	private static List<VariableAssignmnet> contains(
+			MSValue multiset, ComparatorManager comparatorManager,
+			AbstractValue refValue, int refMultiplicity)
 	{
-		for(AbstractValue refValue : reference.getValues().keySet())
+		List<VariableAssignmnet> allAssignments = new ArrayList<VariableAssignmnet>();
+		
+		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
-			if(comparatorManager.getComparator(refValue.getClass())
-					.compare(comparatorManager, refValue, value))
+			if(refMultiplicity <= multiset.getMultiplicity(testValue))
 			{
-				return true;
+				Map<RuntimeVariable, AbstractValue> assignments = 
+						new HashMap<RuntimeVariable, AbstractValue>();
+				if(comparatorManager.getComparator(refValue.getClass())
+						.compare(comparatorManager, refValue, testValue, assignments))
+				{
+					// a test value against an inscription (having * number of variables)
+					VariableAssignmnet assignment = new VariableAssignmnet();
+					assignment.setAssignments(assignments);
+					assignment.setParentValue(testValue);
+					allAssignments.add(assignment);
+				}
 			}
 		}
-		return false;
+		return allAssignments;
 	}
 }
