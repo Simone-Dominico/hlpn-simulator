@@ -7,6 +7,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.pnml.tools.epnk.editor;bundle-version="0.9.3",
  org.pnml.tools.epnk.applications;bundle-version="0.1.0",
- org.pnml.tools.epnk.pntypes.hlpng.runtime;bundle-version="0.1.0"
+ org.pnml.tools.epnk.pntypes.hlpng.runtime;bundle-version="0.1.0",
+ org.eclipse.draw2d;bundle-version="3.7.1";visibility:=reexport,
+ org.eclipse.gef;bundle-version="3.7.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Activator: org.pnml.tools.epnk.applications.hlpng.simulator.Activator
+Bundle-Activator: org.pnml.tools.epnk.applications.hlpng.utils.Activator
