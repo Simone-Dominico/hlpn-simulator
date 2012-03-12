@@ -19,7 +19,6 @@ public class CartesianProduct<T>
 				result.add(subset);
 			}
 		}
-		
 		return result;
 	}
 	
@@ -36,7 +35,23 @@ public class CartesianProduct<T>
 				result.add(subset);
 			}
 		}
+		return result;
+	}
+	
+	public List<List<T>> product(List<List<T>> set)
+	{
+		if(set.size() <= 1)
+		{
+			return set;
+		}
 		
+		List<List<T>> result = pairProduct(set.get(0), set.get(1));
+		
+		for(int i = 2; i < set.size(); i++)
+		{
+			result = product(result, set.get(i));
+		}
+
 		return result;
 	}
 }
