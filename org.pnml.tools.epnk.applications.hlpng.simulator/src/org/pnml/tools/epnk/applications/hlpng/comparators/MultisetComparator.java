@@ -2,9 +2,9 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 
 public class MultisetComparator implements IComparator
@@ -12,7 +12,7 @@ public class MultisetComparator implements IComparator
 	@Override
     public boolean compare(ComparatorManager manager,
             AbstractValue refValue, AbstractValue testValue,
-			Map<RuntimeVariable, AbstractValue> assignments)
+            Map<String, VariableEvaluation> assignments)
     {
 		if(!(refValue instanceof MSValue || testValue instanceof MSValue) ||
 	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||

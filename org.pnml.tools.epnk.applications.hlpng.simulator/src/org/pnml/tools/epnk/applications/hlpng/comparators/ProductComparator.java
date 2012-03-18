@@ -2,16 +2,16 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class ProductComparator implements IComparator
 {
 	@Override
 	public boolean compare(ComparatorManager manager,
             AbstractValue refValue, AbstractValue testValue,
-			Map<RuntimeVariable, AbstractValue> assignments)
+            Map<String, VariableEvaluation> assignments)
     {
 	    if(!(refValue instanceof ProductValue || testValue instanceof ProductValue) ||
 	    		!(refValue.getSort().equals(testValue.getSort()) ||
