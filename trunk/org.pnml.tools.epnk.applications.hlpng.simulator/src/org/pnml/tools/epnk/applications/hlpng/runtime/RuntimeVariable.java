@@ -15,4 +15,11 @@ public class RuntimeVariable extends AbstractValue
     {
     	this.variable = variable;
     }
+
+	@Override
+    public String toString()
+    {
+	    return getVariable().getName();
+    }
+	
 }
