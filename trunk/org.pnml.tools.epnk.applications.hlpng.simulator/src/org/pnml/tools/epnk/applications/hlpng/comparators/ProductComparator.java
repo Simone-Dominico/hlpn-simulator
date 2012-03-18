@@ -2,10 +2,9 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
 
-import productRuntime.ProductValue;
-
-import runtime.AbstractValue;
-import runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class ProductComparator implements IComparator
 {

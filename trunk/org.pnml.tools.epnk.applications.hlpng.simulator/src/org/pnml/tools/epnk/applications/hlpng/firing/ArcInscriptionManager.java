@@ -6,14 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
-import org.pnml.tools.epnk.applications.hlpng.operations.AbstractTermHandler;
-import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.operators.AbstractTermHandler;
+import org.pnml.tools.epnk.applications.hlpng.operators.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-
-import runtime.MSValue;
-import runtime.PlaceMarking;
 
 public class ArcInscriptionManager
 {
@@ -44,6 +43,16 @@ public class ArcInscriptionManager
 				}
 			}
 		}
+	}
+	
+	public MSValue getInscription(String arcId)
+	{
+		SructuralPatternMatcher m = arcMap.get(arcId);
+		if(m == null)
+		{
+			return null;
+		}
+		return m.getCachedValue();
 	}
 	
 	public List<InscriptionMatch> matchesInscription(Arc arc, PlaceMarking marking, boolean refresh)

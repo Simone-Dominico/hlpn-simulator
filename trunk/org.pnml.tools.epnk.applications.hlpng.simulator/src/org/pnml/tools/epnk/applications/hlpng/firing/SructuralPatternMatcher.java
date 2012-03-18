@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.comparators.ComparatorManager;
-
-import runtime.AbstractValue;
-import runtime.MSValue;
-import runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 
 public class SructuralPatternMatcher
 {
@@ -28,13 +28,15 @@ public class SructuralPatternMatcher
 		
 		for(AbstractValue refValue : cachedValue.getValues().keySet())
 		{
+			Integer multiplicity = AbstractValueMath.calcMultiplicity(cachedValue, refValue);
+			
 			List<VariableAssignmnet> assignments = contains(value, comparatorManager,
-					refValue, cachedValue.getMultiplicity(refValue));
+					refValue, multiplicity);
 			if(assignments.size() > 0)
 			{
 				InscriptionMatch match = new InscriptionMatch();
 
-				match.setMultiplicity(cachedValue.getMultiplicity(refValue));
+				match.setMultiplicity(AbstractValueMath.calcMultiplicity(cachedValue, refValue));
 				match.setAssignmnets(assignments);
 				
 				list.add(match);
@@ -57,7 +59,8 @@ public class SructuralPatternMatcher
 		
 		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
-			if(refMultiplicity <= multiset.getMultiplicity(testValue))
+			Integer count = AbstractValueMath.calcMultiplicity(multiset, testValue);
+			if(count != null && refMultiplicity <= count)
 			{
 				Map<RuntimeVariable, AbstractValue> assignments = 
 						new HashMap<RuntimeVariable, AbstractValue>();
@@ -74,4 +77,11 @@ public class SructuralPatternMatcher
 		}
 		return allAssignments;
 	}
+
+
+
+	public MSValue getCachedValue()
+    {
+    	return cachedValue;
+    }
 }

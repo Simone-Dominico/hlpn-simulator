@@ -1,8 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.operators;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-
-import runtime.AbstractValue;
 
 public class DefaultOperator extends AbstractTermHandler
 {

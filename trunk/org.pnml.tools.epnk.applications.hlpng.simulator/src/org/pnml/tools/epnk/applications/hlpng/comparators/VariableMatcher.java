@@ -2,12 +2,11 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
 
-import runtime.AbstractValue;
-import runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class VariableMatcher implements IComparator
 {
-
 	@Override
 	public boolean compare(ComparatorManager manager,
             AbstractValue refValue, AbstractValue testValue,

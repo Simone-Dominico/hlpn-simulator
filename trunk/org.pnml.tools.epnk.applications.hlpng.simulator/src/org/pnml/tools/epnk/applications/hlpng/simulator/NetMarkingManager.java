@@ -1,28 +1,25 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.pnml.tools.epnk.applications.hlpng.firing.ArcInscriptionManager;
 import org.pnml.tools.epnk.applications.hlpng.firing.TransitionManager;
-import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.operators.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.FiringData;
+import org.pnml.tools.epnk.applications.hlpng.runtime.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-
-import runtime.AbstractMarking;
-import runtime.AbstractValue;
-import runtime.MSValue;
-import runtime.NetMarking;
-import runtime.PlaceMarking;
-import runtime.RuntimeFactory;
-import transitionruntime.FiringData;
-import transitionruntime.FiringMode;
-import transitionruntime.TransitionMarking;
 
 public class NetMarkingManager
 {
@@ -42,7 +39,7 @@ public class NetMarkingManager
 	
 	public NetMarking createNetMarking()
 	{
-		NetMarking netMarking = RuntimeFactory.eINSTANCE.createNetMarking();
+		NetMarking netMarking = new NetMarking();
 		netMarking.setNet(petrinet);
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
@@ -54,7 +51,7 @@ public class NetMarkingManager
 				Term term = hlPlace.getHlinitialMarking().getStructure();
 				AbstractValue value = operatorManager.getHandler(term.getClass()).handle(term);
 				
-				PlaceMarking marking  = RuntimeFactory.eINSTANCE.createPlaceMarking();
+				PlaceMarking marking  = new PlaceMarking();
 				marking.setPlace(hlPlace);
 				marking.setMsValue((MSValue)value);
 				marking.setObject(hlPlace);
@@ -96,13 +93,11 @@ public class NetMarkingManager
 	
 	public NetMarking createNetMarking(NetMarking prevMarking, FiringMode firingMode)
 	{
-		NetMarking netMarking = RuntimeFactory.eINSTANCE.createNetMarking();
+		NetMarking netMarking = new NetMarking();
 		netMarking.setNet(petrinet);
-		
-		Collection<AbstractMarking> markings = EcoreUtil.copyAll(prevMarking.getMarkings());
-		
+
 		Map<String, PlaceMarking> oldRuntimeValues = new HashMap<String, PlaceMarking>();
-		for(AbstractMarking marking : markings)
+		for(AbstractMarking marking : prevMarking.getMarkings())//markings)
     	{
 	    	if(marking instanceof PlaceMarking)
 	    	{
@@ -118,25 +113,16 @@ public class NetMarkingManager
 				PlaceMarking oldMarking = firingData.getPlaceMarking();
 				oldRuntimeValues.remove(oldMarking.getPlace().getId());
 				
-				MSValue newMsValue = EcoreUtil.copy(oldMarking.getMsValue());
 				AbstractValue value = firingData.getMsTerm().getValue();
 				int multiplicity = firingData.getMsTerm().getMultiplicity();
 				
-				int n = newMsValue.getMultiplicity(value) - multiplicity;
-				if(n > 0)
-				{
-					newMsValue.getValues().put(value, n);
-				}
-				else
-				{
-					newMsValue.getValues().remove(value);
-				}
+				MSValue newMsValue = AbstractValueMath
+						.subtract(oldMarking.getMsValue(), value, multiplicity);
 				
-				PlaceMarking newMarking = RuntimeFactory.eINSTANCE.createPlaceMarking();
+				PlaceMarking newMarking = new PlaceMarking();
 				newMarking.setObject(oldMarking.getObject());
 				newMarking.setPlace(oldMarking.getPlace());
 				newMarking.setMsValue(newMsValue);
-				newMarking.setDirty(true);
 				
 				netMarking.getMarkings().add(newMarking);
 				netMarking.getObjectAnnotations().add(newMarking);

@@ -2,10 +2,9 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
 
-import numberRuntime.NumberValue;
-
-import runtime.AbstractValue;
-import runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class NumberConstantComparator implements IComparator
 {

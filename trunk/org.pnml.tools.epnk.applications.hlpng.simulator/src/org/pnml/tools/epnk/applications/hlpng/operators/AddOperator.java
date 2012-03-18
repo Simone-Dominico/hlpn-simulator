@@ -1,11 +1,10 @@
 package org.pnml.tools.epnk.applications.hlpng.operators;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-
-import runtime.AbstractValue;
-import runtime.MSValue;
-import runtime.RuntimeFactory;
 
 public class AddOperator extends AbstractTermHandler
 {
@@ -25,17 +24,17 @@ public class AddOperator extends AbstractTermHandler
 			{
 				throw new RuntimeException("Incorrect number of arguments: " + term);
 			}
-			MSValue set = RuntimeFactory.eINSTANCE.createMSValue();
+			MSValue set = new MSValue();
 			set.setSort(op.getSort());
 			{
 				Term t = op.getSubterm().get(0);
 				AbstractTermHandler handler = termManager.getHandler(t.getClass());
-				set.append((MSValue)handler.handle(t));
+				set = AbstractValueMath.append(set, (MSValue)handler.handle(t));
 			}
 			{
 				Term t = op.getSubterm().get(1);
 				AbstractTermHandler handler = termManager.getHandler(t.getClass());
-				set.append((MSValue)handler.handle(t));
+				set = AbstractValueMath.append(set, (MSValue)handler.handle(t));
 			}
 
 			return set;

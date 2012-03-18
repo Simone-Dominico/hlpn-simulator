@@ -3,13 +3,12 @@ package org.pnml.tools.epnk.applications.hlpng.comparators;
 import java.util.HashMap;
 import java.util.Map;
 
-import numberRuntime.IntValue;
-import numberRuntime.impl.NatValueImpl;
-import numberRuntime.impl.PosValueImpl;
-
-import productRuntime.impl.ProductValueImpl;
-import runtime.impl.MSValueImpl;
-import runtime.impl.RuntimeVariableImpl;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class ComparatorManager
 {
@@ -19,14 +18,14 @@ public class ComparatorManager
 	{
 		handlers = new HashMap<Class, IComparator>();
 		{
-			handlers.put(NatValueImpl.class, new NumberConstantComparator());
-			handlers.put(PosValueImpl.class, new NumberConstantComparator());
+			handlers.put(NatValue.class, new NumberConstantComparator());
+			handlers.put(PosValue.class, new NumberConstantComparator());
 			handlers.put(IntValue.class, new NumberConstantComparator());
 			
-			handlers.put(ProductValueImpl.class, new ProductComparator());
-			handlers.put(MSValueImpl.class, new MultisetComparator());
+			handlers.put(ProductValue.class, new ProductComparator());
+			handlers.put(MSValue.class, new MultisetComparator());
 			
-			handlers.put(RuntimeVariableImpl.class, new VariableMatcher());
+			handlers.put(RuntimeVariable.class, new VariableMatcher());
 		}
 	}
 	
