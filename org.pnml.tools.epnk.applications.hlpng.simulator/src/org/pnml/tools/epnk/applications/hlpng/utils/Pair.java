@@ -10,6 +10,7 @@ public class Pair<K, V>
 		this.key = key;
 		this.value = value;
 	}
+	public Pair(){}
 	
 	public K getKey()
     {
@@ -19,5 +20,15 @@ public class Pair<K, V>
 	public V getValue()
     {
     	return value;
+    }
+
+	public void setKey(K key)
+    {
+    	this.key = key;
+    }
+
+	public void setValue(V value)
+    {
+    	this.value = value;
     }
 }
