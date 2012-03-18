@@ -1,11 +1,11 @@
 package org.pnml.tools.epnk.applications.hlpng.comparators;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
-import runtime.AbstractValue;
-import runtime.MSValue;
-import runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 
 public class MultisetComparator implements IComparator
 {
@@ -24,13 +24,16 @@ public class MultisetComparator implements IComparator
 		MSValue v1 = (MSValue)refValue;
 		MSValue v2 = (MSValue)testValue;
 
-    	for(Entry<AbstractValue, Integer> e1 : v1.getValues())
+    	for(AbstractValue k1 : v1.getValues().keySet())
     	{    		
-    		for(Entry<AbstractValue, Integer> e2 : v2.getValues())
+    		for(AbstractValue k2 : v2.getValues().keySet())
     		{
-        		if(e1.getValue() != e2.getValue() ||
-        				!manager.getComparator(e1.getKey().getClass()).compare(manager, 
-        				e1.getKey(), e2.getKey(), assignments))
+    			Integer n1 = AbstractValueMath.calcMultiplicity(v1, k1);
+    			Integer n2 = AbstractValueMath.calcMultiplicity(v2, k2);
+    			
+        		if(!n1.equals(n2) ||
+        				!manager.getComparator(k1.getClass()).compare(manager, 
+        				k1, k2, assignments))
         		{
         			return false;
         		}	

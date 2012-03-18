@@ -6,16 +6,15 @@ import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.firing.ArcInscriptionManager;
-import org.pnml.tools.epnk.applications.hlpng.operations.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.operators.TermManager;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
-
-import runtime.NetMarking;
-import transitionruntime.FiringMode;
 
 public class HLSimulator extends Application 
 	implements IApplicationWithPresentation, ISimulator

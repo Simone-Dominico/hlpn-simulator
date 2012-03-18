@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.FiringData;
+import org.pnml.tools.epnk.applications.hlpng.runtime.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSTerm;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
-
-import runtime.PlaceMarking;
-import transitionruntime.FiringData;
-import transitionruntime.FiringMode;
-import transitionruntime.MSTerm;
-import transitionruntime.TransitionMarking;
-import transitionruntime.TransitionruntimeFactory;
-import runtime.RuntimeVariable;
 
 public class TransitionManager
 {
@@ -30,6 +29,23 @@ public class TransitionManager
 	public TransitionMarking checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues)
 	{
+		List<Pair<MSValue, MSValue>> inscriptionValuePairs =
+				new ArrayList<Pair<MSValue, MSValue>>();
+		
+		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : transition.getIn())
+		{
+			Place place = (Place) arc.getSource();
+			PlaceMarking placeMarking = runtimeValues.get(place.getId());
+			
+			Pair<MSValue, MSValue> p = 
+					new Pair<MSValue, MSValue>(
+							arcInscriptionManager.getInscription(arc.getId()),
+							placeMarking.getMsValue());
+			inscriptionValuePairs.add(p);
+		}
+		
+		
+/*		
 		// for each term in an inscription find all possible assignments
 		List<List<InscriptionMatch>> entries = new ArrayList<List<InscriptionMatch>>();
 
@@ -39,7 +55,7 @@ public class TransitionManager
 			PlaceMarking placeMarking = runtimeValues.get(place.getId());
 			
 			List<InscriptionMatch> matches = arcInscriptionManager
-					.matchesInscription((Arc)arc, placeMarking, placeMarking.isDirty());
+					.matchesInscription((Arc)arc, placeMarking, false);
 			
 			if(matches != null)
 			{
@@ -77,7 +93,7 @@ public class TransitionManager
 				product = cartesianProduct.product(subsets);
 			}
 			
-			TransitionMarking marking = TransitionruntimeFactory.eINSTANCE.createTransitionMarking();
+			TransitionMarking marking = new TransitionMarking();
 
 			if(product != null)
 			{
@@ -99,7 +115,7 @@ public class TransitionManager
 			}
 			return marking;
 		}
-		
+		*/
 		return null;
 	}
 	
@@ -107,21 +123,21 @@ public class TransitionManager
 			List<Pair<InscriptionMatch, VariableAssignmnet>> matches,
 			Map<String, PlaceMarking> runtimeValues)
 	{
-		FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
+		FiringMode mode = new FiringMode();
 		
 		for(Pair<InscriptionMatch, VariableAssignmnet> matchPair : matches)
 		{
 			InscriptionMatch match = matchPair.getKey();
 			VariableAssignmnet assignmnet = matchPair.getValue();
 			
-			MSTerm msTerm = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+			MSTerm msTerm = new MSTerm();
 			msTerm.setMultiplicity(match.getMultiplicity());
 			msTerm.setPlaceId(match.getPlaceId());
 			msTerm.setValue(assignmnet.getParentValue());
 			
 			for(RuntimeVariable variable : assignmnet.getAssignments().keySet())
 			{
-				FiringData data = TransitionruntimeFactory.eINSTANCE.createFiringData();
+				FiringData data = new FiringData();
 				data.setPlaceMarking(runtimeValues.get(match.getPlaceId()));
 				data.setMsTerm(msTerm);
 				data.setVariable(variable);
@@ -141,16 +157,16 @@ public class TransitionManager
 		
 		for(VariableAssignmnet assignmnet : match.getAssignmnets())
 		{	
-			FiringMode mode = TransitionruntimeFactory.eINSTANCE.createFiringMode();
+			FiringMode mode = new FiringMode();
 			
-			MSTerm msTerm = TransitionruntimeFactory.eINSTANCE.createMSTerm();
+			MSTerm msTerm = new MSTerm();
 			msTerm.setMultiplicity(match.getMultiplicity());
 			msTerm.setPlaceId(match.getPlaceId());
 			msTerm.setValue(assignmnet.getParentValue());
 			
 			for(RuntimeVariable variable : assignmnet.getAssignments().keySet())
 			{
-				FiringData data = TransitionruntimeFactory.eINSTANCE.createFiringData();
+				FiringData data = new FiringData();
 				data.setPlaceMarking(runtimeValues.get(match.getPlaceId()));
 				data.setMsTerm(msTerm);
 				data.setVariable(variable);

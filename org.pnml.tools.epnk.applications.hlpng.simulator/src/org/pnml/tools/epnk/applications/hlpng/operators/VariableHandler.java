@@ -1,11 +1,9 @@
 package org.pnml.tools.epnk.applications.hlpng.operators;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
-
-import runtime.AbstractValue;
-import runtime.RuntimeVariable;
-import runtime.RuntimeFactory;
 
 public class VariableHandler extends AbstractTermHandler
 {
@@ -22,7 +20,7 @@ public class VariableHandler extends AbstractTermHandler
 		{
 			Variable var = (Variable) term;
 			
-			RuntimeVariable rVariable = RuntimeFactory.eINSTANCE.createRuntimeVariable();
+			RuntimeVariable rVariable = new RuntimeVariable();
 			rVariable.setSort(var.getSort());
 			rVariable.setVariable(var);
 			

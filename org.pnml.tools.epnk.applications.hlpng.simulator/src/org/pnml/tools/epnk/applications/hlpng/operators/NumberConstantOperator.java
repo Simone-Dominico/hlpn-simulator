@@ -1,14 +1,14 @@
 package org.pnml.tools.epnk.applications.hlpng.operators;
 
-import numberRuntime.NumberValue;
-import numberRuntime.NumberRuntimeFactory;
-
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Natural;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Positive;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-
-import runtime.AbstractValue;
 
 public class NumberConstantOperator extends AbstractTermHandler
 {
@@ -34,15 +34,15 @@ public class NumberConstantOperator extends AbstractTermHandler
 			NumberValue v = null;
 			if(op.getSort() instanceof Natural)
 			{
-				v = NumberRuntimeFactory.eINSTANCE.createNatValue();
+				v = new NatValue();
 			}
 			else if(op.getSort() instanceof Positive)
 			{
-				v = NumberRuntimeFactory.eINSTANCE.createPosValue();
+				v = new PosValue();
 			}
 			else
 			{
-				v = NumberRuntimeFactory.eINSTANCE.createIntValue();
+				v = new IntValue();
 			}
 
 			if(v != null)

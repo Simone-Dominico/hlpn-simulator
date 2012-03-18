@@ -1,12 +1,9 @@
 package org.pnml.tools.epnk.applications.hlpng.operators;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
-
-import productRuntime.ProductValue;
-import productRuntime.ProductRuntimeFactory;
-
-import runtime.AbstractValue;
 
 public class TupleOperator extends AbstractTermHandler
 {
@@ -23,7 +20,7 @@ public class TupleOperator extends AbstractTermHandler
 		{
 			Tuple op = (Tuple) term;
 			
-			ProductValue product = ProductRuntimeFactory.eINSTANCE.createProductValue();
+			ProductValue product = new ProductValue();
 			product.setSort(op.getSort());
 
 			for(Term t : op.getSubterm())
