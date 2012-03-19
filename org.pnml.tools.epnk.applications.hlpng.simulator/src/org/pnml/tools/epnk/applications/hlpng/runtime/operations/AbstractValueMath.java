@@ -1,14 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime.operations;
 
-import java.util.ArrayList;
-
-import java.util.List;
-
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 
 public class AbstractValueMath
 {
@@ -18,7 +11,7 @@ public class AbstractValueMath
     	
     	for(AbstractValue value : set.getValues().keySet())
     	{
-    		Integer n = calcMultiplicity(set, value);
+    		Integer n = getMultiplicity(set, value);
     		
     		if(n != null)
     		{
@@ -47,51 +40,18 @@ public class AbstractValueMath
 	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
     }
 	
-	public static List<AbstractValue> getMultiplicity(MSValue msSet, AbstractValue value)
+	public static Integer getMultiplicity(MSValue msSet, AbstractValue value)
 	{
-		if(msSet.getValues().containsKey(value))
-        {
-        	return msSet.getValues().get(value);
-        }
-        return null;
+		return msSet.getValues().get(value);
 	}
 	
-	public static Integer calcMultiplicity(MSValue msSet, AbstractValue value)
-	{
-		if(msSet.getValues().containsKey(value))
-        {
-			List<AbstractValue> keys = msSet.getValues().get(value);
-			int count = 0;
-			for(AbstractValue key : keys)
-			{
-				if(key instanceof NumberValue)
-				{
-					count += ((NumberValue)key).getN();
-				}
-				else
-				{
-					return null;
-				}
-			}
-        	return count;
-        }
-        return null;
-	}
-	
-    public static MSValue add(MSValue msSet, AbstractValue value, List<AbstractValue> multiplicity)
+    public static MSValue add(MSValue msSet, AbstractValue value, Integer multiplicity)
     {
     	MSValue mainSet = lightCopy(msSet);
     	
     	if(mainSet.getValues().containsKey(value))
         {
-    		List<AbstractValue> newMultiplicity = new ArrayList<AbstractValue>();
-    		for(AbstractValue copyValue : mainSet.getValues().get(value))
-			{
-    			newMultiplicity.add(copyValue);
-			}
-    		
-    		newMultiplicity.addAll(multiplicity);
-    		
+    		Integer newMultiplicity = mainSet.getValues().get(value) + multiplicity;
     		mainSet.getValues().put(value, newMultiplicity);
         }
     	else
@@ -102,30 +62,13 @@ public class AbstractValueMath
     	return mainSet;
     }
     
-    public static MSValue add(MSValue msSet, AbstractValue value, AbstractValue multiplicity)
-    {
-    	List<AbstractValue> newMultiplicity = new ArrayList<AbstractValue>();
-		newMultiplicity.add(multiplicity);
-
-    	return add(msSet, value, newMultiplicity);
-    }
-    
-    public static MSValue add(MSValue msSet, AbstractValue value, int multiplicity)
-    {
-    	PosValue newMultiplicity = new PosValue();
-    	newMultiplicity.setN(multiplicity);
-    	newMultiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());
-    	
-    	return add(msSet, value, newMultiplicity);
-    }
-    
     public static MSValue subtract(MSValue msSet, AbstractValue value, int multiplicity)
     {
     	MSValue newMsSet = add(msSet, value, multiplicity * -1);
     	
-    	Integer count = calcMultiplicity(newMsSet, value);
+    	Integer count = getMultiplicity(newMsSet, value);
     	
-    	if(count != null && count == 0)
+    	if(count == null || count == 0)
     	{
     		newMsSet.getValues().remove(value);
     	}

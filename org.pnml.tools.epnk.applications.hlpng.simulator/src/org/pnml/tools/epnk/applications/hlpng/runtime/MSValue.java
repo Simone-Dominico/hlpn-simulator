@@ -1,21 +1,18 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 
 public class MSValue extends AbstractValue
 {
-	Map<AbstractValue, List<AbstractValue>> values = new HashMap<AbstractValue, List<AbstractValue>>();
+	Map<AbstractValue, Integer> values = new HashMap<AbstractValue, Integer>();
 
-	public Map<AbstractValue, List<AbstractValue>> getValues()
+	public Map<AbstractValue, Integer> getValues()
     {
     	return values;
     }
 
-	public void setValues(Map<AbstractValue, List<AbstractValue>> values)
+	public void setValues(Map<AbstractValue, Integer> values)
     {
     	this.values = values;
     }
@@ -27,15 +24,7 @@ public class MSValue extends AbstractValue
     	
     	for(AbstractValue value : values.keySet())
     	{
-    		Integer count = AbstractValueMath.calcMultiplicity(this, value);
-    		if(count != null)
-    		{
-    			buffer.append(count);
-    		}
-    		else
-    		{
-    			buffer.append(values.get(value));
-    		}
+    		buffer.append(values.get(value));
     		buffer.append("`");
     		
     		if(value instanceof MSValue)
