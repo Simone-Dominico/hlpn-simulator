@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.ArcInscriptionManager;
 import org.pnml.tools.epnk.applications.hlpng.firing.TransitionManager;
-import org.pnml.tools.epnk.applications.hlpng.operators.TermManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.FiringData;
@@ -15,6 +14,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operators.TermManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
