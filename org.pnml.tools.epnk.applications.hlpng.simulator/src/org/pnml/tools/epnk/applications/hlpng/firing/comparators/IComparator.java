@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.comparators;
+package org.pnml.tools.epnk.applications.hlpng.firing.comparators;
 
 import java.util.Map;
 
