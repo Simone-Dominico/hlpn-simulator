@@ -28,8 +28,8 @@ public class MultisetComparator implements IComparator
     	{    		
     		for(AbstractValue k2 : v2.getValues().keySet())
     		{
-    			Integer n1 = AbstractValueMath.calcMultiplicity(v1, k1);
-    			Integer n2 = AbstractValueMath.calcMultiplicity(v2, k2);
+    			Integer n1 = AbstractValueMath.getMultiplicity(v1, k1);
+    			Integer n2 = AbstractValueMath.getMultiplicity(v2, k2);
     			
         		if(!n1.equals(n2) ||
         				!manager.getComparator(k1.getClass()).compare(manager, 

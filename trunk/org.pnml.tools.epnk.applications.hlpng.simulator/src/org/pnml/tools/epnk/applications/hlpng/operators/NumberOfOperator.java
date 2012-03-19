@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.operators;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
@@ -22,22 +23,21 @@ public class NumberOfOperator extends AbstractTermHandler
 		{
 			NumberOf operator = (NumberOf) term;
 			
-			if(operator.getSubterm().size() != 2)
+			if(operator.getSubterm().size() != 2 || 
+					!(operator.getSubterm().get(0) instanceof NumberConstant))
 			{
 				throw new RuntimeException("Do not know how to handle: " + operator);
 			}
-
-			Term multiplicityTerm = operator.getSubterm().get(0);
 			
-			AbstractTermHandler multiplicityHandler = termManager.getHandler(multiplicityTerm.getClass());
-			AbstractValue multiplicity = multiplicityHandler.handle(multiplicityTerm);
+			NumberConstant nc = (NumberConstant) operator.getSubterm().get(0);
+			int muliplicity = nc.getValue();
 			
-			Term valueTerm = operator.getSubterm().get(1);
-			AbstractValue value = termManager.getHandler(valueTerm.getClass()).handle(valueTerm);
+			Term t = operator.getSubterm().get(1);
+			AbstractValue value = termManager.getHandler(t.getClass()).handle(t);
 			
 			MSValue set = new MSValue();
 			set.setSort(operator.getSort());
-			set = AbstractValueMath.add(set, value, multiplicity);
+			set = AbstractValueMath.add(set, value, muliplicity);
 			
 			return set;
 		}
