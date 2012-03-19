@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.operators;
+package org.pnml.tools.epnk.applications.hlpng.runtime.operators;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
