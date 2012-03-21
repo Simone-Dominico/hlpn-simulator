@@ -10,9 +10,11 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 
 public class TermManager
 {
+	private static TermManager termManager = null;
+	
 	private Map<Class, AbstractTermHandler> handlers = null;
 	
-	public TermManager()
+	private TermManager()
 	{
 		handlers = new HashMap<Class, AbstractTermHandler>();
 		{
@@ -22,6 +24,15 @@ public class TermManager
 			handlers.put(AddImpl.class, new AddOperator(this, defaultOp));
 			handlers.put(TupleImpl.class, new TupleOperator(this, defaultOp));
 		}
+	}
+	
+	public static TermManager getInstance()
+	{
+		if(termManager == null)
+		{
+			termManager = new TermManager();
+		}
+		return termManager;
 	}
 	
 	public void register(Class targetClass, AbstractTermHandler operator)

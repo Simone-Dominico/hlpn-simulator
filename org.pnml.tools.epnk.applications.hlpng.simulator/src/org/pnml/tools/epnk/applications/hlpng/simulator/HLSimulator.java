@@ -6,8 +6,8 @@ import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.firing.ArcInscriptionManager;
+import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
-import org.pnml.tools.epnk.applications.hlpng.runtime.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.TermManager;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
@@ -28,12 +28,12 @@ public class HLSimulator extends Application
     {
 	    super(petrinet);
 	    
-	    TermManager operatorManager = new TermManager();
+	    TermManager operatorManager = TermManager.getInstance();
 		FlatAccess flatAccess = new FlatAccess(this.petrinet);
 		
 	    this.presentationManager = new SimulatorPresentationManager(this);
 		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, 
-				operatorManager, new ArcInscriptionManager(operatorManager, flatAccess));
+				operatorManager, new ArcInscriptionManager(flatAccess));
 		
 		NetMarking netMarking = this.netMarkingManager.createNetMarking();
 		

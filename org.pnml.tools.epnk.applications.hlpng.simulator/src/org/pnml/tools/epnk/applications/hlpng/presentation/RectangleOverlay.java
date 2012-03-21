@@ -9,7 +9,7 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
-import org.pnml.tools.epnk.applications.hlpng.runtime.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
