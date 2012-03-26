@@ -8,8 +8,8 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public abstract class AbstractRevertableOperation extends AbstractUndefinedVariable
-	implements IEvaluator, IRevertableOperation
+public abstract class AbstractReversibleOperation extends AbstractUndefinedVariable
+	implements IEvaluator, IReversibleOperation
 {
 	protected Term rootTerm = null;
 

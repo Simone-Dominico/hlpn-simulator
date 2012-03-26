@@ -124,7 +124,7 @@ public class EvaluationManager
 		return result;
 	}
 	
-	public boolean resolve(AbstractValue result, IRevertableOperation operation,
+	public boolean resolve(AbstractValue result, IReversibleOperation operation,
 			Map<String, VariableEvaluation> knownVariables)
 	{
 		List<Term> unknown = new ArrayList<Term>();
@@ -191,7 +191,7 @@ public class EvaluationManager
 			return true;
 		}
 		
-		IRevertableOperation op = createRevertableOperationHandler(unknown.get(0).getClass());
+		IReversibleOperation op = createRevertableOperationHandler(unknown.get(0).getClass());
 		op.setRootTerm(unknown.get(0));
 		
 		for(List<AbstractValue> args : setsOfResults)
@@ -205,12 +205,12 @@ public class EvaluationManager
 		return true;
 	}
 	
-	public AbstractRevertableOperation createRevertableOperationHandler(Class c)
+	public AbstractReversibleOperation createRevertableOperationHandler(Class c)
 	{
 		try
         {
 			Object obj = handlers.get(c).getClass().newInstance();
-	        return (AbstractRevertableOperation)obj;
+	        return (AbstractReversibleOperation)obj;
         }
         catch(Exception e)
         {
