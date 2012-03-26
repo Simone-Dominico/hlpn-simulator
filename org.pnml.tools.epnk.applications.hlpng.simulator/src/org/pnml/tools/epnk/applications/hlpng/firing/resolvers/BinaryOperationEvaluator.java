@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractRevertableOperation;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.BuiltInOperator;
@@ -28,7 +28,7 @@ public class BinaryOperationEvaluator implements IAssignable
             }
             catch(UnknownVariableException e)
             {
-            	AbstractRevertableOperation operation = EvaluationManager
+            	AbstractReversibleOperation operation = EvaluationManager
     					.getInstance().createRevertableOperationHandler(refValue.getClass());
     			operation.setRootTerm(refValue);
     			if(!EvaluationManager.getInstance().resolve(testValue, operation, assignments))

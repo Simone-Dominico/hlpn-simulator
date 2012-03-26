@@ -12,7 +12,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractRevertableOperation;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
@@ -108,7 +108,7 @@ public class ArcInscriptionManager
 			List<VariableEvaluation> tmp = new ArrayList<VariableEvaluation>();
 			for(VariableEvaluation ve : unfinished)
 			{
-				AbstractRevertableOperation op = ((AbstractRevertableOperation)ve.getVariable());
+				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
 				
 				boolean stop = false;
 				for(AbstractValue result : ve.getValues())
