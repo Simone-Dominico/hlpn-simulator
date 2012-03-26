@@ -76,6 +76,17 @@ public class AbstractValueMath
     	return newMsSet;
     }
     
+    public static MSValue subtract(MSValue msSet1, MSValue msSet2)
+    {
+    	MSValue newMsSet = lightCopy(msSet1);
+    	for(AbstractValue key : msSet2.getValues().keySet())
+    	{
+    		Integer value = msSet2.getValues().get(key);
+    		newMsSet = subtract(newMsSet, key, value);
+    	}
+    	return newMsSet;
+    }
+    
     public static MSValue append(MSValue msSet1, MSValue msSet2)
     {    	
     	MSValue msSet = new MSValue();
@@ -102,5 +113,21 @@ public class AbstractValueMath
     	msSet.getValues().putAll(initial.getValues());
     	
     	return msSet;
+    }
+    
+    // msSet1 <= msSet2
+    public static boolean lessEqual(MSValue msSet1, MSValue msSet2)
+    {    	
+        for(AbstractValue key : msSet1.getValues().keySet())
+        {
+        	Integer value = msSet1.getValues().get(key);
+        	
+        	if(!msSet2.getValues().containsKey(key) || value > msSet2.getValues().get(key))
+        	{
+        		return false;
+        	}
+        }
+        
+        return true;
     }
 }

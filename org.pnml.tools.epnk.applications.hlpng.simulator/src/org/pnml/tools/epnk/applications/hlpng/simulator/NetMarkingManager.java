@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.ArcInscriptionManager;
-import org.pnml.tools.epnk.applications.hlpng.firing.FiringData;
+import org.pnml.tools.epnk.applications.hlpng.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
@@ -13,8 +13,8 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.TermManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
@@ -25,15 +25,15 @@ public class NetMarkingManager
 {
 	private PetriNet petrinet = null;
 	private FlatAccess flatAccess = null;
-	private TermManager operatorManager = null;
+	private EvaluationManager operatorManager = null;
 	private TransitionManager transitionManager = null;
 	
 	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess,
-			TermManager operatorManager, ArcInscriptionManager arcInscriptionManager)
+			ArcInscriptionManager arcInscriptionManager)
 	{
 		this.petrinet = petrinet;
 		this.flatAccess = flatAccess;
-		this.operatorManager = operatorManager;
+		this.operatorManager = EvaluationManager.getInstance();
 		this.transitionManager = new TransitionManager(arcInscriptionManager);
 	}
 	
@@ -49,7 +49,15 @@ public class NetMarkingManager
 					hlPlace.getHlinitialMarking().getStructure() != null)
 			{
 				Term term = hlPlace.getHlinitialMarking().getStructure();
-				AbstractValue value = operatorManager.getHandler(term.getClass()).handle(term);
+				AbstractValue value = null;
+                try
+                {
+	                value = operatorManager.evaluate(term, null);
+                }
+                catch(UnknownVariableException e)
+                {
+	                e.printStackTrace();
+                }
 				
 				PlaceMarking marking  = new PlaceMarking();
 				marking.setPlace(hlPlace);
@@ -75,8 +83,20 @@ public class NetMarkingManager
 		{
 			Transition hlTransition = (Transition)transition;
 
-			TransitionMarking marking = this.transitionManager.checkTransition(
-					hlTransition, runtimeValues);
+			TransitionMarking marking = null;
+            try
+            {
+	            marking = this.transitionManager.checkTransition(
+	            		hlTransition, runtimeValues);
+            }
+            catch(DependencyException e)
+            {
+	            e.printStackTrace();
+            }
+            catch(UnknownVariableException e)
+            {
+	            e.printStackTrace();
+            }
 			
 			if(marking != null && marking.getModes().size() > 0)
 			{
@@ -108,21 +128,15 @@ public class NetMarkingManager
 
 		// replace "dirty" places. Copy on demand
 		{
-			for(FiringData firingData : firingMode.getValues())
+			for(String placeId : firingMode.getValues().keySet())
 			{
-				PlaceMarking oldMarking = firingData.getPlaceMarking();
-				oldRuntimeValues.remove(oldMarking.getPlace().getId());
-				
-				AbstractValue value = firingData.getMsTerm().getValue();
-				int multiplicity = firingData.getMsTerm().getMultiplicity();
-				
-				MSValue newMsValue = AbstractValueMath
-						.subtract(oldMarking.getMsValue(), value, multiplicity);
-				
+				PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
+				oldRuntimeValues.remove(placeId);
+
 				PlaceMarking newMarking = new PlaceMarking();
 				newMarking.setObject(oldMarking.getObject());
 				newMarking.setPlace(oldMarking.getPlace());
-				newMarking.setMsValue(newMsValue);
+				newMarking.setMsValue(firingMode.getValues().get(placeId));
 				
 				netMarking.getMarkings().add(newMarking);
 				netMarking.getObjectAnnotations().add(newMarking);
@@ -151,8 +165,20 @@ public class NetMarkingManager
 		{
 			Transition hlTransition = (Transition)transition;
 
-			TransitionMarking marking = this.transitionManager.checkTransition(
-					hlTransition, runtimeValues);
+			TransitionMarking marking = null;
+            try
+            {
+	            marking = this.transitionManager.checkTransition(
+	            		hlTransition, runtimeValues);
+            }
+            catch(DependencyException e)
+            {
+	            e.printStackTrace();
+            }
+            catch(UnknownVariableException e)
+            {
+	            e.printStackTrace();
+            }
 			if(marking != null && marking.getModes().size() > 0)
 			{
 				marking.setTransition(hlTransition);

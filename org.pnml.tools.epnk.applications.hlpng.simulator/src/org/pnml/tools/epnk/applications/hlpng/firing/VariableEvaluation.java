@@ -1,67 +1,52 @@
 package org.pnml.tools.epnk.applications.hlpng.firing;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeVariable;
 
 public class VariableEvaluation
 {
-	private MSValue multiset = null;
+	private AbstractVariable variable = null;
+	private String variableName = null;
+	private Set<AbstractValue> values = null;
 	
-	private RuntimeVariable variable = null;
-	
-	// an actual assignment, the a set of multiset terms where the assignments belong to
-	private Map<AbstractValue, Set<AbstractValue>> assignmnets = 
-			new HashMap<AbstractValue, Set<AbstractValue>>();
-	
-	public RuntimeVariable getVariable()
+	public AbstractVariable getVariable()
     {
     	return variable;
     }
-	public void setVariable(RuntimeVariable variable)
+	public void setVariable(AbstractVariable variable)
     {
     	this.variable = variable;
     }
-	
-	public MSValue getMultiset()
+	public Set<AbstractValue> getValues()
     {
-    	return multiset;
+		if(values == null)
+		{
+			values = new HashSet<AbstractValue>();
+		}
+    	return values;
     }
-	public void setMultiset(MSValue multiset)
+	public void setValues(Set<AbstractValue> values)
     {
-    	this.multiset = multiset;
+    	this.values = values;
     }
-	
-	public void registerAssignment(AbstractValue key)
-	{
-		registerAssignment(key, new HashSet<AbstractValue>());
-	}
-	public void registerAssignment(Map<AbstractValue, Set<AbstractValue>> values)
-	{
-		for(AbstractValue key : values.keySet())
-		{
-			registerAssignment(key, values.get(key));
-		}
-	}
-	public void registerAssignment(AbstractValue key, Set<AbstractValue> value)
-	{
-		if(assignmnets.containsKey(key))
-		{
-			Set<AbstractValue> values = assignmnets.get(key);
-			values.addAll(value);
-		}
-		else
-		{
-			assignmnets.put(key, value);
-		}
-	}
-	public Map<AbstractValue, Set<AbstractValue>> getAssignmnets()
+	public String getVariableName()
     {
-    	return assignmnets;
+    	return variableName;
+    }
+	public void setVariableName(String variableName)
+    {
+    	this.variableName = variableName;
+    }
+	@Override
+    public String toString()
+    {
+		StringBuffer buffer = new StringBuffer("[");
+		for(AbstractValue value : values)
+		{
+			buffer.append(value + ";");
+		}
+	    return buffer.toString().replaceAll(";$", "") + "]";
     }
 }
