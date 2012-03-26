@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class TransitionMarking extends AbstractMarking

@@ -1,18 +1,17 @@
-package org.pnml.tools.epnk.applications.hlpng.firing.evaluators;
+package org.pnml.tools.epnk.applications.hlpng.firing.resolvers;
 
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.firing.RuntimeVariable;
 import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
-import org.pnml.tools.epnk.applications.hlpng.firing.operators.RuntimeVariable;
-
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class VariableEvaluator implements IEvaluator
+public class VariableEvaluator implements IAssignable
 {
 	@Override
-	public boolean compare(EvaluationManager manager,
+	public boolean compare(ResolutionManager manager,
             Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
 	{
@@ -26,16 +25,18 @@ public class VariableEvaluator implements IEvaluator
 		
 		if(assignments.containsKey(var.getName()))
 		{
-			assignments.get(var.getName()).registerAssignment(testValue);
+			assignments.get(var.getName()).getValues().add(testValue);
 		}
 		else
 		{
+			RuntimeVariable rv = new RuntimeVariable();
+			rv.setSort(var.getSort());
+			rv.setVariable(var);
+			
 			VariableEvaluation ve = new VariableEvaluation();
-			RuntimeVariable rVariable = new RuntimeVariable();
-			rVariable.setSort(var.getSort());
-			rVariable.setVariable(var);
-			ve.setVariable(rVariable);
-			ve.registerAssignment(testValue);
+			ve.getValues().add(testValue);
+			ve.setVariable(rv);
+			ve.setVariableName(var.getName());
 
 			assignments.put(var.getName(), ve);
 		}

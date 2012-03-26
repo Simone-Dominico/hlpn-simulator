@@ -1,8 +1,8 @@
-package org.pnml.tools.epnk.applications.hlpng.runtime;
+package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class RuntimeVariable extends AbstractValue
+public class RuntimeVariable extends AbstractVariable
 {
 	private Variable variable = null;
 

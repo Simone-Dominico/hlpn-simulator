@@ -1,9 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime;
 
-public class MSTerm
+public class MSTerm extends AbstractValue
 {
 	private AbstractValue value = null;
-	private String placeId = null;
 	private int multiplicity = 0;
 	
 	public AbstractValue getValue()
@@ -13,14 +12,6 @@ public class MSTerm
 	public void setValue(AbstractValue value)
     {
     	this.value = value;
-    }
-	public String getPlaceId()
-    {
-    	return placeId;
-    }
-	public void setPlaceId(String placeId)
-    {
-    	this.placeId = placeId;
     }
 	public int getMultiplicity()
     {

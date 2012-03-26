@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.firing.evaluators;
+package org.pnml.tools.epnk.applications.hlpng.firing.resolvers;
 
 import java.util.Map;
 
@@ -8,10 +8,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
-public class TupleEvaluator implements IEvaluator
+public class TupleEvaluator implements IAssignable
 {
 	@Override
-	public boolean compare(EvaluationManager manager,
+	public boolean compare(ResolutionManager manager,
             Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
