@@ -20,15 +20,19 @@ public class BinaryOperationEvaluator implements IAssignable
     {
 		if(refValue instanceof BuiltInOperator)
 		{
+			boolean cannotEval = false;
 			try
             {
 	            Set<AbstractValue> evals = EvaluationManager.getInstance().evaluateAll(refValue, assignments);
-	            
 	            return evals.contains(testValue);
             }
             catch(UnknownVariableException e)
             {
-            	AbstractReversibleOperation operation = EvaluationManager
+            	cannotEval = true;
+            }
+			if(cannotEval)
+			{
+				AbstractReversibleOperation operation = EvaluationManager
     					.getInstance().createRevertableOperationHandler(refValue.getClass());
     			operation.setRootTerm(refValue);
     			if(!EvaluationManager.getInstance().resolve(testValue, operation, assignments))
@@ -47,7 +51,8 @@ public class BinaryOperationEvaluator implements IAssignable
     					assignments.put(operation.getName(), ve);
     				}
     			}
-            }
+			}
+			
 			return true;
 		}
 	    return false;
