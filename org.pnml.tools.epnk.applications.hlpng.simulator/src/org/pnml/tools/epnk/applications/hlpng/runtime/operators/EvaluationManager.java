@@ -65,8 +65,12 @@ public class EvaluationManager
 		if(term instanceof Variable)
 		{
 			Variable var = (Variable) term;
-			AbstractValue value = assignments.get(var.getName());
 			
+			if(assignments == null)
+			{
+				throw new UnknownVariableException("Unknown variable: " + var.getName());
+			}
+			AbstractValue value = assignments.get(var.getName());
 			if(value == null)
 			{
 				throw new UnknownVariableException("Unknown variable: " + var.getName());
@@ -90,6 +94,14 @@ public class EvaluationManager
 	
 	public Set<AbstractValue> evaluateAll(Term term, Map<String, VariableEvaluation> assignments) throws UnknownVariableException
 	{
+		if(assignments == null || assignments.size() == 0)
+		{
+			Set<AbstractValue> result = new HashSet<AbstractValue>();
+			AbstractValue value = evaluate(term, null);
+			result.add(value);
+			return result;
+		}
+		
 		List<List<Pair<String, AbstractValue>>> mainList = new ArrayList<List<Pair<String,AbstractValue>>>();
 		
 		for(String varName : assignments.keySet())
@@ -110,7 +122,6 @@ public class EvaluationManager
 		List<List<Pair<String, AbstractValue>>> prodList = product.product(mainList);
 		
 		Set<AbstractValue> result = new HashSet<AbstractValue>();
-		
 		for(List<Pair<String, AbstractValue>> subSet : prodList)
 		{
 			Map<String, AbstractValue> assignmentSet = new HashMap<String, AbstractValue>();
