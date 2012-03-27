@@ -50,7 +50,6 @@ public class ArcInscriptionManager
 		}
 	}
 	
-	
 	public List<FiringMode> assignments(String transitionId, Map<String, PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
 	{
 		Map<String, ArcInscriptionHandler> incomingArcs = this.patternMatcherMap.get(transitionId);
@@ -137,6 +136,8 @@ public class ArcInscriptionManager
 		{
 			varSets.add(pairToMap(list));
 		}
+		
+		// evaluate each arc inscription with the given parameter set
 		return eval(varSets, incomingArcs, runtimeValues);
 	}
 	
@@ -161,7 +162,6 @@ public class ArcInscriptionManager
 					if(matched)
 					{
 						MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
-						
 						// it may be not possible to initialize some of the variables
 						MSValue inscriptionValue = null;
 	                    try
@@ -204,7 +204,6 @@ public class ArcInscriptionManager
 				return false;
 			}
 		}
-		
 		return true;
 	}
 	
