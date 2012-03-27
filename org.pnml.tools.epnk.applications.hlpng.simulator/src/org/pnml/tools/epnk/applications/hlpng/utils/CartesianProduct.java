@@ -40,9 +40,21 @@ public class CartesianProduct<T>
 	
 	public List<List<T>> product(List<List<T>> set)
 	{
-		if(set.size() <= 1)
+		if(set.size() == 0)
 		{
 			return set;
+		}
+		
+		if(set.size() == 1)
+		{
+			List<List<T>> result = new ArrayList<List<T>>();
+			for(T t : set.get(0))
+			{
+				List<T> tmp = new ArrayList<T>();
+				tmp.add(t);
+				result.add(tmp);
+			}
+			return result;
 		}
 		
 		List<List<T>> result = pairProduct(set.get(0), set.get(1));

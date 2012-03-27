@@ -2,10 +2,8 @@ package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.IAssignable;
 import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.ResolutionManager;
@@ -81,21 +79,13 @@ public class ArcInscriptionHandler
 				else if(!(refMul instanceof NumberConstant))
 				{
 					IAssignable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
-					List<Map<String, VariableEvaluation>> copies = new ArrayList<Map<String,VariableEvaluation>>();
 					for(int i = 1; i <= multiplicity; i++)
 					{
-						Map<String, VariableEvaluation> copy = copyMap(assignments);
-						copies.add(copy);
-						
 						PosValue testMul = new PosValue();
 						testMul.setN(i);
 						testMul.setSort(IntegersFactory.eINSTANCE.createPositive());
 						
-						mulEvaluator.compare(resolutionManager, refMul, testMul, copy);
-					}
-					for(Map<String, VariableEvaluation> copy : copies)
-					{
-						assignments = mergeMap(assignments, copy);
+						mulEvaluator.compare(resolutionManager, refMul, testMul, assignments);
 					}
 					madeAssignment = true;
 				}
@@ -112,47 +102,4 @@ public class ArcInscriptionHandler
     {
     	return multiSetOperator;
     }
-	
-	private static Map<String, VariableEvaluation> copyMap(Map<String, VariableEvaluation> map)
-	{
-		Map<String, VariableEvaluation> copy = new HashMap<String, VariableEvaluation>();
-		
-		for(String key : map.keySet())
-		{
-			VariableEvaluation ve = map.get(key);
-			VariableEvaluation copyVe = new VariableEvaluation();
-			copyVe.setVariable(ve.getVariable());
-			copyVe.setVariableName(ve.getVariableName());
-			copyVe.getValues().addAll(ve.getValues());
-			
-			copy.put(ve.getVariableName(), copyVe);
-		}
-		
-		return copy;
-	}
-	
-	private static Map<String, VariableEvaluation> mergeMap(Map<String, VariableEvaluation> map1,
-			Map<String, VariableEvaluation> map2)
-	{
-		Map<String, VariableEvaluation> merge = copyMap(map1);
-		
-		for(String key : map2.keySet())
-		{
-			if(merge.containsKey(key))
-			{
-				merge.get(key).getValues().addAll(map2.get(key).getValues());
-			}
-			else
-			{
-				VariableEvaluation ve = map2.get(key);
-				VariableEvaluation copyVe = new VariableEvaluation();
-				copyVe.setVariable(ve.getVariable());
-				copyVe.setVariableName(ve.getVariableName());
-				copyVe.getValues().addAll(ve.getValues());
-				
-				merge.put(ve.getVariableName(), copyVe);		
-			}
-		}
-		return merge;
-	}
 }

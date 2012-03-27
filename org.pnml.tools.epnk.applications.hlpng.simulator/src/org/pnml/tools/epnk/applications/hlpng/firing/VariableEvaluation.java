@@ -8,7 +8,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 public class VariableEvaluation
 {
 	private AbstractVariable variable = null;
-	private String variableName = null;
 	private Set<AbstractValue> values = null;
 	
 	public AbstractVariable getVariable()
@@ -33,12 +32,9 @@ public class VariableEvaluation
     }
 	public String getVariableName()
     {
-    	return variableName;
+    	return variable.getName();
     }
-	public void setVariableName(String variableName)
-    {
-    	this.variableName = variableName;
-    }
+
 	@Override
     public String toString()
     {
