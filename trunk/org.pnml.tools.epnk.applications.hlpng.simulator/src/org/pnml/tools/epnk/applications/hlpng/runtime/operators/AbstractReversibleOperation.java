@@ -25,6 +25,7 @@ public abstract class AbstractReversibleOperation extends AbstractUndefinedVaria
 		return revert(result, evaluate(args, ((Operator)rootTerm)));
 	}
 	
+	@Override
 	public Term getRootTerm()
     {
     	return rootTerm;
@@ -33,5 +34,11 @@ public abstract class AbstractReversibleOperation extends AbstractUndefinedVaria
 	public void setRootTerm(Term rootTerm)
     {
     	this.rootTerm = rootTerm;
+    }
+	
+	@Override
+    public String getName()
+    {
+	    return this.rootTerm.toString();
     }
 }

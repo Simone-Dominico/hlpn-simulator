@@ -20,6 +20,7 @@ import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class ArcInscriptionManager
 {
@@ -72,15 +73,15 @@ public class ArcInscriptionManager
 		// there is only 1 variable
 		if(globalMap.keySet().size() == 1)
 		{
-			List<Map<String, AbstractValue>> varSets = new ArrayList<Map<String,AbstractValue>>();
+			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
 			for(String key : globalMap.keySet())
 			{
 				VariableEvaluation value = globalMap.get(key);
 				
 				for(AbstractValue av : value.getValues())
 				{
-					Map<String, AbstractValue> map = new HashMap<String, AbstractValue>();
-					map.put(key, av);
+					Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
+					map.put((Variable)value.getVariable().getRootTerm(), av);
 					varSets.add(map);
 				}
 			}
@@ -109,17 +110,11 @@ public class ArcInscriptionManager
 			{
 				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
 				
-				boolean stop = false;
-				for(AbstractValue result : ve.getValues())
+				if(!EvaluationManager.getInstance().resolveAll(ve.getValues(), op, globalMap))
 				{
-					if(!stop && !EvaluationManager.getInstance().resolve(result, op, globalMap))
-					{
-						stop = true;
-						tmp.add(ve);
-					}
+					tmp.add(ve);
 				}
 			}
-
 			unfinished = tmp;
 		}
 		while(unfinished.size() > 0);
@@ -131,7 +126,7 @@ public class ArcInscriptionManager
 		List<List<Pair<VariableEvaluation, AbstractValue>>> product =
 				cartesianProd.product(pairList);
 		
-		List<Map<String, AbstractValue>> varSets = new ArrayList<Map<String,AbstractValue>>();
+		List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable, AbstractValue>>();
 		for(List<Pair<VariableEvaluation, AbstractValue>> list : product)
 		{
 			varSets.add(pairToMap(list));
@@ -144,12 +139,12 @@ public class ArcInscriptionManager
 	/*
 	 * Evaluate each arc inscription with the given parameter set
 	 */
-	private static List<FiringMode> eval(List<Map<String, AbstractValue>> varSets,
+	private static List<FiringMode> eval(List<Map<Variable, AbstractValue>> varSets,
 			Map<String, ArcInscriptionHandler> incomingArcs,
 			Map<String, PlaceMarking> runtimeValues) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
-		for(Map<String, AbstractValue> params : varSets)
+		for(Map<Variable, AbstractValue> params : varSets)
 		{
 			if(checkParams(params))
 			{
@@ -167,9 +162,9 @@ public class ArcInscriptionManager
 	                    try
 	                    {
 		                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
-		                    		.evaluate(incomingArcs.get(placeId).getMultiSetOperator(), params);
+		                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
 		                    
-		                    if(ConsistencyManager.check(inscriptionValue) && 
+		                    if(ConsistencyManager.check(inscriptionValue, null) && 
 		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
 		                    {
 		                    	assignment.getValues().put(placeId, 
@@ -195,11 +190,11 @@ public class ArcInscriptionManager
 		return assignemnts;
 	}
 	
-	private static boolean checkParams(Map<String, AbstractValue> params)
+	private static boolean checkParams(Map<Variable, AbstractValue> params)
 	{
-		for(String key : params.keySet())
+		for(Variable key : params.keySet())
 		{
-			if(!ConsistencyManager.check(params.get(key)))
+			if(!ConsistencyManager.check(params.get(key), key.getSort()))
 			{
 				return false;
 			}
@@ -238,7 +233,6 @@ public class ArcInscriptionManager
 			{
 				VariableEvaluation ve = new VariableEvaluation();
 				ve.setVariable(map.get(name).getVariable());
-				ve.setVariableName(map.get(name).getVariableName());
 				// intersection
 				if(globalMap.containsKey(name))
 				{
@@ -257,13 +251,13 @@ public class ArcInscriptionManager
 		return globalMap;
 	}
 	
-	private static Map<String, AbstractValue> pairToMap(List<Pair<VariableEvaluation, AbstractValue>> list)
+	private static Map<Variable, AbstractValue> pairToMap(List<Pair<VariableEvaluation, AbstractValue>> list)
 	{
-		Map<String, AbstractValue> map = new HashMap<String, AbstractValue>();
+		Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
 		
 		for(Pair<VariableEvaluation, AbstractValue> p : list)
 		{
-			map.put(p.getKey().getVariableName(), p.getValue());
+			map.put((Variable)p.getKey().getVariable().getRootTerm(), p.getValue());
 		}
 		return map;
 	}

@@ -2,23 +2,24 @@ package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Natural;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Positive;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
 public class ConsistencyManager
 {
-	public static boolean check(AbstractValue value)
+	public static boolean check(AbstractValue value, Sort sort)
 	{
-		if(value instanceof NumberValue)
+		if(sort instanceof org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)
 		{
 			NumberValue nValue = (NumberValue)value;
 			int n = nValue.getN();
-			if(value instanceof PosValue && n <= 0)
+			if(sort instanceof Positive && n <= 0)
 			{
 				return false;
 			}
-			if(value instanceof NatValue && n < 0)
+			if(sort instanceof Natural && n < 0)
 			{
 				return false;
 			}
@@ -38,6 +39,6 @@ public class ConsistencyManager
 			return true;
 		}
 		
-		throw new RuntimeException("Do not know the value: " + value);
+		return true;
 	}
 }

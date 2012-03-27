@@ -36,7 +36,6 @@ public class VariableEvaluator implements IAssignable
 			VariableEvaluation ve = new VariableEvaluation();
 			ve.getValues().add(testValue);
 			ve.setVariable(rv);
-			ve.setVariableName(var.getName());
 
 			assignments.put(var.getName(), ve);
 		}

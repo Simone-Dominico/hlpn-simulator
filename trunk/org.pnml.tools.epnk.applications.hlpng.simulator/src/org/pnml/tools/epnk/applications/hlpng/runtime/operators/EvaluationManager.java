@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime.operators;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -60,6 +61,33 @@ public class EvaluationManager
 		handlers.remove(targetClass);
 	}
 	
+	public AbstractReversibleOperation createReversibleOperationHandler(Class c)
+	{
+		try
+        {
+			Object obj = handlers.get(c).getClass().newInstance();
+	        return (AbstractReversibleOperation)obj;
+        }
+        catch(Exception e)
+        {
+        	System.err.println("Could not create a handler for: " + c);
+        	e.printStackTrace();
+        }
+		return null;
+	}
+	
+	public AbstractValue evaluateAdapt(Term term, Map<Variable, AbstractValue> assignments) throws UnknownVariableException
+	{
+		Map<String, AbstractValue> newAssignments = new HashMap<String, AbstractValue>();
+		
+		for(Variable key : assignments.keySet())
+		{
+			newAssignments.put(key.getName(), assignments.get(key));
+		}
+		
+		return evaluate(term, newAssignments);
+	}
+	
 	public AbstractValue evaluate(Term term, Map<String, AbstractValue> assignments) throws UnknownVariableException
 	{
 		if(term instanceof Variable)
@@ -101,6 +129,24 @@ public class EvaluationManager
 			result.add(value);
 			return result;
 		}
+		// only one variable
+		if(assignments.size() == 1)
+		{
+			Set<AbstractValue> result = new HashSet<AbstractValue>();
+			
+			for(VariableEvaluation ve : assignments.values())
+			{
+				for(AbstractValue value : ve.getValues())
+				{
+					// evaluate with each possible result
+					Map<String, AbstractValue> map = new HashMap<String, AbstractValue>();
+					map.put(ve.getVariableName(), value);
+					
+					result.add(evaluate(term, map));
+				}
+			}
+			return result;
+		}
 		
 		List<List<Pair<String, AbstractValue>>> mainList = new ArrayList<List<Pair<String,AbstractValue>>>();
 		
@@ -135,7 +181,7 @@ public class EvaluationManager
 		return result;
 	}
 	
-	public boolean resolve(AbstractValue result, IReversibleOperation operation,
+	private boolean resolve(AbstractValue result, IReversibleOperation operation,
 			Map<String, VariableEvaluation> knownVariables)
 	{
 		List<Term> unknown = new ArrayList<Term>();
@@ -194,7 +240,6 @@ public class EvaluationManager
 					VariableEvaluation ve = new VariableEvaluation();
 					ve.getValues().add(value);
 					ve.setVariable(rv);
-					ve.setVariableName(varName);
 					
 					knownVariables.put(varName, ve);
 				}
@@ -202,32 +247,73 @@ public class EvaluationManager
 			return true;
 		}
 		
-		IReversibleOperation op = createRevertableOperationHandler(unknown.get(0).getClass());
+		IReversibleOperation op = createReversibleOperationHandler(unknown.get(0).getClass());
 		op.setRootTerm(unknown.get(0));
 		
+		List<AbstractValue> resultList = new ArrayList<AbstractValue>();
 		for(List<AbstractValue> args : setsOfResults)
 		{
-			if(!resolve(operation.revert(result, args), op, knownVariables))
+			resultList.add(operation.revert(result, args));
+		}
+		return resolveAll(resultList, op, knownVariables);
+	}
+	
+	public boolean resolveAll(Collection<AbstractValue> result, IReversibleOperation operation,
+			Map<String, VariableEvaluation> knownVariables)
+	{
+		List<Map<String, VariableEvaluation>> copies = new ArrayList<Map<String,VariableEvaluation>>();
+		for(AbstractValue value : result)
+		{
+			Map<String, VariableEvaluation> copy = copyMap(knownVariables);
+			copies.add(copy);
+			
+			if(!resolve(value, operation, copy))
 			{
 				return false;
 			}
 		}
-		
+		for(Map<String, VariableEvaluation> map : copies)
+		{
+			mergeMap(knownVariables, map);
+		}
 		return true;
 	}
 	
-	public AbstractReversibleOperation createRevertableOperationHandler(Class c)
+	private static Map<String, VariableEvaluation> copyMap(Map<String, VariableEvaluation> map)
 	{
-		try
-        {
-			Object obj = handlers.get(c).getClass().newInstance();
-	        return (AbstractReversibleOperation)obj;
-        }
-        catch(Exception e)
-        {
-        	System.err.println("Could not create a handler for: " + c);
-        	e.printStackTrace();
-        }
-		return null;
+		Map<String, VariableEvaluation> copy = new HashMap<String, VariableEvaluation>();
+		
+		for(String key : map.keySet())
+		{
+			VariableEvaluation ve = map.get(key);
+			VariableEvaluation copyVe = new VariableEvaluation();
+			copyVe.setVariable(ve.getVariable());
+			copyVe.getValues().addAll(ve.getValues());
+			
+			copy.put(ve.getVariableName(), copyVe);
+		}
+		
+		return copy;
+	}
+	
+	private static void mergeMap(Map<String, VariableEvaluation> main,
+			Map<String, VariableEvaluation> map2)
+	{
+		for(String key : map2.keySet())
+		{
+			if(main.containsKey(key))
+			{
+				main.get(key).getValues().addAll(map2.get(key).getValues());
+			}
+			else
+			{
+				VariableEvaluation ve = map2.get(key);
+				VariableEvaluation copyVe = new VariableEvaluation();
+				copyVe.setVariable(ve.getVariable());
+				copyVe.getValues().addAll(ve.getValues());
+				
+				main.put(ve.getVariableName(), copyVe);		
+			}
+		}
 	}
 }

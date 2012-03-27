@@ -18,7 +18,7 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 	@Override
     public AbstractValue revert(AbstractValue result, AbstractValue arg)
     {
-		Sort sort = result.getSort();
+		Sort sort = arg.getSort();
 		
 		NumberValue v =  createResultObject(sort);
 		v.setSort(sort);
@@ -42,13 +42,13 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 	protected NumberValue createResultObject(Sort sort)
 	{
 		NumberValue v = null;
-		if(sort instanceof Natural)
-		{
-			v = new NatValue();
-		}
-		else if(sort instanceof Positive)
+		if(sort instanceof Positive)
 		{
 			v = new PosValue();
+		}
+		else if(sort instanceof Natural)
+		{
+			v = new NatValue();
 		}
 		else
 		{

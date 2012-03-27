@@ -23,13 +23,13 @@ public class NumberConstantEval implements IEvaluator
 		}
 		
 		NumberValue v = null;
-		if(operator.getSort() instanceof Natural)
-		{
-			v = new NatValue();
-		}
-		else if(operator.getSort() instanceof Positive)
+		if(operator.getSort() instanceof Positive)
 		{
 			v = new PosValue();
+		}
+		else if(operator.getSort() instanceof Natural)
+		{
+			v = new NatValue();
 		}
 		else
 		{
