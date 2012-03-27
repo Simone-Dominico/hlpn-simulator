@@ -2,8 +2,10 @@ package org.pnml.tools.epnk.applications.hlpng.firing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.IAssignable;
 import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.ResolutionManager;
@@ -65,21 +67,20 @@ public class ArcInscriptionHandler
 		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
 			Map<String, VariableEvaluation> assignments = new HashMap<String, VariableEvaluation>();
-			boolean madeAssignment = false;
 			
 			IAssignable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
-			IAssignable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
-			
-			Integer multiplicity = multiset.getValues().get(testValue);
-			
+			boolean madeAssignment = false;
 			if(valueEvaluator.compare(resolutionManager, refValue, testValue, assignments))
 			{
+				Integer multiplicity = multiset.getValues().get(testValue);
+				
 				if(refMul instanceof NumberConstant && ((NumberConstant)refMul).getValue() <= multiplicity)
 				{
 					madeAssignment = true;
 				}
 				else if(!(refMul instanceof NumberConstant))
 				{
+					IAssignable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
 					List<Map<String, VariableEvaluation>> copies = new ArrayList<Map<String,VariableEvaluation>>();
 					for(int i = 1; i <= multiplicity; i++)
 					{
