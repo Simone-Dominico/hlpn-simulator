@@ -70,24 +70,6 @@ public class ArcInscriptionManager
 		// narrowing
 		Map<String, VariableEvaluation> globalMap = narrowing(allInscriptionMatches);
 		
-		// there is only 1 variable
-		if(globalMap.keySet().size() == 1)
-		{
-			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
-			for(String key : globalMap.keySet())
-			{
-				VariableEvaluation value = globalMap.get(key);
-				
-				for(AbstractValue av : value.getValues())
-				{
-					Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
-					map.put((Variable)value.getVariable().getRootTerm(), av);
-					varSets.add(map);
-				}
-			}
-			return eval(varSets, incomingArcs, runtimeValues);
-		}
-		
 		// resolving undefined variables
 		List<VariableEvaluation> unfinished = new ArrayList<VariableEvaluation>();
 		for(String key : globalMap.keySet())
@@ -118,6 +100,24 @@ public class ArcInscriptionManager
 			unfinished = tmp;
 		}
 		while(unfinished.size() > 0);
+		
+		// there is only 1 variable
+		if(globalMap.keySet().size() == 1)
+		{
+			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
+			for(String key : globalMap.keySet())
+			{
+				VariableEvaluation value = globalMap.get(key);
+				
+				for(AbstractValue av : value.getValues())
+				{
+					Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
+					map.put((Variable)value.getVariable().getRootTerm(), av);
+					varSets.add(map);
+				}
+			}
+			return eval(varSets, incomingArcs, runtimeValues);
+		}
 		
 		// computing Cartesian product of variable assignments
 		List<List<Pair<VariableEvaluation, AbstractValue>>> pairList = pairVariablesToAssignments(globalMap);
