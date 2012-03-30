@@ -139,6 +139,7 @@ public class NetMarkingManager
     	}
 
 		// update incoming places' marking
+		Map<String, PlaceMarking> newRuntimeValues = new HashMap<String, PlaceMarking>();
 		for(String placeId : firingMode.getValues().keySet())
 		{
 			PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
@@ -150,8 +151,7 @@ public class NetMarkingManager
 			
 			newMarking.setMsValue(firingMode.getValues().get(placeId));
 			
-			netMarking.getMarkings().add(newMarking);
-			netMarking.getObjectAnnotations().add(newMarking);
+			newRuntimeValues.put(placeId, newMarking);
 		}
 		
 		// update outgoing places' marking
@@ -160,12 +160,24 @@ public class NetMarkingManager
 			Place place = (Place)arc.getTarget();
 			String placeId = place.getId();
 			
+			PlaceMarking currentMarking = null;
+			
 			PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
 			oldRuntimeValues.remove(placeId);
+			
+			if(oldMarking != null)
+			{
+				currentMarking = oldMarking;
+			}
+			else
+			{
+				currentMarking = newRuntimeValues.get(placeId);
+				newRuntimeValues.remove(placeId);
+			}
 
 			PlaceMarking newMarking = new PlaceMarking();
-			newMarking.setObject(oldMarking.getObject());
-			newMarking.setPlace(oldMarking.getPlace());
+			newMarking.setObject(currentMarking.getObject());
+			newMarking.setPlace(currentMarking.getPlace());
 			
 			Arc hlArc = (Arc)arc;
 			if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
@@ -176,18 +188,24 @@ public class NetMarkingManager
 	                		evaluateAdapt(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 	                
 	                MSValue newMsValue = AbstractValueMath.append((MSValue)inscriptionValue,
-	                		oldMarking.getMsValue());
+	                		currentMarking.getMsValue());
 	                
 	                newMarking.setMsValue(newMsValue);
 	    			
-	    			netMarking.getMarkings().add(newMarking);
-	    			netMarking.getObjectAnnotations().add(newMarking);
+	                newRuntimeValues.put(placeId, newMarking);
                 }
                 catch(UnknownVariableException e)
                 {
 	                e.printStackTrace();
                 }	
 			}
+		}
+		
+		// add new markings into the net
+		for(String key : newRuntimeValues.keySet())
+		{
+			netMarking.getMarkings().add(newRuntimeValues.get(key));
+			netMarking.getObjectAnnotations().add(newRuntimeValues.get(key));
 		}
 		
 		// copy the rest of the place markings
