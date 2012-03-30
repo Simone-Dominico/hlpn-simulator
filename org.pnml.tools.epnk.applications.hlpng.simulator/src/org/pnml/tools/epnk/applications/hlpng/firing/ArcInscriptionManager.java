@@ -19,6 +19,7 @@ import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
@@ -51,9 +52,9 @@ public class ArcInscriptionManager
 		}
 	}
 	
-	public List<FiringMode> assignments(String transitionId, Map<String, PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
+	public List<FiringMode> assignments(Transition transition, Map<String, PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
 	{
-		Map<String, ArcInscriptionHandler> incomingArcs = this.patternMatcherMap.get(transitionId);
+		Map<String, ArcInscriptionHandler> incomingArcs = this.patternMatcherMap.get(transition.getId());
 		
 		// each inscription variable matches
 		List<List<List<Map<String, VariableEvaluation>>>> allInscriptionMatches =
@@ -116,7 +117,7 @@ public class ArcInscriptionManager
 					varSets.add(map);
 				}
 			}
-			return eval(varSets, incomingArcs, runtimeValues);
+			return eval(varSets, incomingArcs, runtimeValues, transition);
 		}
 		
 		// computing Cartesian product of variable assignments
@@ -133,7 +134,7 @@ public class ArcInscriptionManager
 		}
 		
 		// evaluate each arc inscription with the given parameter set
-		return eval(varSets, incomingArcs, runtimeValues);
+		return eval(varSets, incomingArcs, runtimeValues, transition);
 	}
 	
 	/*
@@ -141,7 +142,7 @@ public class ArcInscriptionManager
 	 */
 	private static List<FiringMode> eval(List<Map<Variable, AbstractValue>> varSets,
 			Map<String, ArcInscriptionHandler> incomingArcs,
-			Map<String, PlaceMarking> runtimeValues) throws UnknownVariableException
+			Map<String, PlaceMarking> runtimeValues, Transition transition) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<Variable, AbstractValue> params : varSets)
@@ -150,6 +151,7 @@ public class ArcInscriptionManager
 			{
 				FiringMode assignment = new FiringMode();
 				assignment.setParams(params);
+				assignment.setTransition(transition);
 				
 				boolean matched = true;
 				for(String placeId : incomingArcs.keySet())

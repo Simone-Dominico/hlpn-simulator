@@ -20,7 +20,8 @@ public class TransitionManager
 	public TransitionMarking checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
-		List<FiringMode> assignments = arcInscriptionManager.assignments(transition.getId(), runtimeValues);
+		List<FiringMode> assignments = arcInscriptionManager.assignments(transition, 
+				runtimeValues);
 		
 		TransitionMarking marking = new TransitionMarking();
 
