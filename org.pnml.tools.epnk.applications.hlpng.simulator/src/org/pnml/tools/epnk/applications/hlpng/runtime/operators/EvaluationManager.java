@@ -18,6 +18,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.Multiplication
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
@@ -34,6 +35,7 @@ public class EvaluationManager
 		handlers = new HashMap<Class, IEvaluator>();
 		
 		handlers.put(NumberConstantImpl.class, new NumberConstantEval());
+		handlers.put(StringConstantImpl.class, new StringConstantEval());
 		handlers.put(NumberOfImpl.class, new NumberOfEval());
 		handlers.put(AddImpl.class, new AddEval());
 		handlers.put(TupleImpl.class, new TupleEval());

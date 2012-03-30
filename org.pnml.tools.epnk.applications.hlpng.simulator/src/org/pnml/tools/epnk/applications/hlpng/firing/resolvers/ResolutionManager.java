@@ -7,6 +7,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
@@ -22,6 +23,7 @@ public class ResolutionManager
 		handlers = new HashMap<Class, IAssignable>();
 		{
 			handlers.put(NumberConstantImpl.class, new NumberConstantEvaluator());
+			handlers.put(StringConstantImpl.class, new StringConstantEvaluator());
 			
 			handlers.put(TupleImpl.class, new TupleEvaluator());
 			handlers.put(MultiSetOperatorImpl.class, new MultisetEvaluator());
