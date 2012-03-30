@@ -13,13 +13,16 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 public class NetMarkingManager
 {
@@ -45,28 +48,37 @@ public class NetMarkingManager
 		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
 		{
 			Place hlPlace = (Place)place;
+			
+			MSValue msValue = null;
+			
 			if(hlPlace.getHlinitialMarking() != null &&
 					hlPlace.getHlinitialMarking().getStructure() != null)
 			{
 				Term term = hlPlace.getHlinitialMarking().getStructure();
-				AbstractValue value = null;
+				
                 try
                 {
-	                value = operatorManager.evaluate(term, null);
+                	msValue = (MSValue)operatorManager.evaluate(term, null);
                 }
                 catch(UnknownVariableException e)
                 {
 	                e.printStackTrace();
                 }
-				
-				PlaceMarking marking  = new PlaceMarking();
-				marking.setPlace(hlPlace);
-				marking.setMsValue((MSValue)value);
-				marking.setObject(hlPlace);
-				
-				netMarking.getMarkings().add(marking);
-				netMarking.getObjectAnnotations().add(marking);
 			}
+			
+			if(msValue == null)
+			{
+				msValue = new MSValue();
+                msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+			}
+			
+			PlaceMarking marking  = new PlaceMarking();
+			marking.setPlace(hlPlace);
+			marking.setMsValue(msValue);
+			marking.setObject(hlPlace);
+			
+			netMarking.getMarkings().add(marking);
+			netMarking.getObjectAnnotations().add(marking);
 		}
 		
 		Map<String, PlaceMarking> runtimeValues = new HashMap<String, PlaceMarking>();
@@ -117,7 +129,7 @@ public class NetMarkingManager
 		netMarking.setNet(petrinet);
 
 		Map<String, PlaceMarking> oldRuntimeValues = new HashMap<String, PlaceMarking>();
-		for(AbstractMarking marking : prevMarking.getMarkings())//markings)
+		for(AbstractMarking marking : prevMarking.getMarkings())
     	{
 	    	if(marking instanceof PlaceMarking)
 	    	{
@@ -126,20 +138,55 @@ public class NetMarkingManager
 	    	}
     	}
 
-		// replace "dirty" places. Copy on demand
+		// update incoming places' marking
+		for(String placeId : firingMode.getValues().keySet())
 		{
-			for(String placeId : firingMode.getValues().keySet())
-			{
-				PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
-				oldRuntimeValues.remove(placeId);
+			PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
+			oldRuntimeValues.remove(placeId);
 
-				PlaceMarking newMarking = new PlaceMarking();
-				newMarking.setObject(oldMarking.getObject());
-				newMarking.setPlace(oldMarking.getPlace());
-				newMarking.setMsValue(firingMode.getValues().get(placeId));
-				
-				netMarking.getMarkings().add(newMarking);
-				netMarking.getObjectAnnotations().add(newMarking);
+			PlaceMarking newMarking = new PlaceMarking();
+			newMarking.setObject(oldMarking.getObject());
+			newMarking.setPlace(oldMarking.getPlace());
+			
+			newMarking.setMsValue(firingMode.getValues().get(placeId));
+			
+			netMarking.getMarkings().add(newMarking);
+			netMarking.getObjectAnnotations().add(newMarking);
+		}
+		
+		// update outgoing places' marking
+		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : firingMode.getTransition().getOut())
+		{
+			Place place = (Place)arc.getTarget();
+			String placeId = place.getId();
+			
+			PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
+			oldRuntimeValues.remove(placeId);
+
+			PlaceMarking newMarking = new PlaceMarking();
+			newMarking.setObject(oldMarking.getObject());
+			newMarking.setPlace(oldMarking.getPlace());
+			
+			Arc hlArc = (Arc)arc;
+			if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
+			{
+				try
+                {
+	                AbstractValue inscriptionValue = EvaluationManager.getInstance().
+	                		evaluateAdapt(hlArc.getHlinscription().getStructure(), firingMode.getParams());
+	                
+	                MSValue newMsValue = AbstractValueMath.append((MSValue)inscriptionValue,
+	                		oldMarking.getMsValue());
+	                
+	                newMarking.setMsValue(newMsValue);
+	    			
+	    			netMarking.getMarkings().add(newMarking);
+	    			netMarking.getObjectAnnotations().add(newMarking);
+                }
+                catch(UnknownVariableException e)
+                {
+	                e.printStackTrace();
+                }	
 			}
 		}
 		

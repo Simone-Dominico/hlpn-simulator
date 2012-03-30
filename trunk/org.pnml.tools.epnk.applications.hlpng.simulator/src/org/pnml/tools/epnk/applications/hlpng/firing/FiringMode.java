@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class FiringMode
@@ -13,6 +14,8 @@ public class FiringMode
 	private Map<String, MSValue> values = new HashMap<String, MSValue>();
 	// variable name <=> variable assignment
 	private Map<Variable, AbstractValue> params = null;
+	
+	private Transition transition = null;
 
 	public Map<Variable, AbstractValue> getParams()
     {
@@ -45,5 +48,13 @@ public class FiringMode
 		}
 
 	    return buffer.toString().replaceAll("\\s*;$", "") + "]";
+    }
+	public Transition getTransition()
+    {
+    	return transition;
+    }
+	public void setTransition(Transition transition)
+    {
+    	this.transition = transition;
     }
 }
