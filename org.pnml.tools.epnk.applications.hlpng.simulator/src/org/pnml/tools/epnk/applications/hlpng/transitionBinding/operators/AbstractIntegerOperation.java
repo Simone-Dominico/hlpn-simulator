@@ -13,7 +13,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 public abstract class AbstractIntegerOperation extends AbstractReversibleOperation
 {
 	protected abstract int computeTotal(int a, int b);
-	protected abstract int computeInverse(int result, int a);
+	protected abstract int computeArg(int result, int a);
 
 	@Override
     public AbstractValue revert(AbstractValue result, AbstractValue arg)
@@ -22,7 +22,7 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 		
 		NumberValue v =  createResultObject(sort);
 		v.setSort(sort);
-		v.setN(computeInverse(((NumberValue)result).getN(), ((NumberValue)arg).getN()));
+		v.setN(computeArg(((NumberValue)result).getN(), ((NumberValue)arg).getN()));
 		
 	    return v;
     }
