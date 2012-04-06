@@ -48,7 +48,7 @@ public class AdditionEval extends AbstractIntegerOperation
     }
 
 	@Override
-    protected int computeInverse(int result, int a)
+    protected int computeArg(int result, int a)
     {
 	    return result - a;
     }
