@@ -10,11 +10,10 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class NumberOfEvaluator implements IAssignable
+public class NumberOfEvaluator implements IComparable
 {
 	@Override
-    public boolean compare(ResolutionManager manager,
-            Term refValue, AbstractValue testValue,
+    public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
 		if(!(refValue instanceof NumberOf || testValue instanceof MSValue))
@@ -33,9 +32,10 @@ public class NumberOfEvaluator implements IAssignable
     		multiplicity.setN(m);
     		multiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());
     		
-    		if(manager.getComparator(nof.getSubterm().get(0).getClass()).compare(manager, 
+    		ComparisonManager manager = ComparisonManager.getInstance();
+    		if(manager.getComparator(nof.getSubterm().get(0).getClass()).compare( 
     				nof.getSubterm().get(0), multiplicity, assignments) &&
-    				manager.getComparator(nof.getSubterm().get(1).getClass()).compare(manager, 
+    				manager.getComparator(nof.getSubterm().get(1).getClass()).compare( 
     	    				nof.getSubterm().get(1), value, assignments))
     		{
     			wasMatch = true;

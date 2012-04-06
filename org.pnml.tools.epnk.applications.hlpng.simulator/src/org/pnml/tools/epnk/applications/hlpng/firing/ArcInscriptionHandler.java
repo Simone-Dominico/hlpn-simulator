@@ -8,8 +8,8 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IAssignable;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ResolutionManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IComparable;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
@@ -19,9 +19,9 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public class ArcInscriptionHandler
 {
 	private MultiSetOperator multiSetOperator = null;
-	private ResolutionManager evaluationManager = null;
+	private ComparisonManager evaluationManager = null;
 	
-	public ArcInscriptionHandler(MultiSetOperator multiSetOperator, ResolutionManager evaluationManager)
+	public ArcInscriptionHandler(MultiSetOperator multiSetOperator, ComparisonManager evaluationManager)
 	{
 		this.multiSetOperator = multiSetOperator;
 		this.evaluationManager = evaluationManager;
@@ -55,7 +55,7 @@ public class ArcInscriptionHandler
 	}
 
 	private static List<Map<String, VariableEvaluation>> contains(
-			MSValue multiset, ResolutionManager resolutionManager, NumberOf numberOf)
+			MSValue multiset, ComparisonManager resolutionManager, NumberOf numberOf)
 	{
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
@@ -66,9 +66,9 @@ public class ArcInscriptionHandler
 		{
 			Map<String, VariableEvaluation> assignments = new HashMap<String, VariableEvaluation>();
 			
-			IAssignable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
+			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
 			boolean madeAssignment = false;
-			if(valueEvaluator.compare(resolutionManager, refValue, testValue, assignments))
+			if(valueEvaluator.compare(refValue, testValue, assignments))
 			{
 				Integer multiplicity = multiset.getValues().get(testValue);
 				
@@ -78,14 +78,14 @@ public class ArcInscriptionHandler
 				}
 				else if(!(refMul instanceof NumberConstant))
 				{
-					IAssignable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
+					IComparable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
 					for(int i = 1; i <= multiplicity; i++)
 					{
 						PosValue testMul = new PosValue();
 						testMul.setN(i);
 						testMul.setSort(IntegersFactory.eINSTANCE.createPositive());
 						
-						mulEvaluator.compare(resolutionManager, refMul, testMul, assignments);
+						mulEvaluator.compare(refMul, testMul, assignments);
 					}
 					madeAssignment = true;
 				}

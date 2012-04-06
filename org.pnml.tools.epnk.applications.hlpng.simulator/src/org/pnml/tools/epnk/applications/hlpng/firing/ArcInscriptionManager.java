@@ -11,7 +11,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ResolutionManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
@@ -32,7 +32,7 @@ public class ArcInscriptionManager
 	{
 		this.patternMatcherMap = new HashMap<String, Map<String,ArcInscriptionHandler>>();
 		
-		ResolutionManager comparatorManager = ResolutionManager.getInstance();
+		ComparisonManager comparatorManager = ComparisonManager.getInstance();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
