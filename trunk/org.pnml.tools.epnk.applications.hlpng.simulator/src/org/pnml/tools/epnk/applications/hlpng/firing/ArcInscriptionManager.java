@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.ResolutionManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
@@ -15,6 +14,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMa
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners.ResolutionManager;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;

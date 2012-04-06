@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.IAssignable;
-import org.pnml.tools.epnk.applications.hlpng.firing.resolvers.ResolutionManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners.IAssignable;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners.ResolutionManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
