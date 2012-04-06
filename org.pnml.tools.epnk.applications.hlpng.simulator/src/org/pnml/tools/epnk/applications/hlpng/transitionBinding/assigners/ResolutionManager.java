@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.firing.resolvers;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners;
 
 import java.util.HashMap;
 import java.util.Map;

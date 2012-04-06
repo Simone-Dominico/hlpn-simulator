@@ -1,13 +1,13 @@
-package org.pnml.tools.epnk.applications.hlpng.firing.resolvers;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.AbstractReversibleOperation;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class BinaryOperationEvaluator implements IAssignable
