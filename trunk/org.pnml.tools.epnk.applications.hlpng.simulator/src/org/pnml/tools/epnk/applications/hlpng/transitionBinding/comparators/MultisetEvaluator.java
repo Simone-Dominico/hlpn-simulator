@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.assigners;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
 import java.util.ArrayList;
 import java.util.List;
