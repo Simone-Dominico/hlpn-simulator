@@ -10,11 +10,10 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Evalua
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class BinaryOperationEvaluator implements IAssignable
+public class BinaryOperationEvaluator implements IComparable
 {
 	@Override
-	public boolean compare(ResolutionManager manager,
-            Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
 		boolean cannotEval = false;

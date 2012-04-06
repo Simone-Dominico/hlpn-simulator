@@ -8,11 +8,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
-public class TupleEvaluator implements IAssignable
+public class TupleEvaluator implements IComparable
 {
 	@Override
-	public boolean compare(ResolutionManager manager,
-            Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
 	    if(!(refValue instanceof Tuple || testValue instanceof ProductValue) ||
@@ -32,7 +31,8 @@ public class TupleEvaluator implements IAssignable
     		Term c1 = v1.getSubterm().get(i);
     		AbstractValue c2 = v2.getComponents().get(i);
     		
-    		if(!manager.getComparator(c1.getClass()).compare(manager, c1, c2, assignments))
+    		ComparisonManager manager = ComparisonManager.getInstance();
+    		if(!manager.getComparator(c1.getClass()).compare(c1, c2, assignments))
     		{
     			return false;
     		}

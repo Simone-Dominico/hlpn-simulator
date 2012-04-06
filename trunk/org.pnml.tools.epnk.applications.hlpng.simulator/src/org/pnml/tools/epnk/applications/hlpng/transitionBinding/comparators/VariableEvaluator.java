@@ -8,11 +8,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class VariableEvaluator implements IAssignable
+public class VariableEvaluator implements IComparable
 {
 	@Override
-	public boolean compare(ResolutionManager manager,
-            Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
 	{
 		if(!(refValue instanceof Variable))

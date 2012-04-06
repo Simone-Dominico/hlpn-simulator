@@ -8,11 +8,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class NumberConstantEvaluator implements IAssignable
+public class NumberConstantEvaluator implements IComparable
 {
 	@Override
-	public boolean compare(ResolutionManager manager,
-            Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
 	    if(refValue instanceof NumberConstant && testValue instanceof NumberValue &&

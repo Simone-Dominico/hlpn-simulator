@@ -12,15 +12,15 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorI
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
-public class ResolutionManager
+public class ComparisonManager
 {
-	private static ResolutionManager evaluationManager = null;
+	private static ComparisonManager evaluationManager = null;
 	
-	private Map<Class, IAssignable> handlers = null;
+	private Map<Class, IComparable> handlers = null;
 
-	private ResolutionManager()
+	private ComparisonManager()
 	{
-		handlers = new HashMap<Class, IAssignable>();
+		handlers = new HashMap<Class, IComparable>();
 		{
 			handlers.put(NumberConstantImpl.class, new NumberConstantEvaluator());
 			handlers.put(StringConstantImpl.class, new StringConstantEvaluator());
@@ -37,16 +37,16 @@ public class ResolutionManager
 		}
 	}
 	
-	public static ResolutionManager getInstance()
+	public static ComparisonManager getInstance()
 	{
 		if(evaluationManager == null)
 		{
-			evaluationManager = new ResolutionManager();
+			evaluationManager = new ComparisonManager();
 		}
 		return evaluationManager;
 	}
 	
-	public void register(Class targetClass, IAssignable comparator)
+	public void register(Class targetClass, IComparable comparator)
 	{
 		handlers.put(targetClass, comparator);
 	}
@@ -56,7 +56,7 @@ public class ResolutionManager
 		handlers.remove(targetClass);
 	}
 	
-	public IAssignable getComparator(Class targetClass)
+	public IComparable getComparator(Class targetClass)
 	{
 		return handlers.get(targetClass);
 	}
