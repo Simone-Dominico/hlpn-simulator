@@ -22,18 +22,18 @@ public class ComparisonManager
 	{
 		handlers = new HashMap<Class, IComparable>();
 		{
-			handlers.put(NumberConstantImpl.class, new NumberConstantEvaluator());
-			handlers.put(StringConstantImpl.class, new StringConstantEvaluator());
+			handlers.put(NumberConstantImpl.class, new NumberConstantComparator());
+			handlers.put(StringConstantImpl.class, new StringConstantComparator());
 			
-			handlers.put(TupleImpl.class, new TupleEvaluator());
-			handlers.put(MultiSetOperatorImpl.class, new MultisetEvaluator());
-			handlers.put(NumberOfImpl.class, new NumberOfEvaluator());
+			handlers.put(TupleImpl.class, new TupleComparator());
+			handlers.put(MultiSetOperatorImpl.class, new MultisetComparator());
+			handlers.put(NumberOfImpl.class, new NumberOfComparator());
 			
-			BinaryOperationEvaluator binEval = new BinaryOperationEvaluator();
+			BinaryOperationComparator binEval = new BinaryOperationComparator();
 			handlers.put(AdditionImpl.class, binEval);
 			handlers.put(MultiplicationImpl.class, binEval);
 			
-			handlers.put(VariableImpl.class, new VariableEvaluator());
+			handlers.put(VariableImpl.class, new VariableComparator());
 		}
 	}
 	

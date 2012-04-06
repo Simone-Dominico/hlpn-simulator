@@ -8,7 +8,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class VariableEvaluator implements IComparable
+public class VariableComparator implements IComparable
 {
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,

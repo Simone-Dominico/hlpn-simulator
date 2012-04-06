@@ -13,7 +13,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class MultisetEvaluator implements IComparable
+public class MultisetComparator implements IComparable
 {
 	@Override
     public boolean compare(Term refValue, AbstractValue testValue,
