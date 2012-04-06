@@ -10,7 +10,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class NumberOfEvaluator implements IComparable
+public class NumberOfComparator implements IComparable
 {
 	@Override
     public boolean compare(Term refValue, AbstractValue testValue,

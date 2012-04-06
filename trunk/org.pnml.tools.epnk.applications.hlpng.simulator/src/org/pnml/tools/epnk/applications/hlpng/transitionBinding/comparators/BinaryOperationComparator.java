@@ -10,7 +10,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Evalua
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class BinaryOperationEvaluator implements IComparable
+public class BinaryOperationComparator implements IComparable
 {
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,

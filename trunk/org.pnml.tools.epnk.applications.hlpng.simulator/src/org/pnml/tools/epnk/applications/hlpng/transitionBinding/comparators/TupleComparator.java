@@ -8,7 +8,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
-public class TupleEvaluator implements IComparable
+public class TupleComparator implements IComparable
 {
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
