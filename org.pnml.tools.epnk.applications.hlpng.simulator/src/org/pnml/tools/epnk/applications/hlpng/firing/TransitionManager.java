@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class TransitionManager
