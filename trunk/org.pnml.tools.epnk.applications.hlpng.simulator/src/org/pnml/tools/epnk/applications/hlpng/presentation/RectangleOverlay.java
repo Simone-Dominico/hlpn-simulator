@@ -9,7 +9,6 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
-import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
@@ -17,6 +16,7 @@ import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.states.GreenOverlayState;
 import org.pnml.tools.epnk.applications.hlpng.states.IState;
 import org.pnml.tools.epnk.applications.hlpng.states.IStateContext;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class RectangleOverlay extends RectangleFigure implements IStateContext,

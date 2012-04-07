@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.firing;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,6 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.selection;
 
-import org.pnml.tools.epnk.applications.hlpng.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
 public class PopupMenuItem extends AbstractMenuItem
 {
