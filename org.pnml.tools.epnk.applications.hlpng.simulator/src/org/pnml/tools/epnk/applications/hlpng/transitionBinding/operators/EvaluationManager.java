@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.firing.RuntimeVariable;
-import org.pnml.tools.epnk.applications.hlpng.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;

@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.firing;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;

@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.firing;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 public class DependencyException extends Exception
 {
