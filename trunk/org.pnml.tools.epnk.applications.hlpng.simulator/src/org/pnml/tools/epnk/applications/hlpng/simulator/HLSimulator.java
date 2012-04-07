@@ -9,7 +9,6 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentation
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ArcInscriptionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -30,8 +29,7 @@ public class HLSimulator extends Application
 		FlatAccess flatAccess = new FlatAccess(this.petrinet);
 		
 	    this.presentationManager = new SimulatorPresentationManager(this);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, 
-				new ArcInscriptionManager(flatAccess));
+		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess);
 		
 		NetMarking netMarking = this.netMarkingManager.createNetMarking();
 		

@@ -10,7 +10,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ArcInscriptionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
@@ -31,13 +30,12 @@ public class NetMarkingManager
 	private EvaluationManager operatorManager = null;
 	private TransitionManager transitionManager = null;
 	
-	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess,
-			ArcInscriptionManager arcInscriptionManager)
+	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess)
 	{
 		this.petrinet = petrinet;
 		this.flatAccess = flatAccess;
 		this.operatorManager = EvaluationManager.getInstance();
-		this.transitionManager = new TransitionManager(arcInscriptionManager);
+		this.transitionManager = new TransitionManager(flatAccess);
 	}
 	
 	public NetMarking createNetMarking()
