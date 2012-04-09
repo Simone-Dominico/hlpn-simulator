@@ -30,25 +30,23 @@ public class ArcInscriptionHandler
 	public List<List<Map<String, VariableEvaluation>>> match(MSValue value)
 	{
 		// each inscription term compared to all multiset terms
-		List<List<Map<String, VariableEvaluation>>> list = null;
+		List<List<Map<String, VariableEvaluation>>> list = 
+				new ArrayList<List<Map<String,VariableEvaluation>>>();
+		if(multiSetOperator instanceof NumberOf)
 		{
-			list = new ArrayList<List<Map<String,VariableEvaluation>>>();
-			if(multiSetOperator instanceof NumberOf)
+			List<Map<String, VariableEvaluation>> assignments = contains(value, 
+					evaluationManager, (NumberOf)multiSetOperator);
+			
+			list.add(assignments);
+		}
+		else
+		{
+			for(Term refValue : multiSetOperator.getSubterm())
 			{
 				List<Map<String, VariableEvaluation>> assignments = contains(value, 
-						evaluationManager, (NumberOf)multiSetOperator);
+						evaluationManager, ((NumberOf)refValue));
 				
 				list.add(assignments);
-			}
-			else
-			{
-				for(Term refValue : multiSetOperator.getSubterm())
-				{
-					List<Map<String, VariableEvaluation>> assignments = contains(value, 
-							evaluationManager, ((NumberOf)refValue));
-					
-					list.add(assignments);
-				}
 			}
 		}
 		return list;

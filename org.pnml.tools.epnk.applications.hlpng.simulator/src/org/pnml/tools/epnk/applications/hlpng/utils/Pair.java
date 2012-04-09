@@ -31,4 +31,9 @@ public class Pair<K, V>
     {
     	this.value = value;
     }
+	@Override
+    public String toString()
+    {
+	    return key + "=" + value;
+    }
 }

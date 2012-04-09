@@ -99,7 +99,6 @@ public class TransitionManager
 		{
 			globalMap.remove(ve.getVariable().getName());
 		}
-		
 		do
 		{		
 			List<VariableEvaluation> tmp = new ArrayList<VariableEvaluation>();
@@ -115,6 +114,9 @@ public class TransitionManager
 			unfinished = tmp;
 		}
 		while(unfinished.size() > 0);
+		
+		// filtering non consistent assignments
+		globalMap = checkParams(globalMap);
 		
 		// there is only 1 variable
 		if(globalMap.keySet().size() == 1)
@@ -151,6 +153,35 @@ public class TransitionManager
 		return eval(varSets, incomingArcs, runtimeValues, transition);
 	}
 	
+	private static Map<String, VariableEvaluation> checkParams(Map<String, VariableEvaluation> globalMap)
+	{
+		Map<String, VariableEvaluation> filtered = new HashMap<String, VariableEvaluation>();
+		for(String key : globalMap.keySet())
+		{
+			VariableEvaluation oldVe = globalMap.get(key);
+			RuntimeVariable rv = (RuntimeVariable)oldVe.getVariable();
+			
+			Set<AbstractValue> newValues = new HashSet<AbstractValue>();
+			for(AbstractValue value : oldVe.getValues())
+			{
+				if(ConsistencyManager.check(value, rv.getVariable().getSort()))
+				{
+					newValues.add(value);
+				}
+			}
+			
+			if(newValues.size() > 0)
+			{
+				VariableEvaluation newVe = new VariableEvaluation();
+				newVe.setVariable(rv);
+				newVe.setValues(newValues);
+				
+				filtered.put(key, newVe);
+			}
+		}
+		return filtered;
+	}
+	
 	/*
 	 * Evaluate each arc inscription with the given parameter set
 	 */
@@ -161,61 +192,46 @@ public class TransitionManager
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<Variable, AbstractValue> params : varSets)
 		{
-			if(checkParams(params))
+			FiringMode assignment = new FiringMode();
+			assignment.setParams(params);
+			assignment.setTransition(transition);
+			
+			boolean matched = true;
+			for(String placeId : incomingArcs.keySet())
 			{
-				FiringMode assignment = new FiringMode();
-				assignment.setParams(params);
-				assignment.setTransition(transition);
-				
-				boolean matched = true;
-				for(String placeId : incomingArcs.keySet())
+				if(matched)
 				{
-					if(matched)
-					{
-						MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
-						// it may be not possible to initialize some of the variables
-						MSValue inscriptionValue = null;
-	                    try
+					MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
+					// it may be not possible to initialize some of the variables
+					MSValue inscriptionValue = null;
+                    try
+                    {
+	                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
+	                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
+	                    
+	                    if(ConsistencyManager.check(inscriptionValue, null) && 
+	                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
 	                    {
-		                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
-		                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
-		                    
-		                    if(ConsistencyManager.check(inscriptionValue, null) && 
-		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
-		                    {
-		                    	assignment.getValues().put(placeId, 
-										AbstractValueMath.subtract(runtimeValue, inscriptionValue));	
-		                    }
-		                    else
-		                    {
-		                    	matched = false;
-		                    }
+	                    	assignment.getValues().put(placeId, 
+									AbstractValueMath.subtract(runtimeValue, inscriptionValue));	
 	                    }
-	                    catch(Exception e)
+	                    else
 	                    {
 	                    	matched = false;
 	                    }
-					}
+                    }
+                    catch(Exception e)
+                    {
+                    	matched = false;
+                    }
 				}
-				if(matched)
-				{
-					assignemnts.add(assignment);
-				}	
 			}
+			if(matched)
+			{
+				assignemnts.add(assignment);
+			}	
 		}
 		return assignemnts;
-	}
-	
-	private static boolean checkParams(Map<Variable, AbstractValue> params)
-	{
-		for(Variable key : params.keySet())
-		{
-			if(!ConsistencyManager.check(params.get(key), key.getSort()))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	private static Map<String, VariableEvaluation> narrowing(
