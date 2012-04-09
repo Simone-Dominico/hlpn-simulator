@@ -3,8 +3,6 @@ package org.pnml.tools.epnk.applications.hlpng.presentation;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
@@ -54,8 +52,9 @@ public class SimulatorPresentationManager implements IPresentationManager
 			}
 			
 			IFigure mainFigure = graphicalEditPart.getFigure();
-			Font font = new Font(Display.getCurrent(), "Courier New", 8, SWT.NORMAL);
-			Label label = new TopRightLabel(font, marking.getMsValue().toString(), mainFigure);
+			Label label = new TopRightLabel(Display.getCurrent().getSystemFont(), 
+					marking.getMsValue().toString(), mainFigure);
+			
 			return new LabelLayer(mainFigure, label);
 		}
 		return figure;
