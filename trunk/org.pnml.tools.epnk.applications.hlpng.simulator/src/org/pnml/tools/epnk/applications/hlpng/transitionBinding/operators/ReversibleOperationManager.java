@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,11 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IReversibleOperation;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultiplicationEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
