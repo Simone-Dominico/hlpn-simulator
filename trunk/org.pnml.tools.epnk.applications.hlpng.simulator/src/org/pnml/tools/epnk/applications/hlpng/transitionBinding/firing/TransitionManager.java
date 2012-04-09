@@ -86,34 +86,34 @@ public class TransitionManager
 		Map<String, VariableEvaluation> globalMap = narrowing(allInscriptionMatches);
 		
 		// resolving undefined variables
-		List<VariableEvaluation> unfinished = new ArrayList<VariableEvaluation>();
+		List<VariableEvaluation> unresolved = new ArrayList<VariableEvaluation>();
 		for(String key : globalMap.keySet())
 		{
 			VariableEvaluation ve = globalMap.get(key);
 			if(ve.getVariable() instanceof AbstractUndefinedVariable)
 			{
-				unfinished.add(ve);
+				unresolved.add(ve);
 			}
 		}
-		for(VariableEvaluation ve : unfinished)
+		for(VariableEvaluation ve : unresolved)
 		{
 			globalMap.remove(ve.getVariable().getName());
 		}
 		do
 		{		
-			List<VariableEvaluation> tmp = new ArrayList<VariableEvaluation>();
-			for(VariableEvaluation ve : unfinished)
+			List<VariableEvaluation> repeat = new ArrayList<VariableEvaluation>();
+			for(VariableEvaluation ve : unresolved)
 			{
 				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
 				
-				if(!EvaluationManager.getInstance().resolveAll(ve.getValues(), op, globalMap))
+				if(!ReversibleOperationManager.getInstance().resolveAll(ve.getValues(), op, globalMap))
 				{
-					tmp.add(ve);
+					repeat.add(ve);
 				}
 			}
-			unfinished = tmp;
+			unresolved = repeat;
 		}
-		while(unfinished.size() > 0);
+		while(unresolved.size() > 0);
 		
 		// filtering non consistent assignments
 		globalMap = checkParams(globalMap);
