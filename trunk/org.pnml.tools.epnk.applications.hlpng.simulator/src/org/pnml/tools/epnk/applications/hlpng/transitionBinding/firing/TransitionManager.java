@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
@@ -193,43 +194,64 @@ public class TransitionManager
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<Variable, AbstractValue> params : varSets)
 		{
-			FiringMode assignment = new FiringMode();
-			assignment.setParams(params);
-			assignment.setTransition(transition);
+			boolean conditionSatisfied = true;
 			
-			boolean matched = true;
-			for(String placeId : incomingArcs.keySet())
+			if(transition.getCondition() != null && 
+					transition.getCondition().getStructure() != null)
 			{
-				if(matched)
+				try
+                {
+	                AbstractValue conditionValue = 
+	                		EvaluationManager.getInstance().evaluateAdapt(
+	                				transition.getCondition().getStructure(), params);
+	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();
+                }
+                catch(Exception e)
+                {
+                	conditionSatisfied = false;
+                }
+			}
+			
+			if(conditionSatisfied)
+			{
+				FiringMode assignment = new FiringMode();
+				assignment.setParams(params);
+				assignment.setTransition(transition);
+				
+				boolean matched = true;
+				for(String placeId : incomingArcs.keySet())
 				{
-					MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
-					// it may be not possible to initialize some of the variables
-					MSValue inscriptionValue = null;
-                    try
-                    {
-	                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
-	                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
-	                    
-	                    if(ConsistencyManager.check(inscriptionValue, null) && 
-	                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
+					if(matched)
+					{
+						MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
+						// it may be not possible to initialize some of the variables
+						MSValue inscriptionValue = null;
+	                    try
 	                    {
-	                    	assignment.getValues().put(placeId, 
-									AbstractValueMath.subtract(runtimeValue, inscriptionValue));	
+		                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
+		                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
+		                    
+		                    if(ConsistencyManager.check(inscriptionValue, null) && 
+		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
+		                    {
+		                    	assignment.getValues().put(placeId, 
+										AbstractValueMath.subtract(runtimeValue, inscriptionValue));	
+		                    }
+		                    else
+		                    {
+		                    	matched = false;
+		                    }
 	                    }
-	                    else
+	                    catch(Exception e)
 	                    {
 	                    	matched = false;
 	                    }
-                    }
-                    catch(Exception e)
-                    {
-                    	matched = false;
-                    }
+					}
 				}
-			}
-			if(matched)
-			{
-				assignemnts.add(assignment);
+				if(matched)
+				{
+					assignemnts.add(assignment);
+				}
 			}	
 		}
 		return assignemnts;

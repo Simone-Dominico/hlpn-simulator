@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
@@ -24,6 +25,7 @@ public class ComparisonManager
 		{
 			handlers.put(NumberConstantImpl.class, new NumberConstantComparator());
 			handlers.put(StringConstantImpl.class, new StringConstantComparator());
+			handlers.put(BooleanConstantImpl.class, new BooleanConstantComparator());
 			
 			handlers.put(TupleImpl.class, new TupleComparator());
 			handlers.put(MultiSetOperatorImpl.class, new MultisetComparator());

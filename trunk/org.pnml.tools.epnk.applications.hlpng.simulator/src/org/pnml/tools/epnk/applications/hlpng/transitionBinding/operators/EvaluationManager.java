@@ -11,7 +11,12 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.AndImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.InequalityImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.OrImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.GreaterThanImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.LessThanImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
@@ -33,6 +38,11 @@ public class EvaluationManager
 	{
 		handlers = new HashMap<Class, IEvaluator>();
 		
+		handlers.put(GreaterThanImpl.class, new GreaterThanEval());
+		handlers.put(LessThanImpl.class, new LessThanEval());
+		handlers.put(AndImpl.class, new AndEval());
+		handlers.put(OrImpl.class, new OrEval());
+		handlers.put(InequalityImpl.class, new InequalityEval());
 		handlers.put(NumberConstantImpl.class, new NumberConstantEval());
 		handlers.put(StringConstantImpl.class, new StringConstantEval());
 		handlers.put(NumberOfImpl.class, new NumberOfEval());
@@ -104,6 +114,11 @@ public class EvaluationManager
 		}
 
 		IEvaluator evaluator = handlers.get(term.getClass());
+		
+		if(evaluator == null)
+		{
+			System.out.println(term.getClass());
+		}
 		
 		return evaluator.evaluate(values, op);
 	}
