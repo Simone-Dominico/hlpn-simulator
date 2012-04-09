@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -28,8 +29,8 @@ public class BinaryOperationComparator implements IComparable
         }
 		if(cannotEval)
 		{
-			AbstractReversibleOperation operation = EvaluationManager
-					.getInstance().createReversibleOperationHandler(refValue.getClass());
+			AbstractReversibleOperation operation = ReversibleOperationManager
+					.getInstance().createHandler(refValue.getClass());
 			operation.setRootTerm(refValue);
 			
 			if(assignments.containsKey(operation.getName()))
