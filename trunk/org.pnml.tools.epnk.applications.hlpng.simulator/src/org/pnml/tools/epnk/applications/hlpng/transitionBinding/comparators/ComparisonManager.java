@@ -29,7 +29,7 @@ public class ComparisonManager
 			handlers.put(MultiSetOperatorImpl.class, new MultisetComparator());
 			handlers.put(NumberOfImpl.class, new NumberOfComparator());
 			
-			BinaryOperationComparator binEval = new BinaryOperationComparator();
+			ReversibleOperationComparator binEval = new ReversibleOperationComparator();
 			handlers.put(AdditionImpl.class, binEval);
 			handlers.put(MultiplicationImpl.class, binEval);
 			
