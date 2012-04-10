@@ -67,7 +67,7 @@ public class ReversibleOperationManager
 		return null;
 	}
 	
-	private boolean resolve(AbstractValue result, IReversibleOperation operation,
+	public boolean resolve(AbstractValue result, IReversibleOperation operation,
 			Map<String, VariableEvaluation> knownVariables)
 	{
 		List<Term> unknown = new ArrayList<Term>();
