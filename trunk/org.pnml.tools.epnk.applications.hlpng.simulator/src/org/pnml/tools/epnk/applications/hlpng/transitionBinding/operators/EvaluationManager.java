@@ -12,6 +12,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableE
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.AndImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.EqualityImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.InequalityImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.OrImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
@@ -21,6 +22,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.Multiplication
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.ConcatenationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -42,7 +44,9 @@ public class EvaluationManager
 		handlers.put(LessThanImpl.class, new LessThanEval());
 		handlers.put(AndImpl.class, new AndEval());
 		handlers.put(OrImpl.class, new OrEval());
+		handlers.put(ConcatenationImpl.class, new ConcatenationEval());
 		handlers.put(InequalityImpl.class, new InequalityEval());
+		handlers.put(EqualityImpl.class, new EqualityEval());
 		handlers.put(NumberConstantImpl.class, new NumberConstantEval());
 		handlers.put(StringConstantImpl.class, new StringConstantEval());
 		handlers.put(NumberOfImpl.class, new NumberOfEval());
