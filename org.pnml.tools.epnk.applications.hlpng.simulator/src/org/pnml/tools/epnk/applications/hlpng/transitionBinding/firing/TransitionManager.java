@@ -77,10 +77,10 @@ public class TransitionManager
 				new ArrayList<List<List<Map<String,VariableEvaluation>>>>();
 		for(String placeId : incomingArcs.keySet())
 		{
-			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
 			MSValue msValue = runtimeValues.get(placeId).getMsValue();
 			
 			// each inscription term compared to all multiset terms
+			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
 			allInscriptionMatches.add(matcher.match(msValue));
 		}
 		

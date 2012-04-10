@@ -43,6 +43,7 @@ public class NetMarkingManager
 		NetMarking netMarking = new NetMarking();
 		netMarking.setNet(petrinet);
 		
+		// creates a runtime marking for each place
 		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
 		{
 			Place hlPlace = (Place)place;
@@ -79,6 +80,7 @@ public class NetMarkingManager
 			netMarking.getObjectAnnotations().add(marking);
 		}
 		
+		// puts place markings into a map for a better performance
 		Map<String, PlaceMarking> runtimeValues = new HashMap<String, PlaceMarking>();
 	    for(AbstractMarking marking : netMarking.getMarkings())
     	{
@@ -89,6 +91,7 @@ public class NetMarkingManager
 	    	}
     	}
 	    
+	    // creates a marking for enabled transitions
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
 			Transition hlTransition = (Transition)transition;
@@ -123,9 +126,7 @@ public class NetMarkingManager
 	
 	public NetMarking createNetMarking(NetMarking prevMarking, FiringMode firingMode)
 	{
-		NetMarking netMarking = new NetMarking();
-		netMarking.setNet(petrinet);
-
+		// puts place markings into a map
 		Map<String, PlaceMarking> oldRuntimeValues = new HashMap<String, PlaceMarking>();
 		for(AbstractMarking marking : prevMarking.getMarkings())
     	{
@@ -136,7 +137,7 @@ public class NetMarkingManager
 	    	}
     	}
 
-		// update incoming places' marking
+		// updates incoming places' marking
 		Map<String, PlaceMarking> newRuntimeValues = new HashMap<String, PlaceMarking>();
 		for(String placeId : firingMode.getValues().keySet())
 		{
@@ -152,7 +153,7 @@ public class NetMarkingManager
 			newRuntimeValues.put(placeId, newMarking);
 		}
 		
-		// update outgoing places' marking
+		// updates outgoing places' marking
 		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : firingMode.getTransition().getOut())
 		{
 			Place place = (Place)arc.getTarget();
@@ -160,12 +161,11 @@ public class NetMarkingManager
 			
 			PlaceMarking currentMarking = null;
 			
-			PlaceMarking oldMarking = oldRuntimeValues.get(placeId);
-			oldRuntimeValues.remove(placeId);
-			
-			if(oldMarking != null)
+			// handles cyclic behavior when the same place is a source and a destination
+			if(oldRuntimeValues.containsKey(placeId))
 			{
-				currentMarking = oldMarking;
+				currentMarking = oldRuntimeValues.get(placeId);
+				oldRuntimeValues.remove(placeId);
 			}
 			else
 			{
@@ -178,6 +178,7 @@ public class NetMarkingManager
 			newMarking.setPlace(currentMarking.getPlace());
 			
 			Arc hlArc = (Arc)arc;
+			// one of the outgoing arc has no inscription
 			if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
 			{
 				try
@@ -189,15 +190,22 @@ public class NetMarkingManager
 	                		currentMarking.getMsValue());
 	                
 	                newMarking.setMsValue(newMsValue);
-	    			
-	                newRuntimeValues.put(placeId, newMarking);
                 }
                 catch(UnknownVariableException e)
                 {
 	                e.printStackTrace();
                 }	
 			}
+			else
+			{
+				newMarking.setMsValue(AbstractValueMath.lightCopy(currentMarking.getMsValue()));
+			}
+			newRuntimeValues.put(placeId, newMarking);
 		}
+		
+		// creates a new net marking - applying a layered approach
+		NetMarking netMarking = new NetMarking();
+		netMarking.setNet(petrinet);
 		
 		// add new markings into the net
 		for(String key : newRuntimeValues.keySet())
