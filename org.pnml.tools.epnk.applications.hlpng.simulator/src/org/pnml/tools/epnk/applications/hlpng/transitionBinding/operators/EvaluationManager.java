@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.UserExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
@@ -53,7 +54,7 @@ public class EvaluationManager
 		handlers.put(AddImpl.class, new AddEval());
 		handlers.put(TupleImpl.class, new TupleEval());
 		
-		handlers.put(UserOperatorImpl.class, null);
+		handlers.put(UserOperatorImpl.class, new UserExtensionManager());
 		
 		handlers.put(AdditionImpl.class, new AdditionEval());
 		handlers.put(MultiplicationImpl.class, new MultiplicationEval());
