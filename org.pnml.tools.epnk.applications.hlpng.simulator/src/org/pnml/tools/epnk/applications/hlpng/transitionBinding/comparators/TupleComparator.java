@@ -14,9 +14,11 @@ public class TupleComparator implements IComparable
 	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
     {
+		// FIXME: mla: errors in home made sort comparison
+		// need to check || !(refValue.getSort().equals(testValue.getSort())
+		// || refValue.getSort().isSuperSortOf(testValue.getSort()))
+		// but it is not clear how to handle user created sorts
 	    if(!(refValue instanceof Tuple || testValue instanceof ProductValue) ||
-	    		!(refValue.getSort().equals(testValue.getSort()) ||
-	    				refValue.getSort().isSuperSortOf(testValue.getSort())) ||
 	    				((Tuple)refValue).getSubterm().size() != 
 	    				((ProductValue)testValue).getComponents().size())
 	    {
