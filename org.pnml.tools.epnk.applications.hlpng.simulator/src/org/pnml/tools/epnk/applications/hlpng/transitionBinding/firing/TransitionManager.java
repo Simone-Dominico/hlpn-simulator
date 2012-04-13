@@ -23,7 +23,7 @@ import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class TransitionManager
@@ -44,10 +44,9 @@ public class TransitionManager
 			{
 				Arc hlArc = (Arc) arc;
 				if(hlArc.getHlinscription() != null && 
-						hlArc.getHlinscription().getStructure() != null &&
-						hlArc.getHlinscription().getStructure() instanceof MultiSetOperator)
+						hlArc.getHlinscription().getStructure() != null)
 				{
-					MultiSetOperator term = (MultiSetOperator)hlArc.getHlinscription().getStructure();
+					Operator term = (Operator)hlArc.getHlinscription().getStructure();
 					map.put(arc.getSource().getId(), new ArcInscriptionHandler(term, comparatorManager));
 				}
 			}
@@ -229,7 +228,7 @@ public class TransitionManager
 	                    try
 	                    {
 		                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
-		                    		.evaluateAdapt(incomingArcs.get(placeId).getMultiSetOperator(), params);
+		                    		.evaluateAdapt(incomingArcs.get(placeId).getOperator(), params);
 		                    
 		                    if(ConsistencyManager.check(inscriptionValue, null) && 
 		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))

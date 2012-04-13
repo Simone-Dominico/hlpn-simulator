@@ -14,16 +14,17 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ArcInscriptionHandler
 {
-	private MultiSetOperator multiSetOperator = null;
+	private Operator operator = null;
 	private ComparisonManager evaluationManager = null;
 	
-	public ArcInscriptionHandler(MultiSetOperator multiSetOperator, ComparisonManager evaluationManager)
+	public ArcInscriptionHandler(Operator operator, ComparisonManager evaluationManager)
 	{
-		this.multiSetOperator = multiSetOperator;
+		this.operator = operator;
 		this.evaluationManager = evaluationManager;
 	}
 	
@@ -32,16 +33,16 @@ public class ArcInscriptionHandler
 		// each inscription term compared to all multiset terms
 		List<List<Map<String, VariableEvaluation>>> list = 
 				new ArrayList<List<Map<String,VariableEvaluation>>>();
-		if(multiSetOperator instanceof NumberOf)
+		if(operator instanceof NumberOf)
 		{
 			List<Map<String, VariableEvaluation>> assignments = contains(value, 
-					evaluationManager, (NumberOf)multiSetOperator);
+					evaluationManager, (NumberOf)operator);
 			
 			list.add(assignments);
 		}
-		else
+		else if(operator instanceof MultiSetOperator)
 		{
-			for(Term refValue : multiSetOperator.getSubterm())
+			for(Term refValue : operator.getSubterm())
 			{
 				List<Map<String, VariableEvaluation>> assignments = contains(value, 
 						evaluationManager, ((NumberOf)refValue));
@@ -96,8 +97,8 @@ public class ArcInscriptionHandler
 		return list;
 	}
 
-	public MultiSetOperator getMultiSetOperator()
+	public Operator getOperator()
     {
-    	return multiSetOperator;
+    	return operator;
     }
 }
