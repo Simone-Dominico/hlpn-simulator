@@ -36,7 +36,7 @@ public class MSValue extends AbstractValue
     			buffer.append(value.toString());    			
     		}
 
-    		buffer.append("++");
+    		buffer.append("++\n");
     	}
     	
 	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
