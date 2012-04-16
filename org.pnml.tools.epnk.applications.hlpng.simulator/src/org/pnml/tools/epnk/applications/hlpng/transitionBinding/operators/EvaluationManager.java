@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.UserExtensionManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
@@ -56,7 +59,34 @@ public class EvaluationManager
 		handlers.put(SubtractImpl.class, new SubtractEval());
 		handlers.put(TupleImpl.class, new TupleEval());
 		
-		handlers.put(UserOperatorImpl.class, new UserExtensionManager());
+		IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+		
+		List<IUserExtensions> userExtensions = new ArrayList<IUserExtensions>();
+		for(IConfigurationElement e : config)
+		{
+            try
+            {
+            	Object o = e.createExecutableExtension("class");
+            	if(o instanceof IUserExtensions)
+    			{
+            		userExtensions.add((IUserExtensions)o);
+    			}
+            }
+            catch(CoreException e1)
+            {
+	            e1.printStackTrace();
+            }
+		}
+		
+		if(userExtensions.size() > 1)
+		{
+			System.err.println("WRN: EvaluationManager: expected only one extension. Taking the first one.");
+		}
+		if(userExtensions.size() > 0)
+		{
+			handlers.put(UserOperatorImpl.class, userExtensions.get(0));
+		}
 		
 		handlers.put(AdditionImpl.class, new AdditionEval());
 		handlers.put(MultiplicationImpl.class, new MultiplicationEval());
