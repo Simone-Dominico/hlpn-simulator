@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.presentation;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 public class TopRightLabel extends Label
@@ -11,6 +12,8 @@ public class TopRightLabel extends Label
 	
 	protected int textWidth;
 	protected int textHeight;
+	
+	protected Color textColor = null;
 	
 	public TopRightLabel(Font font, String text, IFigure figure)
 	{
@@ -21,6 +24,10 @@ public class TopRightLabel extends Label
 		this.textHeight = this.getPreferredSize().height;
 
 		this.figure = figure;
+		
+		this.textColor = new Color(font.getDevice(), 0, 0, 255);
+		
+		this.setForegroundColor(textColor);
 	}
 	
 	@Override
