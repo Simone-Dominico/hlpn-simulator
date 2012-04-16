@@ -9,6 +9,10 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.conse
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.consensus.RBFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.consensus.RFFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.consensus.UFunction;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.echo.InitiatorsFunction;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.echo.M1Function;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.echo.M2Function;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.echo.OthersFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.mindist.IFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.mindist.RFunction;
@@ -22,15 +26,23 @@ public class UserExtensionManager implements IEvaluator
 	
 	public UserExtensionManager()
 	{
+		// min dist
 		this.handlers = new HashMap<String, IEvaluator>();
 		this.handlers.put("R", new RFunction());
 		this.handlers.put("I", new IFunction());
 		this.handlers.put("N", new NFunction());
 		
+		// consensus in networks
 		this.handlers.put("U", new UFunction());
 		this.handlers.put("M", new MFunction());
 		this.handlers.put("RF", new RFFunction());
 		this.handlers.put("RB", new RBFunction());
+		
+		// echo
+		this.handlers.put("INITIATORS", new InitiatorsFunction());
+		this.handlers.put("OTHERS", new OthersFunction());
+		this.handlers.put("M1", new M1Function());
+		this.handlers.put("M2", new M2Function());
 	}
 
 	@Override
