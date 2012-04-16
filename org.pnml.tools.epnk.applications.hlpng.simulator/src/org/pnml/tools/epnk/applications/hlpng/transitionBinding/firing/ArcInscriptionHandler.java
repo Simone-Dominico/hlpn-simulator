@@ -40,17 +40,29 @@ public class ArcInscriptionHandler
 			
 			list.add(assignments);
 		}
-		else if(operator instanceof MultiSetOperator)
+		else if(operator instanceof MultiSetOperator && checkMSOpertator((MultiSetOperator)operator))
 		{
 			for(Term refValue : operator.getSubterm())
 			{
 				List<Map<String, VariableEvaluation>> assignments = contains(value, 
 						evaluationManager, ((NumberOf)refValue));
 				
-				list.add(assignments);
+				list.add(assignments);	
 			}
 		}
 		return list;
+	}
+	
+	private static boolean checkMSOpertator(MultiSetOperator operator)
+	{
+		for(Term term : operator.getSubterm())
+		{
+			if(!(term instanceof NumberOf))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private static List<Map<String, VariableEvaluation>> contains(
