@@ -23,6 +23,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.Multiplication
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.SubtractImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.ConcatenationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -52,6 +53,7 @@ public class EvaluationManager
 		handlers.put(StringConstantImpl.class, new StringConstantEval());
 		handlers.put(NumberOfImpl.class, new NumberOfEval());
 		handlers.put(AddImpl.class, new AddEval());
+		handlers.put(SubtractImpl.class, new SubtractEval());
 		handlers.put(TupleImpl.class, new TupleEval());
 		
 		handlers.put(UserOperatorImpl.class, new UserExtensionManager());
