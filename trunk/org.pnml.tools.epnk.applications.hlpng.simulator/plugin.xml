@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions" name="UserExtensions" schema="schema/org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.exsd"/>
 
    <extension
          point="org.eclipse.ui.popupMenus">
