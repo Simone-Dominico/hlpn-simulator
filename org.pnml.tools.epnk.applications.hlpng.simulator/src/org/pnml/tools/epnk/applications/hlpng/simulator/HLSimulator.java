@@ -1,5 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
@@ -9,6 +12,8 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentation
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulatorDelegate;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -31,8 +36,26 @@ public class HLSimulator extends Application
 	    this.presentationManager = new SimulatorPresentationManager(this);
 		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess);
 		
-		NetMarking netMarking = this.netMarkingManager.createNetMarking();
+		IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.simulator.extensions");
 		
+		for(IConfigurationElement e : config)
+		{
+            try
+            {
+            	Object o = e.createExecutableExtension("class");
+            	if(o instanceof ISimulatorDelegate)
+            	{
+            		((ISimulatorDelegate)o).setSimulator(this);
+            	}
+            }
+            catch(CoreException e1)
+            {
+	            e1.printStackTrace();
+            }
+		}
+		
+		NetMarking netMarking = this.netMarkingManager.createNetMarking();
 		NetAnnotations netAnnotations = this.getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);

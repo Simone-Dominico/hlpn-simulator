@@ -16,6 +16,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableE
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.AndImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.EqualityImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.InequalityImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.OrImpl;
@@ -54,6 +55,7 @@ public class EvaluationManager
 		handlers.put(EqualityImpl.class, new EqualityEval());
 		handlers.put(NumberConstantImpl.class, new NumberConstantEval());
 		handlers.put(StringConstantImpl.class, new StringConstantEval());
+		handlers.put(BooleanConstantImpl.class, new BooleanConstantEval());
 		handlers.put(NumberOfImpl.class, new NumberOfEval());
 		handlers.put(AddImpl.class, new AddEval());
 		handlers.put(SubtractImpl.class, new SubtractEval());
