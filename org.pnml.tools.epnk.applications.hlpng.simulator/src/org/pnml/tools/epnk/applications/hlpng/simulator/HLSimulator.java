@@ -15,9 +15,12 @@ import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulatorDelegate;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
 
 public class HLSimulator extends Application 
 	implements IApplicationWithPresentation, ISimulator
@@ -31,23 +34,21 @@ public class HLSimulator extends Application
     {
 	    super(petrinet);
 	    
-		FlatAccess flatAccess = new FlatAccess(this.petrinet);
+	    FlatAccess flatAccess = new FlatAccess(this.petrinet);
 		
 	    this.presentationManager = new SimulatorPresentationManager(this);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess);
+		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, EvaluationManager.getInstance());
 		
-		IConfigurationElement[] config = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.simulator.extensions");
+	    IConfigurationElement[] config = Platform.getExtensionRegistry()
+				.getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 		
 		for(IConfigurationElement e : config)
 		{
             try
             {
             	Object o = e.createExecutableExtension("class");
-            	if(o instanceof ISimulatorDelegate)
-            	{
-            		((ISimulatorDelegate)o).setSimulator(this);
-            	}
+            	((ISimulatorDelegate)o).setSimulator(this);
+            	EvaluationManager.getInstance().register(UserOperatorImpl.class, (IEvaluator)o);
             }
             catch(CoreException e1)
             {
