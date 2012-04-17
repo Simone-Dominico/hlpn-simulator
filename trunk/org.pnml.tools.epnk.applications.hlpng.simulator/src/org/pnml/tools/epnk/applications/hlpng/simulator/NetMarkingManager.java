@@ -30,11 +30,11 @@ public class NetMarkingManager
 	private EvaluationManager operatorManager = null;
 	private TransitionManager transitionManager = null;
 	
-	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess)
+	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess, EvaluationManager evalManager)
 	{
 		this.petrinet = petrinet;
 		this.flatAccess = flatAccess;
-		this.operatorManager = EvaluationManager.getInstance();
+		this.operatorManager = evalManager;
 		this.transitionManager = new TransitionManager(flatAccess);
 	}
 	
