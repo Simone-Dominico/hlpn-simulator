@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: NetworkAlgorithm
-Bundle-SymbolicName: NetworkAlgorithm;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.pnml.tools.epnk.applications.hlpng.simulator;bundle-version="0.1.0",
- org.pnml.tools.epnk.pntypes.hlpng.pntd;bundle-version="0.9.3"
