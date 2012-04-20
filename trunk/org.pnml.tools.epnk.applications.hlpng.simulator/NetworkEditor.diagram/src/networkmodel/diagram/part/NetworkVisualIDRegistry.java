@@ -4,6 +4,7 @@ import networkmodel.Network;
 import networkmodel.NetworkmodelPackage;
 import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
@@ -235,6 +236,11 @@ public class NetworkVisualIDRegistry
 		        domainElement.eClass()))
 		{
 			return UndirectedEdgeEditPart.VISUAL_ID;
+		}
+		if(NetworkmodelPackage.eINSTANCE.getDirectedEdge().isSuperTypeOf(
+		        domainElement.eClass()))
+		{
+			return DirectedEdgeEditPart.VISUAL_ID;
 		}
 		return -1;
 	}

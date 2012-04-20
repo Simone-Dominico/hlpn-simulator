@@ -72,6 +72,7 @@ public class NetworkmodelFactoryImpl extends EFactoryImpl implements Networkmode
             case NetworkmodelPackage.ALPHA_NODE: return createAlphaNode();
             case NetworkmodelPackage.OMEGA_NODE: return createOmegaNode();
             case NetworkmodelPackage.UNDIRECTED_EDGE: return createUndirectedEdge();
+            case NetworkmodelPackage.DIRECTED_EDGE: return createDirectedEdge();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -119,6 +120,17 @@ public class NetworkmodelFactoryImpl extends EFactoryImpl implements Networkmode
     {
         UndirectedEdgeImpl undirectedEdge = new UndirectedEdgeImpl();
         return undirectedEdge;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DirectedEdge createDirectedEdge()
+    {
+        DirectedEdgeImpl directedEdge = new DirectedEdgeImpl();
+        return directedEdge;
     }
 
     /**

@@ -348,6 +348,44 @@ public interface NetworkmodelPackage extends EPackage
 
 
     /**
+     * The meta object id for the '{@link networkmodel.impl.DirectedEdgeImpl <em>Directed Edge</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see networkmodel.impl.DirectedEdgeImpl
+     * @see networkmodel.impl.NetworkmodelPackageImpl#getDirectedEdge()
+     * @generated
+     */
+    int DIRECTED_EDGE = 7;
+
+    /**
+     * The feature id for the '<em><b>Source</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTED_EDGE__SOURCE = ABSTRACT_EDGE__SOURCE;
+
+    /**
+     * The feature id for the '<em><b>Target</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTED_EDGE__TARGET = ABSTRACT_EDGE__TARGET;
+
+    /**
+     * The number of structural features of the '<em>Directed Edge</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTED_EDGE_FEATURE_COUNT = ABSTRACT_EDGE_FEATURE_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link networkmodel.Network <em>Network</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -493,6 +531,16 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      */
     EClass getNetworkObject();
+
+    /**
+     * Returns the meta object for class '{@link networkmodel.DirectedEdge <em>Directed Edge</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Directed Edge</em>'.
+     * @see networkmodel.DirectedEdge
+     * @generated
+     */
+    EClass getDirectedEdge();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -642,6 +690,16 @@ public interface NetworkmodelPackage extends EPackage
          * @generated
          */
         EClass NETWORK_OBJECT = eINSTANCE.getNetworkObject();
+
+        /**
+         * The meta object literal for the '{@link networkmodel.impl.DirectedEdgeImpl <em>Directed Edge</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see networkmodel.impl.DirectedEdgeImpl
+         * @see networkmodel.impl.NetworkmodelPackageImpl#getDirectedEdge()
+         * @generated
+         */
+        EClass DIRECTED_EDGE = eINSTANCE.getDirectedEdge();
 
     }
 

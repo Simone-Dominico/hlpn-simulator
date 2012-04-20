@@ -24,6 +24,7 @@
         visualID="2001"
         editPartClassName="AlphaNodeEditPart"
         itemSemanticEditPolicyClassName="AlphaNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="AlphaNodeViewFactory"
         canonicalEditPolicyClassName="AlphaNodeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="AlphaNodeGraphicalNodeEditPolicy"
         createCommandClassName="AlphaNodeCreateCommand">
@@ -53,6 +54,7 @@
           visualID="5001"
           editPartClassName="AlphaNodeLabelEditPart"
           itemSemanticEditPolicyClassName="AlphaNodeLabelItemSemanticEditPolicy"
+          notationViewFactoryClassName="AlphaNodeLabelViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -72,6 +74,7 @@
         visualID="2002"
         editPartClassName="OmegaNodeEditPart"
         itemSemanticEditPolicyClassName="OmegaNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="OmegaNodeViewFactory"
         canonicalEditPolicyClassName="OmegaNodeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="OmegaNodeGraphicalNodeEditPolicy"
         createCommandClassName="OmegaNodeCreateCommand">
@@ -101,6 +104,7 @@
           visualID="5002"
           editPartClassName="OmegaNodeLabelEditPart"
           itemSemanticEditPolicyClassName="OmegaNodeLabelItemSemanticEditPolicy"
+          notationViewFactoryClassName="OmegaNodeLabelViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -120,6 +124,7 @@
         visualID="4001"
         editPartClassName="UndirectedEdgeEditPart"
         itemSemanticEditPolicyClassName="UndirectedEdgeItemSemanticEditPolicy"
+        notationViewFactoryClassName="UndirectedEdgeViewFactory"
         createCommandClassName="UndirectedEdgeCreateCommand"
         reorientCommandClassName="UndirectedEdgeReorientCommand">
       <diagramRunTimeClass
@@ -134,6 +139,36 @@
           xsi:type="gmfgen:TypeLinkModelFacet">
         <metaClass
             href="Network.genmodel#//networkmodel/UndirectedEdge"/>
+        <containmentMetaFeature
+            href="Network.genmodel#//networkmodel/Network/network"/>
+        <childMetaFeature
+            href="Network.genmodel#//networkmodel/Network/network"/>
+        <sourceMetaFeature
+            href="Network.genmodel#//networkmodel/AbstractEdge/source"/>
+        <targetMetaFeature
+            href="Network.genmodel#//networkmodel/AbstractEdge/target"/>
+      </modelFacet>
+    </links>
+    <links
+        visualID="4002"
+        editPartClassName="DirectedEdgeEditPart"
+        itemSemanticEditPolicyClassName="DirectedEdgeItemSemanticEditPolicy"
+        notationViewFactoryClassName="DirectedEdgeViewFactory"
+        createCommandClassName="DirectedEdgeCreateCommand"
+        reorientCommandClassName="DirectedEdgeReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="DirectedEdgeEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="DirectedEdgeFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DirectedEdgeFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DirectedEdgeFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;setTargetDecoration(createTargetDecoration());&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {&#xA;&#x9;&#x9;org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();&#xA;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xA;, getMapMode().DPtoLP(1)&#xA;);&#xA;pl.addPoint(getMapMode().DPtoLP(0)&#xA;, getMapMode().DPtoLP(0)&#xA;);&#xA;pl.addPoint(getMapMode().DPtoLP(-1)&#xA;, getMapMode().DPtoLP(-1)&#xA;);&#xA;df.setTemplate(pl);&#xA;df.setScale(getMapMode().DPtoLP(7)&#xA;, getMapMode().DPtoLP(3)&#xA;);&#xA;&#x9;&#x9;return df;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass
+            href="Network.genmodel#//networkmodel/DirectedEdge"/>
         <containmentMetaFeature
             href="Network.genmodel#//networkmodel/Network/network"/>
         <childMetaFeature
@@ -162,6 +197,11 @@
             title="UndirectedEdge"
             description="Create new UndirectedEdge"
             genLinks="//@diagram/@links.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="DirectedEdge"
+            description="Create new DirectedEdge"
+            genLinks="//@diagram/@links.1"/>
       </groups>
     </palette>
     <preferencePages
@@ -254,6 +294,59 @@
     <childReferences
         parent="//@diagram/@topLevelNodes.1"
         child="//@diagram/@links.0"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.1"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.1"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.1"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.1"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.1"
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>

@@ -23,5 +23,6 @@
     </genClasses>
     <genClasses ecoreClass="Network.ecore#//UndirectedEdge"/>
     <genClasses image="false" ecoreClass="Network.ecore#//NetworkObject"/>
+    <genClasses ecoreClass="Network.ecore#//DirectedEdge"/>
   </genPackages>
 </genmodel:GenModel>

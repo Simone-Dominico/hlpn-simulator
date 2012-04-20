@@ -133,6 +133,15 @@ public class NetworkmodelSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case NetworkmodelPackage.DIRECTED_EDGE:
+            {
+                DirectedEdge directedEdge = (DirectedEdge)theEObject;
+                T result = caseDirectedEdge(directedEdge);
+                if (result == null) result = caseAbstractEdge(directedEdge);
+                if (result == null) result = caseNetworkObject(directedEdge);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -245,6 +254,22 @@ public class NetworkmodelSwitch<T> extends Switch<T>
      * @generated
      */
     public T caseNetworkObject(NetworkObject object)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Directed Edge</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Directed Edge</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseDirectedEdge(DirectedEdge object)
     {
         return null;
     }

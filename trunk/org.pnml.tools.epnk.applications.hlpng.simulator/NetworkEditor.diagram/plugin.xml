@@ -218,7 +218,7 @@
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Network"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002"/>
       </viewProvider>
    </extension>
 
@@ -233,7 +233,7 @@
             <method name="getType()" value="2001,2002"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
-            <method name="getType()" value="4001"/>
+            <method name="getType()" value="4001,4002"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
             <method name="getType()" value="5001,5002"/>
@@ -312,6 +312,16 @@
             <param name="semanticHint" value="4001"/>
          </metamodelType>
       </metamodel>
+      <metamodel nsURI="http://org.pnml.tools/network">
+         <metamodelType
+               id="NetworkEditor.diagram.DirectedEdge_4002"
+               name="%metatype.name.DirectedEdge_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="DirectedEdge"
+               edithelper="networkmodel.diagram.edit.helpers.DirectedEdgeEditHelper">
+            <param name="semanticHint" value="4002"/>
+         </metamodelType>
+      </metamodel>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
@@ -328,6 +338,7 @@
          <elementType ref="NetworkEditor.diagram.AlphaNode_2001"/>
          <elementType ref="NetworkEditor.diagram.OmegaNode_2002"/>
          <elementType ref="NetworkEditor.diagram.UndirectedEdge_4001"/>
+         <elementType ref="NetworkEditor.diagram.DirectedEdge_4002"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

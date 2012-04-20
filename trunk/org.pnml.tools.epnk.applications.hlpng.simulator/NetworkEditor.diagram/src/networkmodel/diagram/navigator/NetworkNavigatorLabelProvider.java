@@ -2,6 +2,7 @@ package networkmodel.diagram.navigator;
 
 import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
@@ -96,18 +97,21 @@ public class NetworkNavigatorLabelProvider extends LabelProvider implements
 	{
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case UndirectedEdgeEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?Link?http://org.pnml.tools/network?UndirectedEdge", NetworkElementTypes.UndirectedEdge_4001); //$NON-NLS-1$
-			case OmegaNodeEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?TopLevelNode?http://org.pnml.tools/network?OmegaNode", NetworkElementTypes.OmegaNode_2002); //$NON-NLS-1$
-			case AlphaNodeEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?TopLevelNode?http://org.pnml.tools/network?AlphaNode", NetworkElementTypes.AlphaNode_2001); //$NON-NLS-1$
 			case NetworkEditPart.VISUAL_ID:
 				return getImage(
 				        "Navigator?Diagram?http://org.pnml.tools/network?Network", NetworkElementTypes.Network_1000); //$NON-NLS-1$
+			case AlphaNodeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?TopLevelNode?http://org.pnml.tools/network?AlphaNode", NetworkElementTypes.AlphaNode_2001); //$NON-NLS-1$
+			case OmegaNodeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?TopLevelNode?http://org.pnml.tools/network?OmegaNode", NetworkElementTypes.OmegaNode_2002); //$NON-NLS-1$
+			case UndirectedEdgeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?Link?http://org.pnml.tools/network?UndirectedEdge", NetworkElementTypes.UndirectedEdge_4001); //$NON-NLS-1$
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?Link?http://org.pnml.tools/network?DirectedEdge", NetworkElementTypes.DirectedEdge_4002); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -170,14 +174,16 @@ public class NetworkNavigatorLabelProvider extends LabelProvider implements
 		}
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case UndirectedEdgeEditPart.VISUAL_ID:
-				return getUndirectedEdge_4001Text(view);
-			case OmegaNodeEditPart.VISUAL_ID:
-				return getOmegaNode_2002Text(view);
-			case AlphaNodeEditPart.VISUAL_ID:
-				return getAlphaNode_2001Text(view);
 			case NetworkEditPart.VISUAL_ID:
 				return getNetwork_1000Text(view);
+			case AlphaNodeEditPart.VISUAL_ID:
+				return getAlphaNode_2001Text(view);
+			case OmegaNodeEditPart.VISUAL_ID:
+				return getOmegaNode_2002Text(view);
+			case UndirectedEdgeEditPart.VISUAL_ID:
+				return getUndirectedEdge_4001Text(view);
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return getDirectedEdge_4002Text(view);
 		}
 		return getUnknownElementText(view);
 	}
@@ -242,6 +248,14 @@ public class NetworkNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getNetwork_1000Text(View view)
+	{
+		return ""; //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getDirectedEdge_4002Text(View view)
 	{
 		return ""; //$NON-NLS-1$
 	}

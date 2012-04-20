@@ -7,6 +7,7 @@ import java.util.Set;
 
 import networkmodel.NetworkmodelPackage;
 import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
+import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
@@ -67,6 +68,11 @@ public class NetworkElementTypes
 	 * @generated
 	 */
 	public static final IElementType UndirectedEdge_4001 = getElementType("NetworkEditor.diagram.UndirectedEdge_4001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType DirectedEdge_4002 = getElementType("NetworkEditor.diagram.DirectedEdge_4002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -211,6 +217,9 @@ public class NetworkElementTypes
 
 			elements.put(UndirectedEdge_4001,
 			        NetworkmodelPackage.eINSTANCE.getUndirectedEdge());
+
+			elements.put(DirectedEdge_4002,
+			        NetworkmodelPackage.eINSTANCE.getDirectedEdge());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -235,6 +244,7 @@ public class NetworkElementTypes
 			KNOWN_ELEMENT_TYPES.add(AlphaNode_2001);
 			KNOWN_ELEMENT_TYPES.add(OmegaNode_2002);
 			KNOWN_ELEMENT_TYPES.add(UndirectedEdge_4001);
+			KNOWN_ELEMENT_TYPES.add(DirectedEdge_4002);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -254,6 +264,8 @@ public class NetworkElementTypes
 				return OmegaNode_2002;
 			case UndirectedEdgeEditPart.VISUAL_ID:
 				return UndirectedEdge_4001;
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return DirectedEdge_4002;
 		}
 		return null;
 	}

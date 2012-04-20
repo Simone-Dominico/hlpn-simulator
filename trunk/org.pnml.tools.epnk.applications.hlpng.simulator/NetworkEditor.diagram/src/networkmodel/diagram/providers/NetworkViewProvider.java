@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
@@ -273,6 +274,10 @@ public class NetworkViewProvider extends AbstractProvider implements
 				return createUndirectedEdge_4001(
 				        getSemanticElement(semanticAdapter), containerView,
 				        index, persisted, preferencesHint);
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return createDirectedEdge_4002(
+				        getSemanticElement(semanticAdapter), containerView,
+				        index, persisted, preferencesHint);
 		}
 		// can never happen, provided #provides(CreateEdgeViewOperation) is correct
 		return null;
@@ -392,6 +397,62 @@ public class NetworkViewProvider extends AbstractProvider implements
 		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		edge.setType(NetworkVisualIDRegistry
 		        .getType(UndirectedEdgeEditPart.VISUAL_ID));
+		edge.setElement(domainElement);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+		        .getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+		        prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge,
+		        NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+		        FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge
+		        .getStyle(NotationPackage.Literals.FONT_STYLE);
+		if(edgeFontStyle != null)
+		{
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+			        IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+			        .getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+			        .intValue());
+		}
+		Routing routing = Routing.get(prefStore
+		        .getInt(IPreferenceConstants.PREF_LINE_STYLE));
+		if(routing != null)
+		{
+			ViewUtil.setStructuralFeatureValue(edge,
+			        NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
+			        routing);
+		}
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createDirectedEdge_4002(EObject domainElement,
+	        View containerView, int index, boolean persisted,
+	        PreferencesHint preferencesHint)
+	{
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
+		        .createRelativeBendpoints();
+		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
+		        2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(NetworkVisualIDRegistry
+		        .getType(DirectedEdgeEditPart.VISUAL_ID));
 		edge.setElement(domainElement);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint

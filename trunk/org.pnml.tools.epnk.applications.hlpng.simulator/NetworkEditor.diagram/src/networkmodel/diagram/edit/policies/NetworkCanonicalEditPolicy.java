@@ -11,6 +11,7 @@ import java.util.Map;
 
 import networkmodel.NetworkmodelPackage;
 import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
+import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
@@ -316,6 +317,19 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				{
 					result.addAll(NetworkDiagramUpdater
 					        .getUndirectedEdge_4001ContainedLinks(view));
+				}
+				if(!domain2NotationMap.containsKey(view.getElement())
+				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+					domain2NotationMap.put(view.getElement(), view);
+				}
+				break;
+			}
+			case DirectedEdgeEditPart.VISUAL_ID:
+			{
+				if(!domain2NotationMap.containsKey(view.getElement()))
+				{
+					result.addAll(NetworkDiagramUpdater
+					        .getDirectedEdge_4002ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$

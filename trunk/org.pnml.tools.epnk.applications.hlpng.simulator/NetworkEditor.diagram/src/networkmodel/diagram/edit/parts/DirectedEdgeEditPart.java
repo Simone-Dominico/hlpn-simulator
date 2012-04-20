@@ -1,6 +1,6 @@
 package networkmodel.diagram.edit.parts;
 
-import networkmodel.diagram.edit.policies.UndirectedEdgeItemSemanticEditPolicy;
+import networkmodel.diagram.edit.policies.DirectedEdgeItemSemanticEditPolicy;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.PolylineDecoration;
@@ -15,19 +15,19 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class UndirectedEdgeEditPart extends ConnectionNodeEditPart implements
+public class DirectedEdgeEditPart extends ConnectionNodeEditPart implements
         ITreeBranchEditPart
 {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 4001;
+	public static final int VISUAL_ID = 4002;
 
 	/**
 	 * @generated
 	 */
-	public UndirectedEdgeEditPart(View view)
+	public DirectedEdgeEditPart(View view)
 	{
 		super(view);
 	}
@@ -39,7 +39,7 @@ public class UndirectedEdgeEditPart extends ConnectionNodeEditPart implements
 	{
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-		        new UndirectedEdgeItemSemanticEditPolicy());
+		        new DirectedEdgeItemSemanticEditPolicy());
 	}
 
 	/**
@@ -52,15 +52,47 @@ public class UndirectedEdgeEditPart extends ConnectionNodeEditPart implements
 	 */
 	protected Connection createConnectionFigure()
 	{
-		return new PolylineConnectionEx();
+		return new DirectedEdgeFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public PolylineConnectionEx getPrimaryShape()
+	public DirectedEdgeFigure getPrimaryShape()
 	{
-		return (PolylineConnectionEx) getFigure();
+		return (DirectedEdgeFigure) getFigure();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class DirectedEdgeFigure extends PolylineConnectionEx
+	{
+
+		/**
+		 * @generated
+		 */
+		public DirectedEdgeFigure()
+		{
+
+			setTargetDecoration(createTargetDecoration());
+		}
+
+		/**
+		 * @generated
+		 */
+		private RotatableDecoration createTargetDecoration()
+		{
+			PolylineDecoration df = new PolylineDecoration();
+			PointList pl = new PointList();
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
+			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
+			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(-1));
+			df.setTemplate(pl);
+			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+			return df;
+		}
+
 	}
 
 }

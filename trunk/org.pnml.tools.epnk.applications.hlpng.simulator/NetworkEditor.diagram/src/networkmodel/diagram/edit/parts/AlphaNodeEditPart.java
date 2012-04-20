@@ -12,6 +12,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPart;
@@ -289,8 +290,9 @@ public class AlphaNodeEditPart extends ShapeNodeEditPart
 	 */
 	public List<IElementType> getMARelTypesOnSource()
 	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(NetworkElementTypes.UndirectedEdge_4001);
+		types.add(NetworkElementTypes.DirectedEdge_4002);
 		return types;
 	}
 
@@ -309,6 +311,14 @@ public class AlphaNodeEditPart extends ShapeNodeEditPart
 		{
 			types.add(NetworkElementTypes.UndirectedEdge_4001);
 		}
+		if(targetEditPart instanceof networkmodel.diagram.edit.parts.AlphaNodeEditPart)
+		{
+			types.add(NetworkElementTypes.DirectedEdge_4002);
+		}
+		if(targetEditPart instanceof OmegaNodeEditPart)
+		{
+			types.add(NetworkElementTypes.DirectedEdge_4002);
+		}
 		return types;
 	}
 
@@ -323,6 +333,11 @@ public class AlphaNodeEditPart extends ShapeNodeEditPart
 			types.add(NetworkElementTypes.AlphaNode_2001);
 			types.add(NetworkElementTypes.OmegaNode_2002);
 		}
+		else if(relationshipType == NetworkElementTypes.DirectedEdge_4002)
+		{
+			types.add(NetworkElementTypes.AlphaNode_2001);
+			types.add(NetworkElementTypes.OmegaNode_2002);
+		}
 		return types;
 	}
 
@@ -331,8 +346,9 @@ public class AlphaNodeEditPart extends ShapeNodeEditPart
 	 */
 	public List<IElementType> getMARelTypesOnTarget()
 	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(NetworkElementTypes.UndirectedEdge_4001);
+		types.add(NetworkElementTypes.DirectedEdge_4002);
 		return types;
 	}
 
@@ -343,6 +359,11 @@ public class AlphaNodeEditPart extends ShapeNodeEditPart
 	{
 		LinkedList<IElementType> types = new LinkedList<IElementType>();
 		if(relationshipType == NetworkElementTypes.UndirectedEdge_4001)
+		{
+			types.add(NetworkElementTypes.AlphaNode_2001);
+			types.add(NetworkElementTypes.OmegaNode_2002);
+		}
+		else if(relationshipType == NetworkElementTypes.DirectedEdge_4002)
 		{
 			types.add(NetworkElementTypes.AlphaNode_2001);
 			types.add(NetworkElementTypes.OmegaNode_2002);
