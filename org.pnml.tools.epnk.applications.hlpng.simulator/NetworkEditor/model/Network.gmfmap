@@ -62,6 +62,23 @@
         xsi:type="ecore:EReference"
         href="Network.ecore#//AbstractEdge/target"/>
   </links>
+  <links>
+    <domainMetaElement
+        href="Network.ecore#//DirectedEdge"/>
+    <containmentFeature
+        href="Network.ecore#//Network/network"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="Network.gmftool#//@palette/@tools.0/@tools.3"/>
+    <diagramLink
+        href="Network.gmfgraph#DirectedEdge"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="Network.ecore#//AbstractEdge/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="Network.ecore#//AbstractEdge/target"/>
+  </links>
   <diagram>
     <diagramCanvas
         href="Network.gmfgraph#networkmodel"/>

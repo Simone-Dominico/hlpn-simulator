@@ -51,6 +51,9 @@ public class NetworkEditPartFactory implements EditPartFactory
 				case UndirectedEdgeEditPart.VISUAL_ID:
 					return new UndirectedEdgeEditPart(view);
 
+				case DirectedEdgeEditPart.VISUAL_ID:
+					return new DirectedEdgeEditPart(view);
+
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

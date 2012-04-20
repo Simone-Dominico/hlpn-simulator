@@ -25,4 +25,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UndirectedEdge" eSuperTypes="#//AbstractEdge"/>
   <eClassifiers xsi:type="ecore:EClass" name="NetworkObject" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectedEdge" eSuperTypes="#//AbstractEdge"/>
 </ecore:EPackage>

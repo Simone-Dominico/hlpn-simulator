@@ -40,6 +40,7 @@ public class NetworkPaletteFactory
 		paletteContainer.add(createAlphaNode1CreationTool());
 		paletteContainer.add(createOmegaNode2CreationTool());
 		paletteContainer.add(createUndirectedEdge3CreationTool());
+		paletteContainer.add(createDirectedEdge4CreationTool());
 		return paletteContainer;
 	}
 
@@ -88,6 +89,23 @@ public class NetworkPaletteFactory
 		entry.setId("createUndirectedEdge3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
 		        .getImageDescriptor(NetworkElementTypes.UndirectedEdge_4001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createDirectedEdge4CreationTool()
+	{
+		LinkToolEntry entry = new LinkToolEntry(
+		        Messages.DirectedEdge4CreationTool_title,
+		        Messages.DirectedEdge4CreationTool_desc,
+		        Collections
+		                .singletonList(NetworkElementTypes.DirectedEdge_4002));
+		entry.setId("createDirectedEdge4CreationTool"); //$NON-NLS-1$
+		entry.setSmallIcon(NetworkElementTypes
+		        .getImageDescriptor(NetworkElementTypes.DirectedEdge_4002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

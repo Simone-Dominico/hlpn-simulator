@@ -46,6 +46,25 @@
           xsi:type="gmfgraph:PolylineConnection"
           name="UndirectedEdgeFigure"/>
     </descriptors>
+    <descriptors
+        name="DirectedEdgeFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="DirectedEdgeFigure"
+          targetDecoration="//@figures.0/@descriptors.3/@actualFigure/@children.0">
+        <children
+            xsi:type="gmfgraph:PolylineDecoration"
+            name="targetDecoration">
+          <template
+              x="-1"
+              y="1"/>
+          <template/>
+          <template
+              x="-1"
+              y="-1"/>
+        </children>
+      </actualFigure>
+    </descriptors>
   </figures>
   <nodes
       name="AlphaNode"
@@ -56,6 +75,9 @@
   <connections
       name="UndirectedEdge"
       figure="UndirectedEdgeFigure"/>
+  <connections
+      name="DirectedEdge"
+      figure="DirectedEdgeFigure"/>
   <labels
       name="AlphaNodeLabel"
       figure="AlphaNodeFigure"

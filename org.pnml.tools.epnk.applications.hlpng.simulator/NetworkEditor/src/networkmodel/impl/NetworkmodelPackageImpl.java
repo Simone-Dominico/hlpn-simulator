@@ -9,6 +9,7 @@ package networkmodel.impl;
 import networkmodel.AbstractEdge;
 import networkmodel.AbstractNode;
 import networkmodel.AlphaNode;
+import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelFactory;
@@ -79,6 +80,13 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * @generated
      */
     private EClass networkObjectEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass directedEdgeEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -288,6 +296,16 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getDirectedEdge()
+    {
+        return directedEdgeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NetworkmodelFactory getNetworkmodelFactory()
     {
         return (NetworkmodelFactory)getEFactoryInstance();
@@ -333,6 +351,8 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         undirectedEdgeEClass = createEClass(UNDIRECTED_EDGE);
 
         networkObjectEClass = createEClass(NETWORK_OBJECT);
+
+        directedEdgeEClass = createEClass(DIRECTED_EDGE);
     }
 
     /**
@@ -369,6 +389,7 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         omegaNodeEClass.getESuperTypes().add(this.getAbstractNode());
         abstractEdgeEClass.getESuperTypes().add(this.getNetworkObject());
         undirectedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
+        directedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
 
         // Initialize classes and features; add operations and parameters
         initEClass(networkEClass, Network.class, "Network", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -391,6 +412,8 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         initEClass(undirectedEdgeEClass, UndirectedEdge.class, "UndirectedEdge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(networkObjectEClass, NetworkObject.class, "NetworkObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(directedEdgeEClass, DirectedEdge.class, "DirectedEdge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);
