@@ -7,14 +7,14 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 
 public class TermAssignment
 {
-	private AbstractVariable variable = null;
+	private TermWrapper variable = null;
 	private Set<AbstractValue> values = null;
 	
-	public AbstractVariable getVariable()
+	public TermWrapper getVariable()
     {
     	return variable;
     }
-	public void setVariable(AbstractVariable variable)
+	public void setVariable(TermWrapper variable)
     {
     	this.variable = variable;
     }
