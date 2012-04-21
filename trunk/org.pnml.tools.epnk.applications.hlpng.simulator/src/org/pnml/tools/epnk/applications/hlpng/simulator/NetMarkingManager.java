@@ -10,10 +10,12 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -27,15 +29,18 @@ public class NetMarkingManager
 {
 	private PetriNet petrinet = null;
 	private FlatAccess flatAccess = null;
-	private EvaluationManager operatorManager = null;
+	private EvaluationManager evalManager = null;
 	private TransitionManager transitionManager = null;
 	
-	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess, EvaluationManager evalManager)
+	public NetMarkingManager(PetriNet petrinet, FlatAccess flatAccess, 
+			EvaluationManager evalManager, ComparisonManager comparatorManager,
+			ReversibleOperationManager reversibleOperationManager)
 	{
 		this.petrinet = petrinet;
 		this.flatAccess = flatAccess;
-		this.operatorManager = evalManager;
-		this.transitionManager = new TransitionManager(flatAccess);
+		this.evalManager = evalManager;
+		this.transitionManager = new TransitionManager(flatAccess, comparatorManager,
+				evalManager, reversibleOperationManager);
 	}
 	
 	public NetMarking createNetMarking()
@@ -57,7 +62,7 @@ public class NetMarkingManager
 				
                 try
                 {
-                	msValue = (MSValue)operatorManager.evaluate(term, null);
+                	msValue = (MSValue)evalManager.evaluate(term, null);
                 }
                 catch(UnknownVariableException e)
                 {
@@ -183,7 +188,7 @@ public class NetMarkingManager
 			{
 				try
                 {
-	                AbstractValue inscriptionValue = EvaluationManager.getInstance().
+	                AbstractValue inscriptionValue = evalManager.
 	                		evaluateAdapt(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 	                
 	                MSValue newMsValue = AbstractValueMath.append((MSValue)inscriptionValue,

@@ -30,12 +30,17 @@ public class TransitionManager
 {
 	// < transition ID, < place ID, outgoing arc inscription matcher > >
 	private Map<String, Map<String, ArcInscriptionHandler>> patternMatcherMap = null;
+	
+	private EvaluationManager evaluationManager = null;
+	private ReversibleOperationManager reversibleOperationManager = null;
 		
-	public TransitionManager(FlatAccess flatAccess)
+	public TransitionManager(FlatAccess flatAccess, ComparisonManager comparatorManager,
+			EvaluationManager evaluationManager, ReversibleOperationManager reversibleOperationManager)
 	{
-		this.patternMatcherMap = new HashMap<String, Map<String,ArcInscriptionHandler>>();
+		this.evaluationManager = evaluationManager;
+		this.reversibleOperationManager = reversibleOperationManager;
 		
-		ComparisonManager comparatorManager = ComparisonManager.getInstance();
+		this.patternMatcherMap = new HashMap<String, Map<String,ArcInscriptionHandler>>();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
@@ -57,8 +62,9 @@ public class TransitionManager
 	public TransitionMarking checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
-		List<FiringMode> assignments = assignments(transition, 
-				runtimeValues, this.patternMatcherMap.get(transition.getId()));
+		List<FiringMode> assignments = assignments(transition, runtimeValues, 
+				patternMatcherMap.get(transition.getId()), evaluationManager,
+				reversibleOperationManager);
 		
 		TransitionMarking marking = new TransitionMarking();
 
@@ -68,7 +74,8 @@ public class TransitionManager
 	}
 	
 	private static List<FiringMode> assignments(Transition transition, Map<String, 
-			PlaceMarking> runtimeValues, Map<String, ArcInscriptionHandler> incomingArcs) 
+			PlaceMarking> runtimeValues, Map<String, ArcInscriptionHandler> incomingArcs,
+			EvaluationManager evaluationManager, ReversibleOperationManager reversibleOperationManager) 
 					throws DependencyException, UnknownVariableException
 	{
 		// each inscription variable matches
@@ -107,7 +114,7 @@ public class TransitionManager
 			{
 				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
 				
-				if(!ReversibleOperationManager.getInstance().resolveAll(ve.getValues(), op, globalMap))
+				if(!reversibleOperationManager.resolveAll(ve.getValues(), op, globalMap))
 				{
 					repeat.add(ve);
 				}
@@ -134,7 +141,7 @@ public class TransitionManager
 					varSets.add(map);
 				}
 			}
-			return eval(varSets, incomingArcs, runtimeValues, transition);
+			return eval(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 		}
 		
 		// computing Cartesian product of variable assignments
@@ -151,7 +158,7 @@ public class TransitionManager
 		}
 		
 		// evaluate each arc inscription with the given parameter set
-		return eval(varSets, incomingArcs, runtimeValues, transition);
+		return eval(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 	}
 	
 	private static Map<String, VariableEvaluation> checkParams(Map<String, VariableEvaluation> globalMap)
@@ -188,7 +195,8 @@ public class TransitionManager
 	 */
 	private static List<FiringMode> eval(List<Map<Variable, AbstractValue>> varSets,
 			Map<String, ArcInscriptionHandler> incomingArcs,
-			Map<String, PlaceMarking> runtimeValues, Transition transition) throws UnknownVariableException
+			Map<String, PlaceMarking> runtimeValues, Transition transition,
+			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<Variable, AbstractValue> params : varSets)
@@ -201,7 +209,7 @@ public class TransitionManager
 				try
                 {
 	                AbstractValue conditionValue = 
-	                		EvaluationManager.getInstance().evaluateAdapt(
+	                		evaluationManager.evaluateAdapt(
 	                				transition.getCondition().getStructure(), params);
 	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();
                 }
@@ -227,7 +235,7 @@ public class TransitionManager
 						MSValue inscriptionValue = null;
 	                    try
 	                    {
-		                    inscriptionValue = (MSValue)EvaluationManager.getInstance()
+		                    inscriptionValue = (MSValue)evaluationManager
 		                    		.evaluateAdapt(incomingArcs.get(placeId).getOperator(), params);
 		                    
 		                    if(ConsistencyManager.check(inscriptionValue, null) && 
