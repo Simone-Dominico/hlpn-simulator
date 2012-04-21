@@ -13,6 +13,16 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ReversibleOperationComparator implements IComparable
 {
+	private EvaluationManager evaluationManager = null;
+	private ReversibleOperationManager reversibleOperationManager = null;
+	
+	public ReversibleOperationComparator(EvaluationManager evaluationManager,
+			ReversibleOperationManager reversibleOperationManager)
+	{
+		this.evaluationManager = evaluationManager;
+		this.reversibleOperationManager = reversibleOperationManager;
+	}
+	
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
@@ -20,7 +30,7 @@ public class ReversibleOperationComparator implements IComparable
 		boolean cannotEval = false;
 		try
         {
-            Set<AbstractValue> evals = EvaluationManager.getInstance().evaluateAll(refValue, assignments);
+            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, assignments);
             return evals.contains(testValue);
         }
         catch(UnknownVariableException e)
@@ -29,8 +39,7 @@ public class ReversibleOperationComparator implements IComparable
         }
 		if(cannotEval)
 		{
-			AbstractReversibleOperation operation = ReversibleOperationManager
-					.getInstance().createHandler(refValue.getClass());
+			AbstractReversibleOperation operation = reversibleOperationManager.createHandler(refValue.getClass());
 			operation.setRootTerm(refValue);
 			
 			if(assignments.containsKey(operation.getName()))

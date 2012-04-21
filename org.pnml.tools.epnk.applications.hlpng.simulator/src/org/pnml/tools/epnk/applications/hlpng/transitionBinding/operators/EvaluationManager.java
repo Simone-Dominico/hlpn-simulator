@@ -11,67 +11,22 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.AndImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.EqualityImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.InequalityImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.OrImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.GreaterThanImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.LessThanImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.SubtractImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.ConcatenationImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
 
 public class EvaluationManager
 {
-	private static EvaluationManager termManager = null;
-	
-	private Map<Class, IEvaluator> handlers = null;
-	
-	private EvaluationManager()
-	{
-		handlers = new HashMap<Class, IEvaluator>();
-		
-		handlers.put(GreaterThanImpl.class, new GreaterThanEval());
-		handlers.put(LessThanImpl.class, new LessThanEval());
-		handlers.put(AndImpl.class, new AndEval());
-		handlers.put(OrImpl.class, new OrEval());
-		handlers.put(ConcatenationImpl.class, new ConcatenationEval());
-		handlers.put(InequalityImpl.class, new InequalityEval());
-		handlers.put(EqualityImpl.class, new EqualityEval());
-		handlers.put(NumberConstantImpl.class, new NumberConstantEval());
-		handlers.put(StringConstantImpl.class, new StringConstantEval());
-		handlers.put(BooleanConstantImpl.class, new BooleanConstantEval());
-		handlers.put(NumberOfImpl.class, new NumberOfEval());
-		handlers.put(AddImpl.class, new AddEval());
-		handlers.put(SubtractImpl.class, new SubtractEval());
-		handlers.put(TupleImpl.class, new TupleEval());
-		
-		handlers.put(AdditionImpl.class, new AdditionEval());
-		handlers.put(MultiplicationImpl.class, new MultiplicationEval());
-	}
-	
-	public static EvaluationManager getInstance()
-	{
-		if(termManager == null)
-		{
-			termManager = new EvaluationManager();
-		}
-		return termManager;
-	}
+	private Map<Class, IEvaluator> handlers = new HashMap<Class, IEvaluator>();
 	
 	public void register(Class targetClass, IEvaluator operator)
 	{
 		handlers.put(targetClass, operator);
+	}
+	
+	public IEvaluator getHandler(Class targetClass)
+	{
+		return handlers.get(targetClass);
 	}
 	
 	public void unregister(Class targetClass)

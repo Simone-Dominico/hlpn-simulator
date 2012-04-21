@@ -1,8 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
@@ -12,15 +9,13 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentation
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.ISimulatorDelegate;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
 
 public class HLSimulator extends Application 
 	implements IApplicationWithPresentation, ISimulator
@@ -29,32 +24,17 @@ public class HLSimulator extends Application
 	private NetMarkingManager netMarkingManager = null;
 	
 	private Action[] actions;
-
-	public HLSimulator(PetriNet petrinet)
+	
+	public HLSimulator(PetriNet petrinet, EvaluationManager evaluationManager, 
+			ComparisonManager comparisonManager, ReversibleOperationManager reversibleOperationManager)
     {
 	    super(petrinet);
 	    
 	    FlatAccess flatAccess = new FlatAccess(this.petrinet);
 		
 	    this.presentationManager = new SimulatorPresentationManager(this);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, EvaluationManager.getInstance());
-		
-	    IConfigurationElement[] config = Platform.getExtensionRegistry()
-				.getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
-		
-		for(IConfigurationElement e : config)
-		{
-            try
-            {
-            	Object o = e.createExecutableExtension("class");
-            	((ISimulatorDelegate)o).setSimulator(this);
-            	EvaluationManager.getInstance().register(UserOperatorImpl.class, (IEvaluator)o);
-            }
-            catch(CoreException e1)
-            {
-	            e1.printStackTrace();
-            }
-		}
+		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, 
+				evaluationManager, comparisonManager, reversibleOperationManager);
 		
 		NetMarking netMarking = this.netMarkingManager.createNetMarking();
 		NetAnnotations netAnnotations = this.getNetAnnotations();

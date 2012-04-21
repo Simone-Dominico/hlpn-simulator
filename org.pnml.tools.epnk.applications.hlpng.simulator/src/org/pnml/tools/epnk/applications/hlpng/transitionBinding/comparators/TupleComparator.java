@@ -10,6 +10,13 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
 public class TupleComparator implements IComparable
 {
+	private ComparisonManager comparisonManager = null;
+	
+	public TupleComparator(ComparisonManager comparisonManager)
+	{
+		this.comparisonManager = comparisonManager;
+	}
+	
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
@@ -33,8 +40,7 @@ public class TupleComparator implements IComparable
     		Term c1 = v1.getSubterm().get(i);
     		AbstractValue c2 = v2.getComponents().get(i);
     		
-    		ComparisonManager manager = ComparisonManager.getInstance();
-    		if(!manager.getComparator(c1.getClass()).compare(c1, c2, assignments))
+    		if(!comparisonManager.getComparator(c1.getClass()).compare(c1, c2, assignments))
     		{
     			return false;
     		}

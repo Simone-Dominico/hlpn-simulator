@@ -11,35 +11,18 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
 
 public class ReversibleOperationManager
 {
-	private static ReversibleOperationManager reversibleOperationManager = null;
-	
+	private EvaluationManager evaluationManager = null;
 	private Map<Class, IReversibleOperation> handlers = null;
 	
-	private ReversibleOperationManager()
+	public ReversibleOperationManager(EvaluationManager evaluationManager)
 	{
-		handlers = new HashMap<Class, IReversibleOperation>();
-
-		handlers.put(UserOperatorImpl.class, null);
-		
-		handlers.put(AdditionImpl.class, new AdditionEval());
-		handlers.put(MultiplicationImpl.class, new MultiplicationEval());
-	}
-	
-	public static ReversibleOperationManager getInstance()
-	{
-		if(reversibleOperationManager == null)
-		{
-			reversibleOperationManager = new ReversibleOperationManager();
-		}
-		return reversibleOperationManager;
+		this.evaluationManager = evaluationManager;
+		this.handlers = new HashMap<Class, IReversibleOperation>();
 	}
 	
 	public void register(Class targetClass, IReversibleOperation operator)
@@ -77,7 +60,7 @@ public class ReversibleOperationManager
 		{
 			try
             {
-				Set<AbstractValue> value = EvaluationManager.getInstance().evaluateAll(arg, knownVariables);
+				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, knownVariables);
 				known.add(value);
             }
             catch(Exception e)

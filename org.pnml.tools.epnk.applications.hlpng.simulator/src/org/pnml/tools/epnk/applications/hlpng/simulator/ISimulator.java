@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions;
+package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;

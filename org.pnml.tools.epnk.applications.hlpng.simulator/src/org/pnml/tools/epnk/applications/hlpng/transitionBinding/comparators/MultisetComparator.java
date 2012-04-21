@@ -15,6 +15,13 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class MultisetComparator implements IComparable
 {
+	private ComparisonManager comparisonManager = null;
+	
+	public MultisetComparator(ComparisonManager comparisonManager)
+	{
+		this.comparisonManager = comparisonManager;
+	}
+	
 	@Override
     public boolean compare(Term refValue, AbstractValue testValue,
             Map<String, VariableEvaluation> assignments)
@@ -46,10 +53,9 @@ public class MultisetComparator implements IComparable
     		multiplicity.setN(m);
     		multiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());
     		
-    		ComparisonManager manager = ComparisonManager.getInstance();
-    		if(!(manager.getComparator(nof.getSubterm().get(0).getClass())).compare( 
+    		if(!(comparisonManager.getComparator(nof.getSubterm().get(0).getClass())).compare( 
     				nof.getSubterm().get(0), multiplicity, assignments) ||
-    				!(manager.getComparator(nof.getSubterm().get(1).getClass())).compare( 
+    				!(comparisonManager.getComparator(nof.getSubterm().get(1).getClass())).compare( 
     	    				nof.getSubterm().get(1), value, assignments))
     		{
     			return false;
