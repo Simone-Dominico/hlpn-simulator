@@ -79,8 +79,8 @@ public class TransitionManager
 					throws DependencyException, UnknownVariableException
 	{
 		// each inscription variable matches
-		List<List<List<Map<String, VariableEvaluation>>>> allInscriptionMatches =
-				new ArrayList<List<List<Map<String,VariableEvaluation>>>>();
+		List<List<List<Map<String, TermAssignment>>>> allInscriptionMatches =
+				new ArrayList<List<List<Map<String,TermAssignment>>>>();
 		for(String placeId : incomingArcs.keySet())
 		{
 			MSValue msValue = runtimeValues.get(placeId).getMsValue();
@@ -91,26 +91,26 @@ public class TransitionManager
 		}
 		
 		// narrowing
-		Map<String, VariableEvaluation> globalMap = narrowing(allInscriptionMatches);
+		Map<String, TermAssignment> globalMap = narrowing(allInscriptionMatches);
 		
 		// resolving undefined variables
-		List<VariableEvaluation> unresolved = new ArrayList<VariableEvaluation>();
+		List<TermAssignment> unresolved = new ArrayList<TermAssignment>();
 		for(String key : globalMap.keySet())
 		{
-			VariableEvaluation ve = globalMap.get(key);
+			TermAssignment ve = globalMap.get(key);
 			if(ve.getVariable() instanceof AbstractUndefinedVariable)
 			{
 				unresolved.add(ve);
 			}
 		}
-		for(VariableEvaluation ve : unresolved)
+		for(TermAssignment ve : unresolved)
 		{
 			globalMap.remove(ve.getVariable().getName());
 		}
 		do
 		{		
-			List<VariableEvaluation> repeat = new ArrayList<VariableEvaluation>();
-			for(VariableEvaluation ve : unresolved)
+			List<TermAssignment> repeat = new ArrayList<TermAssignment>();
+			for(TermAssignment ve : unresolved)
 			{
 				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
 				
@@ -132,7 +132,7 @@ public class TransitionManager
 			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
 			for(String key : globalMap.keySet())
 			{
-				VariableEvaluation value = globalMap.get(key);
+				TermAssignment value = globalMap.get(key);
 				
 				for(AbstractValue av : value.getValues())
 				{
@@ -145,14 +145,14 @@ public class TransitionManager
 		}
 		
 		// computing Cartesian product of variable assignments
-		List<List<Pair<VariableEvaluation, AbstractValue>>> pairList = pairVariablesToAssignments(globalMap);
-		CartesianProduct<Pair<VariableEvaluation, AbstractValue>> cartesianProd = 
-				new CartesianProduct<Pair<VariableEvaluation, AbstractValue>>();
-		List<List<Pair<VariableEvaluation, AbstractValue>>> product =
+		List<List<Pair<TermAssignment, AbstractValue>>> pairList = pairVariablesToAssignments(globalMap);
+		CartesianProduct<Pair<TermAssignment, AbstractValue>> cartesianProd = 
+				new CartesianProduct<Pair<TermAssignment, AbstractValue>>();
+		List<List<Pair<TermAssignment, AbstractValue>>> product =
 				cartesianProd.product(pairList);
 		
 		List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable, AbstractValue>>();
-		for(List<Pair<VariableEvaluation, AbstractValue>> list : product)
+		for(List<Pair<TermAssignment, AbstractValue>> list : product)
 		{
 			varSets.add(pairToMap(list));
 		}
@@ -161,12 +161,12 @@ public class TransitionManager
 		return eval(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 	}
 	
-	private static Map<String, VariableEvaluation> checkParams(Map<String, VariableEvaluation> globalMap)
+	private static Map<String, TermAssignment> checkParams(Map<String, TermAssignment> globalMap)
 	{
-		Map<String, VariableEvaluation> filtered = new HashMap<String, VariableEvaluation>();
+		Map<String, TermAssignment> filtered = new HashMap<String, TermAssignment>();
 		for(String key : globalMap.keySet())
 		{
-			VariableEvaluation oldVe = globalMap.get(key);
+			TermAssignment oldVe = globalMap.get(key);
 			RuntimeVariable rv = (RuntimeVariable)oldVe.getVariable();
 			
 			Set<AbstractValue> newValues = new HashSet<AbstractValue>();
@@ -180,7 +180,7 @@ public class TransitionManager
 			
 			if(newValues.size() > 0)
 			{
-				VariableEvaluation newVe = new VariableEvaluation();
+				TermAssignment newVe = new TermAssignment();
 				newVe.setVariable(rv);
 				newVe.setValues(newValues);
 				
@@ -264,18 +264,18 @@ public class TransitionManager
 		return assignemnts;
 	}
 	
-	private static Map<String, VariableEvaluation> narrowing(
-			List<List<List<Map<String, VariableEvaluation>>>> mainList)
+	private static Map<String, TermAssignment> narrowing(
+			List<List<List<Map<String, TermAssignment>>>> mainList)
 	{
-		Map<String, VariableEvaluation> globalMap = new HashMap<String, VariableEvaluation>();
+		Map<String, TermAssignment> globalMap = new HashMap<String, TermAssignment>();
 		
 		// for each arc
-		for(List<List<Map<String, VariableEvaluation>>> list : mainList)
+		for(List<List<Map<String, TermAssignment>>> list : mainList)
 		{
-			Map<String, VariableEvaluation> map = new HashMap<String, VariableEvaluation>();
-			for(List<Map<String, VariableEvaluation>> assignments : list)
+			Map<String, TermAssignment> map = new HashMap<String, TermAssignment>();
+			for(List<Map<String, TermAssignment>> assignments : list)
 			{
-				for(Map<String, VariableEvaluation> assignment : assignments)
+				for(Map<String, TermAssignment> assignment : assignments)
 				{
 					for(String name : assignment.keySet())
 					{
@@ -293,7 +293,7 @@ public class TransitionManager
 			
 			for(String name : map.keySet())
 			{
-				VariableEvaluation ve = new VariableEvaluation();
+				TermAssignment ve = new TermAssignment();
 				ve.setVariable(map.get(name).getVariable());
 				// intersection
 				if(globalMap.containsKey(name))
@@ -313,31 +313,31 @@ public class TransitionManager
 		return globalMap;
 	}
 	
-	private static Map<Variable, AbstractValue> pairToMap(List<Pair<VariableEvaluation, AbstractValue>> list)
+	private static Map<Variable, AbstractValue> pairToMap(List<Pair<TermAssignment, AbstractValue>> list)
 	{
 		Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
 		
-		for(Pair<VariableEvaluation, AbstractValue> p : list)
+		for(Pair<TermAssignment, AbstractValue> p : list)
 		{
 			map.put((Variable)p.getKey().getVariable().getRootTerm(), p.getValue());
 		}
 		return map;
 	}
 	
-	private static List<List<Pair<VariableEvaluation, AbstractValue>>> pairVariablesToAssignments(Map<String, VariableEvaluation> globalMap)
+	private static List<List<Pair<TermAssignment, AbstractValue>>> pairVariablesToAssignments(Map<String, TermAssignment> globalMap)
 	{
-		List<List<Pair<VariableEvaluation, AbstractValue>>> evaluations = 
-				new ArrayList<List<Pair<VariableEvaluation, AbstractValue>>>();
+		List<List<Pair<TermAssignment, AbstractValue>>> evaluations = 
+				new ArrayList<List<Pair<TermAssignment, AbstractValue>>>();
 		
 		for(String name : globalMap.keySet())
 		{
-			List<Pair<VariableEvaluation, AbstractValue>> evaluation = new ArrayList<Pair<VariableEvaluation, AbstractValue>>();
+			List<Pair<TermAssignment, AbstractValue>> evaluation = new ArrayList<Pair<TermAssignment, AbstractValue>>();
 			
-			VariableEvaluation ve = globalMap.get(name);
+			TermAssignment ve = globalMap.get(name);
 			List<AbstractValue> values = new ArrayList<AbstractValue>(ve.getValues());
 			for(AbstractValue entry : values)
 			{
-				evaluation.add(new Pair<VariableEvaluation, AbstractValue>(ve, entry));
+				evaluation.add(new Pair<TermAssignment, AbstractValue>(ve, entry));
 			}
 			evaluations.add(evaluation);
 		}

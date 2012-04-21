@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
@@ -51,7 +51,7 @@ public class ReversibleOperationManager
 	}
 	
 	public boolean resolve(AbstractValue result, IReversibleOperation operation,
-			Map<String, VariableEvaluation> knownVariables)
+			Map<String, TermAssignment> knownVariables)
 	{
 		List<Term> unknown = new ArrayList<Term>();
 		List<Set<AbstractValue>> known = new ArrayList<Set<AbstractValue>>();
@@ -106,7 +106,7 @@ public class ReversibleOperationManager
 					rv.setSort(var.getSort());
 					rv.setVariable(var);
 					
-					VariableEvaluation ve = new VariableEvaluation();
+					TermAssignment ve = new TermAssignment();
 					ve.getValues().add(value);
 					ve.setVariable(rv);
 					
@@ -128,12 +128,12 @@ public class ReversibleOperationManager
 	}
 	
 	public boolean resolveAll(Collection<AbstractValue> result, IReversibleOperation operation,
-			Map<String, VariableEvaluation> knownVariables)
+			Map<String, TermAssignment> knownVariables)
 	{
-		List<Map<String, VariableEvaluation>> copies = new ArrayList<Map<String,VariableEvaluation>>();
+		List<Map<String, TermAssignment>> copies = new ArrayList<Map<String,TermAssignment>>();
 		for(AbstractValue value : result)
 		{
-			Map<String, VariableEvaluation> copy = copyMap(knownVariables);
+			Map<String, TermAssignment> copy = copyMap(knownVariables);
 			copies.add(copy);
 			
 			if(!resolve(value, operation, copy))
@@ -141,21 +141,21 @@ public class ReversibleOperationManager
 				return false;
 			}
 		}
-		for(Map<String, VariableEvaluation> map : copies)
+		for(Map<String, TermAssignment> map : copies)
 		{
 			mergeMap(knownVariables, map);
 		}
 		return true;
 	}
 	
-	private static Map<String, VariableEvaluation> copyMap(Map<String, VariableEvaluation> map)
+	private static Map<String, TermAssignment> copyMap(Map<String, TermAssignment> map)
 	{
-		Map<String, VariableEvaluation> copy = new HashMap<String, VariableEvaluation>();
+		Map<String, TermAssignment> copy = new HashMap<String, TermAssignment>();
 		
 		for(String key : map.keySet())
 		{
-			VariableEvaluation ve = map.get(key);
-			VariableEvaluation copyVe = new VariableEvaluation();
+			TermAssignment ve = map.get(key);
+			TermAssignment copyVe = new TermAssignment();
 			copyVe.setVariable(ve.getVariable());
 			copyVe.getValues().addAll(ve.getValues());
 			
@@ -165,8 +165,8 @@ public class ReversibleOperationManager
 		return copy;
 	}
 	
-	private static void mergeMap(Map<String, VariableEvaluation> main,
-			Map<String, VariableEvaluation> map2)
+	private static void mergeMap(Map<String, TermAssignment> main,
+			Map<String, TermAssignment> map2)
 	{
 		for(String key : map2.keySet())
 		{
@@ -176,8 +176,8 @@ public class ReversibleOperationManager
 			}
 			else
 			{
-				VariableEvaluation ve = map2.get(key);
-				VariableEvaluation copyVe = new VariableEvaluation();
+				TermAssignment ve = map2.get(key);
+				TermAssignment copyVe = new TermAssignment();
 				copyVe.setVariable(ve.getVariable());
 				copyVe.getValues().addAll(ve.getValues());
 				

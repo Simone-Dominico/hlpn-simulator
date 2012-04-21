@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -25,7 +25,7 @@ public class ReversibleOperationComparator implements IComparable
 	
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, VariableEvaluation> assignments)
+            Map<String, TermAssignment> assignments)
     {
 		boolean cannotEval = false;
 		try
@@ -48,7 +48,7 @@ public class ReversibleOperationComparator implements IComparable
 			}
 			else
 			{
-				VariableEvaluation ve = new VariableEvaluation();
+				TermAssignment ve = new TermAssignment();
 				ve.getValues().add(testValue);
 				ve.setVariable(operation);
 

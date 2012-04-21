@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 
-public class VariableEvaluation
+public class TermAssignment
 {
 	private AbstractVariable variable = null;
 	private Set<AbstractValue> values = null;

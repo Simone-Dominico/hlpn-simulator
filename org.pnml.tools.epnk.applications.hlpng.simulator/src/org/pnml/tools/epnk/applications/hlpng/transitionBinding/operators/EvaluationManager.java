@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -91,7 +91,7 @@ public class EvaluationManager
 		return evaluator.evaluate(values, op);
 	}
 	
-	public Set<AbstractValue> evaluateAll(Term term, Map<String, VariableEvaluation> assignments) throws UnknownVariableException
+	public Set<AbstractValue> evaluateAll(Term term, Map<String, TermAssignment> assignments) throws UnknownVariableException
 	{
 		if(assignments == null || assignments.size() == 0)
 		{
@@ -105,7 +105,7 @@ public class EvaluationManager
 		{
 			Set<AbstractValue> result = new HashSet<AbstractValue>();
 			
-			for(VariableEvaluation ve : assignments.values())
+			for(TermAssignment ve : assignments.values())
 			{
 				for(AbstractValue value : ve.getValues())
 				{
