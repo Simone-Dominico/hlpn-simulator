@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class RuntimeVariable extends AbstractVariable
+public class RuntimeVariable extends TermWrapper
 {
 	private Variable variable = null;
 
