@@ -28,14 +28,14 @@ public class ArcInscriptionHandler
 		this.evaluationManager = evaluationManager;
 	}
 	
-	public List<List<Map<String, VariableEvaluation>>> match(MSValue value)
+	public List<List<Map<String, TermAssignment>>> match(MSValue value)
 	{
 		// each inscription term compared to all multiset terms
-		List<List<Map<String, VariableEvaluation>>> list = 
-				new ArrayList<List<Map<String,VariableEvaluation>>>();
+		List<List<Map<String, TermAssignment>>> list = 
+				new ArrayList<List<Map<String,TermAssignment>>>();
 		if(operator instanceof NumberOf)
 		{
-			List<Map<String, VariableEvaluation>> assignments = contains(value, 
+			List<Map<String, TermAssignment>> assignments = contains(value, 
 					evaluationManager, (NumberOf)operator);
 			
 			list.add(assignments);
@@ -44,7 +44,7 @@ public class ArcInscriptionHandler
 		{
 			for(Term refValue : operator.getSubterm())
 			{
-				List<Map<String, VariableEvaluation>> assignments = contains(value, 
+				List<Map<String, TermAssignment>> assignments = contains(value, 
 						evaluationManager, ((NumberOf)refValue));
 				
 				list.add(assignments);	
@@ -65,17 +65,17 @@ public class ArcInscriptionHandler
 		return true;
 	}
 
-	private static List<Map<String, VariableEvaluation>> contains(
+	private static List<Map<String, TermAssignment>> contains(
 			MSValue multiset, ComparisonManager resolutionManager, NumberOf numberOf)
 	{
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		List<Map<String, VariableEvaluation>> list = new ArrayList<Map<String,VariableEvaluation>>();
+		List<Map<String, TermAssignment>> list = new ArrayList<Map<String,TermAssignment>>();
 
 		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
-			Map<String, VariableEvaluation> assignments = new HashMap<String, VariableEvaluation>();
+			Map<String, TermAssignment> assignments = new HashMap<String, TermAssignment>();
 			
 			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
 			boolean madeAssignment = false;

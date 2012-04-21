@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
@@ -12,7 +12,7 @@ public class VariableComparator implements IComparable
 {
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, VariableEvaluation> assignments)
+            Map<String, TermAssignment> assignments)
 	{
 		if(!(refValue instanceof Variable))
 		{
@@ -32,7 +32,7 @@ public class VariableComparator implements IComparable
 			rv.setSort(var.getSort());
 			rv.setVariable(var);
 			
-			VariableEvaluation ve = new VariableEvaluation();
+			TermAssignment ve = new TermAssignment();
 			ve.getValues().add(testValue);
 			ve.setVariable(rv);
 

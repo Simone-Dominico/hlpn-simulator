@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableEvaluation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
@@ -19,7 +19,7 @@ public class TupleComparator implements IComparable
 	
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, VariableEvaluation> assignments)
+            Map<String, TermAssignment> assignments)
     {
 		// FIXME: mla: errors in home made sort comparison
 		// need to check || !(refValue.getSort().equals(testValue.getSort())
