@@ -14,6 +14,8 @@ Require-Bundle: org.eclipse.ui,
  org.pnml.tools.epnk.pntypes.hlpng.pntd;bundle-version="0.9.3"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.pnml.tools.epnk.applications.hlpng.utils.Activator
-Export-Package: org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions,
- org.pnml.tools.epnk.applications.hlpng.runtime,
+Export-Package: org.pnml.tools.epnk.applications.hlpng.runtime,
+ org.pnml.tools.epnk.applications.hlpng.selection,
+ org.pnml.tools.epnk.applications.hlpng.simulator,
+ org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators
