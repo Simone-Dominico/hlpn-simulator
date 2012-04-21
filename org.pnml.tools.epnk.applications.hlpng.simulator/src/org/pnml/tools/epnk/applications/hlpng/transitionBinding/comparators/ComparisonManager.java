@@ -5,20 +5,28 @@ import java.util.Map;
 
 public class ComparisonManager
 {
-	private Map<Class, IComparable> handlers = new HashMap<Class, IComparable>();
+	private Map<Object, IComparable> handlers = new HashMap<Object, IComparable>();
 	
-	public void register(Class targetClass, IComparable comparator)
+	public void register(Object targetObject, IComparable comparator)
 	{
-		handlers.put(targetClass, comparator);
-	}
-	
-	public void unregister(Class targetClass)
-	{
-		handlers.remove(targetClass);
+		handlers.put(targetObject, comparator);
 	}
 	
 	public IComparable getComparator(Class targetClass)
 	{
-		return handlers.get(targetClass);
+		if(handlers.containsKey(targetClass))
+		{
+			return handlers.get(targetClass);
+		}
+		if(handlers.containsKey(targetClass.getPackage()))
+		{
+			return handlers.get(targetClass.getPackage());
+		}
+		return null;
+	}
+	
+	public void unregister(Object targetObject)
+	{
+		handlers.remove(targetObject);
 	}
 }
