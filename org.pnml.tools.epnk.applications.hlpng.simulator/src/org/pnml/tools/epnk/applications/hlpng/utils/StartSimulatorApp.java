@@ -10,13 +10,10 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.BooleanConstantComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberConstantComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberOfComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ReversibleOperationComparator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.StringConstantComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TupleComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
@@ -95,9 +92,12 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the comparison manager
 		ComparisonManager comparisonManager = new ComparisonManager();
 		{
-			comparisonManager.register(NumberConstantImpl.class, new NumberConstantComparator());
-			comparisonManager.register(StringConstantImpl.class, new StringConstantComparator());
-			comparisonManager.register(BooleanConstantImpl.class, new BooleanConstantComparator());
+			// integers package
+			comparisonManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
+			// booleans package
+			comparisonManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
+			// strings package
+			comparisonManager.register(StringConstantImpl.class.getPackage(), new StringsEval());
 			
 			comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
 			comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
