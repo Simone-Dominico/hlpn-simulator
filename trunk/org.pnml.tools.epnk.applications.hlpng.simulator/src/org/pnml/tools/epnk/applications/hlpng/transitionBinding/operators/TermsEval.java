@@ -5,20 +5,25 @@ import java.util.Collection;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
-public class TupleEval implements IEvaluator
+public class TermsEval implements IEvaluator
 {
 	@Override
     public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
     {
-		ProductValue product = new ProductValue();
-		product.setSort(operator.getSort());
-		
-		for(AbstractValue value : values)
+		if(operator instanceof Tuple)
 		{
-			product.getComponents().add(value);
+			ProductValue product = new ProductValue();
+			product.setSort(operator.getSort());
+			
+			for(AbstractValue value : values)
+			{
+				product.getComponents().add(value);
+			}
+			
+		    return product;
 		}
-		
-	    return product;
+		return null;
     }
 }
