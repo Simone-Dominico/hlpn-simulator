@@ -19,41 +19,23 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Reve
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.StringConstantComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TupleComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AddEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AndEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleanConstantEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ConcatenationEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EqualityEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.GreaterThanEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.InequalityEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.LessThanEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultiplicationEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.NumberConstantEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.NumberOfEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.OrEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringConstantEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TupleEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.AndImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.EqualityImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.InequalityImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.OrImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.GreaterThanImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.LessThanImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AddImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.SubtractImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.ConcatenationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.TupleImpl;
@@ -74,6 +56,20 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the evaluation manager
 		EvaluationManager evaluationManager = new EvaluationManager();
 		{
+			// integers package
+			evaluationManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
+			// booleans package
+			evaluationManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
+			// strings package
+			evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());			
+			// multisets package
+			evaluationManager.register(NumberOfImpl.class.getPackage(), new MultisetsEval());
+			// terms package
+			evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
+			
+			evaluationManager.register(AdditionImpl.class, new AdditionEval());
+			evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+			
 			// user extensions
 			for(IConfigurationElement e : config)
 			{
@@ -87,24 +83,6 @@ public class StartSimulatorApp implements IObjectActionDelegate
 					e1.printStackTrace();
 				}
 			}
-			// others
-			evaluationManager.register(GreaterThanImpl.class, new GreaterThanEval());
-			evaluationManager.register(LessThanImpl.class, new LessThanEval());
-			evaluationManager.register(AndImpl.class, new AndEval());
-			evaluationManager.register(OrImpl.class, new OrEval());
-			evaluationManager.register(ConcatenationImpl.class, new ConcatenationEval());
-			evaluationManager.register(InequalityImpl.class, new InequalityEval());
-			evaluationManager.register(EqualityImpl.class, new EqualityEval());
-			evaluationManager.register(NumberConstantImpl.class, new NumberConstantEval());
-			evaluationManager.register(StringConstantImpl.class, new StringConstantEval());
-			evaluationManager.register(BooleanConstantImpl.class, new BooleanConstantEval());
-			evaluationManager.register(NumberOfImpl.class, new NumberOfEval());
-			evaluationManager.register(AddImpl.class, new AddEval());
-			evaluationManager.register(SubtractImpl.class, new SubtractEval());
-			evaluationManager.register(TupleImpl.class, new TupleEval());
-			
-			evaluationManager.register(AdditionImpl.class, new AdditionEval());
-			evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
 		}
 		
 		// init the reversible operation manager

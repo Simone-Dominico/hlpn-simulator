@@ -17,21 +17,29 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class EvaluationManager
 {
-	private Map<Class, IEvaluator> handlers = new HashMap<Class, IEvaluator>();
+	private Map<Object, IEvaluator> handlers = new HashMap<Object, IEvaluator>();
 	
-	public void register(Class targetClass, IEvaluator operator)
+	public void register(Object targetObject, IEvaluator operator)
 	{
-		handlers.put(targetClass, operator);
+		handlers.put(targetObject, operator);
 	}
 	
 	public IEvaluator getHandler(Class targetClass)
 	{
-		return handlers.get(targetClass);
+		if(handlers.containsKey(targetClass))
+		{
+			return handlers.get(targetClass);
+		}
+		if(handlers.containsKey(targetClass.getPackage()))
+		{
+			return handlers.get(targetClass.getPackage());
+		}
+		return null;
 	}
 	
-	public void unregister(Class targetClass)
+	public void unregister(Object targetObject)
 	{
-		handlers.remove(targetClass);
+		handlers.remove(targetObject);
 	}
 	
 	public AbstractValue evaluateAdapt(Term term, Map<Variable, AbstractValue> assignments) throws UnknownVariableException
@@ -73,7 +81,7 @@ public class EvaluationManager
 			values.add(value);
 		}
 
-		IEvaluator evaluator = handlers.get(term.getClass());
+		IEvaluator evaluator = getHandler(term.getClass());
 		
 		if(evaluator == null)
 		{
