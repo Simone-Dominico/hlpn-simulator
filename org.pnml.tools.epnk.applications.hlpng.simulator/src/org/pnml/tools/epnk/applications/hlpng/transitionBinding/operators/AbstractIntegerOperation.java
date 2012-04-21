@@ -16,7 +16,7 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 	protected abstract int computeArg(int result, int a);
 
 	@Override
-    public AbstractValue revert(AbstractValue result, AbstractValue arg)
+    public AbstractValue reverse(AbstractValue result, AbstractValue arg)
     {
 		Sort sort = arg.getSort();
 		

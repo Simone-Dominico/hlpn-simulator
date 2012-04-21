@@ -95,7 +95,7 @@ public class ReversibleOperationManager
 			{
 				Variable var = (Variable)unknown.get(0);
 				String varName = var.getName();
-				AbstractValue value = operation.revert(result, args);
+				AbstractValue value = operation.reverseAll(result, args);
 				if(knownVariables.containsKey(varName))
 				{
 					knownVariables.get(varName).getValues().add(value);
@@ -122,7 +122,7 @@ public class ReversibleOperationManager
 		List<AbstractValue> resultList = new ArrayList<AbstractValue>();
 		for(List<AbstractValue> args : setsOfResults)
 		{
-			resultList.add(operation.revert(result, args));
+			resultList.add(operation.reverseAll(result, args));
 		}
 		return resolveAll(resultList, op, knownVariables);
 	}
