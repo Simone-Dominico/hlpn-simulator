@@ -20,9 +20,9 @@ public abstract class AbstractReversibleOperation extends AbstractUndefinedVaria
 	}
 	
 	@Override
-	public AbstractValue revert(AbstractValue result, Collection<AbstractValue> args)
+	public AbstractValue reverseAll(AbstractValue result, Collection<AbstractValue> args)
 	{
-		return revert(result, evaluate(args, ((Operator)rootTerm)));
+		return reverse(result, evaluate(args, ((Operator)rootTerm)));
 	}
 	
 	@Override
