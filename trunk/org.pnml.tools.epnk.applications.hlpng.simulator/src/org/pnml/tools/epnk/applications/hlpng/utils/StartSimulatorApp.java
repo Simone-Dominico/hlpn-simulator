@@ -11,6 +11,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberOfComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ReversibleOperationComparator;
@@ -92,12 +93,10 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the comparison manager
 		ComparisonManager comparisonManager = new ComparisonManager();
 		{
-			// integers package
-			comparisonManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
-			// booleans package
-			comparisonManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
-			// strings package
-			comparisonManager.register(StringConstantImpl.class.getPackage(), new StringsEval());
+			DatatypesComparator datatypesComparator = new DatatypesComparator();
+			comparisonManager.register(NumberConstantImpl.class.getPackage(), datatypesComparator);
+			comparisonManager.register(BooleanConstantImpl.class.getPackage(), datatypesComparator);
+			comparisonManager.register(StringConstantImpl.class.getPackage(), datatypesComparator);
 			
 			comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
 			comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
