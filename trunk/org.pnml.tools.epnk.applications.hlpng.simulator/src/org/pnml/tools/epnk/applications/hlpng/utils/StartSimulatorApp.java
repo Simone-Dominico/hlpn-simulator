@@ -48,73 +48,89 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	@Override
 	public void run(IAction action)
 	{
-		IConfigurationElement[] config = Platform.getExtensionRegistry()
-		        .getConfigurationElementsFor("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
-
 		// init the evaluation manager
-		EvaluationManager evaluationManager = new EvaluationManager();
-		{
-			// integers package
-			evaluationManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
-			// booleans package
-			evaluationManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
-			// strings package
-			evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());			
-			// multisets package
-			evaluationManager.register(NumberOfImpl.class.getPackage(), new MultisetsEval());
-			// terms package
-			evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
-			
-			evaluationManager.register(AdditionImpl.class, new AdditionEval());
-			evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
-			
-			// user extensions
-			for(IConfigurationElement e : config)
-			{
-				try
-				{
-					evaluationManager.register(UserOperatorImpl.class,
-					        (IEvaluator) e.createExecutableExtension("class"));
-				}
-				catch(CoreException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		}
+		EvaluationManager evaluationManager = 
+				createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 		
 		// init the reversible operation manager
-		ReversibleOperationManager reversibleOperationManager = new ReversibleOperationManager(evaluationManager);
-		{
-			reversibleOperationManager.register(AdditionImpl.class, new AdditionEval());
-			reversibleOperationManager.register(MultiplicationImpl.class, new MultiplicationEval());
-		}
+		ReversibleOperationManager reversibleOperationManager = createReversibleOperationManager(evaluationManager);
 				
 		// init the comparison manager
-		ComparisonManager comparisonManager = new ComparisonManager();
-		{
-			DatatypesComparator datatypesComparator = new DatatypesComparator();
-			comparisonManager.register(NumberConstantImpl.class.getPackage(), datatypesComparator);
-			comparisonManager.register(BooleanConstantImpl.class.getPackage(), datatypesComparator);
-			comparisonManager.register(StringConstantImpl.class.getPackage(), datatypesComparator);
-			
-			comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
-			comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
-			comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
-			
-			ReversibleOperationComparator binEval = 
-					new ReversibleOperationComparator(evaluationManager, reversibleOperationManager);
-			comparisonManager.register(AdditionImpl.class, binEval);
-			comparisonManager.register(MultiplicationImpl.class, binEval);
-			
-			comparisonManager.register(VariableImpl.class, new VariableComparator());
-		}
+		ComparisonManager comparisonManager = createComparisonManager(evaluationManager, reversibleOperationManager);
 
 		HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
 				comparisonManager, reversibleOperationManager);
 		Activator activator = Activator.getInstance();
 		ApplicationRegistry registry = activator.getApplicationRegistry();
 		registry.addApplication(application);
+	}
+	
+	private static EvaluationManager createEvaluationManager(String extensionId)
+	{
+		EvaluationManager evaluationManager = new EvaluationManager();
+		// integers package
+		evaluationManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
+		// booleans package
+		evaluationManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
+		// strings package
+		evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());			
+		// multisets package
+		evaluationManager.register(NumberOfImpl.class.getPackage(), new MultisetsEval());
+		// terms package
+		evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
+		
+		evaluationManager.register(AdditionImpl.class, new AdditionEval());
+		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+		
+		// user extensions
+		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
+		for(IConfigurationElement e : config)
+		{
+			try
+			{
+				evaluationManager.register(UserOperatorImpl.class,
+				        (IEvaluator) e.createExecutableExtension("class"));
+			}
+			catch(CoreException e1)
+			{
+				e1.printStackTrace();
+			}
+		}
+		return evaluationManager;
+	}
+	
+	private static ReversibleOperationManager createReversibleOperationManager(EvaluationManager evaluationManager)
+	{
+		ReversibleOperationManager reversibleOperationManager = new ReversibleOperationManager(evaluationManager);
+		
+		reversibleOperationManager.register(AdditionImpl.class, new AdditionEval());
+		reversibleOperationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+		
+		return reversibleOperationManager;
+	}
+	
+	private static ComparisonManager createComparisonManager(EvaluationManager evaluationManager,
+			ReversibleOperationManager reversibleOperationManager)
+	{
+		ComparisonManager comparisonManager = new ComparisonManager();
+		
+		DatatypesComparator datatypesComparator = new DatatypesComparator();
+		comparisonManager.register(NumberConstantImpl.class.getPackage(), datatypesComparator);
+		comparisonManager.register(BooleanConstantImpl.class.getPackage(), datatypesComparator);
+		comparisonManager.register(StringConstantImpl.class.getPackage(), datatypesComparator);
+		
+		comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
+		comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
+		comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
+		
+		ReversibleOperationComparator binEval = 
+				new ReversibleOperationComparator(evaluationManager, reversibleOperationManager);
+		comparisonManager.register(AdditionImpl.class, binEval);
+		comparisonManager.register(MultiplicationImpl.class, binEval);
+		
+		comparisonManager.register(VariableImpl.class, new VariableComparator());
+		
+		return comparisonManager;
 	}
 
 	@Override
