@@ -1,6 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
@@ -17,6 +19,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.Transitio
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
@@ -97,35 +100,14 @@ public class NetMarkingManager
     	}
 	    
 	    // creates a marking for enabled transitions
-		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
+	    List<Pair<Transition, List<FiringMode>>> enabledTransitions =
+				checkTransitions(flatAccess.getTransitions(), runtimeValues, this.transitionManager);
+		for(TransitionMarking marking : getTransitionMarkings(enabledTransitions))
 		{
-			Transition hlTransition = (Transition)transition;
-
-			TransitionMarking marking = null;
-            try
-            {
-	            marking = this.transitionManager.checkTransition(
-	            		hlTransition, runtimeValues);
-            }
-            catch(DependencyException e)
-            {
-	            e.printStackTrace();
-            }
-            catch(UnknownVariableException e)
-            {
-	            e.printStackTrace();
-            }
-			
-			if(marking != null && marking.getModes().size() > 0)
-			{
-				marking.setTransition(hlTransition);
-				marking.setObject(hlTransition);
-				
-				netMarking.getMarkings().add(marking);
-				netMarking.getObjectAnnotations().add(marking);				
-			}
+			netMarking.getMarkings().add(marking);
+			netMarking.getObjectAnnotations().add(marking);
 		}
-		
+
 		return netMarking;
 	}
 	
@@ -237,15 +219,54 @@ public class NetMarkingManager
 	    	}
     	}
 	    
-		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
+		// creates a marking for enabled transitions
+		List<Pair<Transition, List<FiringMode>>> enabledTransitions =
+				checkTransitions(flatAccess.getTransitions(), runtimeValues, this.transitionManager);
+		for(TransitionMarking marking : getTransitionMarkings(enabledTransitions))
+		{
+			netMarking.getMarkings().add(marking);
+			netMarking.getObjectAnnotations().add(marking);
+		}
+		
+		return netMarking;
+	}
+	
+	private static List<TransitionMarking> getTransitionMarkings(
+			List<Pair<Transition, List<FiringMode>>> enabledTransitions)
+	{
+		List<TransitionMarking> transitionMarkings = new ArrayList<TransitionMarking>();
+		
+		for(Pair<Transition, List<FiringMode>> pair : enabledTransitions)
+		{
+			if(pair.getValue() != null && pair.getValue().size() > 0)
+        	{
+				TransitionMarking marking = new TransitionMarking();
+	    		marking.getModes().addAll(pair.getValue());	
+	    		
+	    		marking.setTransition(pair.getKey());
+				marking.setObject(pair.getKey());
+				
+				transitionMarkings.add(marking);
+        	}
+		}
+		
+		return transitionMarkings;
+	}
+	
+	private static List<Pair<Transition, List<FiringMode>>> checkTransitions(
+			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
+			Map<String, PlaceMarking> runtimeValues, TransitionManager transitionManager)
+	{
+		List<Pair<Transition, List<FiringMode>>> enabledTransitions = 
+				new ArrayList<Pair<Transition,List<FiringMode>>>();
+		
+		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
 		{
 			Transition hlTransition = (Transition)transition;
-
-			TransitionMarking marking = null;
+			List<FiringMode> assignments = null;
             try
             {
-	            marking = this.transitionManager.checkTransition(
-	            		hlTransition, runtimeValues);
+            	assignments = transitionManager.checkTransition(hlTransition, runtimeValues);
             }
             catch(DependencyException e)
             {
@@ -255,16 +276,16 @@ public class NetMarkingManager
             {
 	            e.printStackTrace();
             }
-			if(marking != null && marking.getModes().size() > 0)
-			{
-				marking.setTransition(hlTransition);
-				marking.setObject(hlTransition);
-				
-				netMarking.getMarkings().add(marking);
-				netMarking.getObjectAnnotations().add(marking);				
-			}
+            finally
+            {
+            	Pair<Transition, List<FiringMode>> pair = new Pair<Transition, List<FiringMode>>();
+            	pair.setKey(hlTransition);
+            	pair.setValue(assignments);
+            	
+            	enabledTransitions.add(pair);
+            }
 		}
 		
-		return netMarking;
+		return enabledTransitions;
 	}
 }
