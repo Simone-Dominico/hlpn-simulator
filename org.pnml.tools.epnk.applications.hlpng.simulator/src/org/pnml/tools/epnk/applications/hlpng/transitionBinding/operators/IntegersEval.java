@@ -3,7 +3,6 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
@@ -11,8 +10,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IComparable;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleansFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.GreaterThan;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.LessThan;
@@ -20,9 +17,8 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Natural;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Positive;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class IntegersEval implements IEvaluator, IComparable
+public class IntegersEval implements IEvaluator
 {
 	@Override
 	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
@@ -104,19 +100,5 @@ public class IntegersEval implements IEvaluator, IComparable
 		
 		return null;
 	}
-
-	@Override
-	public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, TermAssignment> assignments)
-    {
-	    if(refValue instanceof NumberConstant && testValue instanceof NumberValue &&
-	    		(refValue.getSort().equals(testValue.getSort()) ||
-	    				refValue.getSort().isSuperSortOf(testValue.getSort())) && 
-	    		((NumberConstant)refValue).getValue() == ((NumberValue)testValue).getN())
-	    {
-	    	return true;
-	    }
-	    return false;
-    }
 
 }
