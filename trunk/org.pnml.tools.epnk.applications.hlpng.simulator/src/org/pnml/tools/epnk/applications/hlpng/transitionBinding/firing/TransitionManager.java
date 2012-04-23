@@ -59,18 +59,14 @@ public class TransitionManager
 		}
 	}
 	
-	public TransitionMarking checkTransition(Transition transition, Map<String, 
+	public List<FiringMode> checkTransition(Transition transition, Map<String, 
 			PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
 		List<FiringMode> assignments = assignments(transition, runtimeValues, 
 				patternMatcherMap.get(transition.getId()), evaluationManager,
 				reversibleOperationManager);
 		
-		TransitionMarking marking = new TransitionMarking();
-
-		marking.getModes().addAll(assignments);
-		
-		return marking;
+		return assignments;
 	}
 	
 	private static List<FiringMode> assignments(Transition transition, Map<String, 
