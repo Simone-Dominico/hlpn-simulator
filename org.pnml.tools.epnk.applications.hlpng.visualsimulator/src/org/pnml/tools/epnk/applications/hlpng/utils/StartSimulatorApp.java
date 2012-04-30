@@ -2,9 +2,11 @@ package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import geditor.GObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -16,6 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR;
@@ -63,18 +66,25 @@ import visualsimulationconfig.VisualsimulationconfigPackage;
 public class StartSimulatorApp implements IObjectActionDelegate
 {
 	private PetriNet petrinet;
-
+    private String filename = null;
+    private String pnmlExtension = null;
+    private String configExtension = "visualsimulationconfig";
+    
 	@Override
 	public void run(IAction action)
 	{
 		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
-		VisualsimulationconfigPackage visualsimulationconfigPackage = VisualsimulationconfigPackage.eINSTANCE;
-		
-		URI fileUri = URI
-				//.createFileURI("/home/mindaugas/Dropbox/DTU/master-project/runtime-simulator/3DTrains/SimpleTrainTraffic.visualsimulationconfig");
-				.createFileURI("/home/mindaugas/Dropbox/DTU/master-project/runtime-simulator/super_example/models/TrainTraffic.visualsimulationconfig");
-		Resource resource = resourceSet.getResource(fileUri, true);
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
+        VisualsimulationconfigPackage visualsimulationconfigPackage = VisualsimulationconfigPackage.eINSTANCE;
+        
+        File file = new File(filename.replaceFirst(pnmlExtension, configExtension));
+        
+        if(!file.exists())
+        {
+        	System.out.println("Config file does not exist!");
+        }
+        URI fileUri = URI.createFileURI(filename.replaceFirst(pnmlExtension, configExtension));
+        Resource resource = resourceSet.getResource(fileUri, true);
 
 		if(resource.getContents().size() > 0)
 		{
@@ -134,7 +144,12 @@ public class StartSimulatorApp implements IObjectActionDelegate
 				java.lang.Object selected = structuredSelection.getFirstElement();
 				if(selected instanceof PetriNet)
 				{
-					petrinet = (PetriNet) selected;
+					IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart(); 
+                    IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+                    
+                    pnmlExtension = file.getFileExtension();
+                    filename = file.getRawLocation().toOSString();
+                    petrinet = (PetriNet) selected;
 				}
 			}
 		}
