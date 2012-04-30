@@ -25,16 +25,16 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class OmegaNodeItemSemanticEditPolicy extends
+public class NodeItemSemanticEditPolicy extends
         NetworkBaseItemSemanticEditPolicy
 {
 
 	/**
 	 * @generated
 	 */
-	public OmegaNodeItemSemanticEditPolicy()
+	public NodeItemSemanticEditPolicy()
 	{
-		super(NetworkElementTypes.OmegaNode_2002);
+		super(NetworkElementTypes.Node_2001);
 	}
 
 	/**

@@ -7,18 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import networkmodel.AbstractNode;
-import networkmodel.AlphaNode;
 import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelPackage;
-import networkmodel.OmegaNode;
+import networkmodel.Node;
 import networkmodel.UndirectedEdge;
-import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
+import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.providers.NetworkElementTypes;
 
@@ -63,12 +60,7 @@ public class NetworkDiagramUpdater
 			NetworkObject childElement = (NetworkObject) it.next();
 			int visualID = NetworkVisualIDRegistry.getNodeVisualID(view,
 			        childElement);
-			if(visualID == AlphaNodeEditPart.VISUAL_ID)
-			{
-				result.add(new NetworkNodeDescriptor(childElement, visualID));
-				continue;
-			}
-			if(visualID == OmegaNodeEditPart.VISUAL_ID)
+			if(visualID == NodeEditPart.VISUAL_ID)
 			{
 				result.add(new NetworkNodeDescriptor(childElement, visualID));
 				continue;
@@ -86,10 +78,8 @@ public class NetworkDiagramUpdater
 		{
 			case NetworkEditPart.VISUAL_ID:
 				return getNetwork_1000ContainedLinks(view);
-			case AlphaNodeEditPart.VISUAL_ID:
-				return getAlphaNode_2001ContainedLinks(view);
-			case OmegaNodeEditPart.VISUAL_ID:
-				return getOmegaNode_2002ContainedLinks(view);
+			case NodeEditPart.VISUAL_ID:
+				return getNode_2001ContainedLinks(view);
 			case UndirectedEdgeEditPart.VISUAL_ID:
 				return getUndirectedEdge_4001ContainedLinks(view);
 			case DirectedEdgeEditPart.VISUAL_ID:
@@ -105,10 +95,8 @@ public class NetworkDiagramUpdater
 	{
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case AlphaNodeEditPart.VISUAL_ID:
-				return getAlphaNode_2001IncomingLinks(view);
-			case OmegaNodeEditPart.VISUAL_ID:
-				return getOmegaNode_2002IncomingLinks(view);
+			case NodeEditPart.VISUAL_ID:
+				return getNode_2001IncomingLinks(view);
 			case UndirectedEdgeEditPart.VISUAL_ID:
 				return getUndirectedEdge_4001IncomingLinks(view);
 			case DirectedEdgeEditPart.VISUAL_ID:
@@ -124,10 +112,8 @@ public class NetworkDiagramUpdater
 	{
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case AlphaNodeEditPart.VISUAL_ID:
-				return getAlphaNode_2001OutgoingLinks(view);
-			case OmegaNodeEditPart.VISUAL_ID:
-				return getOmegaNode_2002OutgoingLinks(view);
+			case NodeEditPart.VISUAL_ID:
+				return getNode_2001OutgoingLinks(view);
 			case UndirectedEdgeEditPart.VISUAL_ID:
 				return getUndirectedEdge_4001OutgoingLinks(view);
 			case DirectedEdgeEditPart.VISUAL_ID:
@@ -152,16 +138,7 @@ public class NetworkDiagramUpdater
 	/**
 	 * @generated
 	 */
-	public static List<NetworkLinkDescriptor> getAlphaNode_2001ContainedLinks(
-	        View view)
-	{
-		return Collections.emptyList();
-	}
-
-	/**
-	 * @generated
-	 */
-	public static List<NetworkLinkDescriptor> getOmegaNode_2002ContainedLinks(
+	public static List<NetworkLinkDescriptor> getNode_2001ContainedLinks(
 	        View view)
 	{
 		return Collections.emptyList();
@@ -188,27 +165,10 @@ public class NetworkDiagramUpdater
 	/**
 	 * @generated
 	 */
-	public static List<NetworkLinkDescriptor> getAlphaNode_2001IncomingLinks(
+	public static List<NetworkLinkDescriptor> getNode_2001IncomingLinks(
 	        View view)
 	{
-		AlphaNode modelElement = (AlphaNode) view.getElement();
-		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer
-		        .find(view.eResource().getResourceSet().getResources());
-		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
-		result.addAll(getIncomingTypeModelFacetLinks_UndirectedEdge_4001(
-		        modelElement, crossReferences));
-		result.addAll(getIncomingTypeModelFacetLinks_DirectedEdge_4002(
-		        modelElement, crossReferences));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static List<NetworkLinkDescriptor> getOmegaNode_2002IncomingLinks(
-	        View view)
-	{
-		OmegaNode modelElement = (OmegaNode) view.getElement();
+		Node modelElement = (Node) view.getElement();
 		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer
 		        .find(view.eResource().getResourceSet().getResources());
 		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
@@ -240,23 +200,10 @@ public class NetworkDiagramUpdater
 	/**
 	 * @generated
 	 */
-	public static List<NetworkLinkDescriptor> getAlphaNode_2001OutgoingLinks(
+	public static List<NetworkLinkDescriptor> getNode_2001OutgoingLinks(
 	        View view)
 	{
-		AlphaNode modelElement = (AlphaNode) view.getElement();
-		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
-		result.addAll(getOutgoingTypeModelFacetLinks_UndirectedEdge_4001(modelElement));
-		result.addAll(getOutgoingTypeModelFacetLinks_DirectedEdge_4002(modelElement));
-		return result;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static List<NetworkLinkDescriptor> getOmegaNode_2002OutgoingLinks(
-	        View view)
-	{
-		OmegaNode modelElement = (OmegaNode) view.getElement();
+		Node modelElement = (Node) view.getElement();
 		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
 		result.addAll(getOutgoingTypeModelFacetLinks_UndirectedEdge_4001(modelElement));
 		result.addAll(getOutgoingTypeModelFacetLinks_DirectedEdge_4002(modelElement));
@@ -302,8 +249,8 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode dst = link.getTarget();
-			AbstractNode src = link.getSource();
+			Node dst = link.getTarget();
+			Node src = link.getSource();
 			result.add(new NetworkLinkDescriptor(src, dst, link,
 			        NetworkElementTypes.UndirectedEdge_4001,
 			        UndirectedEdgeEditPart.VISUAL_ID));
@@ -332,8 +279,8 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode dst = link.getTarget();
-			AbstractNode src = link.getSource();
+			Node dst = link.getTarget();
+			Node src = link.getSource();
 			result.add(new NetworkLinkDescriptor(src, dst, link,
 			        NetworkElementTypes.DirectedEdge_4002,
 			        DirectedEdgeEditPart.VISUAL_ID));
@@ -345,7 +292,7 @@ public class NetworkDiagramUpdater
 	 * @generated
 	 */
 	private static Collection<NetworkLinkDescriptor> getIncomingTypeModelFacetLinks_UndirectedEdge_4001(
-	        AbstractNode target,
+	        Node target,
 	        Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences)
 	{
 		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
@@ -365,7 +312,7 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode src = link.getSource();
+			Node src = link.getSource();
 			result.add(new NetworkLinkDescriptor(src, target, link,
 			        NetworkElementTypes.UndirectedEdge_4001,
 			        UndirectedEdgeEditPart.VISUAL_ID));
@@ -377,7 +324,7 @@ public class NetworkDiagramUpdater
 	 * @generated
 	 */
 	private static Collection<NetworkLinkDescriptor> getIncomingTypeModelFacetLinks_DirectedEdge_4002(
-	        AbstractNode target,
+	        Node target,
 	        Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences)
 	{
 		LinkedList<NetworkLinkDescriptor> result = new LinkedList<NetworkLinkDescriptor>();
@@ -397,7 +344,7 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode src = link.getSource();
+			Node src = link.getSource();
 			result.add(new NetworkLinkDescriptor(src, target, link,
 			        NetworkElementTypes.DirectedEdge_4002,
 			        DirectedEdgeEditPart.VISUAL_ID));
@@ -409,7 +356,7 @@ public class NetworkDiagramUpdater
 	 * @generated
 	 */
 	private static Collection<NetworkLinkDescriptor> getOutgoingTypeModelFacetLinks_UndirectedEdge_4001(
-	        AbstractNode source)
+	        Node source)
 	{
 		Network container = null;
 		// Find container element for the link.
@@ -442,8 +389,8 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode dst = link.getTarget();
-			AbstractNode src = link.getSource();
+			Node dst = link.getTarget();
+			Node src = link.getSource();
 			if(src != source)
 			{
 				continue;
@@ -459,7 +406,7 @@ public class NetworkDiagramUpdater
 	 * @generated
 	 */
 	private static Collection<NetworkLinkDescriptor> getOutgoingTypeModelFacetLinks_DirectedEdge_4002(
-	        AbstractNode source)
+	        Node source)
 	{
 		Network container = null;
 		// Find container element for the link.
@@ -492,8 +439,8 @@ public class NetworkDiagramUpdater
 			{
 				continue;
 			}
-			AbstractNode dst = link.getTarget();
-			AbstractNode src = link.getSource();
+			Node dst = link.getTarget();
+			Node src = link.getSource();
 			if(src != source)
 			{
 				continue;

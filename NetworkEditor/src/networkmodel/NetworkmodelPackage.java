@@ -96,7 +96,7 @@ public interface NetworkmodelPackage extends EPackage
      * @see networkmodel.impl.NetworkmodelPackageImpl#getNetworkObject()
      * @generated
      */
-    int NETWORK_OBJECT = 6;
+    int NETWORK_OBJECT = 4;
 
     /**
      * The number of structural features of the '<em>Network Object</em>' class.
@@ -108,23 +108,14 @@ public interface NetworkmodelPackage extends EPackage
     int NETWORK_OBJECT_FEATURE_COUNT = 0;
 
     /**
-     * The meta object id for the '{@link networkmodel.impl.AbstractNodeImpl <em>Abstract Node</em>}' class.
+     * The meta object id for the '{@link networkmodel.impl.NodeImpl <em>Node</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see networkmodel.impl.AbstractNodeImpl
-     * @see networkmodel.impl.NetworkmodelPackageImpl#getAbstractNode()
+     * @see networkmodel.impl.NodeImpl
+     * @see networkmodel.impl.NetworkmodelPackageImpl#getNode()
      * @generated
      */
-    int ABSTRACT_NODE = 1;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ABSTRACT_NODE__ID = NETWORK_OBJECT_FEATURE_COUNT + 0;
+    int NODE = 1;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -133,7 +124,7 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      * @ordered
      */
-    int ABSTRACT_NODE__LABEL = NETWORK_OBJECT_FEATURE_COUNT + 1;
+    int NODE__LABEL = NETWORK_OBJECT_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Out</b></em>' reference list.
@@ -142,7 +133,7 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      * @ordered
      */
-    int ABSTRACT_NODE__OUT = NETWORK_OBJECT_FEATURE_COUNT + 2;
+    int NODE__OUT = NETWORK_OBJECT_FEATURE_COUNT + 1;
 
     /**
      * The feature id for the '<em><b>In</b></em>' reference list.
@@ -151,126 +142,16 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      * @ordered
      */
-    int ABSTRACT_NODE__IN = NETWORK_OBJECT_FEATURE_COUNT + 3;
+    int NODE__IN = NETWORK_OBJECT_FEATURE_COUNT + 2;
 
     /**
-     * The number of structural features of the '<em>Abstract Node</em>' class.
+     * The number of structural features of the '<em>Node</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ABSTRACT_NODE_FEATURE_COUNT = NETWORK_OBJECT_FEATURE_COUNT + 4;
-
-    /**
-     * The meta object id for the '{@link networkmodel.impl.AlphaNodeImpl <em>Alpha Node</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see networkmodel.impl.AlphaNodeImpl
-     * @see networkmodel.impl.NetworkmodelPackageImpl#getAlphaNode()
-     * @generated
-     */
-    int ALPHA_NODE = 2;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ALPHA_NODE__ID = ABSTRACT_NODE__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ALPHA_NODE__LABEL = ABSTRACT_NODE__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Out</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ALPHA_NODE__OUT = ABSTRACT_NODE__OUT;
-
-    /**
-     * The feature id for the '<em><b>In</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ALPHA_NODE__IN = ABSTRACT_NODE__IN;
-
-    /**
-     * The number of structural features of the '<em>Alpha Node</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ALPHA_NODE_FEATURE_COUNT = ABSTRACT_NODE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link networkmodel.impl.OmegaNodeImpl <em>Omega Node</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see networkmodel.impl.OmegaNodeImpl
-     * @see networkmodel.impl.NetworkmodelPackageImpl#getOmegaNode()
-     * @generated
-     */
-    int OMEGA_NODE = 3;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OMEGA_NODE__ID = ABSTRACT_NODE__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OMEGA_NODE__LABEL = ABSTRACT_NODE__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Out</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OMEGA_NODE__OUT = ABSTRACT_NODE__OUT;
-
-    /**
-     * The feature id for the '<em><b>In</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OMEGA_NODE__IN = ABSTRACT_NODE__IN;
-
-    /**
-     * The number of structural features of the '<em>Omega Node</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OMEGA_NODE_FEATURE_COUNT = ABSTRACT_NODE_FEATURE_COUNT + 0;
+    int NODE_FEATURE_COUNT = NETWORK_OBJECT_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link networkmodel.impl.AbstractEdgeImpl <em>Abstract Edge</em>}' class.
@@ -280,7 +161,7 @@ public interface NetworkmodelPackage extends EPackage
      * @see networkmodel.impl.NetworkmodelPackageImpl#getAbstractEdge()
      * @generated
      */
-    int ABSTRACT_EDGE = 4;
+    int ABSTRACT_EDGE = 2;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' reference.
@@ -317,7 +198,7 @@ public interface NetworkmodelPackage extends EPackage
      * @see networkmodel.impl.NetworkmodelPackageImpl#getUndirectedEdge()
      * @generated
      */
-    int UNDIRECTED_EDGE = 5;
+    int UNDIRECTED_EDGE = 3;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' reference.
@@ -346,7 +227,6 @@ public interface NetworkmodelPackage extends EPackage
      */
     int UNDIRECTED_EDGE_FEATURE_COUNT = ABSTRACT_EDGE_FEATURE_COUNT + 0;
 
-
     /**
      * The meta object id for the '{@link networkmodel.impl.DirectedEdgeImpl <em>Directed Edge</em>}' class.
      * <!-- begin-user-doc -->
@@ -355,7 +235,7 @@ public interface NetworkmodelPackage extends EPackage
      * @see networkmodel.impl.NetworkmodelPackageImpl#getDirectedEdge()
      * @generated
      */
-    int DIRECTED_EDGE = 7;
+    int DIRECTED_EDGE = 5;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' reference.
@@ -407,78 +287,47 @@ public interface NetworkmodelPackage extends EPackage
     EReference getNetwork_Network();
 
     /**
-     * Returns the meta object for class '{@link networkmodel.AbstractNode <em>Abstract Node</em>}'.
+     * Returns the meta object for class '{@link networkmodel.Node <em>Node</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Abstract Node</em>'.
-     * @see networkmodel.AbstractNode
+     * @return the meta object for class '<em>Node</em>'.
+     * @see networkmodel.Node
      * @generated
      */
-    EClass getAbstractNode();
+    EClass getNode();
 
     /**
-     * Returns the meta object for the attribute '{@link networkmodel.AbstractNode#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see networkmodel.AbstractNode#getId()
-     * @see #getAbstractNode()
-     * @generated
-     */
-    EAttribute getAbstractNode_Id();
-
-    /**
-     * Returns the meta object for the attribute '{@link networkmodel.AbstractNode#getLabel <em>Label</em>}'.
+     * Returns the meta object for the attribute '{@link networkmodel.Node#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Label</em>'.
-     * @see networkmodel.AbstractNode#getLabel()
-     * @see #getAbstractNode()
+     * @see networkmodel.Node#getLabel()
+     * @see #getNode()
      * @generated
      */
-    EAttribute getAbstractNode_Label();
+    EAttribute getNode_Label();
 
     /**
-     * Returns the meta object for the reference list '{@link networkmodel.AbstractNode#getOut <em>Out</em>}'.
+     * Returns the meta object for the reference list '{@link networkmodel.Node#getOut <em>Out</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>Out</em>'.
-     * @see networkmodel.AbstractNode#getOut()
-     * @see #getAbstractNode()
+     * @see networkmodel.Node#getOut()
+     * @see #getNode()
      * @generated
      */
-    EReference getAbstractNode_Out();
+    EReference getNode_Out();
 
     /**
-     * Returns the meta object for the reference list '{@link networkmodel.AbstractNode#getIn <em>In</em>}'.
+     * Returns the meta object for the reference list '{@link networkmodel.Node#getIn <em>In</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the reference list '<em>In</em>'.
-     * @see networkmodel.AbstractNode#getIn()
-     * @see #getAbstractNode()
+     * @see networkmodel.Node#getIn()
+     * @see #getNode()
      * @generated
      */
-    EReference getAbstractNode_In();
-
-    /**
-     * Returns the meta object for class '{@link networkmodel.AlphaNode <em>Alpha Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Alpha Node</em>'.
-     * @see networkmodel.AlphaNode
-     * @generated
-     */
-    EClass getAlphaNode();
-
-    /**
-     * Returns the meta object for class '{@link networkmodel.OmegaNode <em>Omega Node</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Omega Node</em>'.
-     * @see networkmodel.OmegaNode
-     * @generated
-     */
-    EClass getOmegaNode();
+    EReference getNode_In();
 
     /**
      * Returns the meta object for class '{@link networkmodel.AbstractEdge <em>Abstract Edge</em>}'.
@@ -584,22 +433,14 @@ public interface NetworkmodelPackage extends EPackage
         EReference NETWORK__NETWORK = eINSTANCE.getNetwork_Network();
 
         /**
-         * The meta object literal for the '{@link networkmodel.impl.AbstractNodeImpl <em>Abstract Node</em>}' class.
+         * The meta object literal for the '{@link networkmodel.impl.NodeImpl <em>Node</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see networkmodel.impl.AbstractNodeImpl
-         * @see networkmodel.impl.NetworkmodelPackageImpl#getAbstractNode()
+         * @see networkmodel.impl.NodeImpl
+         * @see networkmodel.impl.NetworkmodelPackageImpl#getNode()
          * @generated
          */
-        EClass ABSTRACT_NODE = eINSTANCE.getAbstractNode();
-
-        /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ABSTRACT_NODE__ID = eINSTANCE.getAbstractNode_Id();
+        EClass NODE = eINSTANCE.getNode();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -607,7 +448,7 @@ public interface NetworkmodelPackage extends EPackage
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute ABSTRACT_NODE__LABEL = eINSTANCE.getAbstractNode_Label();
+        EAttribute NODE__LABEL = eINSTANCE.getNode_Label();
 
         /**
          * The meta object literal for the '<em><b>Out</b></em>' reference list feature.
@@ -615,7 +456,7 @@ public interface NetworkmodelPackage extends EPackage
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference ABSTRACT_NODE__OUT = eINSTANCE.getAbstractNode_Out();
+        EReference NODE__OUT = eINSTANCE.getNode_Out();
 
         /**
          * The meta object literal for the '<em><b>In</b></em>' reference list feature.
@@ -623,27 +464,7 @@ public interface NetworkmodelPackage extends EPackage
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference ABSTRACT_NODE__IN = eINSTANCE.getAbstractNode_In();
-
-        /**
-         * The meta object literal for the '{@link networkmodel.impl.AlphaNodeImpl <em>Alpha Node</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see networkmodel.impl.AlphaNodeImpl
-         * @see networkmodel.impl.NetworkmodelPackageImpl#getAlphaNode()
-         * @generated
-         */
-        EClass ALPHA_NODE = eINSTANCE.getAlphaNode();
-
-        /**
-         * The meta object literal for the '{@link networkmodel.impl.OmegaNodeImpl <em>Omega Node</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see networkmodel.impl.OmegaNodeImpl
-         * @see networkmodel.impl.NetworkmodelPackageImpl#getOmegaNode()
-         * @generated
-         */
-        EClass OMEGA_NODE = eINSTANCE.getOmegaNode();
+        EReference NODE__IN = eINSTANCE.getNode_In();
 
         /**
          * The meta object literal for the '{@link networkmodel.impl.AbstractEdgeImpl <em>Abstract Edge</em>}' class.

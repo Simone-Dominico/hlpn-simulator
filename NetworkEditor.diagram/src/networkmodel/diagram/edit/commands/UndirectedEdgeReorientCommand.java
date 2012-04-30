@@ -1,7 +1,7 @@
 package networkmodel.diagram.edit.commands;
 
-import networkmodel.AbstractNode;
 import networkmodel.Network;
+import networkmodel.Node;
 import networkmodel.UndirectedEdge;
 import networkmodel.diagram.edit.policies.NetworkBaseItemSemanticEditPolicy;
 
@@ -70,11 +70,11 @@ public class UndirectedEdgeReorientCommand extends EditElementCommand
 	 */
 	protected boolean canReorientSource()
 	{
-		if(!(oldEnd instanceof AbstractNode && newEnd instanceof AbstractNode))
+		if(!(oldEnd instanceof Node && newEnd instanceof Node))
 		{
 			return false;
 		}
-		AbstractNode target = getLink().getTarget();
+		Node target = getLink().getTarget();
 		if(!(getLink().eContainer() instanceof Network))
 		{
 			return false;
@@ -90,11 +90,11 @@ public class UndirectedEdgeReorientCommand extends EditElementCommand
 	 */
 	protected boolean canReorientTarget()
 	{
-		if(!(oldEnd instanceof AbstractNode && newEnd instanceof AbstractNode))
+		if(!(oldEnd instanceof Node && newEnd instanceof Node))
 		{
 			return false;
 		}
-		AbstractNode source = getLink().getSource();
+		Node source = getLink().getSource();
 		if(!(getLink().eContainer() instanceof Network))
 		{
 			return false;
@@ -156,32 +156,32 @@ public class UndirectedEdgeReorientCommand extends EditElementCommand
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getOldSource()
+	protected Node getOldSource()
 	{
-		return (AbstractNode) oldEnd;
+		return (Node) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getNewSource()
+	protected Node getNewSource()
 	{
-		return (AbstractNode) newEnd;
+		return (Node) newEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getOldTarget()
+	protected Node getOldTarget()
 	{
-		return (AbstractNode) oldEnd;
+		return (Node) oldEnd;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getNewTarget()
+	protected Node getNewTarget()
 	{
-		return (AbstractNode) newEnd;
+		return (Node) newEnd;
 	}
 }

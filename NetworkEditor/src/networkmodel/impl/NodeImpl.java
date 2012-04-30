@@ -9,8 +9,8 @@ package networkmodel.impl;
 import java.util.Collection;
 
 import networkmodel.AbstractEdge;
-import networkmodel.AbstractNode;
 import networkmodel.NetworkmodelPackage;
+import networkmodel.Node;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -27,42 +27,21 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Abstract Node</b></em>'.
+ * An implementation of the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link networkmodel.impl.AbstractNodeImpl#getId <em>Id</em>}</li>
- *   <li>{@link networkmodel.impl.AbstractNodeImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link networkmodel.impl.AbstractNodeImpl#getOut <em>Out</em>}</li>
- *   <li>{@link networkmodel.impl.AbstractNodeImpl#getIn <em>In</em>}</li>
+ *   <li>{@link networkmodel.impl.NodeImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link networkmodel.impl.NodeImpl#getOut <em>Out</em>}</li>
+ *   <li>{@link networkmodel.impl.NodeImpl#getIn <em>In</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class AbstractNodeImpl extends NetworkObjectImpl implements AbstractNode
+public class NodeImpl extends NetworkObjectImpl implements Node
 {
-    /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
-    protected static final int ID_EDEFAULT = 0;
-
-    /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
-    protected int id = ID_EDEFAULT;
-
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -108,7 +87,7 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    protected AbstractNodeImpl()
+    protected NodeImpl()
     {
         super();
     }
@@ -121,30 +100,7 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     @Override
     protected EClass eStaticClass()
     {
-        return NetworkmodelPackage.Literals.ABSTRACT_NODE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public int getId()
-    {
-        return id;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setId(int newId)
-    {
-        int oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, NetworkmodelPackage.ABSTRACT_NODE__ID, oldId, id));
+        return NetworkmodelPackage.Literals.NODE;
     }
 
     /**
@@ -167,7 +123,7 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
         String oldLabel = label;
         label = newLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, NetworkmodelPackage.ABSTRACT_NODE__LABEL, oldLabel, label));
+            eNotify(new ENotificationImpl(this, Notification.SET, NetworkmodelPackage.NODE__LABEL, oldLabel, label));
     }
 
     /**
@@ -179,7 +135,7 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         if (out == null)
         {
-            out = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.ABSTRACT_NODE__OUT, NetworkmodelPackage.ABSTRACT_EDGE__SOURCE);
+            out = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.NODE__OUT, NetworkmodelPackage.ABSTRACT_EDGE__SOURCE);
         }
         return out;
     }
@@ -193,7 +149,7 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         if (in == null)
         {
-            in = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.ABSTRACT_NODE__IN, NetworkmodelPackage.ABSTRACT_EDGE__TARGET);
+            in = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.NODE__IN, NetworkmodelPackage.ABSTRACT_EDGE__TARGET);
         }
         return in;
     }
@@ -209,9 +165,9 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getOut()).basicAdd(otherEnd, msgs);
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getIn()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -227,9 +183,9 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 return ((InternalEList<?>)getOut()).basicRemove(otherEnd, msgs);
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 return ((InternalEList<?>)getIn()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -245,13 +201,11 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__ID:
-                return getId();
-            case NetworkmodelPackage.ABSTRACT_NODE__LABEL:
+            case NetworkmodelPackage.NODE__LABEL:
                 return getLabel();
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 return getOut();
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 return getIn();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -268,17 +222,14 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__ID:
-                setId((Integer)newValue);
-                return;
-            case NetworkmodelPackage.ABSTRACT_NODE__LABEL:
+            case NetworkmodelPackage.NODE__LABEL:
                 setLabel((String)newValue);
                 return;
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 getOut().clear();
                 getOut().addAll((Collection<? extends AbstractEdge>)newValue);
                 return;
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 getIn().clear();
                 getIn().addAll((Collection<? extends AbstractEdge>)newValue);
                 return;
@@ -296,16 +247,13 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case NetworkmodelPackage.ABSTRACT_NODE__LABEL:
+            case NetworkmodelPackage.NODE__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 getOut().clear();
                 return;
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 getIn().clear();
                 return;
         }
@@ -322,13 +270,11 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
     {
         switch (featureID)
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__ID:
-                return id != ID_EDEFAULT;
-            case NetworkmodelPackage.ABSTRACT_NODE__LABEL:
+            case NetworkmodelPackage.NODE__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case NetworkmodelPackage.ABSTRACT_NODE__OUT:
+            case NetworkmodelPackage.NODE__OUT:
                 return out != null && !out.isEmpty();
-            case NetworkmodelPackage.ABSTRACT_NODE__IN:
+            case NetworkmodelPackage.NODE__IN:
                 return in != null && !in.isEmpty();
         }
         return super.eIsSet(featureID);
@@ -345,12 +291,10 @@ public abstract class AbstractNodeImpl extends NetworkObjectImpl implements Abst
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", label: ");
+        result.append(" (label: ");
         result.append(label);
         result.append(')');
         return result.toString();
     }
 
-} //AbstractNodeImpl
+} //NodeImpl

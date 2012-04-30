@@ -7,14 +7,12 @@
 package networkmodel.impl;
 
 import networkmodel.AbstractEdge;
-import networkmodel.AbstractNode;
-import networkmodel.AlphaNode;
 import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelFactory;
 import networkmodel.NetworkmodelPackage;
-import networkmodel.OmegaNode;
+import networkmodel.Node;
 import networkmodel.UndirectedEdge;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -44,21 +42,7 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass abstractNodeEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass alphaNodeEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass omegaNodeEClass = null;
+    private EClass nodeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -176,9 +160,9 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getAbstractNode()
+    public EClass getNode()
     {
-        return abstractNodeEClass;
+        return nodeEClass;
     }
 
     /**
@@ -186,9 +170,9 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getAbstractNode_Id()
+    public EAttribute getNode_Label()
     {
-        return (EAttribute)abstractNodeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)nodeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -196,9 +180,9 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getAbstractNode_Label()
+    public EReference getNode_Out()
     {
-        return (EAttribute)abstractNodeEClass.getEStructuralFeatures().get(1);
+        return (EReference)nodeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -206,39 +190,9 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getAbstractNode_Out()
+    public EReference getNode_In()
     {
-        return (EReference)abstractNodeEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getAbstractNode_In()
-    {
-        return (EReference)abstractNodeEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getAlphaNode()
-    {
-        return alphaNodeEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getOmegaNode()
-    {
-        return omegaNodeEClass;
+        return (EReference)nodeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -334,15 +288,10 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         networkEClass = createEClass(NETWORK);
         createEReference(networkEClass, NETWORK__NETWORK);
 
-        abstractNodeEClass = createEClass(ABSTRACT_NODE);
-        createEAttribute(abstractNodeEClass, ABSTRACT_NODE__ID);
-        createEAttribute(abstractNodeEClass, ABSTRACT_NODE__LABEL);
-        createEReference(abstractNodeEClass, ABSTRACT_NODE__OUT);
-        createEReference(abstractNodeEClass, ABSTRACT_NODE__IN);
-
-        alphaNodeEClass = createEClass(ALPHA_NODE);
-
-        omegaNodeEClass = createEClass(OMEGA_NODE);
+        nodeEClass = createEClass(NODE);
+        createEAttribute(nodeEClass, NODE__LABEL);
+        createEReference(nodeEClass, NODE__OUT);
+        createEReference(nodeEClass, NODE__IN);
 
         abstractEdgeEClass = createEClass(ABSTRACT_EDGE);
         createEReference(abstractEdgeEClass, ABSTRACT_EDGE__SOURCE);
@@ -384,9 +333,7 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        abstractNodeEClass.getESuperTypes().add(this.getNetworkObject());
-        alphaNodeEClass.getESuperTypes().add(this.getAbstractNode());
-        omegaNodeEClass.getESuperTypes().add(this.getAbstractNode());
+        nodeEClass.getESuperTypes().add(this.getNetworkObject());
         abstractEdgeEClass.getESuperTypes().add(this.getNetworkObject());
         undirectedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
         directedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
@@ -395,19 +342,14 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         initEClass(networkEClass, Network.class, "Network", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNetwork_Network(), this.getNetworkObject(), null, "network", null, 0, -1, Network.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(abstractNodeEClass, AbstractNode.class, "AbstractNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAbstractNode_Id(), ecorePackage.getEInt(), "id", null, 0, 1, AbstractNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractNode_Label(), ecorePackage.getEString(), "label", null, 0, 1, AbstractNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAbstractNode_Out(), this.getAbstractEdge(), this.getAbstractEdge_Source(), "out", null, 0, -1, AbstractNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAbstractNode_In(), this.getAbstractEdge(), this.getAbstractEdge_Target(), "in", null, 0, -1, AbstractNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(alphaNodeEClass, AlphaNode.class, "AlphaNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(omegaNodeEClass, OmegaNode.class, "OmegaNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getNode_Label(), ecorePackage.getEString(), "label", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNode_Out(), this.getAbstractEdge(), this.getAbstractEdge_Source(), "out", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNode_In(), this.getAbstractEdge(), this.getAbstractEdge_Target(), "in", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(abstractEdgeEClass, AbstractEdge.class, "AbstractEdge", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getAbstractEdge_Source(), this.getAbstractNode(), this.getAbstractNode_Out(), "source", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAbstractEdge_Target(), this.getAbstractNode(), this.getAbstractNode_In(), "target", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAbstractEdge_Source(), this.getNode(), this.getNode_Out(), "source", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getAbstractEdge_Target(), this.getNode(), this.getNode_In(), "target", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(undirectedEdgeEClass, UndirectedEdge.class, "UndirectedEdge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

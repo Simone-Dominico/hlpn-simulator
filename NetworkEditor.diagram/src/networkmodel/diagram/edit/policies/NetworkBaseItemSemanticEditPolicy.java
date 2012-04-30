@@ -2,9 +2,9 @@ package networkmodel.diagram.edit.policies;
 
 import java.util.Iterator;
 
-import networkmodel.AbstractNode;
 import networkmodel.DirectedEdge;
 import networkmodel.Network;
+import networkmodel.Node;
 import networkmodel.UndirectedEdge;
 import networkmodel.diagram.edit.helpers.NetworkBaseEditHelper;
 import networkmodel.diagram.part.NetworkDiagramEditorPlugin;
@@ -382,7 +382,7 @@ public class NetworkBaseItemSemanticEditPolicy extends SemanticEditPolicy
 		 * @generated
 		 */
 		public boolean canCreateUndirectedEdge_4001(Network container,
-		        AbstractNode source, AbstractNode target)
+		        Node source, Node target)
 		{
 			return canExistUndirectedEdge_4001(container, null, source, target);
 		}
@@ -391,7 +391,7 @@ public class NetworkBaseItemSemanticEditPolicy extends SemanticEditPolicy
 		 * @generated
 		 */
 		public boolean canCreateDirectedEdge_4002(Network container,
-		        AbstractNode source, AbstractNode target)
+		        Node source, Node target)
 		{
 			return canExistDirectedEdge_4002(container, null, source, target);
 		}
@@ -400,8 +400,7 @@ public class NetworkBaseItemSemanticEditPolicy extends SemanticEditPolicy
 		 * @generated
 		 */
 		public boolean canExistUndirectedEdge_4001(Network container,
-		        UndirectedEdge linkInstance, AbstractNode source,
-		        AbstractNode target)
+		        UndirectedEdge linkInstance, Node source, Node target)
 		{
 			return true;
 		}
@@ -410,8 +409,7 @@ public class NetworkBaseItemSemanticEditPolicy extends SemanticEditPolicy
 		 * @generated
 		 */
 		public boolean canExistDirectedEdge_4002(Network container,
-		        DirectedEdge linkInstance, AbstractNode source,
-		        AbstractNode target)
+		        DirectedEdge linkInstance, Node source, Node target)
 		{
 			return true;
 		}

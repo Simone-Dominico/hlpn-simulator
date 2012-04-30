@@ -7,21 +7,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="network" upperBound="-1"
         eType="#//NetworkObject" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractNode" abstract="true" eSuperTypes="#//NetworkObject">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//NetworkObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="out" upperBound="-1" eType="#//AbstractEdge"
         eOpposite="#//AbstractEdge/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="in" upperBound="-1" eType="#//AbstractEdge"
         eOpposite="#//AbstractEdge/target"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AlphaNode" eSuperTypes="#//AbstractNode"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OmegaNode" eSuperTypes="#//AbstractNode"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractEdge" abstract="true" eSuperTypes="#//NetworkObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-        eType="#//AbstractNode" eOpposite="#//AbstractNode/out"/>
+        eType="#//Node" eOpposite="#//Node/out"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="#//AbstractNode" eOpposite="#//AbstractNode/in"/>
+        eType="#//Node" eOpposite="#//Node/in"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UndirectedEdge" eSuperTypes="#//AbstractEdge"/>
   <eClassifiers xsi:type="ecore:EClass" name="NetworkObject" abstract="true"/>

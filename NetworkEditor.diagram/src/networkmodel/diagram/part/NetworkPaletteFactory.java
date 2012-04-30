@@ -37,25 +37,24 @@ public class NetworkPaletteFactory
 		PaletteGroup paletteContainer = new PaletteGroup(
 		        Messages.Networkmodel1Group_title);
 		paletteContainer.setId("createNetworkmodel1Group"); //$NON-NLS-1$
-		paletteContainer.add(createAlphaNode1CreationTool());
-		paletteContainer.add(createOmegaNode2CreationTool());
-		paletteContainer.add(createUndirectedEdge3CreationTool());
-		paletteContainer.add(createDirectedEdge4CreationTool());
+		paletteContainer.add(createNode1CreationTool());
+		paletteContainer.add(createUndirectedEdge2CreationTool());
+		paletteContainer.add(createDirectedEdge3CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAlphaNode1CreationTool()
+	private ToolEntry createNode1CreationTool()
 	{
 		NodeToolEntry entry = new NodeToolEntry(
-		        Messages.AlphaNode1CreationTool_title,
-		        Messages.AlphaNode1CreationTool_desc,
-		        Collections.singletonList(NetworkElementTypes.AlphaNode_2001));
-		entry.setId("createAlphaNode1CreationTool"); //$NON-NLS-1$
+		        Messages.Node1CreationTool_title,
+		        Messages.Node1CreationTool_desc,
+		        Collections.singletonList(NetworkElementTypes.Node_2001));
+		entry.setId("createNode1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
-		        .getImageDescriptor(NetworkElementTypes.AlphaNode_2001));
+		        .getImageDescriptor(NetworkElementTypes.Node_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -63,30 +62,14 @@ public class NetworkPaletteFactory
 	/**
 	 * @generated
 	 */
-	private ToolEntry createOmegaNode2CreationTool()
-	{
-		NodeToolEntry entry = new NodeToolEntry(
-		        Messages.OmegaNode2CreationTool_title,
-		        Messages.OmegaNode2CreationTool_desc,
-		        Collections.singletonList(NetworkElementTypes.OmegaNode_2002));
-		entry.setId("createOmegaNode2CreationTool"); //$NON-NLS-1$
-		entry.setSmallIcon(NetworkElementTypes
-		        .getImageDescriptor(NetworkElementTypes.OmegaNode_2002));
-		entry.setLargeIcon(entry.getSmallIcon());
-		return entry;
-	}
-
-	/**
-	 * @generated
-	 */
-	private ToolEntry createUndirectedEdge3CreationTool()
+	private ToolEntry createUndirectedEdge2CreationTool()
 	{
 		LinkToolEntry entry = new LinkToolEntry(
-		        Messages.UndirectedEdge3CreationTool_title,
-		        Messages.UndirectedEdge3CreationTool_desc,
+		        Messages.UndirectedEdge2CreationTool_title,
+		        Messages.UndirectedEdge2CreationTool_desc,
 		        Collections
 		                .singletonList(NetworkElementTypes.UndirectedEdge_4001));
-		entry.setId("createUndirectedEdge3CreationTool"); //$NON-NLS-1$
+		entry.setId("createUndirectedEdge2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
 		        .getImageDescriptor(NetworkElementTypes.UndirectedEdge_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -96,14 +79,14 @@ public class NetworkPaletteFactory
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDirectedEdge4CreationTool()
+	private ToolEntry createDirectedEdge3CreationTool()
 	{
 		LinkToolEntry entry = new LinkToolEntry(
-		        Messages.DirectedEdge4CreationTool_title,
-		        Messages.DirectedEdge4CreationTool_desc,
+		        Messages.DirectedEdge3CreationTool_title,
+		        Messages.DirectedEdge3CreationTool_desc,
 		        Collections
 		                .singletonList(NetworkElementTypes.DirectedEdge_4002));
-		entry.setId("createDirectedEdge4CreationTool"); //$NON-NLS-1$
+		entry.setId("createDirectedEdge3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
 		        .getImageDescriptor(NetworkElementTypes.DirectedEdge_4002));
 		entry.setLargeIcon(entry.getSmallIcon());

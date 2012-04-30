@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import networkmodel.NetworkmodelPackage;
-import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
+import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkDiagramUpdater;
 import networkmodel.diagram.part.NetworkLinkDescriptor;
@@ -100,9 +99,8 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 	 */
 	private boolean isMyDiagramElement(View view)
 	{
-		int visualID = NetworkVisualIDRegistry.getVisualID(view);
-		return visualID == AlphaNodeEditPart.VISUAL_ID
-		        || visualID == OmegaNodeEditPart.VISUAL_ID;
+		return NodeEditPart.VISUAL_ID == NetworkVisualIDRegistry
+		        .getVisualID(view);
 	}
 
 	/**
@@ -285,25 +283,12 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				}
 				break;
 			}
-			case AlphaNodeEditPart.VISUAL_ID:
+			case NodeEditPart.VISUAL_ID:
 			{
 				if(!domain2NotationMap.containsKey(view.getElement()))
 				{
 					result.addAll(NetworkDiagramUpdater
-					        .getAlphaNode_2001ContainedLinks(view));
-				}
-				if(!domain2NotationMap.containsKey(view.getElement())
-				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-					domain2NotationMap.put(view.getElement(), view);
-				}
-				break;
-			}
-			case OmegaNodeEditPart.VISUAL_ID:
-			{
-				if(!domain2NotationMap.containsKey(view.getElement()))
-				{
-					result.addAll(NetworkDiagramUpdater
-					        .getOmegaNode_2002ContainedLinks(view));
+					        .getNode_2001ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$

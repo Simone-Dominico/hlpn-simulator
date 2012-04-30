@@ -2,12 +2,10 @@ package networkmodel.diagram.part;
 
 import networkmodel.Network;
 import networkmodel.NetworkmodelPackage;
-import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
-import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.NodeEditPart;
+import networkmodel.diagram.edit.parts.NodeLabelEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 
 import org.eclipse.core.runtime.Platform;
@@ -152,15 +150,10 @@ public class NetworkVisualIDRegistry
 		switch(containerVisualID)
 		{
 			case NetworkEditPart.VISUAL_ID:
-				if(NetworkmodelPackage.eINSTANCE.getAlphaNode().isSuperTypeOf(
+				if(NetworkmodelPackage.eINSTANCE.getNode().isSuperTypeOf(
 				        domainElement.eClass()))
 				{
-					return AlphaNodeEditPart.VISUAL_ID;
-				}
-				if(NetworkmodelPackage.eINSTANCE.getOmegaNode().isSuperTypeOf(
-				        domainElement.eClass()))
-				{
-					return OmegaNodeEditPart.VISUAL_ID;
+					return NodeEditPart.VISUAL_ID;
 				}
 				break;
 		}
@@ -198,23 +191,13 @@ public class NetworkVisualIDRegistry
 		switch(containerVisualID)
 		{
 			case NetworkEditPart.VISUAL_ID:
-				if(AlphaNodeEditPart.VISUAL_ID == nodeVisualID)
-				{
-					return true;
-				}
-				if(OmegaNodeEditPart.VISUAL_ID == nodeVisualID)
+				if(NodeEditPart.VISUAL_ID == nodeVisualID)
 				{
 					return true;
 				}
 				break;
-			case AlphaNodeEditPart.VISUAL_ID:
-				if(AlphaNodeLabelEditPart.VISUAL_ID == nodeVisualID)
-				{
-					return true;
-				}
-				break;
-			case OmegaNodeEditPart.VISUAL_ID:
-				if(OmegaNodeLabelEditPart.VISUAL_ID == nodeVisualID)
+			case NodeEditPart.VISUAL_ID:
+				if(NodeLabelEditPart.VISUAL_ID == nodeVisualID)
 				{
 					return true;
 				}

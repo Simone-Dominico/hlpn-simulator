@@ -7,8 +7,8 @@
 package networkmodel.impl;
 
 import networkmodel.AbstractEdge;
-import networkmodel.AbstractNode;
 import networkmodel.NetworkmodelPackage;
+import networkmodel.Node;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -42,7 +42,7 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * @generated
      * @ordered
      */
-    protected AbstractNode source;
+    protected Node source;
 
     /**
      * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -52,7 +52,7 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * @generated
      * @ordered
      */
-    protected AbstractNode target;
+    protected Node target;
 
     /**
      * <!-- begin-user-doc -->
@@ -80,12 +80,12 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractNode getSource()
+    public Node getSource()
     {
         if (source != null && source.eIsProxy())
         {
             InternalEObject oldSource = (InternalEObject)source;
-            source = (AbstractNode)eResolveProxy(oldSource);
+            source = (Node)eResolveProxy(oldSource);
             if (source != oldSource)
             {
                 if (eNotificationRequired())
@@ -100,7 +100,7 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractNode basicGetSource()
+    public Node basicGetSource()
     {
         return source;
     }
@@ -110,9 +110,9 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetSource(AbstractNode newSource, NotificationChain msgs)
+    public NotificationChain basicSetSource(Node newSource, NotificationChain msgs)
     {
-        AbstractNode oldSource = source;
+        Node oldSource = source;
         source = newSource;
         if (eNotificationRequired())
         {
@@ -127,15 +127,15 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setSource(AbstractNode newSource)
+    public void setSource(Node newSource)
     {
         if (newSource != source)
         {
             NotificationChain msgs = null;
             if (source != null)
-                msgs = ((InternalEObject)source).eInverseRemove(this, NetworkmodelPackage.ABSTRACT_NODE__OUT, AbstractNode.class, msgs);
+                msgs = ((InternalEObject)source).eInverseRemove(this, NetworkmodelPackage.NODE__OUT, Node.class, msgs);
             if (newSource != null)
-                msgs = ((InternalEObject)newSource).eInverseAdd(this, NetworkmodelPackage.ABSTRACT_NODE__OUT, AbstractNode.class, msgs);
+                msgs = ((InternalEObject)newSource).eInverseAdd(this, NetworkmodelPackage.NODE__OUT, Node.class, msgs);
             msgs = basicSetSource(newSource, msgs);
             if (msgs != null) msgs.dispatch();
         }
@@ -148,12 +148,12 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractNode getTarget()
+    public Node getTarget()
     {
         if (target != null && target.eIsProxy())
         {
             InternalEObject oldTarget = (InternalEObject)target;
-            target = (AbstractNode)eResolveProxy(oldTarget);
+            target = (Node)eResolveProxy(oldTarget);
             if (target != oldTarget)
             {
                 if (eNotificationRequired())
@@ -168,7 +168,7 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractNode basicGetTarget()
+    public Node basicGetTarget()
     {
         return target;
     }
@@ -178,9 +178,9 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetTarget(AbstractNode newTarget, NotificationChain msgs)
+    public NotificationChain basicSetTarget(Node newTarget, NotificationChain msgs)
     {
-        AbstractNode oldTarget = target;
+        Node oldTarget = target;
         target = newTarget;
         if (eNotificationRequired())
         {
@@ -195,15 +195,15 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setTarget(AbstractNode newTarget)
+    public void setTarget(Node newTarget)
     {
         if (newTarget != target)
         {
             NotificationChain msgs = null;
             if (target != null)
-                msgs = ((InternalEObject)target).eInverseRemove(this, NetworkmodelPackage.ABSTRACT_NODE__IN, AbstractNode.class, msgs);
+                msgs = ((InternalEObject)target).eInverseRemove(this, NetworkmodelPackage.NODE__IN, Node.class, msgs);
             if (newTarget != null)
-                msgs = ((InternalEObject)newTarget).eInverseAdd(this, NetworkmodelPackage.ABSTRACT_NODE__IN, AbstractNode.class, msgs);
+                msgs = ((InternalEObject)newTarget).eInverseAdd(this, NetworkmodelPackage.NODE__IN, Node.class, msgs);
             msgs = basicSetTarget(newTarget, msgs);
             if (msgs != null) msgs.dispatch();
         }
@@ -223,12 +223,12 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
         {
             case NetworkmodelPackage.ABSTRACT_EDGE__SOURCE:
                 if (source != null)
-                    msgs = ((InternalEObject)source).eInverseRemove(this, NetworkmodelPackage.ABSTRACT_NODE__OUT, AbstractNode.class, msgs);
-                return basicSetSource((AbstractNode)otherEnd, msgs);
+                    msgs = ((InternalEObject)source).eInverseRemove(this, NetworkmodelPackage.NODE__OUT, Node.class, msgs);
+                return basicSetSource((Node)otherEnd, msgs);
             case NetworkmodelPackage.ABSTRACT_EDGE__TARGET:
                 if (target != null)
-                    msgs = ((InternalEObject)target).eInverseRemove(this, NetworkmodelPackage.ABSTRACT_NODE__IN, AbstractNode.class, msgs);
-                return basicSetTarget((AbstractNode)otherEnd, msgs);
+                    msgs = ((InternalEObject)target).eInverseRemove(this, NetworkmodelPackage.NODE__IN, Node.class, msgs);
+                return basicSetTarget((Node)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -282,10 +282,10 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
         switch (featureID)
         {
             case NetworkmodelPackage.ABSTRACT_EDGE__SOURCE:
-                setSource((AbstractNode)newValue);
+                setSource((Node)newValue);
                 return;
             case NetworkmodelPackage.ABSTRACT_EDGE__TARGET:
-                setTarget((AbstractNode)newValue);
+                setTarget((Node)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -302,10 +302,10 @@ public abstract class AbstractEdgeImpl extends NetworkObjectImpl implements Abst
         switch (featureID)
         {
             case NetworkmodelPackage.ABSTRACT_EDGE__SOURCE:
-                setSource((AbstractNode)null);
+                setSource((Node)null);
                 return;
             case NetworkmodelPackage.ABSTRACT_EDGE__TARGET:
-                setTarget((AbstractNode)null);
+                setTarget((Node)null);
                 return;
         }
         super.eUnset(featureID);

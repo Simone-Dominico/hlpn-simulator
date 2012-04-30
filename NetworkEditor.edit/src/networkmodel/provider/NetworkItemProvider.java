@@ -166,12 +166,7 @@ public class NetworkItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (NetworkmodelPackage.Literals.NETWORK__NETWORK,
-                 NetworkmodelFactory.eINSTANCE.createAlphaNode()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (NetworkmodelPackage.Literals.NETWORK__NETWORK,
-                 NetworkmodelFactory.eINSTANCE.createOmegaNode()));
+                 NetworkmodelFactory.eINSTANCE.createNode()));
 
         newChildDescriptors.add
             (createChildParameter

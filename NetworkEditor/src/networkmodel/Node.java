@@ -10,51 +10,24 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Abstract Node</b></em>'.
+ * A representation of the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link networkmodel.AbstractNode#getId <em>Id</em>}</li>
- *   <li>{@link networkmodel.AbstractNode#getLabel <em>Label</em>}</li>
- *   <li>{@link networkmodel.AbstractNode#getOut <em>Out</em>}</li>
- *   <li>{@link networkmodel.AbstractNode#getIn <em>In</em>}</li>
+ *   <li>{@link networkmodel.Node#getLabel <em>Label</em>}</li>
+ *   <li>{@link networkmodel.Node#getOut <em>Out</em>}</li>
+ *   <li>{@link networkmodel.Node#getIn <em>In</em>}</li>
  * </ul>
  * </p>
  *
- * @see networkmodel.NetworkmodelPackage#getAbstractNode()
- * @model abstract="true"
+ * @see networkmodel.NetworkmodelPackage#getNode()
+ * @model
  * @generated
  */
-public interface AbstractNode extends NetworkObject
+public interface Node extends NetworkObject
 {
-    /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Id</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Id</em>' attribute.
-     * @see #setId(int)
-     * @see networkmodel.NetworkmodelPackage#getAbstractNode_Id()
-     * @model
-     * @generated
-     */
-    int getId();
-
-    /**
-     * Sets the value of the '{@link networkmodel.AbstractNode#getId <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Id</em>' attribute.
-     * @see #getId()
-     * @generated
-     */
-    void setId(int value);
-
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -65,14 +38,14 @@ public interface AbstractNode extends NetworkObject
      * <!-- end-user-doc -->
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
-     * @see networkmodel.NetworkmodelPackage#getAbstractNode_Label()
+     * @see networkmodel.NetworkmodelPackage#getNode_Label()
      * @model
      * @generated
      */
     String getLabel();
 
     /**
-     * Sets the value of the '{@link networkmodel.AbstractNode#getLabel <em>Label</em>}' attribute.
+     * Sets the value of the '{@link networkmodel.Node#getLabel <em>Label</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @param value the new value of the '<em>Label</em>' attribute.
@@ -92,7 +65,7 @@ public interface AbstractNode extends NetworkObject
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Out</em>' reference list.
-     * @see networkmodel.NetworkmodelPackage#getAbstractNode_Out()
+     * @see networkmodel.NetworkmodelPackage#getNode_Out()
      * @see networkmodel.AbstractEdge#getSource
      * @model opposite="source"
      * @generated
@@ -110,11 +83,11 @@ public interface AbstractNode extends NetworkObject
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>In</em>' reference list.
-     * @see networkmodel.NetworkmodelPackage#getAbstractNode_In()
+     * @see networkmodel.NetworkmodelPackage#getNode_In()
      * @see networkmodel.AbstractEdge#getTarget
      * @model opposite="target"
      * @generated
      */
     EList<AbstractEdge> getIn();
 
-} // AbstractNode
+} // Node

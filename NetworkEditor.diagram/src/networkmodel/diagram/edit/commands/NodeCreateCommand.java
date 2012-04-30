@@ -1,8 +1,8 @@
 package networkmodel.diagram.edit.commands;
 
-import networkmodel.AlphaNode;
 import networkmodel.Network;
 import networkmodel.NetworkmodelFactory;
+import networkmodel.Node;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -19,13 +19,13 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class AlphaNodeCreateCommand extends EditElementCommand
+public class NodeCreateCommand extends EditElementCommand
 {
 
 	/**
 	 * @generated
 	 */
-	public AlphaNodeCreateCommand(CreateElementRequest req)
+	public NodeCreateCommand(CreateElementRequest req)
 	{
 		super(req.getLabel(), null, req);
 	}
@@ -60,7 +60,7 @@ public class AlphaNodeCreateCommand extends EditElementCommand
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor,
 	        IAdaptable info) throws ExecutionException
 	{
-		AlphaNode newElement = NetworkmodelFactory.eINSTANCE.createAlphaNode();
+		Node newElement = NetworkmodelFactory.eINSTANCE.createNode();
 
 		Network owner = (Network) getElementToEdit();
 		owner.getNetwork().add(newElement);
@@ -74,7 +74,7 @@ public class AlphaNodeCreateCommand extends EditElementCommand
 	/**
 	 * @generated
 	 */
-	protected void doConfigure(AlphaNode newElement, IProgressMonitor monitor,
+	protected void doConfigure(Node newElement, IProgressMonitor monitor,
 	        IAdaptable info) throws ExecutionException
 	{
 		IElementType elementType = ((CreateElementRequest) getRequest())

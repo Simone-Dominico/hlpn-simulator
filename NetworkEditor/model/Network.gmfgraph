@@ -6,39 +6,19 @@
   <figures
       name="Default">
     <descriptors
-        name="AlphaNodeFigure">
+        name="NodeFigure">
       <actualFigure
           xsi:type="gmfgraph:Ellipse"
-          name="AlphaNodeFigure">
+          name="NodeFigure">
         <layout
             xsi:type="gmfgraph:FlowLayout"/>
-        <backgroundColor
-            xsi:type="gmfgraph:ConstantColor"
-            value="green"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="AlphaNodeLabelFigure"
+            name="NodeLabelFigure"
             text="&lt;...>"/>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="OmegaNodeFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Ellipse"
-          name="OmegaNodeFigure">
-        <layout
-            xsi:type="gmfgraph:FlowLayout"/>
-        <backgroundColor
-            xsi:type="gmfgraph:ConstantColor"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="OmegaNodeLabelFigure"
-            text="&lt;...>"/>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
     </descriptors>
     <descriptors
         name="UndirectedEdgeFigure">
@@ -51,7 +31,7 @@
       <actualFigure
           xsi:type="gmfgraph:PolylineConnection"
           name="DirectedEdgeFigure"
-          targetDecoration="//@figures.0/@descriptors.3/@actualFigure/@children.0">
+          targetDecoration="//@figures.0/@descriptors.2/@actualFigure/@children.0">
         <children
             xsi:type="gmfgraph:PolylineDecoration"
             name="targetDecoration">
@@ -67,11 +47,8 @@
     </descriptors>
   </figures>
   <nodes
-      name="AlphaNode"
-      figure="AlphaNodeFigure"/>
-  <nodes
-      name="OmegaNode"
-      figure="OmegaNodeFigure"/>
+      name="Node"
+      figure="NodeFigure"/>
   <connections
       name="UndirectedEdge"
       figure="UndirectedEdgeFigure"/>
@@ -79,11 +56,7 @@
       name="DirectedEdge"
       figure="DirectedEdgeFigure"/>
   <labels
-      name="AlphaNodeLabel"
-      figure="AlphaNodeFigure"
+      name="NodeLabel"
+      figure="NodeFigure"
       accessor="//@figures.0/@descriptors.0/@accessors.0"/>
-  <labels
-      name="OmegaNodeLabel"
-      figure="OmegaNodeFigure"
-      accessor="//@figures.0/@descriptors.1/@accessors.0"/>
 </gmfgraph:Canvas>

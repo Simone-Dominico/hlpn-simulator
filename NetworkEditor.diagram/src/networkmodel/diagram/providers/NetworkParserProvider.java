@@ -1,8 +1,7 @@
 package networkmodel.diagram.providers;
 
 import networkmodel.NetworkmodelPackage;
-import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.NodeLabelEditPart;
 import networkmodel.diagram.parsers.MessageFormatParser;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 
@@ -29,41 +28,21 @@ public class NetworkParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser alphaNodeLabel_5001Parser;
+	private IParser nodeLabel_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getAlphaNodeLabel_5001Parser()
+	private IParser getNodeLabel_5001Parser()
 	{
-		if(alphaNodeLabel_5001Parser == null)
+		if(nodeLabel_5001Parser == null)
 		{
 			EAttribute[] features = new EAttribute[] { NetworkmodelPackage.eINSTANCE
-			        .getAbstractNode_Label() };
+			        .getNode_Label() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			alphaNodeLabel_5001Parser = parser;
+			nodeLabel_5001Parser = parser;
 		}
-		return alphaNodeLabel_5001Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	private IParser omegaNodeLabel_5002Parser;
-
-	/**
-	 * @generated
-	 */
-	private IParser getOmegaNodeLabel_5002Parser()
-	{
-		if(omegaNodeLabel_5002Parser == null)
-		{
-			EAttribute[] features = new EAttribute[] { NetworkmodelPackage.eINSTANCE
-			        .getAbstractNode_Label() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			omegaNodeLabel_5002Parser = parser;
-		}
-		return omegaNodeLabel_5002Parser;
+		return nodeLabel_5001Parser;
 	}
 
 	/**
@@ -73,10 +52,8 @@ public class NetworkParserProvider extends AbstractProvider implements
 	{
 		switch(visualID)
 		{
-			case AlphaNodeLabelEditPart.VISUAL_ID:
-				return getAlphaNodeLabel_5001Parser();
-			case OmegaNodeLabelEditPart.VISUAL_ID:
-				return getOmegaNodeLabel_5002Parser();
+			case NodeLabelEditPart.VISUAL_ID:
+				return getNodeLabel_5001Parser();
 		}
 		return null;
 	}

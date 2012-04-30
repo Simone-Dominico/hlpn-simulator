@@ -1,8 +1,8 @@
 package networkmodel.diagram.edit.commands;
 
-import networkmodel.AbstractNode;
 import networkmodel.Network;
 import networkmodel.NetworkmodelFactory;
+import networkmodel.Node;
 import networkmodel.UndirectedEdge;
 import networkmodel.diagram.edit.policies.NetworkBaseItemSemanticEditPolicy;
 
@@ -60,11 +60,11 @@ public class UndirectedEdgeCreateCommand extends EditElementCommand
 		{
 			return false;
 		}
-		if(source != null && false == source instanceof AbstractNode)
+		if(source != null && false == source instanceof Node)
 		{
 			return false;
 		}
-		if(target != null && false == target instanceof AbstractNode)
+		if(target != null && false == target instanceof Node)
 		{
 			return false;
 		}
@@ -142,17 +142,17 @@ public class UndirectedEdgeCreateCommand extends EditElementCommand
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getSource()
+	protected Node getSource()
 	{
-		return (AbstractNode) source;
+		return (Node) source;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected AbstractNode getTarget()
+	protected Node getTarget()
 	{
-		return (AbstractNode) target;
+		return (Node) target;
 	}
 
 	/**

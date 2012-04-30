@@ -69,8 +69,7 @@ public class NetworkmodelFactoryImpl extends EFactoryImpl implements Networkmode
         switch (eClass.getClassifierID())
         {
             case NetworkmodelPackage.NETWORK: return createNetwork();
-            case NetworkmodelPackage.ALPHA_NODE: return createAlphaNode();
-            case NetworkmodelPackage.OMEGA_NODE: return createOmegaNode();
+            case NetworkmodelPackage.NODE: return createNode();
             case NetworkmodelPackage.UNDIRECTED_EDGE: return createUndirectedEdge();
             case NetworkmodelPackage.DIRECTED_EDGE: return createDirectedEdge();
             default:
@@ -94,21 +93,10 @@ public class NetworkmodelFactoryImpl extends EFactoryImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public AlphaNode createAlphaNode()
+    public Node createNode()
     {
-        AlphaNodeImpl alphaNode = new AlphaNodeImpl();
-        return alphaNode;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public OmegaNode createOmegaNode()
-    {
-        OmegaNodeImpl omegaNode = new OmegaNodeImpl();
-        return omegaNode;
+        NodeImpl node = new NodeImpl();
+        return node;
     }
 
     /**

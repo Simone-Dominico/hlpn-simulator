@@ -83,29 +83,11 @@ public class NetworkmodelSwitch<T> extends Switch<T>
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case NetworkmodelPackage.ABSTRACT_NODE:
+            case NetworkmodelPackage.NODE:
             {
-                AbstractNode abstractNode = (AbstractNode)theEObject;
-                T result = caseAbstractNode(abstractNode);
-                if (result == null) result = caseNetworkObject(abstractNode);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case NetworkmodelPackage.ALPHA_NODE:
-            {
-                AlphaNode alphaNode = (AlphaNode)theEObject;
-                T result = caseAlphaNode(alphaNode);
-                if (result == null) result = caseAbstractNode(alphaNode);
-                if (result == null) result = caseNetworkObject(alphaNode);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case NetworkmodelPackage.OMEGA_NODE:
-            {
-                OmegaNode omegaNode = (OmegaNode)theEObject;
-                T result = caseOmegaNode(omegaNode);
-                if (result == null) result = caseAbstractNode(omegaNode);
-                if (result == null) result = caseNetworkObject(omegaNode);
+                Node node = (Node)theEObject;
+                T result = caseNode(node);
+                if (result == null) result = caseNetworkObject(node);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -163,49 +145,17 @@ public class NetworkmodelSwitch<T> extends Switch<T>
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Abstract Node</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Node</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Abstract Node</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Node</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseAbstractNode(AbstractNode object)
-    {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Alpha Node</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Alpha Node</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseAlphaNode(AlphaNode object)
-    {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Omega Node</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Omega Node</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseOmegaNode(OmegaNode object)
+    public T caseNode(Node object)
     {
         return null;
     }
