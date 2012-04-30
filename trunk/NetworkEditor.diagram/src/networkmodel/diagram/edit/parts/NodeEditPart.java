@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import networkmodel.diagram.edit.policies.OmegaNodeItemSemanticEditPolicy;
+import networkmodel.diagram.edit.policies.NodeItemSemanticEditPolicy;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 import networkmodel.diagram.providers.NetworkElementTypes;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.IFigure;
@@ -28,20 +27,19 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
  */
-public class OmegaNodeEditPart extends ShapeNodeEditPart
+public class NodeEditPart extends ShapeNodeEditPart
 {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -56,7 +54,7 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	/**
 	 * @generated
 	 */
-	public OmegaNodeEditPart(View view)
+	public NodeEditPart(View view)
 	{
 		super(view);
 	}
@@ -68,7 +66,7 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	{
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-		        new OmegaNodeItemSemanticEditPolicy());
+		        new NodeItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -107,15 +105,15 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	 */
 	protected IFigure createNodeShape()
 	{
-		return primaryShape = new OmegaNodeFigure();
+		return primaryShape = new NodeFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public OmegaNodeFigure getPrimaryShape()
+	public NodeFigure getPrimaryShape()
 	{
-		return (OmegaNodeFigure) primaryShape;
+		return (NodeFigure) primaryShape;
 	}
 
 	/**
@@ -123,10 +121,10 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	 */
 	protected boolean addFixedChild(EditPart childEditPart)
 	{
-		if(childEditPart instanceof OmegaNodeLabelEditPart)
+		if(childEditPart instanceof NodeLabelEditPart)
 		{
-			((OmegaNodeLabelEditPart) childEditPart).setLabel(getPrimaryShape()
-			        .getFigureOmegaNodeLabelFigure());
+			((NodeLabelEditPart) childEditPart).setLabel(getPrimaryShape()
+			        .getFigureNodeLabelFigure());
 			return true;
 		}
 		return false;
@@ -137,7 +135,7 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart)
 	{
-		if(childEditPart instanceof OmegaNodeLabelEditPart)
+		if(childEditPart instanceof NodeLabelEditPart)
 		{
 			return true;
 		}
@@ -179,7 +177,7 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	/**
 	 * @generated
 	 */
-	protected NodeFigure createNodePlate()
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate()
 	{
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 		return result;
@@ -193,9 +191,9 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	 * 
 	 * @generated
 	 */
-	protected NodeFigure createNodeFigure()
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodeFigure()
 	{
-		NodeFigure figure = createNodePlate();
+		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
@@ -282,7 +280,7 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	public EditPart getPrimaryChildEditPart()
 	{
 		return getChildBySemanticHint(NetworkVisualIDRegistry
-		        .getType(OmegaNodeLabelEditPart.VISUAL_ID));
+		        .getType(NodeLabelEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -303,19 +301,11 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	        IGraphicalEditPart targetEditPart)
 	{
 		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if(targetEditPart instanceof AlphaNodeEditPart)
+		if(targetEditPart instanceof networkmodel.diagram.edit.parts.NodeEditPart)
 		{
 			types.add(NetworkElementTypes.UndirectedEdge_4001);
 		}
-		if(targetEditPart instanceof networkmodel.diagram.edit.parts.OmegaNodeEditPart)
-		{
-			types.add(NetworkElementTypes.UndirectedEdge_4001);
-		}
-		if(targetEditPart instanceof AlphaNodeEditPart)
-		{
-			types.add(NetworkElementTypes.DirectedEdge_4002);
-		}
-		if(targetEditPart instanceof networkmodel.diagram.edit.parts.OmegaNodeEditPart)
+		if(targetEditPart instanceof networkmodel.diagram.edit.parts.NodeEditPart)
 		{
 			types.add(NetworkElementTypes.DirectedEdge_4002);
 		}
@@ -330,13 +320,11 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 		LinkedList<IElementType> types = new LinkedList<IElementType>();
 		if(relationshipType == NetworkElementTypes.UndirectedEdge_4001)
 		{
-			types.add(NetworkElementTypes.AlphaNode_2001);
-			types.add(NetworkElementTypes.OmegaNode_2002);
+			types.add(NetworkElementTypes.Node_2001);
 		}
 		else if(relationshipType == NetworkElementTypes.DirectedEdge_4002)
 		{
-			types.add(NetworkElementTypes.AlphaNode_2001);
-			types.add(NetworkElementTypes.OmegaNode_2002);
+			types.add(NetworkElementTypes.Node_2001);
 		}
 		return types;
 	}
@@ -360,13 +348,11 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 		LinkedList<IElementType> types = new LinkedList<IElementType>();
 		if(relationshipType == NetworkElementTypes.UndirectedEdge_4001)
 		{
-			types.add(NetworkElementTypes.AlphaNode_2001);
-			types.add(NetworkElementTypes.OmegaNode_2002);
+			types.add(NetworkElementTypes.Node_2001);
 		}
 		else if(relationshipType == NetworkElementTypes.DirectedEdge_4002)
 		{
-			types.add(NetworkElementTypes.AlphaNode_2001);
-			types.add(NetworkElementTypes.OmegaNode_2002);
+			types.add(NetworkElementTypes.Node_2001);
 		}
 		return types;
 	}
@@ -374,18 +360,18 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 	/**
 	 * @generated
 	 */
-	public class OmegaNodeFigure extends Ellipse
+	public class NodeFigure extends Ellipse
 	{
 
 		/**
 		 * @generated
 		 */
-		private WrappingLabel fFigureOmegaNodeLabelFigure;
+		private WrappingLabel fFigureNodeLabelFigure;
 
 		/**
 		 * @generated
 		 */
-		public OmegaNodeFigure()
+		public NodeFigure()
 		{
 
 			FlowLayout layoutThis = new FlowLayout();
@@ -399,7 +385,6 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 
 			this.setLayoutManager(layoutThis);
 
-			this.setBackgroundColor(ColorConstants.white);
 			createContents();
 		}
 
@@ -409,19 +394,19 @@ public class OmegaNodeEditPart extends ShapeNodeEditPart
 		private void createContents()
 		{
 
-			fFigureOmegaNodeLabelFigure = new WrappingLabel();
-			fFigureOmegaNodeLabelFigure.setText("<...>");
+			fFigureNodeLabelFigure = new WrappingLabel();
+			fFigureNodeLabelFigure.setText("<...>");
 
-			this.add(fFigureOmegaNodeLabelFigure);
+			this.add(fFigureNodeLabelFigure);
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public WrappingLabel getFigureOmegaNodeLabelFigure()
+		public WrappingLabel getFigureNodeLabelFigure()
 		{
-			return fFigureOmegaNodeLabelFigure;
+			return fFigureNodeLabelFigure;
 		}
 
 	}

@@ -36,17 +36,11 @@ public class NetworkEditPartFactory implements EditPartFactory
 				case NetworkEditPart.VISUAL_ID:
 					return new NetworkEditPart(view);
 
-				case AlphaNodeEditPart.VISUAL_ID:
-					return new AlphaNodeEditPart(view);
+				case NodeEditPart.VISUAL_ID:
+					return new NodeEditPart(view);
 
-				case AlphaNodeLabelEditPart.VISUAL_ID:
-					return new AlphaNodeLabelEditPart(view);
-
-				case OmegaNodeEditPart.VISUAL_ID:
-					return new OmegaNodeEditPart(view);
-
-				case OmegaNodeLabelEditPart.VISUAL_ID:
-					return new OmegaNodeLabelEditPart(view);
+				case NodeLabelEditPart.VISUAL_ID:
+					return new NodeLabelEditPart(view);
 
 				case UndirectedEdgeEditPart.VISUAL_ID:
 					return new UndirectedEdgeEditPart(view);

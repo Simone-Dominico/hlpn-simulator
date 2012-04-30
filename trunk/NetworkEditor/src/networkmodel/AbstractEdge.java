@@ -28,7 +28,7 @@ public interface AbstractEdge extends NetworkObject
 {
     /**
      * Returns the value of the '<em><b>Source</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link networkmodel.AbstractNode#getOut <em>Out</em>}'.
+     * It is bidirectional and its opposite is '{@link networkmodel.Node#getOut <em>Out</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Source</em>' reference isn't clear,
@@ -36,13 +36,13 @@ public interface AbstractEdge extends NetworkObject
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Source</em>' reference.
-     * @see #setSource(AbstractNode)
+     * @see #setSource(Node)
      * @see networkmodel.NetworkmodelPackage#getAbstractEdge_Source()
-     * @see networkmodel.AbstractNode#getOut
+     * @see networkmodel.Node#getOut
      * @model opposite="out" required="true"
      * @generated
      */
-    AbstractNode getSource();
+    Node getSource();
 
     /**
      * Sets the value of the '{@link networkmodel.AbstractEdge#getSource <em>Source</em>}' reference.
@@ -52,11 +52,11 @@ public interface AbstractEdge extends NetworkObject
      * @see #getSource()
      * @generated
      */
-    void setSource(AbstractNode value);
+    void setSource(Node value);
 
     /**
      * Returns the value of the '<em><b>Target</b></em>' reference.
-     * It is bidirectional and its opposite is '{@link networkmodel.AbstractNode#getIn <em>In</em>}'.
+     * It is bidirectional and its opposite is '{@link networkmodel.Node#getIn <em>In</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Target</em>' reference isn't clear,
@@ -64,13 +64,13 @@ public interface AbstractEdge extends NetworkObject
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Target</em>' reference.
-     * @see #setTarget(AbstractNode)
+     * @see #setTarget(Node)
      * @see networkmodel.NetworkmodelPackage#getAbstractEdge_Target()
-     * @see networkmodel.AbstractNode#getIn
+     * @see networkmodel.Node#getIn
      * @model opposite="in" required="true"
      * @generated
      */
-    AbstractNode getTarget();
+    Node getTarget();
 
     /**
      * Sets the value of the '{@link networkmodel.AbstractEdge#getTarget <em>Target</em>}' reference.
@@ -80,6 +80,6 @@ public interface AbstractEdge extends NetworkObject
      * @see #getTarget()
      * @generated
      */
-    void setTarget(AbstractNode value);
+    void setTarget(Node value);
 
 } // AbstractEdge

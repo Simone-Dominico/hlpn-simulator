@@ -251,47 +251,42 @@ public class Messages extends NLS
 	/**
 	 * @generated
 	 */
-	public static String AlphaNode1CreationTool_title;
+	public static String Node1CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String AlphaNode1CreationTool_desc;
+	public static String Node1CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String OmegaNode2CreationTool_title;
+	public static String UndirectedEdge2CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String OmegaNode2CreationTool_desc;
+	public static String UndirectedEdge2CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String UndirectedEdge3CreationTool_title;
+	public static String DirectedEdge3CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String UndirectedEdge3CreationTool_desc;
-
-	/**
-	 * @generated
-	 */
-	public static String DirectedEdge4CreationTool_title;
-
-	/**
-	 * @generated
-	 */
-	public static String DirectedEdge4CreationTool_desc;
+	public static String DirectedEdge3CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
 	public static String CommandName_OpenDiagram;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Network_1000_links;
 
 	/**
 	 * @generated
@@ -306,37 +301,22 @@ public class Messages extends NLS
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_OmegaNode_2002_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_OmegaNode_2002_outgoinglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_AlphaNode_2001_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_AlphaNode_2001_outgoinglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_Network_1000_links;
-
-	/**
-	 * @generated
-	 */
 	public static String NavigatorGroupName_DirectedEdge_4002_target;
 
 	/**
 	 * @generated
 	 */
 	public static String NavigatorGroupName_DirectedEdge_4002_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Node_2001_outgoinglinks;
 
 	/**
 	 * @generated

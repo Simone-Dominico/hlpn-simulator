@@ -10,8 +10,8 @@ package networkmodel.provider;
 import java.util.Collection;
 import java.util.List;
 
-import networkmodel.AbstractNode;
 import networkmodel.NetworkmodelPackage;
+import networkmodel.Node;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -27,12 +27,12 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link networkmodel.AbstractNode} object.
+ * This is the item provider adapter for a {@link networkmodel.Node} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractNodeItemProvider
+public class NodeItemProvider
     extends NetworkObjectItemProvider
     implements
         IEditingDomainItemProvider,
@@ -47,7 +47,7 @@ public class AbstractNodeItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractNodeItemProvider(AdapterFactory adapterFactory)
+    public NodeItemProvider(AdapterFactory adapterFactory)
     {
         super(adapterFactory);
     }
@@ -65,35 +65,11 @@ public class AbstractNodeItemProvider
         {
             super.getPropertyDescriptors(object);
 
-            addIdPropertyDescriptor(object);
             addLabelPropertyDescriptor(object);
             addOutPropertyDescriptor(object);
             addInPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Id feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addIdPropertyDescriptor(Object object)
-    {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_AbstractNode_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNode_id_feature", "_UI_AbstractNode_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_NODE__ID,
-                 true,
-                 false,
-                 false,
-                 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-                 null,
-                 null));
     }
 
     /**
@@ -108,9 +84,9 @@ public class AbstractNodeItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_AbstractNode_label_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNode_label_feature", "_UI_AbstractNode_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_NODE__LABEL,
+                 getString("_UI_Node_label_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Node_label_feature", "_UI_Node_type"),
+                 NetworkmodelPackage.Literals.NODE__LABEL,
                  true,
                  false,
                  false,
@@ -131,9 +107,9 @@ public class AbstractNodeItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_AbstractNode_out_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNode_out_feature", "_UI_AbstractNode_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_NODE__OUT,
+                 getString("_UI_Node_out_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Node_out_feature", "_UI_Node_type"),
+                 NetworkmodelPackage.Literals.NODE__OUT,
                  true,
                  false,
                  true,
@@ -154,15 +130,27 @@ public class AbstractNodeItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_AbstractNode_in_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNode_in_feature", "_UI_AbstractNode_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_NODE__IN,
+                 getString("_UI_Node_in_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Node_in_feature", "_UI_Node_type"),
+                 NetworkmodelPackage.Literals.NODE__IN,
                  true,
                  false,
                  true,
                  null,
                  null,
                  null));
+    }
+
+    /**
+     * This returns Node.gif.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Object getImage(Object object)
+    {
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Node"));
     }
 
     /**
@@ -174,8 +162,10 @@ public class AbstractNodeItemProvider
     @Override
     public String getText(Object object)
     {
-        AbstractNode abstractNode = (AbstractNode)object;
-        return getString("_UI_AbstractNode_type") + " " + abstractNode.getId();
+        String label = ((Node)object).getLabel();
+        return label == null || label.length() == 0 ?
+            getString("_UI_Node_type") :
+            getString("_UI_Node_type") + " " + label;
     }
 
     /**
@@ -190,10 +180,9 @@ public class AbstractNodeItemProvider
     {
         updateChildren(notification);
 
-        switch (notification.getFeatureID(AbstractNode.class))
+        switch (notification.getFeatureID(Node.class))
         {
-            case NetworkmodelPackage.ABSTRACT_NODE__ID:
-            case NetworkmodelPackage.ABSTRACT_NODE__LABEL:
+            case NetworkmodelPackage.NODE__LABEL:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

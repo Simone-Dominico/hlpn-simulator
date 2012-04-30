@@ -84,19 +84,9 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
                 return createNetworkAdapter();
             }
             @Override
-            public Adapter caseAbstractNode(AbstractNode object)
+            public Adapter caseNode(Node object)
             {
-                return createAbstractNodeAdapter();
-            }
-            @Override
-            public Adapter caseAlphaNode(AlphaNode object)
-            {
-                return createAlphaNodeAdapter();
-            }
-            @Override
-            public Adapter caseOmegaNode(OmegaNode object)
-            {
-                return createOmegaNodeAdapter();
+                return createNodeAdapter();
             }
             @Override
             public Adapter caseAbstractEdge(AbstractEdge object)
@@ -156,46 +146,16 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link networkmodel.AbstractNode <em>Abstract Node</em>}'.
+     * Creates a new adapter for an object of class '{@link networkmodel.Node <em>Node</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see networkmodel.AbstractNode
+     * @see networkmodel.Node
      * @generated
      */
-    public Adapter createAbstractNodeAdapter()
-    {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link networkmodel.AlphaNode <em>Alpha Node</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see networkmodel.AlphaNode
-     * @generated
-     */
-    public Adapter createAlphaNodeAdapter()
-    {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link networkmodel.OmegaNode <em>Omega Node</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see networkmodel.OmegaNode
-     * @generated
-     */
-    public Adapter createOmegaNodeAdapter()
+    public Adapter createNodeAdapter()
     {
         return null;
     }

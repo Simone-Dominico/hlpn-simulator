@@ -1,7 +1,6 @@
 package networkmodel.diagram.edit.policies;
 
-import networkmodel.diagram.edit.commands.AlphaNodeCreateCommand;
-import networkmodel.diagram.edit.commands.OmegaNodeCreateCommand;
+import networkmodel.diagram.edit.commands.NodeCreateCommand;
 import networkmodel.diagram.providers.NetworkElementTypes;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -31,13 +30,9 @@ public class NetworkItemSemanticEditPolicy extends
 	 */
 	protected Command getCreateCommand(CreateElementRequest req)
 	{
-		if(NetworkElementTypes.AlphaNode_2001 == req.getElementType())
+		if(NetworkElementTypes.Node_2001 == req.getElementType())
 		{
-			return getGEFWrapper(new AlphaNodeCreateCommand(req));
-		}
-		if(NetworkElementTypes.OmegaNode_2002 == req.getElementType())
-		{
-			return getGEFWrapper(new OmegaNodeCreateCommand(req));
+			return getGEFWrapper(new NodeCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

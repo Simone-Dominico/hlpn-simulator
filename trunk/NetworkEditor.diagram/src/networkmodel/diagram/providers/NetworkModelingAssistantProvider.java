@@ -7,9 +7,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
+import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.part.Messages;
 import networkmodel.diagram.part.NetworkDiagramEditorPlugin;
 
@@ -42,9 +41,8 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 		        .getAdapter(IGraphicalEditPart.class);
 		if(editPart instanceof NetworkEditPart)
 		{
-			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
-			types.add(NetworkElementTypes.AlphaNode_2001);
-			types.add(NetworkElementTypes.OmegaNode_2002);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+			types.add(NetworkElementTypes.Node_2001);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -57,13 +55,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 	{
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
 		        .getAdapter(IGraphicalEditPart.class);
-		if(sourceEditPart instanceof AlphaNodeEditPart)
+		if(sourceEditPart instanceof NodeEditPart)
 		{
-			return ((AlphaNodeEditPart) sourceEditPart).getMARelTypesOnSource();
-		}
-		if(sourceEditPart instanceof OmegaNodeEditPart)
-		{
-			return ((OmegaNodeEditPart) sourceEditPart).getMARelTypesOnSource();
+			return ((NodeEditPart) sourceEditPart).getMARelTypesOnSource();
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -75,13 +69,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 	{
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
 		        .getAdapter(IGraphicalEditPart.class);
-		if(targetEditPart instanceof AlphaNodeEditPart)
+		if(targetEditPart instanceof NodeEditPart)
 		{
-			return ((AlphaNodeEditPart) targetEditPart).getMARelTypesOnTarget();
-		}
-		if(targetEditPart instanceof OmegaNodeEditPart)
-		{
-			return ((OmegaNodeEditPart) targetEditPart).getMARelTypesOnTarget();
+			return ((NodeEditPart) targetEditPart).getMARelTypesOnTarget();
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -96,14 +86,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 		        .getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
 		        .getAdapter(IGraphicalEditPart.class);
-		if(sourceEditPart instanceof AlphaNodeEditPart)
+		if(sourceEditPart instanceof NodeEditPart)
 		{
-			return ((AlphaNodeEditPart) sourceEditPart)
-			        .getMARelTypesOnSourceAndTarget(targetEditPart);
-		}
-		if(sourceEditPart instanceof OmegaNodeEditPart)
-		{
-			return ((OmegaNodeEditPart) sourceEditPart)
+			return ((NodeEditPart) sourceEditPart)
 			        .getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		return Collections.EMPTY_LIST;
@@ -117,14 +102,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 	{
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target
 		        .getAdapter(IGraphicalEditPart.class);
-		if(targetEditPart instanceof AlphaNodeEditPart)
+		if(targetEditPart instanceof NodeEditPart)
 		{
-			return ((AlphaNodeEditPart) targetEditPart)
-			        .getMATypesForSource(relationshipType);
-		}
-		if(targetEditPart instanceof OmegaNodeEditPart)
-		{
-			return ((OmegaNodeEditPart) targetEditPart)
+			return ((NodeEditPart) targetEditPart)
 			        .getMATypesForSource(relationshipType);
 		}
 		return Collections.EMPTY_LIST;
@@ -138,14 +118,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 	{
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source
 		        .getAdapter(IGraphicalEditPart.class);
-		if(sourceEditPart instanceof AlphaNodeEditPart)
+		if(sourceEditPart instanceof NodeEditPart)
 		{
-			return ((AlphaNodeEditPart) sourceEditPart)
-			        .getMATypesForTarget(relationshipType);
-		}
-		if(sourceEditPart instanceof OmegaNodeEditPart)
-		{
-			return ((OmegaNodeEditPart) sourceEditPart)
+			return ((NodeEditPart) sourceEditPart)
 			        .getMATypesForTarget(relationshipType);
 		}
 		return Collections.EMPTY_LIST;

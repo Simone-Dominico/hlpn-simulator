@@ -36,22 +36,13 @@ public interface NetworkmodelFactory extends EFactory
     Network createNetwork();
 
     /**
-     * Returns a new object of class '<em>Alpha Node</em>'.
+     * Returns a new object of class '<em>Node</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Alpha Node</em>'.
+     * @return a new object of class '<em>Node</em>'.
      * @generated
      */
-    AlphaNode createAlphaNode();
-
-    /**
-     * Returns a new object of class '<em>Omega Node</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Omega Node</em>'.
-     * @generated
-     */
-    OmegaNode createOmegaNode();
+    Node createNode();
 
     /**
      * Returns a new object of class '<em>Undirected Edge</em>'.

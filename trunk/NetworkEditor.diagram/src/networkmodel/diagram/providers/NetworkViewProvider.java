@@ -2,12 +2,10 @@ package networkmodel.diagram.providers;
 
 import java.util.ArrayList;
 
-import networkmodel.diagram.edit.parts.AlphaNodeEditPart;
-import networkmodel.diagram.edit.parts.AlphaNodeLabelEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeEditPart;
-import networkmodel.diagram.edit.parts.OmegaNodeLabelEditPart;
+import networkmodel.diagram.edit.parts.NodeEditPart;
+import networkmodel.diagram.edit.parts.NodeLabelEditPart;
 import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 
@@ -165,8 +163,7 @@ public class NetworkViewProvider extends AbstractProvider implements
 				}
 				switch(visualID)
 				{
-					case AlphaNodeEditPart.VISUAL_ID:
-					case OmegaNodeEditPart.VISUAL_ID:
+					case NodeEditPart.VISUAL_ID:
 						if(domainElement == null
 						        || visualID != NetworkVisualIDRegistry
 						                .getNodeVisualID(op.getContainerView(),
@@ -180,8 +177,7 @@ public class NetworkViewProvider extends AbstractProvider implements
 				}
 			}
 		}
-		return AlphaNodeEditPart.VISUAL_ID == visualID
-		        || OmegaNodeEditPart.VISUAL_ID == visualID;
+		return NodeEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
@@ -248,12 +244,9 @@ public class NetworkViewProvider extends AbstractProvider implements
 		}
 		switch(visualID)
 		{
-			case AlphaNodeEditPart.VISUAL_ID:
-				return createAlphaNode_2001(domainElement, containerView,
-				        index, persisted, preferencesHint);
-			case OmegaNodeEditPart.VISUAL_ID:
-				return createOmegaNode_2002(domainElement, containerView,
-				        index, persisted, preferencesHint);
+			case NodeEditPart.VISUAL_ID:
+				return createNode_2001(domainElement, containerView, index,
+				        persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
 		return null;
@@ -286,17 +279,12 @@ public class NetworkViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createAlphaNode_2001(EObject domainElement, View containerView,
+	public Node createNode_2001(EObject domainElement, View containerView,
 	        int index, boolean persisted, PreferencesHint preferencesHint)
 	{
-		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-		        .add(NotationFactory.eINSTANCE.createDescriptionStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createLineStyle());
+		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(NetworkVisualIDRegistry
-		        .getType(AlphaNodeEditPart.VISUAL_ID));
+		node.setType(NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		stampShortcut(containerView, node);
@@ -324,56 +312,13 @@ public class NetworkViewProvider extends AbstractProvider implements
 			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
 			        .intValue());
 		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
+		        prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+		        NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+		        FigureUtilities.RGBToInteger(fillRGB));
 		Node label5001 = createLabel(node,
-		        NetworkVisualIDRegistry
-		                .getType(AlphaNodeLabelEditPart.VISUAL_ID));
-		return node;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Node createOmegaNode_2002(EObject domainElement, View containerView,
-	        int index, boolean persisted, PreferencesHint preferencesHint)
-	{
-		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-		        .add(NotationFactory.eINSTANCE.createDescriptionStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		node.getStyles().add(NotationFactory.eINSTANCE.createLineStyle());
-		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(NetworkVisualIDRegistry
-		        .getType(OmegaNodeEditPart.VISUAL_ID));
-		ViewUtil.insertChildView(containerView, node, index, persisted);
-		node.setElement(domainElement);
-		stampShortcut(containerView, node);
-		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-		        .getPreferenceStore();
-
-		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
-		        prefStore, IPreferenceConstants.PREF_LINE_COLOR);
-		ViewUtil.setStructuralFeatureValue(node,
-		        NotationPackage.eINSTANCE.getLineStyle_LineColor(),
-		        FigureUtilities.RGBToInteger(lineRGB));
-		FontStyle nodeFontStyle = (FontStyle) node
-		        .getStyle(NotationPackage.Literals.FONT_STYLE);
-		if(nodeFontStyle != null)
-		{
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-			        IPreferenceConstants.PREF_DEFAULT_FONT);
-			nodeFontStyle.setFontName(fontData.getName());
-			nodeFontStyle.setFontHeight(fontData.getHeight());
-			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
-			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-			        .getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-			        .intValue());
-		}
-		Node label5002 = createLabel(node,
-		        NetworkVisualIDRegistry
-		                .getType(OmegaNodeLabelEditPart.VISUAL_ID));
+		        NetworkVisualIDRegistry.getType(NodeLabelEditPart.VISUAL_ID));
 		return node;
 	}
 

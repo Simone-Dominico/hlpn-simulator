@@ -10,39 +10,19 @@
         href="Network.ecore#//Network/network"/>
     <ownedChild>
       <domainMetaElement
-          href="Network.ecore#//AlphaNode"/>
+          href="Network.ecore#//Node"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
-            href="Network.gmfgraph#AlphaNodeLabel"/>
+            href="Network.gmfgraph#NodeLabel"/>
         <features
-            href="Network.ecore#//AbstractNode/label"/>
+            href="Network.ecore#//Node/label"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="Network.gmftool#//@palette/@tools.0/@tools.0"/>
       <diagramNode
-          href="Network.gmfgraph#AlphaNode"/>
-    </ownedChild>
-  </nodes>
-  <nodes>
-    <containmentFeature
-        href="Network.ecore#//Network/network"/>
-    <ownedChild>
-      <domainMetaElement
-          href="Network.ecore#//OmegaNode"/>
-      <labelMappings
-          xsi:type="gmfmap:FeatureLabelMapping">
-        <diagramLabel
-            href="Network.gmfgraph#OmegaNodeLabel"/>
-        <features
-            href="Network.ecore#//AbstractNode/label"/>
-      </labelMappings>
-      <tool
-          xsi:type="gmftool:CreationTool"
-          href="Network.gmftool#//@palette/@tools.0/@tools.1"/>
-      <diagramNode
-          href="Network.gmfgraph#OmegaNode"/>
+          href="Network.gmfgraph#Node"/>
     </ownedChild>
   </nodes>
   <links>
@@ -52,7 +32,7 @@
         href="Network.ecore#//Network/network"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="Network.gmftool#//@palette/@tools.0/@tools.2"/>
+        href="Network.gmftool#//@palette/@tools.0/@tools.1"/>
     <diagramLink
         href="Network.gmfgraph#UndirectedEdge"/>
     <sourceMetaFeature
@@ -69,7 +49,7 @@
         href="Network.ecore#//Network/network"/>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="Network.gmftool#//@palette/@tools.0/@tools.3"/>
+        href="Network.gmftool#//@palette/@tools.0/@tools.2"/>
     <diagramLink
         href="Network.gmfgraph#DirectedEdge"/>
     <sourceMetaFeature

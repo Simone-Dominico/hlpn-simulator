@@ -103,53 +103,28 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link networkmodel.AlphaNode} instances.
+     * This keeps track of the one adapter used for all {@link networkmodel.Node} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected AlphaNodeItemProvider alphaNodeItemProvider;
+    protected NodeItemProvider nodeItemProvider;
 
     /**
-     * This creates an adapter for a {@link networkmodel.AlphaNode}.
+     * This creates an adapter for a {@link networkmodel.Node}.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     @Override
-    public Adapter createAlphaNodeAdapter()
+    public Adapter createNodeAdapter()
     {
-        if (alphaNodeItemProvider == null)
+        if (nodeItemProvider == null)
         {
-            alphaNodeItemProvider = new AlphaNodeItemProvider(this);
+            nodeItemProvider = new NodeItemProvider(this);
         }
 
-        return alphaNodeItemProvider;
-    }
-
-    /**
-     * This keeps track of the one adapter used for all {@link networkmodel.OmegaNode} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected OmegaNodeItemProvider omegaNodeItemProvider;
-
-    /**
-     * This creates an adapter for a {@link networkmodel.OmegaNode}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createOmegaNodeAdapter()
-    {
-        if (omegaNodeItemProvider == null)
-        {
-            omegaNodeItemProvider = new OmegaNodeItemProvider(this);
-        }
-
-        return omegaNodeItemProvider;
+        return nodeItemProvider;
     }
 
     /**
@@ -314,8 +289,7 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
     public void dispose()
     {
         if (networkItemProvider != null) networkItemProvider.dispose();
-        if (alphaNodeItemProvider != null) alphaNodeItemProvider.dispose();
-        if (omegaNodeItemProvider != null) omegaNodeItemProvider.dispose();
+        if (nodeItemProvider != null) nodeItemProvider.dispose();
         if (undirectedEdgeItemProvider != null) undirectedEdgeItemProvider.dispose();
         if (directedEdgeItemProvider != null) directedEdgeItemProvider.dispose();
     }
