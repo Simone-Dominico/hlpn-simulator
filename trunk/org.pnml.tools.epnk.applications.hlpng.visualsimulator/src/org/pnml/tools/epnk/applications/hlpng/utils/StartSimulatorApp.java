@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -57,6 +58,7 @@ import dk.dtu.imm.se2.group6.visual.Animator;
 import Appearence.Shape;
 
 import visualsimulationconfig.VisualSimulatorConfig;
+import visualsimulationconfig.VisualsimulationconfigPackage;
 
 public class StartSimulatorApp implements IObjectActionDelegate
 {
@@ -66,6 +68,9 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	public void run(IAction action)
 	{
 		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
+		VisualsimulationconfigPackage visualsimulationconfigPackage = VisualsimulationconfigPackage.eINSTANCE;
+		
 		URI fileUri = URI
 				//.createFileURI("/home/mindaugas/Dropbox/DTU/master-project/runtime-simulator/3DTrains/SimpleTrainTraffic.visualsimulationconfig");
 				.createFileURI("/home/mindaugas/Dropbox/DTU/master-project/runtime-simulator/super_example/models/TrainTraffic.visualsimulationconfig");
@@ -88,8 +93,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// init animator
 			Animator animator = createAnimator();
 			animator.setSimulator(application);
-			application.setAnimator(animator);
-						
+			application.setAnimator(animator);		
 			// init config
 			VisualSimulatorConfig config = (VisualSimulatorConfig)resource.getContents().get(0);
 			
