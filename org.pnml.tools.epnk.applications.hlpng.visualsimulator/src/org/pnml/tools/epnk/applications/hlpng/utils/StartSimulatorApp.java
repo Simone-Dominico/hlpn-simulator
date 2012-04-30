@@ -15,7 +15,10 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
@@ -67,7 +70,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 {
 	private PetriNet petrinet;
     private String filename = null;
-    private String pnmlExtension = null;
+    private IFile pnfile = null;
     private String configExtension = "visualsimulationconfig";
     
 	@Override
@@ -77,16 +80,23 @@ public class StartSimulatorApp implements IObjectActionDelegate
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
         VisualsimulationconfigPackage visualsimulationconfigPackage = VisualsimulationconfigPackage.eINSTANCE;
         
-        File file = new File(filename.replaceFirst(pnmlExtension, configExtension));
+        String configFilePath = filename.replaceFirst(pnfile.getFileExtension(), configExtension);
         
+        File file = new File(configFilePath);
         if(!file.exists())
         {
-        	System.out.println("Config file does not exist!");
+        	configFilePath = fileChooser(Display.getCurrent().getActiveShell(), ".");
         }
-        URI fileUri = URI.createFileURI(filename.replaceFirst(pnmlExtension, configExtension));
-        Resource resource = resourceSet.getResource(fileUri, true);
+        
+        Resource resource = null;
+        try
+        {
+        	URI fileUri = URI.createFileURI(configFilePath);
+	        resource = resourceSet.getResource(fileUri, true);
+        }
+        catch(Exception e){}
 
-		if(resource.getContents().size() > 0)
+		if(resource != null && resource.getContents().size() > 0)
 		{
 			// init the evaluation manager
 			EvaluationManager evaluationManager = createEvaluationManager();
@@ -101,7 +111,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			VisualSimulator application = new VisualSimulator();
 			
 			// init animator
-			Animator animator = createAnimator();
+			Animator animator = createAnimator(filename.replaceFirst(pnfile.getName(), ""));
 			animator.setSimulator(application);
 			application.setAnimator(animator);		
 			// init config
@@ -114,7 +124,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// init HLPNG simualtor
 			HLSimulator hlSimulator = new HLSimulator(petrinet, evaluationManager, 
 					comparisonManager, reversibleOperationManager,
-					Display.getDefault().getSystemFont(), false);
+					Display.getCurrent().getSystemFont(), false);
 			application.setSimulator(hlSimulator);
 			
 //			 registers the simulator
@@ -144,11 +154,10 @@ public class StartSimulatorApp implements IObjectActionDelegate
 				java.lang.Object selected = structuredSelection.getFirstElement();
 				if(selected instanceof PetriNet)
 				{
-					IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart(); 
-                    IFile file = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
-                    
-                    pnmlExtension = file.getFileExtension();
-                    filename = file.getRawLocation().toOSString();
+					IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+					
+					pnfile = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+                    filename = pnfile.getRawLocation().toOSString();
                     petrinet = (PetriNet) selected;
 				}
 			}
@@ -268,37 +277,30 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		return extensionManager;
 	}
 	
-	private static Animator createAnimator()
+	private static Animator createAnimator(String path)
 	{
-		String planeTexture = toAbsolutePath("resources/texture/platform_texture.jpg");
-		String collisionMarker = toAbsolutePath("resources/collision/exclamation.obj");
-		String earthTexture = toAbsolutePath("resources/texture/platform_texture.jpg");
+		String planeTexture = path + "resources/texture/platform_texture.jpg";
+		String collisionMarker = path + "resources/collision/exclamation.obj";
+		String earthTexture = path + "resources/texture/platform_texture.jpg";
 		String[] skyboxTextures = {
-				toAbsolutePath("resources/Skybox/Front.png"),
-				toAbsolutePath("resources/Skybox/Left.png"),
-				toAbsolutePath("resources/Skybox/Back.png"),
-				toAbsolutePath("resources/Skybox/Right.png"),
-				toAbsolutePath("resources/Skybox/Top.png"),
-				toAbsolutePath("resources/Skybox/Bottom.png"),
+				path + "resources/Skybox/Front.png",
+				path + "resources/Skybox/Left.png",
+				path + "resources/Skybox/Back.png",
+				path + "resources/Skybox/Right.png",
+				path + "resources/Skybox/Top.png",
+				path + "resources/Skybox/Bottom.png",
 		};
 		
 		return new Animator(600, 600, planeTexture, collisionMarker, earthTexture, skyboxTextures);
 	}
 	
-	public static String toAbsolutePath(String relativePath)
+	public String fileChooser(Shell shell, String path)
 	{
-		return "/home/mindaugas/Dropbox/DTU/master-project/workspace/org.pnml.tools.epnk.applications.hlpng.visualsimulator/" +
-				relativePath;
-		// final URL fileURL =
-		// Activator.getDefault().getBundle().getEntry(relativePath);
-		//
-		// URL fullPath = null;
-		// try {
-		// fullPath = FileLocator.resolve(fileURL);
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// return fullPath.getPath();
+		FileDialog fd = new FileDialog(shell, SWT.OPEN);
+		fd.setText("Open");
+		fd.setFilterPath(path);
+		String[] filterExt = { "*." + configExtension };
+		fd.setFilterExtensions(filterExt);
+		return fd.open();
 	}
 }
