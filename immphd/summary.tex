@@ -1,0 +1,27 @@
+\chapter{Introduction}
+
+Petri Nets are a powerful mathematical and graphical notation for modeling, analyzing and designing a wide range of discrete-event systems. Traditionally Petri Nets are divided into low level Petri Nets and high level Petri Nets (HLPNs) also known as Colored Petri Nets (CPNs). Colored Petri Nets are much more concise then low level Petri Nets. There are many differences between the two nets. Still the main difference is that in the first case, tokens can be colored i.e. represent different data types where in the second case, all (black) tokens correspond to the same data type. The rich feature set of HLPNs helps Petri Net experts to model a wide variety of complex systems, but it comes at a cost - all of it has to be supported by the Petri Net simulator.
+For the Master Project, our proposal is to design and implement a simulator for high level Petri Nets\footnote{As defined in the standard ISO/IEC 15909}. Currently there is no such HLPNs simulator supporting the above mentioned standard.
+
+The project proposal is to design and implement a simulator for HLPNs. It can be split into 2 main parts:
+1. Modeling HLPNs runtime behavior. On one hand, HLPNs graph (a visualization of the Petri Net) (HLPNG) type definition model is quite complex - has more than 80 classes. On the other hand, the model has to be suitable for supporting state space generation in the future. All this have to be taken into account when modeling HLPNs runtime behavior.
+2. Designing and implementing an effective algorithm to find legal bindings of transitions which are involved in the transition firing rule. Computing a set of enabled transitions in a given marking is the most challenging part of the implementation of the HLPNs simulator.
+
+The software will be implemented in JAVA programming language, using Eclipse platform as an underlying infrastructure. Eclipse Modeling Framework (EMF) and Eclipse Graphical Modeling Framework (GMF) will be used in the modeling part of the project. HLPNG simulator GUI will be built on top of ePNK - model based graphical Petri Net editor providing functionality to create user defined Petri Net extensions.
+The above mentioned project parts are the main objective of this project. 
+
+Scope
+Based on our proposal, the following points defines what is within the scope of the project:
+Runtime model of the HLPNG supporting state space generation in the future
+Effective algorithm to find enabled transitions
+Easy and clear way to extend simulator with user defined types and operations
+Plugin user defined firing rule (fire all vs. random/probabilistic firing)
+Provide simulator extensions for PN network algorithms and a traffic control tool for engineers
+Simulation of HLPNs supporting:
+automatic mode
+interactive mode (single step) 
+2D visualization of HLPNG built on top of ePNK supporting:
+token animation
+active/inactive transition indication
+error reporting
+Simple 3D train network example using existing 3D visualization engine and controlled by the HLPNs simulator.
