@@ -27,7 +27,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="310" y="300" width="-1" height="13"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="252" y="300" width="-1" height="13"/>
           </children>
           <children xsi:type="notation:Shape" visible="true" type="2001" element="p3" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
             <layoutConstraint xsi:type="notation:Bounds" x="722" y="274" width="-1" height="-1"/>
@@ -37,14 +37,14 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="675" y="261" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="612" y="264" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.2">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="422" y="310" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="396" y="312" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.3">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -71,7 +71,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="876" y="648" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="876" y="660" width="-1" height="-1"/>
           </children>
           <children xsi:type="notation:Shape" visible="true" type="2003" element="t4" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
             <layoutConstraint xsi:type="notation:Bounds" x="684" y="600" width="-1" height="-1"/>
@@ -81,7 +81,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="768" y="636" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="732" y="636" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.7">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -109,7 +109,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="770" y="298" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="760" y="305" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.11">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -149,7 +149,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="732" y="0" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="792" y="0" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.15">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -177,14 +177,14 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="1056" y="20" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="1008" y="24" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.19">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="828" y="216" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="780" y="216" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.20">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -228,7 +228,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="408" y="636" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="396" y="660" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.25">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -263,21 +263,21 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="216" y="240" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="240" y="264" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.30">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="696" y="120" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="684" y="168" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.31">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="900" y="672" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="924" y="636" width="-1" height="-1"/>
           </children>
           <styles xsi:type="notation:DiagramStyle" pageX="0" pageY="0" pageWidth="100" pageHeight="100" description=""/>
           <edges xsi:type="notation:Connector" visible="true" type="4001" element="a1" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.2" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
@@ -307,7 +307,6 @@
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[-4, -3, -42, 16]$[-23, -19, -61, 0]"/>
-            <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.28125,0.2)"/>
             <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.39779005524861877,0.5)"/>
           </edges>
           <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.7" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
@@ -598,42 +597,26 @@
         </graphics>
         <type>
           <graphics>
-            <offset x="-48.0" y="21.0"/>
+            <offset x="-106.0" y="21.0"/>
           </graphics>
           <structure>
             <usersort declaration="id5"/>
           </structure>
-          <text>TRAIN</text>
+          <text>DYNAMIC_MODEL</text>
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="-142.0" y="-39.0"/>
+            <offset x="-118.0" y="-15.0"/>
           </graphics>
           <structure>
-            <add>
+            <numberof>
               <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <stringconstant value="slow"/>
-                      </subterm>
-                      <subterm>
-                        <numberconstant value="20">
-                          <positive/>
-                        </numberconstant>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
+                <numberconstant value="1">
+                  <positive/>
+                </numberconstant>
               </subterm>
               <subterm>
-                <useroperator declaration="id7">
+                <tuple>
                   <subterm>
                     <stringconstant value="slow"/>
                   </subterm>
@@ -641,14 +624,15 @@
                     <stringconstant value="track1"/>
                   </subterm>
                   <subterm>
-                    <booleanconstant value="true"/>
+                    <numberconstant value="20">
+                      <positive/>
+                    </numberconstant>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-            </add>
+            </numberof>
           </structure>
-          <text>1`(&quot;slow&quot;, 20)++
-APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
+          <text>1`(&quot;slow&quot;, &quot;track1&quot;, 20)</text>
         </hlinitialMarking>
       </place>
       <transition id="t1">
@@ -677,7 +661,7 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="-3.0" y="37.0"/>
+            <offset x="-29.0" y="39.0"/>
           </graphics>
           <structure>
             <numberof>
@@ -692,13 +676,16 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
                     <variable refvariable="id12"/>
                   </subterm>
                   <subterm>
+                    <variable refvariable="id14"/>
+                  </subterm>
+                  <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
                 </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(type, speed)</text>
+          <text>1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <arc id="a2" source="t1" target="p3">
@@ -738,6 +725,9 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
                         <variable refvariable="id12"/>
                       </subterm>
                       <subterm>
+                        <variable refvariable="id14"/>
+                      </subterm>
+                      <subterm>
                         <variable refvariable="id13"/>
                       </subterm>
                     </tuple>
@@ -747,7 +737,7 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
             </add>
           </structure>
           <text>MOVE(type, &quot;track1&quot;, speed)++
-1`(type, speed)</text>
+1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <place id="p3">
@@ -757,12 +747,12 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
         </graphics>
         <type>
           <graphics>
-            <offset x="-46.0" y="-12.0"/>
+            <offset x="-109.0" y="-9.0"/>
           </graphics>
           <structure>
             <usersort declaration="id5"/>
           </structure>
-          <text>TRAIN</text>
+          <text>DYNAMIC_MODEL</text>
         </type>
       </place>
       <transition id="t3">
@@ -791,7 +781,7 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="-20.0" y="31.0"/>
+            <offset x="-30.0" y="38.0"/>
           </graphics>
           <structure>
             <numberof>
@@ -806,13 +796,16 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
                     <variable refvariable="id12"/>
                   </subterm>
                   <subterm>
+                    <variable refvariable="id14"/>
+                  </subterm>
+                  <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
                 </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(type, speed)</text>
+          <text>1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <place id="p5">
@@ -822,42 +815,26 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
         </graphics>
         <type>
           <graphics>
-            <offset x="1.0" y="49.0"/>
+            <offset x="1.0" y="61.0"/>
           </graphics>
           <structure>
             <usersort declaration="id5"/>
           </structure>
-          <text>TRAIN</text>
+          <text>DYNAMIC_MODEL</text>
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="25.0" y="73.0"/>
+            <offset x="49.0" y="37.0"/>
           </graphics>
           <structure>
-            <add>
+            <numberof>
               <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <stringconstant value="fast"/>
-                      </subterm>
-                      <subterm>
-                        <numberconstant value="120">
-                          <positive/>
-                        </numberconstant>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
+                <numberconstant value="1">
+                  <positive/>
+                </numberconstant>
               </subterm>
               <subterm>
-                <useroperator declaration="id7">
+                <tuple>
                   <subterm>
                     <stringconstant value="fast"/>
                   </subterm>
@@ -865,14 +842,15 @@ APPEAR(&quot;slow&quot;,&quot;track1&quot;,true)</text>
                     <stringconstant value="track3"/>
                   </subterm>
                   <subterm>
-                    <booleanconstant value="true"/>
+                    <numberconstant value="120">
+                      <positive/>
+                    </numberconstant>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-            </add>
+            </numberof>
           </structure>
-          <text>1`(&quot;fast&quot;, 120)++
-APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
+          <text>1`(&quot;fast&quot;, &quot;track3&quot;, 120)</text>
         </hlinitialMarking>
       </place>
       <arc id="a6" source="t3" target="p5">
@@ -912,6 +890,9 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
                         <variable refvariable="id12"/>
                       </subterm>
                       <subterm>
+                        <variable refvariable="id14"/>
+                      </subterm>
+                      <subterm>
                         <variable refvariable="id13"/>
                       </subterm>
                     </tuple>
@@ -921,7 +902,7 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
             </add>
           </structure>
           <text>MOVE(type, &quot;track2&quot;, speed)++
-1`(type, speed)</text>
+1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <transition id="t4">
@@ -950,7 +931,7 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="-104.0" y="-23.0"/>
+            <offset x="-140.0" y="-23.0"/>
           </graphics>
           <structure>
             <numberof>
@@ -965,13 +946,16 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
                     <variable refvariable="id12"/>
                   </subterm>
                   <subterm>
+                    <variable refvariable="id14"/>
+                  </subterm>
+                  <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
                 </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(type, speed)</text>
+          <text>1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <arc id="a8" source="t4" target="p8">
@@ -1011,6 +995,9 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
                         <variable refvariable="id12"/>
                       </subterm>
                       <subterm>
+                        <variable refvariable="id14"/>
+                      </subterm>
+                      <subterm>
                         <variable refvariable="id13"/>
                       </subterm>
                     </tuple>
@@ -1020,7 +1007,7 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
             </add>
           </structure>
           <text>MOVE(type, &quot;track3&quot;, speed)++
-1`(type, speed)</text>
+1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <place id="p2">
@@ -1030,58 +1017,37 @@ APPEAR(&quot;fast&quot;,&quot;track3&quot;,true)</text>
         </graphics>
         <type>
           <graphics>
-            <offset x="-47.0" y="37.0"/>
+            <offset x="-95.0" y="37.0"/>
           </graphics>
           <structure>
             <usersort declaration="id6"/>
           </structure>
-          <text>SIGNAL</text>
+          <text>STATIC_MODEL</text>
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="-179.0" y="-59.0"/>
+            <offset x="-191.0" y="-11.0"/>
           </graphics>
           <structure>
-            <add>
+            <numberof>
               <subterm>
-                <add>
-                  <subterm>
-                    <numberof>
-                      <subterm>
-                        <numberconstant value="1">
-                          <positive/>
-                        </numberconstant>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="signal"/>
-                      </subterm>
-                    </numberof>
-                  </subterm>
-                  <subterm>
-                    <useroperator declaration="id8">
-                      <subterm>
-                        <stringconstant value="greenSignal1"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="signalPoint2"/>
-                      </subterm>
-                    </useroperator>
-                  </subterm>
-                </add>
+                <numberconstant value="1">
+                  <positive/>
+                </numberconstant>
               </subterm>
               <subterm>
-                <useroperator declaration="id9">
+                <tuple>
                   <subterm>
                     <stringconstant value="greenSignal1"/>
                   </subterm>
-                </useroperator>
+                  <subterm>
+                    <stringconstant value="signalPoint2"/>
+                  </subterm>
+                </tuple>
               </subterm>
-            </add>
+            </numberof>
           </structure>
-          <text>1`&quot;signal&quot;++
-APPEAR_POINT(&quot;greenSignal1&quot;,
-&quot;signalPoint2&quot;)++
-TRIGGER(&quot;greenSignal1&quot;)</text>
+          <text>1`(&quot;greenSignal1&quot;,&quot;signalPoint2&quot;)</text>
         </hlinitialMarking>
       </place>
       <arc id="a10" source="p2" target="t3">
@@ -1102,11 +1068,11 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                 </numberconstant>
               </subterm>
               <subterm>
-                <variable refvariable="id15"/>
+                <variable refvariable="id16"/>
               </subterm>
             </numberof>
           </structure>
-          <text>1`s</text>
+          <text>1`(s)</text>
         </hlinscription>
       </arc>
       <arc id="a11" source="t3" target="p2">
@@ -1127,11 +1093,11 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                 </numberconstant>
               </subterm>
               <subterm>
-                <variable refvariable="id15"/>
+                <variable refvariable="id16"/>
               </subterm>
             </numberof>
           </structure>
-          <text>1`s</text>
+          <text>1`(s)</text>
         </hlinscription>
       </arc>
       <place id="p6">
@@ -1141,12 +1107,12 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
         </graphics>
         <type>
           <graphics>
-            <offset x="-47.0" y="32.0"/>
+            <offset x="-95.0" y="36.0"/>
           </graphics>
           <structure>
             <usersort declaration="id6"/>
           </structure>
-          <text>SIGNAL</text>
+          <text>STATIC_MODEL</text>
         </type>
       </place>
       <transition id="t5">
@@ -1161,11 +1127,11 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
           <structure>
             <useroperator declaration="id11">
               <subterm>
-                <stringconstant value="redSignal1"/>
+                <variable refvariable="id17"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>READY(&quot;redSignal1&quot;)</text>
+          <text>READY(t_s)</text>
         </condition>
       </transition>
       <transition id="t6">
@@ -1175,16 +1141,16 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
         </graphics>
         <condition>
           <graphics>
-            <offset x="-143.0" y="12.0"/>
+            <offset x="-83.0" y="12.0"/>
           </graphics>
           <structure>
             <useroperator declaration="id11">
               <subterm>
-                <stringconstant value="greenSignal1"/>
+                <variable refvariable="id17"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>READY(&quot;greenSignal1&quot;)</text>
+          <text>READY(t_s)</text>
         </condition>
       </transition>
       <arc id="a12" source="p2" target="t6">
@@ -1204,11 +1170,18 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                 </numberconstant>
               </subterm>
               <subterm>
-                <variable refvariable="id15"/>
+                <tuple>
+                  <subterm>
+                    <variable refvariable="id17"/>
+                  </subterm>
+                  <subterm>
+                    <variable refvariable="id15"/>
+                  </subterm>
+                </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`s</text>
+          <text>1`(t_s,l_s)</text>
         </hlinscription>
       </arc>
       <arc id="a13" source="t6" target="p6">
@@ -1232,7 +1205,14 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                         </numberconstant>
                       </subterm>
                       <subterm>
-                        <variable refvariable="id15"/>
+                        <tuple>
+                          <subterm>
+                            <stringconstant value="redSignal1"/>
+                          </subterm>
+                          <subterm>
+                            <variable refvariable="id15"/>
+                          </subterm>
+                        </tuple>
                       </subterm>
                     </numberof>
                   </subterm>
@@ -1242,7 +1222,7 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                         <stringconstant value="redSignal1"/>
                       </subterm>
                       <subterm>
-                        <stringconstant value="signalPoint2"/>
+                        <variable refvariable="id15"/>
                       </subterm>
                     </useroperator>
                   </subterm>
@@ -1257,8 +1237,8 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
               </subterm>
             </add>
           </structure>
-          <text>1`s++
-APPEAR_POINT(&quot;redSignal1&quot;,&quot;signalPoint2&quot;)++
+          <text>1`(&quot;redSignal1&quot;,l_s)++
+APPEAR_POINT(&quot;redSignal1&quot;, l_s)++
 TRIGGER(&quot;redSignal1&quot;)</text>
         </hlinscription>
       </arc>
@@ -1279,11 +1259,18 @@ TRIGGER(&quot;redSignal1&quot;)</text>
                 </numberconstant>
               </subterm>
               <subterm>
-                <variable refvariable="id15"/>
+                <tuple>
+                  <subterm>
+                    <variable refvariable="id17"/>
+                  </subterm>
+                  <subterm>
+                    <variable refvariable="id15"/>
+                  </subterm>
+                </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`s</text>
+          <text>1`(t_s,l_s)</text>
         </hlinscription>
       </arc>
       <arc id="a15" source="t5" target="p2">
@@ -1307,7 +1294,14 @@ TRIGGER(&quot;redSignal1&quot;)</text>
                         </numberconstant>
                       </subterm>
                       <subterm>
-                        <variable refvariable="id15"/>
+                        <tuple>
+                          <subterm>
+                            <stringconstant value="greenSignal1"/>
+                          </subterm>
+                          <subterm>
+                            <variable refvariable="id15"/>
+                          </subterm>
+                        </tuple>
                       </subterm>
                     </numberof>
                   </subterm>
@@ -1317,7 +1311,7 @@ TRIGGER(&quot;redSignal1&quot;)</text>
                         <stringconstant value="greenSignal1"/>
                       </subterm>
                       <subterm>
-                        <stringconstant value="signalPoint2"/>
+                        <variable refvariable="id15"/>
                       </subterm>
                     </useroperator>
                   </subterm>
@@ -1332,9 +1326,9 @@ TRIGGER(&quot;redSignal1&quot;)</text>
               </subterm>
             </add>
           </structure>
-          <text>1`s++
-APPEAR_POINT(&quot;greenSignal1&quot;,
-&quot;signalPoint2&quot;)++
+          <text>1`(&quot;greenSignal1&quot;, l_s)++
+APPEAR_POINT(&quot;greenSignal1&quot;, 
+l_s)++
 TRIGGER(&quot;greenSignal1&quot;)</text>
         </hlinscription>
       </arc>
@@ -1379,13 +1373,16 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                     <variable refvariable="id12"/>
                   </subterm>
                   <subterm>
+                    <variable refvariable="id14"/>
+                  </subterm>
+                  <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
                 </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(type, speed)</text>
+          <text>1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <arc id="a18" source="t7" target="p1">
@@ -1426,6 +1423,9 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                         <variable refvariable="id12"/>
                       </subterm>
                       <subterm>
+                        <variable refvariable="id14"/>
+                      </subterm>
+                      <subterm>
                         <variable refvariable="id13"/>
                       </subterm>
                     </tuple>
@@ -1435,7 +1435,7 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
             </add>
           </structure>
           <text>MOVE(type, &quot;track4&quot;, speed)++
-1`(type, speed)</text>
+1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <place id="p8">
@@ -1450,7 +1450,7 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
           <structure>
             <usersort declaration="id5"/>
           </structure>
-          <text>TRAIN</text>
+          <text>DYNAMIC_MODEL</text>
         </type>
       </place>
       <transition id="t9">
@@ -1479,7 +1479,7 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="52.0" y="47.0"/>
+            <offset x="40.0" y="71.0"/>
           </graphics>
           <structure>
             <numberof>
@@ -1494,13 +1494,16 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                     <variable refvariable="id12"/>
                   </subterm>
                   <subterm>
+                    <variable refvariable="id14"/>
+                  </subterm>
+                  <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
                 </tuple>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(type, speed)</text>
+          <text>1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <arc id="a22" source="t9" target="p1">
@@ -1541,6 +1544,9 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
                         <variable refvariable="id12"/>
                       </subterm>
                       <subterm>
+                        <variable refvariable="id14"/>
+                      </subterm>
+                      <subterm>
                         <variable refvariable="id13"/>
                       </subterm>
                     </tuple>
@@ -1550,7 +1556,7 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
             </add>
           </structure>
           <text>MOVE(type, &quot;track5&quot;, speed)++
-1`(type, speed)</text>
+1`(type, l_d, speed)</text>
         </hlinscription>
       </arc>
       <declaration>
@@ -1571,14 +1577,18 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
             <namedsort id="id4" name="TRACKS">
               <string/>
             </namedsort>
-            <namedsort id="id5" name="TRAIN">
+            <namedsort id="id5" name="DYNAMIC_MODEL">
               <productsort>
                 <usersort declaration="id1"/>
+                <usersort declaration="id2"/>
                 <usersort declaration="id3"/>
               </productsort>
             </namedsort>
-            <namedsort id="id6" name="SIGNAL">
-              <usersort declaration="id1"/>
+            <namedsort id="id6" name="STATIC_MODEL">
+              <productsort>
+                <usersort declaration="id1"/>
+                <usersort declaration="id2"/>
+              </productsort>
             </namedsort>
             <arbitraryoperator id="id7" name="APPEAR">
               <input>
@@ -1649,11 +1659,17 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
             <variabledecl id="id13" name="speed">
               <usersort declaration="id3"/>
             </variabledecl>
-            <variabledecl id="id14" name="start">
-              <string/>
+            <variabledecl id="id14" name="l_d">
+              <usersort declaration="id2"/>
             </variabledecl>
-            <variabledecl id="id15" name="s">
+            <variabledecl id="id15" name="l_s">
+              <usersort declaration="id2"/>
+            </variabledecl>
+            <variabledecl id="id16" name="s">
               <usersort declaration="id6"/>
+            </variabledecl>
+            <variabledecl id="id17" name="t_s">
+              <usersort declaration="id1"/>
             </variabledecl>
           </declarations>
         </structure>
@@ -1662,21 +1678,23 @@ TRIGGER(&quot;greenSignal1&quot;)</text>
    LOCATION=STRING,
    SPEED=NAT,
    TRACKS=STRING,
-   TRAIN=(TYPE*SPEED),
-   SIGNAL=TYPE;
+   DYNAMIC_MODEL=(TYPE*LOCATION*SPEED),
+   STATIC_MODEL=(TYPE*LOCATION);
 
 opsymbols
-   APPEAR:STRING,STRING,BOOL->MS(TRAIN),
-   APPEAR_POINT:STRING,STRING->MS(SIGNAL),
-   TRIGGER:STRING->MS(SIGNAL),
-   MOVE:STRING,STRING,INT->MS(TRAIN),
+   APPEAR:STRING,STRING,BOOL->MS(DYNAMIC_MODEL),
+   APPEAR_POINT:STRING,STRING->MS(STATIC_MODEL),
+   TRIGGER:STRING->MS(STATIC_MODEL),
+   MOVE:STRING,STRING,INT->MS(DYNAMIC_MODEL),
    READY:STRING->BOOL;
 
 vars
   type:TYPE,
   speed:SPEED,
-  start:STRING,
-  s:SIGNAL;</text>
+  l_d:LOCATION,
+  l_s:LOCATION,
+  s:STATIC_MODEL,
+  t_s:TYPE;</text>
       </declaration>
     </page>
   </net>
