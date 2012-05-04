@@ -11,7 +11,6 @@ import networkmodel.diagram.providers.NetworkElementTypes;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPart;
