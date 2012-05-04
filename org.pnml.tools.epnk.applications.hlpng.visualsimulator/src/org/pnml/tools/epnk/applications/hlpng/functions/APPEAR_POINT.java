@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
-import org.pnml.tools.epnk.applications.hlpng.utils.IVisualSimulator;
 
 import Appearence.Shape;
 import dk.dtu.imm.se2.group6.interfaces.IAnimator;
@@ -18,11 +17,9 @@ public class APPEAR_POINT extends AbstractFunction
 {
 	private Map<String, Integer> visibleObjects = null;
 	
-	public APPEAR_POINT(Map<String, GObject> geometryMap,
-            Map<String, Shape> shapeMap,
-            IAnimator animator, IVisualSimulator visualSimulator)
+	public APPEAR_POINT(IAnimator animator)
     {
-	    super(geometryMap, shapeMap, animator, visualSimulator);
+	    super(animator);
 	    
 	    this.visibleObjects = new HashMap<String, Integer>();
     }

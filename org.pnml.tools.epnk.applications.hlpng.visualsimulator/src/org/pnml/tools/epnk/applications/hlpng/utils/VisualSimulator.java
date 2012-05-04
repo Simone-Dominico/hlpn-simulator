@@ -1,38 +1,111 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
+import geditor.GObject;
+import geditor.Geometry;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jface.action.Action;
-import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
-import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
-import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
-import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
+import org.eclipse.swt.graphics.Font;
+import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
+import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
+import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
+
+import Appearence.Shape;
+import Appearence.Shapes;
 
 import dk.dtu.imm.se2.group6.interfaces.IAnimator;
 import dk.dtu.imm.se2.group6.visual.Animator;
 
-public class VisualSimulator implements simulator.ISimulator, IApplicationWithPresentation, IVisualSimulator
+public class VisualSimulator extends HLSimulator implements IVisualSimulator
 {
 	private Action[] actions = null;
 	
 	private IAnimator animator = null;
-	private ISimulator simulator = null;
 	private Set<Integer> runningAnimations = new HashSet<Integer>();
 	private Map<String, Integer> staticItemMap = new HashMap<String, Integer>();
 	private Map<String, Integer> modelMap = new HashMap<String, Integer>();
-	
+	private ExtensionManager extensionManager = null;
 
-	public void setAnimator(IAnimator animator)
+	public VisualSimulator(PetriNet petrinet,
+            EvaluationManager evaluationManager,
+            ComparisonManager comparisonManager,
+            ReversibleOperationManager reversibleOperationManager, Font font,
+            Animator animator, String globalAppearancepath, Geometry geometry,
+            Shapes appearance, ExtensionManager extensionManager)
     {
-    	this.animator = animator;
+	    super(petrinet, evaluationManager, comparisonManager,
+	            reversibleOperationManager, font, false);
+	    
+	    this.animator = animator;
+	    this.extensionManager = extensionManager;
+	    
+		Map<String, GObject> geometryMap = new HashMap<String, GObject>();
+		{
+			for(GObject g : geometry.getGeometryObjects())
+			{
+				if(g.getId() != null)
+				{
+					geometryMap.put(g.getId(), g);
+					try
+					{
+						int id = animator.createStaticItem(g, null, globalAppearancepath);
+						registerStaticItem(g.getId(), id);
+					}
+					catch(Exception e)
+					{
+						System.err.println("WRN: failed to create static item: " + e);
+					}
+				}
+			}
+		}
+		
+		Map<String, Shape> shapeMap = new HashMap<String, Shape>();
+		{
+			for(Shape s : appearance.getAppearence())
+			{
+				shapeMap.put(s.getId(), s);
+				int id = animator.createModel(s, false);
+				registerModel(s.getId(), id);
+			}
+		}
+		
+		for(IEvaluator evaluator : extensionManager.getEvaluators())
+		{
+			AbstractFunction function = (AbstractFunction) evaluator;
+			function.setGeometryMap(geometryMap);
+			function.setShapeMap(shapeMap);
+			function.setVisualSimulator(this);
+		}
+		
+		// make animator visible
+		this.animator.setWindow(new Window(animator));
+		this.animator.setSimulator(this);
+		this.animator.setVisible(true);
+		this.animator.initRequested();
     }
-	public void setSimulator(ISimulator hlSimulator)
-	{
-		this.simulator = hlSimulator;
-	}
+
+	private void reset()
+    {
+		animator.setReset(true);
+    }
+	
 	/*
 	 * 3D engine simulation methods start here
 	 */
@@ -43,25 +116,21 @@ public class VisualSimulator implements simulator.ISimulator, IApplicationWithPr
 		if(runningAnimations.contains(ItemID))
 		{
 			runningAnimations.remove(ItemID);
-			simulator.checkTransitions();
+			checkTransitions();
 		}
     }
 
 	@Override
     public void reset(IAnimator animator)
     {
-		runningAnimations = new HashSet<Integer>();
-		animator.setReset(true);
-		animator.setInitStart(true);
-		simulator.init();
-		start(animator);
+		runningAnimations = new HashSet<Integer>();		
+		go((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager, animator);
     }
 
 	@Override
     public void start(IAnimator animator)
     {
 		animator.setUpdatePosition(true);
-		animator.setInitStart(false); 
     }
 	
 	@Override
@@ -73,37 +142,105 @@ public class VisualSimulator implements simulator.ISimulator, IApplicationWithPr
 	@Override
     public void initCompleted(IAnimator animator)
     {
-		simulator.init();
-		start(animator);
+		go((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager, animator);
     }
 
+	private void go(NetMarking netMarking, 
+			ExtensionManager extensionManager, IAnimator animator)
+	{
+		init();
+		init((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager);
+		start(animator);
+	}
+	private static void init(NetMarking netMarking, ExtensionManager extensionManager)
+	{
+		for(AbstractMarking marking : netMarking.getMarkings())
+		{
+			if(marking instanceof PlaceMarking)
+			{
+				PlaceMarking placeMarking = (PlaceMarking) marking;
+				Place place = placeMarking.getPlace();
+				
+				if(place.getHlinitialMarking() != null && 
+						place.getHlinitialMarking().getStructure() != null)
+				{
+					Sort sort = place.getType().getStructure();
+					if(sort instanceof UserSort)
+					{
+						UserSort userSort = (UserSort)sort;
+						if(userSort.getName().equals("DYNAMIC_MODEL"))
+						{
+							IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR");
+							AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+							
+							for(AbstractValue value : placeMarking.getMsValue().getValues().keySet())
+							{
+								appearFunction.execute(((ProductValue)value).getComponents());	
+							}
+						}
+						else if(userSort.getName().equals("STATIC_MODEL"))
+						{
+							IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR_POINT");
+							AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+
+							for(AbstractValue value : placeMarking.getMsValue().getValues().keySet())
+							{
+								appearFunction.execute(((ProductValue)value).getComponents());
+							}
+						}
+					}	
+				}
+			}
+		}
+	}
+	
 	/*
-	 * HLPNG methods start here
+	 * Visual simulator methods start here
 	 */
 	
 	@Override
-    public IPresentationManager getPresentationManager()
+    public void registerAnimation(int id)
     {
-	    return simulator.getPresentationManager();
+		runningAnimations.add(id);
     }
-
+	
 	@Override
-    public void setPresentationManager(IPresentationManager presentationManager)
+    public boolean isReady(int id)
     {
-	    simulator.setPresentationManager(presentationManager);
+		if(runningAnimations.contains(id))
+		{
+			return false;
+		}
+		return true;
     }
-
+	
 	@Override
-    public String getName()
+    public void registerStaticItem(String name, int id)
     {
-	    return simulator.getName();
+	    staticItemMap.put(name, id);
     }
-
+	
 	@Override
-    public void setName(String name)
+    public void registerModel(String name, int id)
     {
-	    simulator.setName(name);
+		modelMap.put(name, id);
     }
+	
+	@Override
+    public int getModelId(String name)
+    {
+	    return modelMap.get(name);
+    }
+	
+	@Override
+    public int getStaticItemId(String name)
+    {
+	    return staticItemMap.get(name);
+    }
+	
+	/*
+	 * HLPNG methods start here
+	 */
 
 	@Override
     public Action[] getActions()
@@ -137,7 +274,7 @@ public class VisualSimulator implements simulator.ISimulator, IApplicationWithPr
 			
 			actions[2] = new Action() {
 				public void run() {
-					reset(animator);
+					reset();
 				}
 			};
 			actions[2].setId("reset");
@@ -150,71 +287,10 @@ public class VisualSimulator implements simulator.ISimulator, IApplicationWithPr
     }
 
 	@Override
-    public String getDescription()
+    public void shutDown()
     {
-	    return simulator.getDescription();
-    }
-
-	@Override
-    public String getStatus()
-    {
-	    return simulator.getStatus();
-    }
-
-	@Override
-    public NetAnnotations getNetAnnotations()
-    {
-	    return simulator.getNetAnnotations();
-    }
-
-	@Override
-    public void dispose()
-    {
-	    simulator.dispose();
+	    super.shutDown();
 	    ((Animator)animator).getWindow().dispose();
     }
 
-	/*
-	 * Visual simulator methods start here
-	 */
-	
-	@Override
-    public synchronized void registerAnimation(int id)
-    {
-		runningAnimations.add(id);
-    }
-	
-	@Override
-    public synchronized boolean isReady(int id)
-    {
-		if(runningAnimations.contains(id))
-		{
-			return false;
-		}
-		return true;
-    }
-	
-	@Override
-    public void registerStaticItem(String name, int id)
-    {
-	    staticItemMap.put(name, id);
-    }
-	
-	@Override
-    public void registerModel(String name, int id)
-    {
-		modelMap.put(name, id);
-    }
-	
-	@Override
-    public int getModelId(String name)
-    {
-	    return modelMap.get(name);
-    }
-	
-	@Override
-    public int getStaticItemId(String name)
-    {
-	    return staticItemMap.get(name);
-    }
 }

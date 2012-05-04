@@ -20,6 +20,11 @@ public class ExtensionManager implements IUserExtensions
 		this.handlers.put(name, eval);
 	}
 	
+	public Collection<IEvaluator> getEvaluators()
+	{
+		return this.getHandlers().values();
+	}
+	
 	@Override
     public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
     {
