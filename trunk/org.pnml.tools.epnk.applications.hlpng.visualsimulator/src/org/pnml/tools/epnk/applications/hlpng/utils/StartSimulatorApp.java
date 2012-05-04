@@ -1,10 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
-import geditor.GObject;
-
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
@@ -29,7 +25,6 @@ import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
 import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
 import org.pnml.tools.epnk.applications.hlpng.functions.READY;
 import org.pnml.tools.epnk.applications.hlpng.functions.TRIGGER;
-import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
@@ -60,8 +55,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
 import dk.dtu.imm.se2.group6.visual.Animator;
-
-import Appearence.Shape;
 
 import visualsimulationconfig.VisualSimulatorConfig;
 import visualsimulationconfig.VisualsimulationconfigPackage;
@@ -102,39 +95,34 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			EvaluationManager evaluationManager = createEvaluationManager();
 			
 			// init the reversible operation manager
-			ReversibleOperationManager reversibleOperationManager = createReversibleOperationManager(evaluationManager);
+			ReversibleOperationManager reversibleOperationManager = 
+					createReversibleOperationManager(evaluationManager);
 					
 			// init the comparison manager
-			ComparisonManager comparisonManager = createComparisonManager(evaluationManager, reversibleOperationManager);
-			
-			// creates a simulator
-			VisualSimulator application = new VisualSimulator();
+			ComparisonManager comparisonManager = 
+					createComparisonManager(evaluationManager, reversibleOperationManager);
 			
 			// init animator
 			Animator animator = createAnimator(filename.replaceFirst(pnfile.getName(), ""));
-			animator.setSimulator(application);
-			application.setAnimator(animator);		
+			
 			// init config
 			VisualSimulatorConfig config = (VisualSimulatorConfig)resource.getContents().get(0);
 			
 			// init extension manager
-			evaluationManager.register(UserOperatorImpl.class, 
-					createExtensionManager(config, animator, application));
+			ExtensionManager extensionManager = createExtensionManager(animator);
+			evaluationManager.register(UserOperatorImpl.class, extensionManager);
 					
 			// init HLPNG simualtor
-			HLSimulator hlSimulator = new HLSimulator(petrinet, evaluationManager, 
+			VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
 					comparisonManager, reversibleOperationManager,
-					Display.getCurrent().getSystemFont(), false);
-			application.setSimulator(hlSimulator);
-			
+					Display.getCurrent().getSystemFont(), animator, 
+					config.getGeometry().getGlobalAppearancePath(), 
+					config.getGeometry(), config.getShapes(), extensionManager);
+
 //			 registers the simulator
 			Activator activator = Activator.getInstance();
 			ApplicationRegistry registry = activator.getApplicationRegistry();
-			registry.addApplication(application);
-			
-			// make animator visible
-			animator.setVisible(true);
-			animator.initRequested();
+			registry.addApplication(simulator);
 		}
 		else
 		{
@@ -227,52 +215,20 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		return comparisonManager;
 	}
 	
-	private static ExtensionManager createExtensionManager(VisualSimulatorConfig config, 
-			Animator animator, VisualSimulator simulator)
+	private static ExtensionManager createExtensionManager(Animator animator)
 	{
-		String globalAppearencepath = config.getGeometry().getGlobalAppearancePath();
-
-		Map<String, GObject> geometryMap = new HashMap<String, GObject>();
-		{
-			for(GObject g : config.getGeometry().getGeometryObjects())
-			{
-				if(g.getId() != null)
-				{
-					geometryMap.put(g.getId(), g);
-					try
-					{
-						int id = animator.createStaticItem(g, null, globalAppearencepath);
-						simulator.registerStaticItem(g.getId(), id);
-					}
-					catch(Exception e)
-					{
-						System.err.println("WRN: failed to create static item: " + e);
-					}
-				}
-			}
-		}
-		
-		Map<String, Shape> shapeMap = new HashMap<String, Shape>();
-		{
-			for(Shape s : config.getShapes().getAppearence())
-			{
-				shapeMap.put(s.getId(), s);
-				int id = animator.createModel(s, false);
-				simulator.registerModel(s.getId(), id);
-			}
-		}
 		ExtensionManager extensionManager = new ExtensionManager();
 		{
 			extensionManager.register("APPEAR", 
-					new APPEAR(geometryMap, shapeMap, animator, simulator));
+					new APPEAR(animator));
 			extensionManager.register("APPEAR_POINT", 
-					new APPEAR_POINT(geometryMap, shapeMap, animator, simulator));
+					new APPEAR_POINT(animator));
 			extensionManager.register("MOVE", 
-					new MOVE(geometryMap, shapeMap, animator, simulator));
+					new MOVE(animator));
 			extensionManager.register("READY", 
-					new READY(geometryMap, shapeMap, animator, simulator));
+					new READY(animator));
 			extensionManager.register("TRIGGER", 
-					new TRIGGER(geometryMap, shapeMap, animator, simulator));
+					new TRIGGER(animator));
 		}
 		return extensionManager;
 	}

@@ -26,15 +26,9 @@ public abstract class AbstractFunction implements IEvaluator
 	protected IAnimator animator = null;
 	protected IVisualSimulator visualSimulator = null;
 	
-	public AbstractFunction(Map<String, GObject> geometryMap,
-			Map<String, Shape> shapeMap,
-			IAnimator animator, IVisualSimulator visualSimulator)
+	public AbstractFunction(IAnimator animator)
 	{
-		this.geometryMap = geometryMap;
-		this.shapeMap = shapeMap;
-		
 		this.animator = animator;
-		this.visualSimulator = visualSimulator;
 	}
 	
 	@Override
