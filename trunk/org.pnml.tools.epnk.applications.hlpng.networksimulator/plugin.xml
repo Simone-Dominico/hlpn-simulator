@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet"
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.startsimulatorapp">
+         <menu
+               label="ePNK"
+               path="additions"
+               id="org.pnml.tools.epnk.actions.standardmenu">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.pnml.tools.epnk.applications.hlpng.utils.StartSimulatorApp"
+               enablesFor="1"
+               id="org.pnml.tools.epnk.applications.hlpng.simulator.newAction"
+               label="Start Network Simulator App"
+               menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
+               tooltip="Start a high level Petri Net simulator for network analysis">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
