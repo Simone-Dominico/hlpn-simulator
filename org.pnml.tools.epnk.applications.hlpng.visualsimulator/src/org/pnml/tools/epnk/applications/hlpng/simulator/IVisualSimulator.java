@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.utils;
+package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import simulator.ISimulator;
 

@@ -25,6 +25,7 @@ import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
 import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
 import org.pnml.tools.epnk.applications.hlpng.functions.READY;
 import org.pnml.tools.epnk.applications.hlpng.functions.TRIGGER;
+import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
