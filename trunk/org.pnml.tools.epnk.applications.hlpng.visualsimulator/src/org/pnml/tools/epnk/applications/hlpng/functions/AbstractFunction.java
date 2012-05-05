@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.simulator.IVisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
-import org.pnml.tools.epnk.applications.hlpng.utils.IVisualSimulator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 

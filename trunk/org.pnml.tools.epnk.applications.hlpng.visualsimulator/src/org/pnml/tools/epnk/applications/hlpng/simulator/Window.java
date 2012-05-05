@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.utils;
+package org.pnml.tools.epnk.applications.hlpng.simulator;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
