@@ -5,11 +5,11 @@ Bundle-SymbolicName: org.pnml.tools.epnk.applications.hlpng.simulator; singleton
 Bundle-Version: 0.1
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.pnml.tools.epnk.editor;bundle-version="0.9.3",
- org.pnml.tools.epnk.applications;bundle-version="0.1.0",
  org.eclipse.draw2d;bundle-version="3.7.1";visibility:=reexport,
  org.eclipse.gef;bundle-version="3.7.1",
  org.junit,
+ org.pnml.tools.epnk.applications;bundle-version="0.1.0",
+ org.pnml.tools.epnk.editor;bundle-version="0.9.3",
  org.pnml.tools.epnk.pntypes.hlpngs.datatypes;bundle-version="0.9.2",
  org.pnml.tools.epnk.pntypes.hlpng.pntd;bundle-version="0.9.3"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
