@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
@@ -20,29 +21,51 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 public class HLSimulator extends Application 
 	implements IApplicationWithPresentation, ISimulator
 {
-	private IPresentationManager presentationManager = null;
-	private NetMarkingManager netMarkingManager = null;
+	protected IPresentationManager presentationManager = null;
+	protected NetMarkingManager netMarkingManager = null;
+	
+	protected Font font = null;
+	protected FlatAccess flatAccess = null;
+	protected EvaluationManager evaluationManager = null; 
+	protected ComparisonManager comparisonManager = null; 
+	protected ReversibleOperationManager reversibleOperationManager = null;
 	
 	private Action[] actions;
 	
 	public HLSimulator(PetriNet petrinet, EvaluationManager evaluationManager, 
-			ComparisonManager comparisonManager, ReversibleOperationManager reversibleOperationManager)
+			ComparisonManager comparisonManager, 
+			ReversibleOperationManager reversibleOperationManager, Font font,
+			boolean init)
     {
 	    super(petrinet);
 	    
-	    FlatAccess flatAccess = new FlatAccess(this.petrinet);
+	    this.evaluationManager = evaluationManager;
+	    this.comparisonManager = comparisonManager;
+	    this.reversibleOperationManager = reversibleOperationManager;
+	    
+	    this.font = font;
+	    this.flatAccess = new FlatAccess(this.petrinet);
 		
-	    this.presentationManager = new SimulatorPresentationManager(this);
+	    if(init)
+	    {
+	    	init();	
+	    }
+    }
+	
+	@Override
+	public void init()
+	{
+		this.presentationManager = new SimulatorPresentationManager(this, font);
 		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, 
 				evaluationManager, comparisonManager, reversibleOperationManager);
 		
-		NetMarking netMarking = this.netMarkingManager.createNetMarking();
-		NetAnnotations netAnnotations = this.getNetAnnotations();
+		NetMarking netMarking = netMarkingManager.createNetMarking();
+		NetAnnotations netAnnotations = getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);
 		
 		updateActionEnabledness();
-    }
+	}
 	
 	@Override
     public void fire(Transition transition, AbstractMenuItem abstractAction)
@@ -61,6 +84,18 @@ public class HLSimulator extends Application
 			netAnnotations.getNetAnnotations().add(netMarking);
 			netAnnotations.setCurrent(netMarking);
 		}
+    }
+	
+	@Override
+    public void checkTransitions()
+    {
+		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
+		
+		NetMarking netMarking = this.netMarkingManager.createNetMarking(prevMarking);
+		
+		NetAnnotations netAnnotations = this.getNetAnnotations();
+		netAnnotations.getNetAnnotations().add(netMarking);
+		netAnnotations.setCurrent(netMarking);
     }
 	
 	public IPresentationManager getPresentationManager()

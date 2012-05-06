@@ -231,6 +231,45 @@ public class NetMarkingManager
 		return netMarking;
 	}
 	
+	public NetMarking createNetMarking(NetMarking prevMarking)
+	{
+		// creates a new net marking - applying a layered approach
+		NetMarking netMarking = new NetMarking();
+		netMarking.setNet(petrinet);
+		
+		// copy all place markings
+		for(AbstractMarking marking : prevMarking.getMarkings())
+		{
+			if(marking instanceof PlaceMarking)
+			{
+				netMarking.getMarkings().add(marking);	
+				netMarking.getObjectAnnotations().add(marking);
+			}
+		}
+
+		// create a hash map for efficiency
+		Map<String, PlaceMarking> runtimeValues = new HashMap<String, PlaceMarking>();
+		for(AbstractMarking marking : netMarking.getMarkings())
+    	{
+	    	if(marking instanceof PlaceMarking)
+	    	{
+	    		PlaceMarking pMarking = (PlaceMarking) marking;
+	    		runtimeValues.put(pMarking.getPlace().getId(), pMarking);
+	    	}
+    	}
+	    
+		// creates a marking for enabled transitions
+		List<Pair<Transition, List<FiringMode>>> enabledTransitions =
+				checkTransitions(flatAccess.getTransitions(), runtimeValues, this.transitionManager);
+		for(TransitionMarking marking : getTransitionMarkings(enabledTransitions))
+		{
+			netMarking.getMarkings().add(marking);
+			netMarking.getObjectAnnotations().add(marking);
+		}
+		
+		return netMarking;
+	}
+	
 	private static List<TransitionMarking> getTransitionMarkings(
 			List<Pair<Transition, List<FiringMode>>> enabledTransitions)
 	{

@@ -6,6 +6,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.pnml.tools.epnk.applications.activator.Activator;
@@ -58,8 +59,11 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the comparison manager
 		ComparisonManager comparisonManager = createComparisonManager(evaluationManager, reversibleOperationManager);
 
+		// creates a simulator
 		HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
-				comparisonManager, reversibleOperationManager);
+				comparisonManager, reversibleOperationManager,
+				Display.getDefault().getSystemFont(), true);
+		// registers the simulator
 		Activator activator = Activator.getInstance();
 		ApplicationRegistry registry = activator.getApplicationRegistry();
 		registry.addApplication(application);
