@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.presentation;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
@@ -17,12 +17,15 @@ public class SimulatorPresentationManager implements IPresentationManager
 {
 	protected SelectionHandler selectionHandler = null;
 	protected ISimulator simulator = null;
+	protected Font font = null;
 	
-	public SimulatorPresentationManager(ISimulator simulator)
+	public SimulatorPresentationManager(ISimulator simulator, Font font)
 	{
 		this.simulator = simulator;
 		
 		this.selectionHandler = new SelectionHandler();
+		
+		this.font = font;
 	}
 	
 	public IFigure handle(ObjectAnnotation objectAnnotation, 
@@ -52,8 +55,8 @@ public class SimulatorPresentationManager implements IPresentationManager
 			}
 			
 			IFigure mainFigure = graphicalEditPart.getFigure();
-			Label label = new TopRightLabel(Display.getCurrent().getSystemFont(), 
-					marking.getMsValue().toString(), mainFigure);
+
+			Label label = new TopRightLabel(font, marking.getMsValue().toString(), mainFigure);
 			
 			return new LabelLayer(mainFigure, label);
 		}
