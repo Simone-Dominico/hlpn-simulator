@@ -45,15 +45,6 @@ public interface NetworkmodelFactory extends EFactory
     Node createNode();
 
     /**
-     * Returns a new object of class '<em>Undirected Edge</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Undirected Edge</em>'.
-     * @generated
-     */
-    UndirectedEdge createUndirectedEdge();
-
-    /**
      * Returns a new object of class '<em>Directed Edge</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -61,6 +52,15 @@ public interface NetworkmodelFactory extends EFactory
      * @generated
      */
     DirectedEdge createDirectedEdge();
+
+    /**
+     * Returns a new object of class '<em>Category</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Category</em>'.
+     * @generated
+     */
+    Category createCategory();
 
     /**
      * Returns the package supported by this factory.

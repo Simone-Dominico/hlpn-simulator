@@ -8,7 +8,8 @@ package networkmodel.impl;
 
 import java.util.Collection;
 
-import networkmodel.AbstractEdge;
+import networkmodel.Category;
+import networkmodel.DirectedEdge;
 import networkmodel.NetworkmodelPackage;
 import networkmodel.Node;
 
@@ -35,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link networkmodel.impl.NodeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link networkmodel.impl.NodeImpl#getOut <em>Out</em>}</li>
  *   <li>{@link networkmodel.impl.NodeImpl#getIn <em>In</em>}</li>
+ *   <li>{@link networkmodel.impl.NodeImpl#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,7 +72,7 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * @generated
      * @ordered
      */
-    protected EList<AbstractEdge> out;
+    protected EList<DirectedEdge> out;
 
     /**
      * The cached value of the '{@link #getIn() <em>In</em>}' reference list.
@@ -80,7 +82,17 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * @generated
      * @ordered
      */
-    protected EList<AbstractEdge> in;
+    protected EList<DirectedEdge> in;
+
+    /**
+     * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCategory()
+     * @generated
+     * @ordered
+     */
+    protected EList<Category> category;
 
     /**
      * <!-- begin-user-doc -->
@@ -131,11 +143,11 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<AbstractEdge> getOut()
+    public EList<DirectedEdge> getOut()
     {
         if (out == null)
         {
-            out = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.NODE__OUT, NetworkmodelPackage.ABSTRACT_EDGE__SOURCE);
+            out = new EObjectWithInverseResolvingEList<DirectedEdge>(DirectedEdge.class, this, NetworkmodelPackage.NODE__OUT, NetworkmodelPackage.DIRECTED_EDGE__SOURCE);
         }
         return out;
     }
@@ -145,13 +157,27 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<AbstractEdge> getIn()
+    public EList<DirectedEdge> getIn()
     {
         if (in == null)
         {
-            in = new EObjectWithInverseResolvingEList<AbstractEdge>(AbstractEdge.class, this, NetworkmodelPackage.NODE__IN, NetworkmodelPackage.ABSTRACT_EDGE__TARGET);
+            in = new EObjectWithInverseResolvingEList<DirectedEdge>(DirectedEdge.class, this, NetworkmodelPackage.NODE__IN, NetworkmodelPackage.DIRECTED_EDGE__TARGET);
         }
         return in;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<Category> getCategory()
+    {
+        if (category == null)
+        {
+            category = new EObjectWithInverseResolvingEList.ManyInverse<Category>(Category.class, this, NetworkmodelPackage.NODE__CATEGORY, NetworkmodelPackage.CATEGORY__NODE);
+        }
+        return category;
     }
 
     /**
@@ -169,6 +195,8 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getOut()).basicAdd(otherEnd, msgs);
             case NetworkmodelPackage.NODE__IN:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getIn()).basicAdd(otherEnd, msgs);
+            case NetworkmodelPackage.NODE__CATEGORY:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getCategory()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -187,6 +215,8 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return ((InternalEList<?>)getOut()).basicRemove(otherEnd, msgs);
             case NetworkmodelPackage.NODE__IN:
                 return ((InternalEList<?>)getIn()).basicRemove(otherEnd, msgs);
+            case NetworkmodelPackage.NODE__CATEGORY:
+                return ((InternalEList<?>)getCategory()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -207,6 +237,8 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return getOut();
             case NetworkmodelPackage.NODE__IN:
                 return getIn();
+            case NetworkmodelPackage.NODE__CATEGORY:
+                return getCategory();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -227,11 +259,15 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return;
             case NetworkmodelPackage.NODE__OUT:
                 getOut().clear();
-                getOut().addAll((Collection<? extends AbstractEdge>)newValue);
+                getOut().addAll((Collection<? extends DirectedEdge>)newValue);
                 return;
             case NetworkmodelPackage.NODE__IN:
                 getIn().clear();
-                getIn().addAll((Collection<? extends AbstractEdge>)newValue);
+                getIn().addAll((Collection<? extends DirectedEdge>)newValue);
+                return;
+            case NetworkmodelPackage.NODE__CATEGORY:
+                getCategory().clear();
+                getCategory().addAll((Collection<? extends Category>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -256,6 +292,9 @@ public class NodeImpl extends NetworkObjectImpl implements Node
             case NetworkmodelPackage.NODE__IN:
                 getIn().clear();
                 return;
+            case NetworkmodelPackage.NODE__CATEGORY:
+                getCategory().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -276,6 +315,8 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return out != null && !out.isEmpty();
             case NetworkmodelPackage.NODE__IN:
                 return in != null && !in.isEmpty();
+            case NetworkmodelPackage.NODE__CATEGORY:
+                return category != null && !category.isEmpty();
         }
         return super.eIsSet(featureID);
     }

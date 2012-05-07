@@ -8,6 +8,7 @@ package networkmodel.impl;
 
 import java.util.Collection;
 
+import networkmodel.Category;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelPackage;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link networkmodel.impl.NetworkImpl#getNetwork <em>Network</em>}</li>
+ *   <li>{@link networkmodel.impl.NetworkImpl#getCategories <em>Categories</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +50,16 @@ public class NetworkImpl extends EObjectImpl implements Network
      * @ordered
      */
     protected EList<NetworkObject> network;
+
+    /**
+     * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCategories()
+     * @generated
+     * @ordered
+     */
+    protected EList<Category> categories;
 
     /**
      * <!-- begin-user-doc -->
@@ -89,6 +101,20 @@ public class NetworkImpl extends EObjectImpl implements Network
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<Category> getCategories()
+    {
+        if (categories == null)
+        {
+            categories = new EObjectContainmentEList<Category>(Category.class, this, NetworkmodelPackage.NETWORK__CATEGORIES);
+        }
+        return categories;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
     {
@@ -96,6 +122,8 @@ public class NetworkImpl extends EObjectImpl implements Network
         {
             case NetworkmodelPackage.NETWORK__NETWORK:
                 return ((InternalEList<?>)getNetwork()).basicRemove(otherEnd, msgs);
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
+                return ((InternalEList<?>)getCategories()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -112,6 +140,8 @@ public class NetworkImpl extends EObjectImpl implements Network
         {
             case NetworkmodelPackage.NETWORK__NETWORK:
                 return getNetwork();
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
+                return getCategories();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -131,6 +161,10 @@ public class NetworkImpl extends EObjectImpl implements Network
                 getNetwork().clear();
                 getNetwork().addAll((Collection<? extends NetworkObject>)newValue);
                 return;
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
+                getCategories().clear();
+                getCategories().addAll((Collection<? extends Category>)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -148,6 +182,9 @@ public class NetworkImpl extends EObjectImpl implements Network
             case NetworkmodelPackage.NETWORK__NETWORK:
                 getNetwork().clear();
                 return;
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
+                getCategories().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -164,6 +201,8 @@ public class NetworkImpl extends EObjectImpl implements Network
         {
             case NetworkmodelPackage.NETWORK__NETWORK:
                 return network != null && !network.isEmpty();
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
+                return categories != null && !categories.isEmpty();
         }
         return super.eIsSet(featureID);
     }

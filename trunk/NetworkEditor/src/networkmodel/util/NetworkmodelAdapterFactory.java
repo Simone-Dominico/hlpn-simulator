@@ -89,16 +89,6 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
                 return createNodeAdapter();
             }
             @Override
-            public Adapter caseAbstractEdge(AbstractEdge object)
-            {
-                return createAbstractEdgeAdapter();
-            }
-            @Override
-            public Adapter caseUndirectedEdge(UndirectedEdge object)
-            {
-                return createUndirectedEdgeAdapter();
-            }
-            @Override
             public Adapter caseNetworkObject(NetworkObject object)
             {
                 return createNetworkObjectAdapter();
@@ -107,6 +97,11 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
             public Adapter caseDirectedEdge(DirectedEdge object)
             {
                 return createDirectedEdgeAdapter();
+            }
+            @Override
+            public Adapter caseCategory(Category object)
+            {
+                return createCategoryAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object)
@@ -161,36 +156,6 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link networkmodel.AbstractEdge <em>Abstract Edge</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see networkmodel.AbstractEdge
-     * @generated
-     */
-    public Adapter createAbstractEdgeAdapter()
-    {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link networkmodel.UndirectedEdge <em>Undirected Edge</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see networkmodel.UndirectedEdge
-     * @generated
-     */
-    public Adapter createUndirectedEdgeAdapter()
-    {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link networkmodel.NetworkObject <em>Network Object</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -216,6 +181,21 @@ public class NetworkmodelAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createDirectedEdgeAdapter()
+    {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link networkmodel.Category <em>Category</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see networkmodel.Category
+     * @generated
+     */
+    public Adapter createCategoryAdapter()
     {
         return null;
     }

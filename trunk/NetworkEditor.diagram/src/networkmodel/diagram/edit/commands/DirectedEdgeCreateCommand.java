@@ -78,7 +78,7 @@ public class DirectedEdgeCreateCommand extends EditElementCommand
 			return false;
 		}
 		return NetworkBaseItemSemanticEditPolicy.getLinkConstraints()
-		        .canCreateDirectedEdge_4002(getContainer(), getSource(),
+		        .canCreateDirectedEdge_4001(getContainer(), getSource(),
 		                getTarget());
 	}
 

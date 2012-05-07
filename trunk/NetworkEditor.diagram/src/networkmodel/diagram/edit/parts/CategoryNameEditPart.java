@@ -47,14 +47,14 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class NodeLabelEditPart extends CompartmentEditPart implements
+public class CategoryNameEditPart extends CompartmentEditPart implements
         ITextAwareEditPart
 {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 5002;
+	public static final int VISUAL_ID = 5001;
 
 	/**
 	 * @generated
@@ -79,7 +79,7 @@ public class NodeLabelEditPart extends CompartmentEditPart implements
 	/**
 	 * @generated
 	 */
-	public NodeLabelEditPart(View view)
+	public CategoryNameEditPart(View view)
 	{
 		super(view);
 	}
@@ -343,10 +343,10 @@ public class NodeLabelEditPart extends CompartmentEditPart implements
 		{
 			parser = NetworkParserProvider
 			        .getParser(
-			                NetworkElementTypes.Node_2002,
+			                NetworkElementTypes.Category_2001,
 			                getParserElement(),
 			                NetworkVisualIDRegistry
-			                        .getType(networkmodel.diagram.edit.parts.NodeLabelEditPart.VISUAL_ID));
+			                        .getType(networkmodel.diagram.edit.parts.CategoryNameEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

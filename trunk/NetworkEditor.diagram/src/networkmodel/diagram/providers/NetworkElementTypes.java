@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 import networkmodel.NetworkmodelPackage;
+import networkmodel.diagram.edit.parts.CategoryEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
-import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkDiagramEditorPlugin;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -58,15 +58,15 @@ public class NetworkElementTypes
 	/**
 	 * @generated
 	 */
-	public static final IElementType Node_2001 = getElementType("NetworkEditor.diagram.Node_2001"); //$NON-NLS-1$
+	public static final IElementType Category_2001 = getElementType("NetworkEditor.diagram.Category_2001"); //$NON-NLS-1$
 	/**
 	 * @generated
 	 */
-	public static final IElementType UndirectedEdge_4001 = getElementType("NetworkEditor.diagram.UndirectedEdge_4001"); //$NON-NLS-1$
+	public static final IElementType Node_2002 = getElementType("NetworkEditor.diagram.Node_2002"); //$NON-NLS-1$
 	/**
 	 * @generated
 	 */
-	public static final IElementType DirectedEdge_4002 = getElementType("NetworkEditor.diagram.DirectedEdge_4002"); //$NON-NLS-1$
+	public static final IElementType DirectedEdge_4001 = getElementType("NetworkEditor.diagram.DirectedEdge_4001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -203,12 +203,12 @@ public class NetworkElementTypes
 			elements.put(Network_1000,
 			        NetworkmodelPackage.eINSTANCE.getNetwork());
 
-			elements.put(Node_2001, NetworkmodelPackage.eINSTANCE.getNode());
+			elements.put(Category_2001,
+			        NetworkmodelPackage.eINSTANCE.getCategory());
 
-			elements.put(UndirectedEdge_4001,
-			        NetworkmodelPackage.eINSTANCE.getUndirectedEdge());
+			elements.put(Node_2002, NetworkmodelPackage.eINSTANCE.getNode());
 
-			elements.put(DirectedEdge_4002,
+			elements.put(DirectedEdge_4001,
 			        NetworkmodelPackage.eINSTANCE.getDirectedEdge());
 		}
 		return (ENamedElement) elements.get(type);
@@ -231,9 +231,9 @@ public class NetworkElementTypes
 		{
 			KNOWN_ELEMENT_TYPES = new HashSet<IElementType>();
 			KNOWN_ELEMENT_TYPES.add(Network_1000);
-			KNOWN_ELEMENT_TYPES.add(Node_2001);
-			KNOWN_ELEMENT_TYPES.add(UndirectedEdge_4001);
-			KNOWN_ELEMENT_TYPES.add(DirectedEdge_4002);
+			KNOWN_ELEMENT_TYPES.add(Category_2001);
+			KNOWN_ELEMENT_TYPES.add(Node_2002);
+			KNOWN_ELEMENT_TYPES.add(DirectedEdge_4001);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -247,12 +247,12 @@ public class NetworkElementTypes
 		{
 			case NetworkEditPart.VISUAL_ID:
 				return Network_1000;
+			case CategoryEditPart.VISUAL_ID:
+				return Category_2001;
 			case NodeEditPart.VISUAL_ID:
-				return Node_2001;
-			case UndirectedEdgeEditPart.VISUAL_ID:
-				return UndirectedEdge_4001;
+				return Node_2002;
 			case DirectedEdgeEditPart.VISUAL_ID:
-				return DirectedEdge_4002;
+				return DirectedEdge_4001;
 		}
 		return null;
 	}

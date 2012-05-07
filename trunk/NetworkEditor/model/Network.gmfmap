@@ -7,6 +7,26 @@
     xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
   <nodes>
     <containmentFeature
+        href="Network.ecore#//Network/categories"/>
+    <ownedChild>
+      <domainMetaElement
+          href="Network.ecore#//Category"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="Network.gmfgraph#CategoryName"/>
+        <features
+            href="Network.ecore#//Category/name"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="Network.gmftool#//@palette/@tools.0/@tools.2"/>
+      <diagramNode
+          href="Network.gmfgraph#Category"/>
+    </ownedChild>
+  </nodes>
+  <nodes>
+    <containmentFeature
         href="Network.ecore#//Network/network"/>
     <ownedChild>
       <domainMetaElement
@@ -27,37 +47,20 @@
   </nodes>
   <links>
     <domainMetaElement
-        href="Network.ecore#//UndirectedEdge"/>
+        href="Network.ecore#//DirectedEdge"/>
     <containmentFeature
         href="Network.ecore#//Network/network"/>
     <tool
         xsi:type="gmftool:CreationTool"
         href="Network.gmftool#//@palette/@tools.0/@tools.1"/>
     <diagramLink
-        href="Network.gmfgraph#UndirectedEdge"/>
-    <sourceMetaFeature
-        xsi:type="ecore:EReference"
-        href="Network.ecore#//AbstractEdge/source"/>
-    <linkMetaFeature
-        xsi:type="ecore:EReference"
-        href="Network.ecore#//AbstractEdge/target"/>
-  </links>
-  <links>
-    <domainMetaElement
-        href="Network.ecore#//DirectedEdge"/>
-    <containmentFeature
-        href="Network.ecore#//Network/network"/>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="Network.gmftool#//@palette/@tools.0/@tools.2"/>
-    <diagramLink
         href="Network.gmfgraph#DirectedEdge"/>
     <sourceMetaFeature
         xsi:type="ecore:EReference"
-        href="Network.ecore#//AbstractEdge/source"/>
+        href="Network.ecore#//DirectedEdge/source"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
-        href="Network.ecore#//AbstractEdge/target"/>
+        href="Network.ecore#//DirectedEdge/target"/>
   </links>
   <diagram>
     <diagramCanvas

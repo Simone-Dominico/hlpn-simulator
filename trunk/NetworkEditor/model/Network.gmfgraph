@@ -14,24 +14,17 @@
             xsi:type="gmfgraph:FlowLayout"/>
         <children
             xsi:type="gmfgraph:Label"
-            name="NodeLabelFigure"
-            text="&lt;...>"/>
+            name="NodeFigureLabel"/>
       </actualFigure>
       <accessors
           figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="UndirectedEdgeFigure">
-      <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="UndirectedEdgeFigure"/>
     </descriptors>
     <descriptors
         name="DirectedEdgeFigure">
       <actualFigure
           xsi:type="gmfgraph:PolylineConnection"
           name="DirectedEdgeFigure"
-          targetDecoration="//@figures.0/@descriptors.2/@actualFigure/@children.0">
+          targetDecoration="//@figures.0/@descriptors.1/@actualFigure/@children.0">
         <children
             xsi:type="gmfgraph:PolylineDecoration"
             name="targetDecoration">
@@ -45,13 +38,27 @@
         </children>
       </actualFigure>
     </descriptors>
+    <descriptors
+        name="CategoryFigure">
+      <actualFigure
+          xsi:type="gmfgraph:RoundedRectangle"
+          name="CategoryFigure">
+        <layout
+            xsi:type="gmfgraph:FlowLayout"/>
+        <children
+            xsi:type="gmfgraph:Label"
+            name="CategoryFigureLabel"/>
+      </actualFigure>
+      <accessors
+          figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
+    </descriptors>
   </figures>
   <nodes
       name="Node"
       figure="NodeFigure"/>
-  <connections
-      name="UndirectedEdge"
-      figure="UndirectedEdgeFigure"/>
+  <nodes
+      name="Category"
+      figure="CategoryFigure"/>
   <connections
       name="DirectedEdge"
       figure="DirectedEdgeFigure"/>
@@ -59,4 +66,8 @@
       name="NodeLabel"
       figure="NodeFigure"
       accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels
+      name="CategoryName"
+      figure="CategoryFigure"
+      accessor="//@figures.0/@descriptors.2/@accessors.0"/>
 </gmfgraph:Canvas>

@@ -6,14 +6,13 @@
  */
 package networkmodel.impl;
 
-import networkmodel.AbstractEdge;
+import networkmodel.Category;
 import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelFactory;
 import networkmodel.NetworkmodelPackage;
 import networkmodel.Node;
-import networkmodel.UndirectedEdge;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -49,20 +48,6 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    private EClass abstractEdgeEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass undirectedEdgeEClass = null;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     private EClass networkObjectEClass = null;
 
     /**
@@ -71,6 +56,13 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * @generated
      */
     private EClass directedEdgeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass categoryEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -160,6 +152,16 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getNetwork_Categories()
+    {
+        return (EReference)networkEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getNode()
     {
         return nodeEClass;
@@ -200,39 +202,9 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
      * <!-- end-user-doc -->
      * @generated
      */
-    public EClass getAbstractEdge()
+    public EReference getNode_Category()
     {
-        return abstractEdgeEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getAbstractEdge_Source()
-    {
-        return (EReference)abstractEdgeEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getAbstractEdge_Target()
-    {
-        return (EReference)abstractEdgeEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getUndirectedEdge()
-    {
-        return undirectedEdgeEClass;
+        return (EReference)nodeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -253,6 +225,56 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
     public EClass getDirectedEdge()
     {
         return directedEdgeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDirectedEdge_Target()
+    {
+        return (EReference)directedEdgeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDirectedEdge_Source()
+    {
+        return (EReference)directedEdgeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCategory()
+    {
+        return categoryEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCategory_Name()
+    {
+        return (EAttribute)categoryEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCategory_Node()
+    {
+        return (EReference)categoryEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -287,21 +309,23 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
         // Create classes and their features
         networkEClass = createEClass(NETWORK);
         createEReference(networkEClass, NETWORK__NETWORK);
+        createEReference(networkEClass, NETWORK__CATEGORIES);
 
         nodeEClass = createEClass(NODE);
         createEAttribute(nodeEClass, NODE__LABEL);
         createEReference(nodeEClass, NODE__OUT);
         createEReference(nodeEClass, NODE__IN);
-
-        abstractEdgeEClass = createEClass(ABSTRACT_EDGE);
-        createEReference(abstractEdgeEClass, ABSTRACT_EDGE__SOURCE);
-        createEReference(abstractEdgeEClass, ABSTRACT_EDGE__TARGET);
-
-        undirectedEdgeEClass = createEClass(UNDIRECTED_EDGE);
+        createEReference(nodeEClass, NODE__CATEGORY);
 
         networkObjectEClass = createEClass(NETWORK_OBJECT);
 
         directedEdgeEClass = createEClass(DIRECTED_EDGE);
+        createEReference(directedEdgeEClass, DIRECTED_EDGE__TARGET);
+        createEReference(directedEdgeEClass, DIRECTED_EDGE__SOURCE);
+
+        categoryEClass = createEClass(CATEGORY);
+        createEAttribute(categoryEClass, CATEGORY__NAME);
+        createEReference(categoryEClass, CATEGORY__NODE);
     }
 
     /**
@@ -334,28 +358,28 @@ public class NetworkmodelPackageImpl extends EPackageImpl implements Networkmode
 
         // Add supertypes to classes
         nodeEClass.getESuperTypes().add(this.getNetworkObject());
-        abstractEdgeEClass.getESuperTypes().add(this.getNetworkObject());
-        undirectedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
-        directedEdgeEClass.getESuperTypes().add(this.getAbstractEdge());
+        directedEdgeEClass.getESuperTypes().add(this.getNetworkObject());
 
         // Initialize classes and features; add operations and parameters
         initEClass(networkEClass, Network.class, "Network", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getNetwork_Network(), this.getNetworkObject(), null, "network", null, 0, -1, Network.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNetwork_Categories(), this.getCategory(), null, "categories", null, 0, -1, Network.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNode_Label(), ecorePackage.getEString(), "label", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getNode_Out(), this.getAbstractEdge(), this.getAbstractEdge_Source(), "out", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getNode_In(), this.getAbstractEdge(), this.getAbstractEdge_Target(), "in", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(abstractEdgeEClass, AbstractEdge.class, "AbstractEdge", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getAbstractEdge_Source(), this.getNode(), this.getNode_Out(), "source", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getAbstractEdge_Target(), this.getNode(), this.getNode_In(), "target", null, 1, 1, AbstractEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(undirectedEdgeEClass, UndirectedEdge.class, "UndirectedEdge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getNode_Out(), this.getDirectedEdge(), this.getDirectedEdge_Source(), "out", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNode_In(), this.getDirectedEdge(), this.getDirectedEdge_Target(), "in", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getNode_Category(), this.getCategory(), this.getCategory_Node(), "category", null, 1, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(networkObjectEClass, NetworkObject.class, "NetworkObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(directedEdgeEClass, DirectedEdge.class, "DirectedEdge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getDirectedEdge_Target(), this.getNode(), this.getNode_In(), "target", null, 1, 1, DirectedEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDirectedEdge_Source(), this.getNode(), this.getNode_Out(), "source", null, 1, 1, DirectedEdge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 0, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCategory_Node(), this.getNode(), this.getNode_Category(), "node", null, 0, -1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

@@ -81,7 +81,7 @@ public class DirectedEdgeReorientCommand extends EditElementCommand
 		}
 		Network container = (Network) getLink().eContainer();
 		return NetworkBaseItemSemanticEditPolicy.getLinkConstraints()
-		        .canExistDirectedEdge_4002(container, getLink(),
+		        .canExistDirectedEdge_4001(container, getLink(),
 		                getNewSource(), target);
 	}
 
@@ -101,7 +101,7 @@ public class DirectedEdgeReorientCommand extends EditElementCommand
 		}
 		Network container = (Network) getLink().eContainer();
 		return NetworkBaseItemSemanticEditPolicy.getLinkConstraints()
-		        .canExistDirectedEdge_4002(container, getLink(), source,
+		        .canExistDirectedEdge_4001(container, getLink(), source,
 		                getNewTarget());
 	}
 

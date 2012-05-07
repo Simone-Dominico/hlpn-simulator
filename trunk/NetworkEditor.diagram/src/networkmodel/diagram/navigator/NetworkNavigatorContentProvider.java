@@ -6,10 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import networkmodel.diagram.edit.parts.CategoryEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
-import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.Messages;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 
@@ -249,15 +249,45 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
 
-			case UndirectedEdgeEditPart.VISUAL_ID:
+			case NetworkEditPart.VISUAL_ID:
+			{
+				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
+				Diagram sv = (Diagram) view;
+				NetworkNavigatorGroup links = new NetworkNavigatorGroup(
+				        Messages.NavigatorGroupName_Network_1000_links,
+				        "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+				Collection<View> connectedViews;
+				connectedViews = getChildrenByType(Collections.singleton(sv),
+				        NetworkVisualIDRegistry
+				                .getType(CategoryEditPart.VISUAL_ID));
+				result.addAll(createNavigatorItems(connectedViews,
+				        parentElement, false));
+				connectedViews = getChildrenByType(Collections.singleton(sv),
+				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
+				result.addAll(createNavigatorItems(connectedViews,
+				        parentElement, false));
+				connectedViews = getDiagramLinksByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry
+				                .getType(DirectedEdgeEditPart.VISUAL_ID));
+				links.addChildren(createNavigatorItems(connectedViews, links,
+				        false));
+				if(!links.isEmpty())
+				{
+					result.add(links);
+				}
+				return result.toArray();
+			}
+
+			case DirectedEdgeEditPart.VISUAL_ID:
 			{
 				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
 				Edge sv = (Edge) view;
 				NetworkNavigatorGroup target = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_UndirectedEdge_4001_target,
+				        Messages.NavigatorGroupName_DirectedEdge_4001_target,
 				        "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				NetworkNavigatorGroup source = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_UndirectedEdge_4001_source,
+				        Messages.NavigatorGroupName_DirectedEdge_4001_source,
 				        "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				Collection<View> connectedViews;
 				connectedViews = getLinksTargetByType(
@@ -286,24 +316,12 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
 				Node sv = (Node) view;
 				NetworkNavigatorGroup incominglinks = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_Node_2001_incominglinks,
+				        Messages.NavigatorGroupName_Node_2002_incominglinks,
 				        "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				NetworkNavigatorGroup outgoinglinks = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_Node_2001_outgoinglinks,
+				        Messages.NavigatorGroupName_Node_2002_outgoinglinks,
 				        "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				Collection<View> connectedViews;
-				connectedViews = getIncomingLinksByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry
-				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
-				incominglinks.addChildren(createNavigatorItems(connectedViews,
-				        incominglinks, true));
-				connectedViews = getOutgoingLinksByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry
-				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
-				outgoinglinks.addChildren(createNavigatorItems(connectedViews,
-				        outgoinglinks, true));
 				connectedViews = getIncomingLinksByType(
 				        Collections.singleton(sv),
 				        NetworkVisualIDRegistry
@@ -323,69 +341,6 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 				if(!outgoinglinks.isEmpty())
 				{
 					result.add(outgoinglinks);
-				}
-				return result.toArray();
-			}
-
-			case DirectedEdgeEditPart.VISUAL_ID:
-			{
-				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
-				Edge sv = (Edge) view;
-				NetworkNavigatorGroup target = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_DirectedEdge_4002_target,
-				        "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-				NetworkNavigatorGroup source = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_DirectedEdge_4002_source,
-				        "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-				Collection<View> connectedViews;
-				connectedViews = getLinksTargetByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
-				target.addChildren(createNavigatorItems(connectedViews, target,
-				        true));
-				connectedViews = getLinksSourceByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
-				source.addChildren(createNavigatorItems(connectedViews, source,
-				        true));
-				if(!target.isEmpty())
-				{
-					result.add(target);
-				}
-				if(!source.isEmpty())
-				{
-					result.add(source);
-				}
-				return result.toArray();
-			}
-
-			case NetworkEditPart.VISUAL_ID:
-			{
-				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
-				Diagram sv = (Diagram) view;
-				NetworkNavigatorGroup links = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_Network_1000_links,
-				        "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-				Collection<View> connectedViews;
-				connectedViews = getChildrenByType(Collections.singleton(sv),
-				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
-				result.addAll(createNavigatorItems(connectedViews,
-				        parentElement, false));
-				connectedViews = getDiagramLinksByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry
-				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
-				links.addChildren(createNavigatorItems(connectedViews, links,
-				        false));
-				connectedViews = getDiagramLinksByType(
-				        Collections.singleton(sv),
-				        NetworkVisualIDRegistry
-				                .getType(DirectedEdgeEditPart.VISUAL_ID));
-				links.addChildren(createNavigatorItems(connectedViews, links,
-				        false));
-				if(!links.isEmpty())
-				{
-					result.add(links);
 				}
 				return result.toArray();
 			}

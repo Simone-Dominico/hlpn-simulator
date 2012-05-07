@@ -10,9 +10,12 @@ package networkmodel.provider;
 import java.util.Collection;
 import java.util.List;
 
+import networkmodel.NetworkmodelPackage;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -27,7 +30,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * @generated
  */
 public class DirectedEdgeItemProvider
-    extends AbstractEdgeItemProvider
+    extends NetworkObjectItemProvider
     implements
         IEditingDomainItemProvider,
         IStructuredItemContentProvider,
@@ -59,8 +62,56 @@ public class DirectedEdgeItemProvider
         {
             super.getPropertyDescriptors(object);
 
+            addTargetPropertyDescriptor(object);
+            addSourcePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
+    }
+
+    /**
+     * This adds a property descriptor for the Target feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTargetPropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_DirectedEdge_target_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_DirectedEdge_target_feature", "_UI_DirectedEdge_type"),
+                 NetworkmodelPackage.Literals.DIRECTED_EDGE__TARGET,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Source feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addSourcePropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_DirectedEdge_source_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_DirectedEdge_source_feature", "_UI_DirectedEdge_type"),
+                 NetworkmodelPackage.Literals.DIRECTED_EDGE__SOURCE,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
     }
 
     /**

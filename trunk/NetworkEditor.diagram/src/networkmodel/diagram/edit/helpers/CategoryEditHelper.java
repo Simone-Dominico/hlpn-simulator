@@ -3,6 +3,6 @@ package networkmodel.diagram.edit.helpers;
 /**
  * @generated
  */
-public class UndirectedEdgeEditHelper extends NetworkBaseEditHelper
+public class CategoryEditHelper extends NetworkBaseEditHelper
 {
 }

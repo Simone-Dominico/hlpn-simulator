@@ -41,8 +41,9 @@ public class NetworkModelingAssistantProvider extends ModelingAssistantProvider
 		        .getAdapter(IGraphicalEditPart.class);
 		if(editPart instanceof NetworkEditPart)
 		{
-			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-			types.add(NetworkElementTypes.Node_2001);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
+			types.add(NetworkElementTypes.Category_2001);
+			types.add(NetworkElementTypes.Node_2002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
