@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -19,7 +17,7 @@ public class BooleansEval implements IEvaluator
 {
 
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		if(operator instanceof Or)
 		{
@@ -31,12 +29,10 @@ public class BooleansEval implements IEvaluator
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			result.setValue(false);
-			
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
-			for(int i = 0; i < list.size() && !result.getValue(); i++)
+
+			for(int i = 0; i < values.size() && !result.getValue(); i++)
 			{
-				AbstractValue value = list.get(i);
+				AbstractValue value = values.get(i);
 				if(((BooleanValue)value).getValue())
 				{
 					result.setValue(true);
@@ -55,12 +51,10 @@ public class BooleansEval implements IEvaluator
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			result.setValue(true);
-			
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
-			for(int i = 0; i < list.size() && result.getValue(); i++)
+
+			for(int i = 0; i < values.size() && result.getValue(); i++)
 			{
-				AbstractValue value = list.get(i);
+				AbstractValue value = values.get(i);
 				if(!((BooleanValue)value).getValue())
 				{
 					result.setValue(false);
@@ -76,12 +70,10 @@ public class BooleansEval implements IEvaluator
 				throw new RuntimeException("Wrong number of arguments!");
 			}
 				
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)list.get(0)).getN() != ((NumberValue)list.get(1)).getN())
+			if(((NumberValue)values.get(0)).getN() != ((NumberValue)values.get(1)).getN())
 			{
 				result.setValue(true);
 			}
@@ -98,13 +90,11 @@ public class BooleansEval implements IEvaluator
 			{
 				throw new RuntimeException("Wrong number of arguments!");
 			}
-				
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
+
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)list.get(0)).getN() == ((NumberValue)list.get(1)).getN())
+			if(((NumberValue)values.get(0)).getN() == ((NumberValue)values.get(1)).getN())
 			{
 				result.setValue(true);
 			}

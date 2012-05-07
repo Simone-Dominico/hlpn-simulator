@@ -1,6 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -18,7 +17,7 @@ public abstract class AbstractReversibleOperation extends TermWrapper
 	}
 	
 	@Override
-	public AbstractValue reverseAll(AbstractValue result, Collection<AbstractValue> args)
+	public AbstractValue reverseAll(AbstractValue result, List<AbstractValue> args)
 	{
 		return reverse(result, evaluate(args, ((Operator)rootTerm)));
 	}

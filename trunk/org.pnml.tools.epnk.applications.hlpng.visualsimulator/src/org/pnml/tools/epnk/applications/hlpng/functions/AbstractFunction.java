@@ -2,8 +2,6 @@ package org.pnml.tools.epnk.applications.hlpng.functions;
 
 import geditor.GObject;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -32,12 +30,12 @@ public abstract class AbstractFunction implements IEvaluator
 	}
 	
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		MSValue ms = new MSValue();
 		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 		
-		AbstractValue value = execute(new ArrayList<AbstractValue>(values));
+		AbstractValue value = execute(values);
 		if(value != null)
 		{
 			return value;
