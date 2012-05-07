@@ -30,4 +30,49 @@ public class TermWrapper extends AbstractValue
     {
     	this.resolved = resolved;
     }
+	
+	@Override
+    public int hashCode()
+    {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + (resolved ? 1231 : 1237);
+	    result = prime * result
+	            + ((rootTerm == null) ? 0 : rootTerm.hashCode());
+	    return result;
+    }
+	
+	@Override
+    public boolean equals(Object obj)
+    {
+	    if(this == obj)
+	    {
+		    return true;
+	    }
+	    if(obj == null)
+	    {
+		    return false;
+	    }
+	    if(!(obj instanceof TermWrapper))
+	    {
+		    return false;
+	    }
+	    TermWrapper other = (TermWrapper) obj;
+	    if(resolved != other.resolved)
+	    {
+		    return false;
+	    }
+	    if(rootTerm == null)
+	    {
+		    if(other.rootTerm != null)
+		    {
+			    return false;
+		    }
+	    }
+	    else if(!rootTerm.equals(other.rootTerm))
+	    {
+		    return false;
+	    }
+	    return true;
+    }
 }
