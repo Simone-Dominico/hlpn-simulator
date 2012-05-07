@@ -1,5 +1,6 @@
 package networkmodel.diagram.edit.policies;
 
+import networkmodel.diagram.edit.commands.CategoryCreateCommand;
 import networkmodel.diagram.edit.commands.NodeCreateCommand;
 import networkmodel.diagram.providers.NetworkElementTypes;
 
@@ -30,7 +31,11 @@ public class NetworkItemSemanticEditPolicy extends
 	 */
 	protected Command getCreateCommand(CreateElementRequest req)
 	{
-		if(NetworkElementTypes.Node_2001 == req.getElementType())
+		if(NetworkElementTypes.Category_2001 == req.getElementType())
+		{
+			return getGEFWrapper(new CategoryCreateCommand(req));
+		}
+		if(NetworkElementTypes.Node_2002 == req.getElementType())
 		{
 			return getGEFWrapper(new NodeCreateCommand(req));
 		}

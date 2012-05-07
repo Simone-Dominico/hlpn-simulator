@@ -18,7 +18,7 @@ public class DirectedEdgeItemSemanticEditPolicy extends
 	 */
 	public DirectedEdgeItemSemanticEditPolicy()
 	{
-		super(NetworkElementTypes.DirectedEdge_4002);
+		super(NetworkElementTypes.DirectedEdge_4001);
 	}
 
 	/**

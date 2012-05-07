@@ -2,11 +2,12 @@ package networkmodel.diagram.part;
 
 import networkmodel.Network;
 import networkmodel.NetworkmodelPackage;
+import networkmodel.diagram.edit.parts.CategoryEditPart;
+import networkmodel.diagram.edit.parts.CategoryNameEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.edit.parts.NodeLabelEditPart;
-import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -150,6 +151,11 @@ public class NetworkVisualIDRegistry
 		switch(containerVisualID)
 		{
 			case NetworkEditPart.VISUAL_ID:
+				if(NetworkmodelPackage.eINSTANCE.getCategory().isSuperTypeOf(
+				        domainElement.eClass()))
+				{
+					return CategoryEditPart.VISUAL_ID;
+				}
 				if(NetworkmodelPackage.eINSTANCE.getNode().isSuperTypeOf(
 				        domainElement.eClass()))
 				{
@@ -191,7 +197,17 @@ public class NetworkVisualIDRegistry
 		switch(containerVisualID)
 		{
 			case NetworkEditPart.VISUAL_ID:
+				if(CategoryEditPart.VISUAL_ID == nodeVisualID)
+				{
+					return true;
+				}
 				if(NodeEditPart.VISUAL_ID == nodeVisualID)
+				{
+					return true;
+				}
+				break;
+			case CategoryEditPart.VISUAL_ID:
+				if(CategoryNameEditPart.VISUAL_ID == nodeVisualID)
 				{
 					return true;
 				}
@@ -214,11 +230,6 @@ public class NetworkVisualIDRegistry
 		if(domainElement == null)
 		{
 			return -1;
-		}
-		if(NetworkmodelPackage.eINSTANCE.getUndirectedEdge().isSuperTypeOf(
-		        domainElement.eClass()))
-		{
-			return UndirectedEdgeEditPart.VISUAL_ID;
 		}
 		if(NetworkmodelPackage.eINSTANCE.getDirectedEdge().isSuperTypeOf(
 		        domainElement.eClass()))

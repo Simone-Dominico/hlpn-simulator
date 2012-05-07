@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import networkmodel.NetworkmodelPackage;
+import networkmodel.diagram.edit.parts.CategoryEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
-import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkDiagramUpdater;
 import networkmodel.diagram.part.NetworkLinkDescriptor;
 import networkmodel.diagram.part.NetworkNodeDescriptor;
@@ -48,6 +50,11 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 	/**
 	 * @generated
 	 */
+	private Set<EStructuralFeature> myFeaturesToSynchronize;
+
+	/**
+	 * @generated
+	 */
 	protected void refreshOnActivate()
 	{
 		// Need to activate editpart children before invoking the canonical refresh for EditParts to add event listeners
@@ -62,9 +69,17 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 	/**
 	 * @generated
 	 */
-	protected EStructuralFeature getFeatureToSynchronize()
+	protected Set getFeaturesToSynchronize()
 	{
-		return NetworkmodelPackage.eINSTANCE.getNetwork_Network();
+		if(myFeaturesToSynchronize == null)
+		{
+			myFeaturesToSynchronize = new HashSet<EStructuralFeature>();
+			myFeaturesToSynchronize.add(NetworkmodelPackage.eINSTANCE
+			        .getNetwork_Categories());
+			myFeaturesToSynchronize.add(NetworkmodelPackage.eINSTANCE
+			        .getNetwork_Network());
+		}
+		return myFeaturesToSynchronize;
 	}
 
 	/**
@@ -99,8 +114,9 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 	 */
 	private boolean isMyDiagramElement(View view)
 	{
-		return NodeEditPart.VISUAL_ID == NetworkVisualIDRegistry
-		        .getVisualID(view);
+		int visualID = NetworkVisualIDRegistry.getVisualID(view);
+		return visualID == CategoryEditPart.VISUAL_ID
+		        || visualID == NodeEditPart.VISUAL_ID;
 	}
 
 	/**
@@ -283,12 +299,12 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				}
 				break;
 			}
-			case NodeEditPart.VISUAL_ID:
+			case CategoryEditPart.VISUAL_ID:
 			{
 				if(!domain2NotationMap.containsKey(view.getElement()))
 				{
 					result.addAll(NetworkDiagramUpdater
-					        .getNode_2001ContainedLinks(view));
+					        .getCategory_2001ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
@@ -296,12 +312,12 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				}
 				break;
 			}
-			case UndirectedEdgeEditPart.VISUAL_ID:
+			case NodeEditPart.VISUAL_ID:
 			{
 				if(!domain2NotationMap.containsKey(view.getElement()))
 				{
 					result.addAll(NetworkDiagramUpdater
-					        .getUndirectedEdge_4001ContainedLinks(view));
+					        .getNode_2002ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
@@ -314,7 +330,7 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				if(!domain2NotationMap.containsKey(view.getElement()))
 				{
 					result.addAll(NetworkDiagramUpdater
-					        .getDirectedEdge_4002ContainedLinks(view));
+					        .getDirectedEdge_4001ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$

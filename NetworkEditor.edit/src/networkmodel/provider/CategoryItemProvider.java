@@ -10,10 +10,13 @@ package networkmodel.provider;
 import java.util.Collection;
 import java.util.List;
 
+import networkmodel.Category;
 import networkmodel.NetworkmodelPackage;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -22,15 +25,18 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link networkmodel.AbstractEdge} object.
+ * This is the item provider adapter for a {@link networkmodel.Category} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractEdgeItemProvider
-    extends NetworkObjectItemProvider
+public class CategoryItemProvider
+    extends ItemProviderAdapter
     implements
         IEditingDomainItemProvider,
         IStructuredItemContentProvider,
@@ -44,7 +50,7 @@ public class AbstractEdgeItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public AbstractEdgeItemProvider(AdapterFactory adapterFactory)
+    public CategoryItemProvider(AdapterFactory adapterFactory)
     {
         super(adapterFactory);
     }
@@ -62,27 +68,50 @@ public class AbstractEdgeItemProvider
         {
             super.getPropertyDescriptors(object);
 
-            addSourcePropertyDescriptor(object);
-            addTargetPropertyDescriptor(object);
+            addNamePropertyDescriptor(object);
+            addNodePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This adds a property descriptor for the Source feature.
+     * This adds a property descriptor for the Name feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void addSourcePropertyDescriptor(Object object)
+    protected void addNamePropertyDescriptor(Object object)
     {
         itemPropertyDescriptors.add
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_AbstractEdge_source_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractEdge_source_feature", "_UI_AbstractEdge_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_EDGE__SOURCE,
+                 getString("_UI_Category_name_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Category_name_feature", "_UI_Category_type"),
+                 NetworkmodelPackage.Literals.CATEGORY__NAME,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Node feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addNodePropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Category_node_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Category_node_feature", "_UI_Category_type"),
+                 NetworkmodelPackage.Literals.CATEGORY__NODE,
                  true,
                  false,
                  true,
@@ -92,30 +121,7 @@ public class AbstractEdgeItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Target feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void addTargetPropertyDescriptor(Object object)
-    {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_AbstractEdge_target_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_AbstractEdge_target_feature", "_UI_AbstractEdge_type"),
-                 NetworkmodelPackage.Literals.ABSTRACT_EDGE__TARGET,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This returns AbstractEdge.gif.
+     * This returns Category.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -123,7 +129,7 @@ public class AbstractEdgeItemProvider
     @Override
     public Object getImage(Object object)
     {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractEdge"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Category"));
     }
 
     /**
@@ -135,7 +141,10 @@ public class AbstractEdgeItemProvider
     @Override
     public String getText(Object object)
     {
-        return getString("_UI_AbstractEdge_type");
+        String label = ((Category)object).getName();
+        return label == null || label.length() == 0 ?
+            getString("_UI_Category_type") :
+            getString("_UI_Category_type") + " " + label;
     }
 
     /**
@@ -149,6 +158,13 @@ public class AbstractEdgeItemProvider
     public void notifyChanged(Notification notification)
     {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(Category.class))
+        {
+            case NetworkmodelPackage.CATEGORY__NAME:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 
@@ -163,6 +179,18 @@ public class AbstractEdgeItemProvider
     protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
     {
         super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
+
+    /**
+     * Return the resource locator for this item provider's resources.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public ResourceLocator getResourceLocator()
+    {
+        return NetworkEditPlugin.INSTANCE;
     }
 
 }

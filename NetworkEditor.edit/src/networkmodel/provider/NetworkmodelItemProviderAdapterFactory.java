@@ -128,31 +128,6 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link networkmodel.UndirectedEdge} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected UndirectedEdgeItemProvider undirectedEdgeItemProvider;
-
-    /**
-     * This creates an adapter for a {@link networkmodel.UndirectedEdge}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createUndirectedEdgeAdapter()
-    {
-        if (undirectedEdgeItemProvider == null)
-        {
-            undirectedEdgeItemProvider = new UndirectedEdgeItemProvider(this);
-        }
-
-        return undirectedEdgeItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link networkmodel.DirectedEdge} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -175,6 +150,31 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
         }
 
         return directedEdgeItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link networkmodel.Category} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected CategoryItemProvider categoryItemProvider;
+
+    /**
+     * This creates an adapter for a {@link networkmodel.Category}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createCategoryAdapter()
+    {
+        if (categoryItemProvider == null)
+        {
+            categoryItemProvider = new CategoryItemProvider(this);
+        }
+
+        return categoryItemProvider;
     }
 
     /**
@@ -290,8 +290,8 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
     {
         if (networkItemProvider != null) networkItemProvider.dispose();
         if (nodeItemProvider != null) nodeItemProvider.dispose();
-        if (undirectedEdgeItemProvider != null) undirectedEdgeItemProvider.dispose();
         if (directedEdgeItemProvider != null) directedEdgeItemProvider.dispose();
+        if (categoryItemProvider != null) categoryItemProvider.dispose();
     }
 
 }

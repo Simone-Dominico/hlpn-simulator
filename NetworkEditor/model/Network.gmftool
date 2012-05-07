@@ -19,8 +19,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="UndirectedEdge"
-          description="Create new UndirectedEdge">
+          title="DirectedEdge"
+          description="Create new DirectedEdge">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon
@@ -28,8 +28,8 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
-          title="DirectedEdge"
-          description="Create new DirectedEdge">
+          title="Category"
+          description="Create new Category">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

@@ -88,6 +88,7 @@ public class NetworkItemProvider
         {
             super.getChildrenFeatures(object);
             childrenFeatures.add(NetworkmodelPackage.Literals.NETWORK__NETWORK);
+            childrenFeatures.add(NetworkmodelPackage.Literals.NETWORK__CATEGORIES);
         }
         return childrenFeatures;
     }
@@ -145,6 +146,7 @@ public class NetworkItemProvider
         switch (notification.getFeatureID(Network.class))
         {
             case NetworkmodelPackage.NETWORK__NETWORK:
+            case NetworkmodelPackage.NETWORK__CATEGORIES:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -171,12 +173,12 @@ public class NetworkItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (NetworkmodelPackage.Literals.NETWORK__NETWORK,
-                 NetworkmodelFactory.eINSTANCE.createUndirectedEdge()));
+                 NetworkmodelFactory.eINSTANCE.createDirectedEdge()));
 
         newChildDescriptors.add
             (createChildParameter
-                (NetworkmodelPackage.Literals.NETWORK__NETWORK,
-                 NetworkmodelFactory.eINSTANCE.createDirectedEdge()));
+                (NetworkmodelPackage.Literals.NETWORK__CATEGORIES,
+                 NetworkmodelFactory.eINSTANCE.createCategory()));
     }
 
     /**

@@ -6,21 +6,28 @@
   <eClassifiers xsi:type="ecore:EClass" name="Network">
     <eStructuralFeatures xsi:type="ecore:EReference" name="network" upperBound="-1"
         eType="#//NetworkObject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
+        eType="#//Category" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//NetworkObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="out" upperBound="-1" eType="#//AbstractEdge"
-        eOpposite="#//AbstractEdge/source"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="in" upperBound="-1" eType="#//AbstractEdge"
-        eOpposite="#//AbstractEdge/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="out" upperBound="-1" eType="#//DirectedEdge"
+        eOpposite="#//DirectedEdge/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="in" upperBound="-1" eType="#//DirectedEdge"
+        eOpposite="#//DirectedEdge/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="category" lowerBound="1"
+        upperBound="-1" eType="#//Category" eOpposite="#//Category/node"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractEdge" abstract="true" eSuperTypes="#//NetworkObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-        eType="#//Node" eOpposite="#//Node/out"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NetworkObject" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectedEdge" eSuperTypes="#//NetworkObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//Node" eOpposite="#//Node/in"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//Node" eOpposite="#//Node/out"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UndirectedEdge" eSuperTypes="#//AbstractEdge"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NetworkObject" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DirectedEdge" eSuperTypes="#//AbstractEdge"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Category">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="node" upperBound="-1" eType="#//Node"
+        eOpposite="#//Node/category"/>
+  </eClassifiers>
 </ecore:EPackage>

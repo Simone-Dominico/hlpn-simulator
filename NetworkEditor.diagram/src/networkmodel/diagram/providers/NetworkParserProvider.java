@@ -1,6 +1,7 @@
 package networkmodel.diagram.providers;
 
 import networkmodel.NetworkmodelPackage;
+import networkmodel.diagram.edit.parts.CategoryNameEditPart;
 import networkmodel.diagram.edit.parts.NodeLabelEditPart;
 import networkmodel.diagram.parsers.MessageFormatParser;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
@@ -28,21 +29,41 @@ public class NetworkParserProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	private IParser nodeLabel_5001Parser;
+	private IParser categoryName_5001Parser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getNodeLabel_5001Parser()
+	private IParser getCategoryName_5001Parser()
 	{
-		if(nodeLabel_5001Parser == null)
+		if(categoryName_5001Parser == null)
+		{
+			EAttribute[] features = new EAttribute[] { NetworkmodelPackage.eINSTANCE
+			        .getCategory_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			categoryName_5001Parser = parser;
+		}
+		return categoryName_5001Parser;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IParser nodeLabel_5002Parser;
+
+	/**
+	 * @generated
+	 */
+	private IParser getNodeLabel_5002Parser()
+	{
+		if(nodeLabel_5002Parser == null)
 		{
 			EAttribute[] features = new EAttribute[] { NetworkmodelPackage.eINSTANCE
 			        .getNode_Label() };
 			MessageFormatParser parser = new MessageFormatParser(features);
-			nodeLabel_5001Parser = parser;
+			nodeLabel_5002Parser = parser;
 		}
-		return nodeLabel_5001Parser;
+		return nodeLabel_5002Parser;
 	}
 
 	/**
@@ -52,8 +73,10 @@ public class NetworkParserProvider extends AbstractProvider implements
 	{
 		switch(visualID)
 		{
+			case CategoryNameEditPart.VISUAL_ID:
+				return getCategoryName_5001Parser();
 			case NodeLabelEditPart.VISUAL_ID:
-				return getNodeLabel_5001Parser();
+				return getNodeLabel_5002Parser();
 		}
 		return null;
 	}

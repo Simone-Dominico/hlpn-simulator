@@ -38,8 +38,8 @@ public class NetworkPaletteFactory
 		        Messages.Networkmodel1Group_title);
 		paletteContainer.setId("createNetworkmodel1Group"); //$NON-NLS-1$
 		paletteContainer.add(createNode1CreationTool());
-		paletteContainer.add(createUndirectedEdge2CreationTool());
-		paletteContainer.add(createDirectedEdge3CreationTool());
+		paletteContainer.add(createDirectedEdge2CreationTool());
+		paletteContainer.add(createCategory3CreationTool());
 		return paletteContainer;
 	}
 
@@ -51,10 +51,10 @@ public class NetworkPaletteFactory
 		NodeToolEntry entry = new NodeToolEntry(
 		        Messages.Node1CreationTool_title,
 		        Messages.Node1CreationTool_desc,
-		        Collections.singletonList(NetworkElementTypes.Node_2001));
+		        Collections.singletonList(NetworkElementTypes.Node_2002));
 		entry.setId("createNode1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
-		        .getImageDescriptor(NetworkElementTypes.Node_2001));
+		        .getImageDescriptor(NetworkElementTypes.Node_2002));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -62,16 +62,16 @@ public class NetworkPaletteFactory
 	/**
 	 * @generated
 	 */
-	private ToolEntry createUndirectedEdge2CreationTool()
+	private ToolEntry createDirectedEdge2CreationTool()
 	{
 		LinkToolEntry entry = new LinkToolEntry(
-		        Messages.UndirectedEdge2CreationTool_title,
-		        Messages.UndirectedEdge2CreationTool_desc,
+		        Messages.DirectedEdge2CreationTool_title,
+		        Messages.DirectedEdge2CreationTool_desc,
 		        Collections
-		                .singletonList(NetworkElementTypes.UndirectedEdge_4001));
-		entry.setId("createUndirectedEdge2CreationTool"); //$NON-NLS-1$
+		                .singletonList(NetworkElementTypes.DirectedEdge_4001));
+		entry.setId("createDirectedEdge2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
-		        .getImageDescriptor(NetworkElementTypes.UndirectedEdge_4001));
+		        .getImageDescriptor(NetworkElementTypes.DirectedEdge_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}
@@ -79,16 +79,15 @@ public class NetworkPaletteFactory
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDirectedEdge3CreationTool()
+	private ToolEntry createCategory3CreationTool()
 	{
-		LinkToolEntry entry = new LinkToolEntry(
-		        Messages.DirectedEdge3CreationTool_title,
-		        Messages.DirectedEdge3CreationTool_desc,
-		        Collections
-		                .singletonList(NetworkElementTypes.DirectedEdge_4002));
-		entry.setId("createDirectedEdge3CreationTool"); //$NON-NLS-1$
+		NodeToolEntry entry = new NodeToolEntry(
+		        Messages.Category3CreationTool_title,
+		        Messages.Category3CreationTool_desc,
+		        Collections.singletonList(NetworkElementTypes.Category_2001));
+		entry.setId("createCategory3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(NetworkElementTypes
-		        .getImageDescriptor(NetworkElementTypes.DirectedEdge_4002));
+		        .getImageDescriptor(NetworkElementTypes.Category_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;
 	}

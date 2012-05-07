@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link networkmodel.Node#getLabel <em>Label</em>}</li>
  *   <li>{@link networkmodel.Node#getOut <em>Out</em>}</li>
  *   <li>{@link networkmodel.Node#getIn <em>In</em>}</li>
+ *   <li>{@link networkmodel.Node#getCategory <em>Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,8 +57,8 @@ public interface Node extends NetworkObject
 
     /**
      * Returns the value of the '<em><b>Out</b></em>' reference list.
-     * The list contents are of type {@link networkmodel.AbstractEdge}.
-     * It is bidirectional and its opposite is '{@link networkmodel.AbstractEdge#getSource <em>Source</em>}'.
+     * The list contents are of type {@link networkmodel.DirectedEdge}.
+     * It is bidirectional and its opposite is '{@link networkmodel.DirectedEdge#getSource <em>Source</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Out</em>' reference list isn't clear,
@@ -66,16 +67,16 @@ public interface Node extends NetworkObject
      * <!-- end-user-doc -->
      * @return the value of the '<em>Out</em>' reference list.
      * @see networkmodel.NetworkmodelPackage#getNode_Out()
-     * @see networkmodel.AbstractEdge#getSource
+     * @see networkmodel.DirectedEdge#getSource
      * @model opposite="source"
      * @generated
      */
-    EList<AbstractEdge> getOut();
+    EList<DirectedEdge> getOut();
 
     /**
      * Returns the value of the '<em><b>In</b></em>' reference list.
-     * The list contents are of type {@link networkmodel.AbstractEdge}.
-     * It is bidirectional and its opposite is '{@link networkmodel.AbstractEdge#getTarget <em>Target</em>}'.
+     * The list contents are of type {@link networkmodel.DirectedEdge}.
+     * It is bidirectional and its opposite is '{@link networkmodel.DirectedEdge#getTarget <em>Target</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>In</em>' reference list isn't clear,
@@ -84,10 +85,28 @@ public interface Node extends NetworkObject
      * <!-- end-user-doc -->
      * @return the value of the '<em>In</em>' reference list.
      * @see networkmodel.NetworkmodelPackage#getNode_In()
-     * @see networkmodel.AbstractEdge#getTarget
+     * @see networkmodel.DirectedEdge#getTarget
      * @model opposite="target"
      * @generated
      */
-    EList<AbstractEdge> getIn();
+    EList<DirectedEdge> getIn();
+
+    /**
+     * Returns the value of the '<em><b>Category</b></em>' reference list.
+     * The list contents are of type {@link networkmodel.Category}.
+     * It is bidirectional and its opposite is '{@link networkmodel.Category#getNode <em>Node</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Category</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Category</em>' reference list.
+     * @see networkmodel.NetworkmodelPackage#getNode_Category()
+     * @see networkmodel.Category#getNode
+     * @model opposite="node" required="true"
+     * @generated
+     */
+    EList<Category> getCategory();
 
 } // Node

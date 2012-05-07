@@ -2,11 +2,12 @@ package networkmodel.diagram.providers;
 
 import java.util.ArrayList;
 
+import networkmodel.diagram.edit.parts.CategoryEditPart;
+import networkmodel.diagram.edit.parts.CategoryNameEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.edit.parts.NodeLabelEditPart;
-import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 
 import org.eclipse.core.runtime.IAdaptable;
@@ -163,6 +164,7 @@ public class NetworkViewProvider extends AbstractProvider implements
 				}
 				switch(visualID)
 				{
+					case CategoryEditPart.VISUAL_ID:
 					case NodeEditPart.VISUAL_ID:
 						if(domainElement == null
 						        || visualID != NetworkVisualIDRegistry
@@ -177,7 +179,8 @@ public class NetworkViewProvider extends AbstractProvider implements
 				}
 			}
 		}
-		return NodeEditPart.VISUAL_ID == visualID;
+		return CategoryEditPart.VISUAL_ID == visualID
+		        || NodeEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
@@ -244,8 +247,11 @@ public class NetworkViewProvider extends AbstractProvider implements
 		}
 		switch(visualID)
 		{
+			case CategoryEditPart.VISUAL_ID:
+				return createCategory_2001(domainElement, containerView, index,
+				        persisted, preferencesHint);
 			case NodeEditPart.VISUAL_ID:
-				return createNode_2001(domainElement, containerView, index,
+				return createNode_2002(domainElement, containerView, index,
 				        persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
@@ -263,12 +269,8 @@ public class NetworkViewProvider extends AbstractProvider implements
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 		switch(NetworkVisualIDRegistry.getVisualID(elementTypeHint))
 		{
-			case UndirectedEdgeEditPart.VISUAL_ID:
-				return createUndirectedEdge_4001(
-				        getSemanticElement(semanticAdapter), containerView,
-				        index, persisted, preferencesHint);
 			case DirectedEdgeEditPart.VISUAL_ID:
-				return createDirectedEdge_4002(
+				return createDirectedEdge_4001(
 				        getSemanticElement(semanticAdapter), containerView,
 				        index, persisted, preferencesHint);
 		}
@@ -279,7 +281,54 @@ public class NetworkViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createNode_2001(EObject domainElement, View containerView,
+	public Node createCategory_2001(EObject domainElement, View containerView,
+	        int index, boolean persisted, PreferencesHint preferencesHint)
+	{
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(NetworkVisualIDRegistry
+		        .getType(CategoryEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+		        .getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+		        prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+		        NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+		        FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node
+		        .getStyle(NotationPackage.Literals.FONT_STYLE);
+		if(nodeFontStyle != null)
+		{
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+			        IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+			        .getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+			        .intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
+		        prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+		        NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+		        FigureUtilities.RGBToInteger(fillRGB));
+		Node label5001 = createLabel(node,
+		        NetworkVisualIDRegistry.getType(CategoryNameEditPart.VISUAL_ID));
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createNode_2002(EObject domainElement, View containerView,
 	        int index, boolean persisted, PreferencesHint preferencesHint)
 	{
 		Shape node = NotationFactory.eINSTANCE.createShape();
@@ -317,7 +366,7 @@ public class NetworkViewProvider extends AbstractProvider implements
 		ViewUtil.setStructuralFeatureValue(node,
 		        NotationPackage.eINSTANCE.getFillStyle_FillColor(),
 		        FigureUtilities.RGBToInteger(fillRGB));
-		Node label5001 = createLabel(node,
+		Node label5002 = createLabel(node,
 		        NetworkVisualIDRegistry.getType(NodeLabelEditPart.VISUAL_ID));
 		return node;
 	}
@@ -325,63 +374,7 @@ public class NetworkViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Edge createUndirectedEdge_4001(EObject domainElement,
-	        View containerView, int index, boolean persisted,
-	        PreferencesHint preferencesHint)
-	{
-		Connector edge = NotationFactory.eINSTANCE.createConnector();
-		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
-		        .createRelativeBendpoints();
-		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
-		        2);
-		points.add(new RelativeBendpoint());
-		points.add(new RelativeBendpoint());
-		bendpoints.setPoints(points);
-		edge.setBendpoints(bendpoints);
-		ViewUtil.insertChildView(containerView, edge, index, persisted);
-		edge.setType(NetworkVisualIDRegistry
-		        .getType(UndirectedEdgeEditPart.VISUAL_ID));
-		edge.setElement(domainElement);
-		// initializePreferences
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-		        .getPreferenceStore();
-
-		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
-		        prefStore, IPreferenceConstants.PREF_LINE_COLOR);
-		ViewUtil.setStructuralFeatureValue(edge,
-		        NotationPackage.eINSTANCE.getLineStyle_LineColor(),
-		        FigureUtilities.RGBToInteger(lineRGB));
-		FontStyle edgeFontStyle = (FontStyle) edge
-		        .getStyle(NotationPackage.Literals.FONT_STYLE);
-		if(edgeFontStyle != null)
-		{
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-			        IPreferenceConstants.PREF_DEFAULT_FONT);
-			edgeFontStyle.setFontName(fontData.getName());
-			edgeFontStyle.setFontHeight(fontData.getHeight());
-			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
-			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-			        .getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-			        .intValue());
-		}
-		Routing routing = Routing.get(prefStore
-		        .getInt(IPreferenceConstants.PREF_LINE_STYLE));
-		if(routing != null)
-		{
-			ViewUtil.setStructuralFeatureValue(edge,
-			        NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
-			        routing);
-		}
-		return edge;
-	}
-
-	/**
-	 * @generated
-	 */
-	public Edge createDirectedEdge_4002(EObject domainElement,
+	public Edge createDirectedEdge_4001(EObject domainElement,
 	        View containerView, int index, boolean persisted,
 	        PreferencesHint preferencesHint)
 	{

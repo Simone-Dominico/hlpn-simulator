@@ -68,6 +68,7 @@ public class NodeItemProvider
             addLabelPropertyDescriptor(object);
             addOutPropertyDescriptor(object);
             addInPropertyDescriptor(object);
+            addCategoryPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -133,6 +134,29 @@ public class NodeItemProvider
                  getString("_UI_Node_in_feature"),
                  getString("_UI_PropertyDescriptor_description", "_UI_Node_in_feature", "_UI_Node_type"),
                  NetworkmodelPackage.Literals.NODE__IN,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Category feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCategoryPropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_Node_category_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_Node_category_feature", "_UI_Node_type"),
+                 NetworkmodelPackage.Literals.NODE__CATEGORY,
                  true,
                  false,
                  true,

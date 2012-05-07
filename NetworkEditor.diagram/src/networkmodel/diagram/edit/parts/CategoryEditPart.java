@@ -1,19 +1,15 @@
 package networkmodel.diagram.edit.parts;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import networkmodel.diagram.edit.policies.NodeItemSemanticEditPolicy;
+import networkmodel.diagram.edit.policies.CategoryItemSemanticEditPolicy;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
-import networkmodel.diagram.providers.NetworkElementTypes;
 
-import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.FlowLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.commands.Command;
@@ -25,21 +21,21 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.FlowLayoutEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
  */
-public class NodeEditPart extends ShapeNodeEditPart
+public class CategoryEditPart extends ShapeNodeEditPart
 {
 
 	/**
 	 * @generated
 	 */
-	public static final int VISUAL_ID = 2002;
+	public static final int VISUAL_ID = 2001;
 
 	/**
 	 * @generated
@@ -54,7 +50,7 @@ public class NodeEditPart extends ShapeNodeEditPart
 	/**
 	 * @generated
 	 */
-	public NodeEditPart(View view)
+	public CategoryEditPart(View view)
 	{
 		super(view);
 	}
@@ -66,7 +62,7 @@ public class NodeEditPart extends ShapeNodeEditPart
 	{
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-		        new NodeItemSemanticEditPolicy());
+		        new CategoryItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -105,15 +101,15 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 */
 	protected IFigure createNodeShape()
 	{
-		return primaryShape = new NodeFigure();
+		return primaryShape = new CategoryFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public NodeFigure getPrimaryShape()
+	public CategoryFigure getPrimaryShape()
 	{
-		return (NodeFigure) primaryShape;
+		return (CategoryFigure) primaryShape;
 	}
 
 	/**
@@ -121,10 +117,10 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 */
 	protected boolean addFixedChild(EditPart childEditPart)
 	{
-		if(childEditPart instanceof NodeLabelEditPart)
+		if(childEditPart instanceof CategoryNameEditPart)
 		{
-			((NodeLabelEditPart) childEditPart).setLabel(getPrimaryShape()
-			        .getFigureNodeFigureLabel());
+			((CategoryNameEditPart) childEditPart).setLabel(getPrimaryShape()
+			        .getFigureCategoryFigureLabel());
 			return true;
 		}
 		return false;
@@ -135,7 +131,7 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart)
 	{
-		if(childEditPart instanceof NodeLabelEditPart)
+		if(childEditPart instanceof CategoryNameEditPart)
 		{
 			return true;
 		}
@@ -177,7 +173,7 @@ public class NodeEditPart extends ShapeNodeEditPart
 	/**
 	 * @generated
 	 */
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate()
+	protected NodeFigure createNodePlate()
 	{
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 		return result;
@@ -191,9 +187,9 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 * 
 	 * @generated
 	 */
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodeFigure()
+	protected NodeFigure createNodeFigure()
 	{
-		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
+		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
@@ -280,84 +276,24 @@ public class NodeEditPart extends ShapeNodeEditPart
 	public EditPart getPrimaryChildEditPart()
 	{
 		return getChildBySemanticHint(NetworkVisualIDRegistry
-		        .getType(NodeLabelEditPart.VISUAL_ID));
+		        .getType(CategoryNameEditPart.VISUAL_ID));
 	}
 
 	/**
 	 * @generated
 	 */
-	public List<IElementType> getMARelTypesOnSource()
-	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(NetworkElementTypes.DirectedEdge_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnSourceAndTarget(
-	        IGraphicalEditPart targetEditPart)
-	{
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if(targetEditPart instanceof networkmodel.diagram.edit.parts.NodeEditPart)
-		{
-			types.add(NetworkElementTypes.DirectedEdge_4001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType)
-	{
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if(relationshipType == NetworkElementTypes.DirectedEdge_4001)
-		{
-			types.add(NetworkElementTypes.Node_2002);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnTarget()
-	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(NetworkElementTypes.DirectedEdge_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForSource(IElementType relationshipType)
-	{
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if(relationshipType == NetworkElementTypes.DirectedEdge_4001)
-		{
-			types.add(NetworkElementTypes.Node_2002);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public class NodeFigure extends Ellipse
+	public class CategoryFigure extends RoundedRectangle
 	{
 
 		/**
 		 * @generated
 		 */
-		private WrappingLabel fFigureNodeFigureLabel;
+		private WrappingLabel fFigureCategoryFigureLabel;
 
 		/**
 		 * @generated
 		 */
-		public NodeFigure()
+		public CategoryFigure()
 		{
 
 			FlowLayout layoutThis = new FlowLayout();
@@ -371,6 +307,8 @@ public class NodeEditPart extends ShapeNodeEditPart
 
 			this.setLayoutManager(layoutThis);
 
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8),
+			        getMapMode().DPtoLP(8)));
 			createContents();
 		}
 
@@ -380,19 +318,19 @@ public class NodeEditPart extends ShapeNodeEditPart
 		private void createContents()
 		{
 
-			fFigureNodeFigureLabel = new WrappingLabel();
-			fFigureNodeFigureLabel.setText("");
+			fFigureCategoryFigureLabel = new WrappingLabel();
+			fFigureCategoryFigureLabel.setText("");
 
-			this.add(fFigureNodeFigureLabel);
+			this.add(fFigureCategoryFigureLabel);
 
 		}
 
 		/**
 		 * @generated
 		 */
-		public WrappingLabel getFigureNodeFigureLabel()
+		public WrappingLabel getFigureCategoryFigureLabel()
 		{
-			return fFigureNodeFigureLabel;
+			return fFigureCategoryFigureLabel;
 		}
 
 	}
