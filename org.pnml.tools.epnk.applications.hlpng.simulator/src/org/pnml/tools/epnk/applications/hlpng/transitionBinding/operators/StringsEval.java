@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -14,7 +12,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 public class StringsEval implements IEvaluator
 {
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		if(operator instanceof StringConstant)
 		{
@@ -44,8 +42,7 @@ public class StringsEval implements IEvaluator
 			
 			StringValue result = new StringValue();
 			{
-				List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-				StringValue str = (StringValue)list.get(0);
+				StringValue str = (StringValue)values.get(0);
 				
 				Sort sort = str.getSort();
 

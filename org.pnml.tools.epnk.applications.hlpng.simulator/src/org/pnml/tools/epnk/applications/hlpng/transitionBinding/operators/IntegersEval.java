@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -21,7 +19,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 public class IntegersEval implements IEvaluator
 {
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		if(operator instanceof NumberConstant)
 		{
@@ -57,13 +55,11 @@ public class IntegersEval implements IEvaluator
 			{
 				throw new RuntimeException("Wrong number of arguments!");
 			}
-				
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
+
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)list.get(0)).getN() < ((NumberValue)list.get(1)).getN())
+			if(((NumberValue)values.get(0)).getN() < ((NumberValue)values.get(1)).getN())
 			{
 				result.setValue(true);
 			}
@@ -80,13 +76,11 @@ public class IntegersEval implements IEvaluator
 			{
 				throw new RuntimeException("Wrong number of arguments!");
 			}
-				
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			
+
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)list.get(0)).getN() > ((NumberValue)list.get(1)).getN())
+			if(((NumberValue)values.get(0)).getN() > ((NumberValue)values.get(1)).getN())
 			{
 				result.setValue(true);
 			}

@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -13,7 +11,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 public class AdditionEval extends AbstractIntegerOperation
 {
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		if(values.size() < 1)
 		{
@@ -22,8 +20,7 @@ public class AdditionEval extends AbstractIntegerOperation
 			
 		AbstractValue result = null;
 		{
-			List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-			NumberValue number = (NumberValue)list.get(0);
+			NumberValue number = (NumberValue)values.get(0);
 			
 			Sort sort = number.getSort();
 			NumberValue res=  createResultObject(sort);

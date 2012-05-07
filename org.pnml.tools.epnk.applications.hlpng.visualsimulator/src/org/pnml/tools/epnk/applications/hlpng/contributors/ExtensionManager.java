@@ -2,6 +2,7 @@ package org.pnml.tools.epnk.applications.hlpng.contributors;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -26,7 +27,7 @@ public class ExtensionManager implements IUserExtensions
 	}
 	
 	@Override
-    public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+    public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
     {
 		String name = ((UserOperator)operator).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);

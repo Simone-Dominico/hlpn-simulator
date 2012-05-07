@@ -1,7 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -17,15 +15,14 @@ public class MultisetsEval implements IEvaluator
 {
 
 	@Override
-	public AbstractValue evaluate(Collection<AbstractValue> values, Operator operator)
+	public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
 	{
 		if(operator instanceof NumberOf)
 		{
 			MSValue set = new MSValue();
 			set.setSort(operator.getSort());
-			
-			List<AbstractValue> tmp = new ArrayList<AbstractValue>(values);
-			set = AbstractValueMath.add(set, tmp.get(1), ((NumberValue)tmp.get(0)).getN());
+
+			set = AbstractValueMath.add(set, values.get(1), ((NumberValue)values.get(0)).getN());
 
 		    return set;
 		}
@@ -43,13 +40,11 @@ public class MultisetsEval implements IEvaluator
 		}
 		if(operator instanceof Subtract)
 		{
-			List<AbstractValue> valueList = new ArrayList<AbstractValue>(values);
+			MSValue set = (MSValue) values.get(0);
 			
-			MSValue set = (MSValue) valueList.get(0);
-			
-			for(int i = 1; i < valueList.size(); i++)
+			for(int i = 1; i < values.size(); i++)
 			{
-				MSValue ms = (MSValue) valueList.get(i);
+				MSValue ms = (MSValue) values.get(i);
 				set = AbstractValueMath.subtract(set, ms);
 			}
 			return set;
