@@ -11,11 +11,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public abstract class AbstractReversibleOperation extends TermWrapper
 	implements IEvaluator, IReversibleOperation
 {
-	public AbstractReversibleOperation()
-	{
-		resolved = false;
-	}
-	
 	@Override
 	public List<Term> getArguments()
 	{

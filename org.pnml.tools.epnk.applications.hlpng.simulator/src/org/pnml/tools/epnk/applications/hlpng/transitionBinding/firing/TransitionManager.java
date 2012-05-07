@@ -93,7 +93,7 @@ public class TransitionManager
 		for(String key : globalMap.keySet())
 		{
 			TermAssignment ve = globalMap.get(key);
-			if(!ve.getVariable().isResolved())
+			if(!(ve.getVariable() instanceof RuntimeVariable))
 			{
 				unresolved.add(ve);
 			}
