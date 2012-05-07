@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RuntimeVariable;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
@@ -102,9 +102,8 @@ public class ReversibleOperationManager
 				}
 				else
 				{
-					RuntimeVariable rv = new RuntimeVariable();
-					rv.setSort(var.getSort());
-					rv.setVariable(var);
+					TermWrapper rv = new TermWrapper();
+					rv.setRootTerm(var);
 					
 					TermAssignment ve = new TermAssignment();
 					ve.getValues().add(value);

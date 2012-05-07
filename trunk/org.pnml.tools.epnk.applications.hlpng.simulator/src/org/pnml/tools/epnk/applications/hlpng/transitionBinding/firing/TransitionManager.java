@@ -93,7 +93,7 @@ public class TransitionManager
 		for(String key : globalMap.keySet())
 		{
 			TermAssignment ve = globalMap.get(key);
-			if(!(ve.getVariable() instanceof RuntimeVariable))
+			if(!(ve.getVariable().getRootTerm() instanceof Variable))
 			{
 				unresolved.add(ve);
 			}
@@ -162,12 +162,12 @@ public class TransitionManager
 		for(String key : globalMap.keySet())
 		{
 			TermAssignment oldVe = globalMap.get(key);
-			RuntimeVariable rv = (RuntimeVariable)oldVe.getVariable();
+			TermWrapper rv = (TermWrapper)oldVe.getVariable();
 			
 			Set<AbstractValue> newValues = new HashSet<AbstractValue>();
 			for(AbstractValue value : oldVe.getValues())
 			{
-				if(ConsistencyManager.check(value, rv.getVariable().getSort()))
+				if(ConsistencyManager.check(value, rv.getRootTerm().getSort()))
 				{
 					newValues.add(value);
 				}
