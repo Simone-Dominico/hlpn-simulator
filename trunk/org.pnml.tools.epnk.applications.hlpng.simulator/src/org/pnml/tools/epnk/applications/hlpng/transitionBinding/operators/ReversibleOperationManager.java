@@ -11,6 +11,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
@@ -53,31 +54,37 @@ public class ReversibleOperationManager
 	public boolean resolve(AbstractValue result, IReversibleOperation operation,
 			Map<String, TermAssignment> knownVariables)
 	{
-		List<Term> unknown = new ArrayList<Term>();
+		Term unknownTerm = null;
+		int numberOfUnknowns = 0;
+		List<Boolean> termEval = new ArrayList<Boolean>();
 		List<Set<AbstractValue>> known = new ArrayList<Set<AbstractValue>>();
 		
-		for(Term arg : operation.getArguments())
+		for(Term arg : ((Operator)operation.getRootTerm()).getSubterm())
 		{
 			try
             {
 				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, knownVariables);
 				known.add(value);
+				termEval.add(true);
             }
             catch(Exception e)
             {
-	            unknown.add(arg);
+	            unknownTerm = arg;
+	            numberOfUnknowns++;
+	            termEval.add(false);
             }
 		}
 
-		if(unknown.size() == 0)
+		if(numberOfUnknowns == 0)
 		{
 			return true;
 		}
-		if(unknown.size() > 1)
+		if(numberOfUnknowns > 1)
 		{
 			return false;
 		}
 		
+		// only 1 unknown argument
 		List<List<AbstractValue>> setsOfResults = null;
 		{
 			List<List<AbstractValue>> list = new ArrayList<List<AbstractValue>>();
@@ -89,13 +96,13 @@ public class ReversibleOperationManager
 			setsOfResults = product.product(list);
 		}
 		
-		if(unknown.size() == 1 && unknown.get(0) instanceof Variable)
+		if(unknownTerm instanceof Variable)
 		{
 			for(List<AbstractValue> args : setsOfResults)
 			{
-				Variable var = (Variable)unknown.get(0);
+				Variable var = (Variable)unknownTerm;
 				String varName = var.getName();
-				AbstractValue value = operation.reverseAll(result, args);
+				AbstractValue value = operation.reverseAll(result, args, termEval.get(0));
 				if(knownVariables.containsKey(varName))
 				{
 					knownVariables.get(varName).getValues().add(value);
@@ -115,13 +122,13 @@ public class ReversibleOperationManager
 			return true;
 		}
 		
-		IReversibleOperation op = createHandler(unknown.get(0).getClass());
-		op.setRootTerm(unknown.get(0));
+		IReversibleOperation op = createHandler(unknownTerm.getClass());
+		op.setRootTerm(unknownTerm);
 		
 		List<AbstractValue> resultList = new ArrayList<AbstractValue>();
 		for(List<AbstractValue> args : setsOfResults)
 		{
-			resultList.add(operation.reverseAll(result, args));
+			resultList.add(operation.reverseAll(result, args, termEval.get(0)));
 		}
 		return resolveAll(resultList, op, knownVariables);
 	}
