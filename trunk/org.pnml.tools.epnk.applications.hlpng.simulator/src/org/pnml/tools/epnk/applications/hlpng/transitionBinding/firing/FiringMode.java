@@ -6,22 +6,21 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class FiringMode
 {
 	// place ID <=> difference between runtime value and actual inscription value
 	private Map<String, MSValue> values = new HashMap<String, MSValue>();
 	// variable name <=> variable assignment
-	private Map<Variable, AbstractValue> params = null;
+	private Map<TermWrapper, AbstractValue> params = null;
 	
 	private Transition transition = null;
 
-	public Map<Variable, AbstractValue> getParams()
+	public Map<TermWrapper, AbstractValue> getParams()
     {
     	return params;
     }
-	public void setParams(Map<Variable, AbstractValue> params)
+	public void setParams(Map<TermWrapper, AbstractValue> params)
     {
     	this.params = params;
     }
@@ -42,7 +41,7 @@ public class FiringMode
 			return null;
 		}
 		StringBuffer buffer = new StringBuffer("[");
-		for(Variable key : params.keySet())
+		for(TermWrapper key : params.keySet())
 		{
 			buffer.append(key.getName() + "=" + params.get(key) + ";");
 		}

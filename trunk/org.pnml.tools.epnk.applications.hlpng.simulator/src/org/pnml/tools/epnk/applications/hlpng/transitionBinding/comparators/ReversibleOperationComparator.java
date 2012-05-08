@@ -1,6 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,13 +31,7 @@ public class ReversibleOperationComparator implements IComparable
 		boolean cannotEval = false;
 		try
         {
-			//TODO mla
-			Map<String, TermAssignment> strAssignments = new HashMap<String, TermAssignment>();
-			for(TermWrapper wrapper : assignments.keySet())
-			{
-				strAssignments.put(wrapper.getName(), assignments.get(wrapper));
-			}
-            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, strAssignments);
+            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, assignments);
             return evals.contains(testValue);
         }
         catch(UnknownVariableException e)
@@ -50,15 +43,15 @@ public class ReversibleOperationComparator implements IComparable
 			AbstractReversibleOperation operation = reversibleOperationManager.createHandler(refValue.getClass());
 			operation.setRootTerm(refValue);
 			
-			if(assignments.containsKey(operation.getName()))
+			if(assignments.containsKey(operation))
 			{
-				assignments.get(operation.getName()).getValues().add(testValue);
+				assignments.get(operation).getValues().add(testValue);
 			}
 			else
 			{
 				TermAssignment ve = new TermAssignment();
 				ve.getValues().add(testValue);
-				ve.setVariable(operation);
+				ve.setTermWrapper(operation);
 
 				assignments.put(operation, ve);
 			}

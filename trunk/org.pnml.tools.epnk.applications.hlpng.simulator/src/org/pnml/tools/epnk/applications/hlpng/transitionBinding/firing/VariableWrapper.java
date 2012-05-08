@@ -31,9 +31,7 @@ public class VariableWrapper extends TermWrapper
 		if(hashCode == null)
 		{
 			final int prime = 31;
-		    int result = super.hashCode();
-		    result = prime * result
-		            + ((variable == null) ? 0 : hashCode(variable));
+		    int result = prime + ((variable == null) ? 0 : hashCode(variable));
 		    hashCode = result;
 		}
 	    return hashCode;
@@ -57,10 +55,6 @@ public class VariableWrapper extends TermWrapper
 	    if(this == obj)
 	    {
 		    return true;
-	    }
-	    if(!super.equals(obj))
-	    {
-		    return false;
 	    }
 	    if(!(obj instanceof VariableWrapper))
 	    {
@@ -119,6 +113,12 @@ public class VariableWrapper extends TermWrapper
 		    return false;
 	    }
 	    return true;
+    }
+	@Override
+    public String toString()
+    {
+	    return "VariableWrapper [variable=" + variable.getRefvariable().getName() + ", hashCode="
+	            + hashCode + "]";
     }
 
 

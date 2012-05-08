@@ -93,21 +93,21 @@ public class TransitionManager
 		for(TermWrapper key : globalMap.keySet())
 		{
 			TermAssignment ve = globalMap.get(key);
-			if(!(ve.getVariable().getRootTerm() instanceof Variable))
+			if(!(ve.getTermWrapper().getRootTerm() instanceof Variable))
 			{
 				unresolved.add(ve);
 			}
 		}
 		for(TermAssignment ve : unresolved)
 		{
-			globalMap.remove(ve.getVariable());
+			globalMap.remove(ve.getTermWrapper());
 		}
 		do
 		{		
 			List<TermAssignment> repeat = new ArrayList<TermAssignment>();
 			for(TermAssignment ve : unresolved)
 			{
-				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getVariable());
+				AbstractReversibleOperation op = ((AbstractReversibleOperation)ve.getTermWrapper());
 				
 				if(!reversibleOperationManager.resolveAll(ve.getValues(), op, globalMap))
 				{
@@ -124,15 +124,15 @@ public class TransitionManager
 		// there is only 1 variable
 		if(globalMap.keySet().size() == 1)
 		{
-			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
+			List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper,AbstractValue>>();
 			for(TermWrapper key : globalMap.keySet())
 			{
 				TermAssignment value = globalMap.get(key);
 				
 				for(AbstractValue av : value.getValues())
 				{
-					Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
-					map.put((Variable)value.getVariable().getRootTerm(), av);
+					Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
+					map.put(key, av);
 					varSets.add(map);
 				}
 			}
@@ -146,7 +146,7 @@ public class TransitionManager
 		List<List<Pair<TermAssignment, AbstractValue>>> product =
 				cartesianProd.product(pairList);
 		
-		List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable, AbstractValue>>();
+		List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper, AbstractValue>>();
 		for(List<Pair<TermAssignment, AbstractValue>> list : product)
 		{
 			varSets.add(pairToMap(list));
@@ -175,7 +175,7 @@ public class TransitionManager
 			if(newValues.size() > 0)
 			{
 				TermAssignment newVe = new TermAssignment();
-				newVe.setVariable(key);
+				newVe.setTermWrapper(key);
 				newVe.setValues(newValues);
 				
 				filtered.put(key, newVe);
@@ -187,13 +187,13 @@ public class TransitionManager
 	/*
 	 * Evaluate each arc inscription with the given parameter set
 	 */
-	private static List<FiringMode> eval(List<Map<Variable, AbstractValue>> varSets,
+	private static List<FiringMode> eval(List<Map<TermWrapper, AbstractValue>> varSets,
 			Map<String, ArcInscriptionHandler> incomingArcs,
 			Map<String, PlaceMarking> runtimeValues, Transition transition,
 			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
-		for(Map<Variable, AbstractValue> params : varSets)
+		for(Map<TermWrapper, AbstractValue> params : varSets)
 		{
 			boolean conditionSatisfied = true;
 			
@@ -203,7 +203,7 @@ public class TransitionManager
 				try
                 {
 	                AbstractValue conditionValue = 
-	                		evaluationManager.evaluateAdapt(
+	                		evaluationManager.evaluate(
 	                				transition.getCondition().getStructure(), params);
 	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();
                 }
@@ -230,7 +230,7 @@ public class TransitionManager
 	                    try
 	                    {
 		                    inscriptionValue = (MSValue)evaluationManager
-		                    		.evaluateAdapt(incomingArcs.get(placeId).getOperator(), params);
+		                    		.evaluate(incomingArcs.get(placeId).getOperator(), params);
 		                    
 		                    if(ConsistencyManager.check(inscriptionValue, null) && 
 		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
@@ -288,7 +288,7 @@ public class TransitionManager
 			for(TermWrapper wrapper : map.keySet())
 			{
 				TermAssignment ve = new TermAssignment();
-				ve.setVariable(map.get(wrapper).getVariable());
+				ve.setTermWrapper(map.get(wrapper).getTermWrapper());
 				// intersection
 				if(globalMap.containsKey(wrapper))
 				{
@@ -307,13 +307,13 @@ public class TransitionManager
 		return globalMap;
 	}
 	
-	private static Map<Variable, AbstractValue> pairToMap(List<Pair<TermAssignment, AbstractValue>> list)
+	private static Map<TermWrapper, AbstractValue> pairToMap(List<Pair<TermAssignment, AbstractValue>> list)
 	{
-		Map<Variable, AbstractValue> map = new HashMap<Variable, AbstractValue>();
+		Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
 		
 		for(Pair<TermAssignment, AbstractValue> p : list)
 		{
-			map.put((Variable)p.getKey().getVariable().getRootTerm(), p.getValue());
+			map.put(p.getKey().getTermWrapper(), p.getValue());
 		}
 		return map;
 	}

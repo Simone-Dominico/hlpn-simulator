@@ -64,13 +64,7 @@ public class ReversibleOperationManager
 		{
 			try
             {
-				//TODO mla
-				Map<String, TermAssignment> strAssignments = new HashMap<String, TermAssignment>();
-				for(TermWrapper wrapper : knownVariables.keySet())
-				{
-					strAssignments.put(wrapper.getName(), knownVariables.get(wrapper));
-				}
-				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, strAssignments);
+				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, knownVariables);
 				known.add(value);
 				termEval.add(true);
             }
@@ -122,7 +116,7 @@ public class ReversibleOperationManager
 				{
 					TermAssignment ve = new TermAssignment();
 					ve.getValues().add(value);
-					ve.setVariable(rv);
+					ve.setTermWrapper(rv);
 					
 					knownVariables.put(rv, ve);
 				}
@@ -170,7 +164,7 @@ public class ReversibleOperationManager
 		{
 			TermAssignment ve = map.get(key);
 			TermAssignment copyVe = new TermAssignment();
-			copyVe.setVariable(ve.getVariable());
+			copyVe.setTermWrapper(ve.getTermWrapper());
 			copyVe.getValues().addAll(ve.getValues());
 			
 			copy.put(key, copyVe);
@@ -192,7 +186,7 @@ public class ReversibleOperationManager
 			{
 				TermAssignment ve = map2.get(key);
 				TermAssignment copyVe = new TermAssignment();
-				copyVe.setVariable(ve.getVariable());
+				copyVe.setTermWrapper(ve.getTermWrapper());
 				copyVe.getValues().addAll(ve.getValues());
 				
 				main.put(key, copyVe);		

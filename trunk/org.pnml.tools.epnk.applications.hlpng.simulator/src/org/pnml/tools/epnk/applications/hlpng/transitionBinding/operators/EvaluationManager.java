@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -42,32 +44,23 @@ public class EvaluationManager
 		handlers.remove(targetObject);
 	}
 	
-	public AbstractValue evaluateAdapt(Term term, Map<Variable, AbstractValue> assignments) throws UnknownVariableException
-	{
-		Map<String, AbstractValue> newAssignments = new HashMap<String, AbstractValue>();
-		
-		for(Variable key : assignments.keySet())
-		{
-			newAssignments.put(key.getName(), assignments.get(key));
-		}
-		
-		return evaluate(term, newAssignments);
-	}
-	
-	public AbstractValue evaluate(Term term, Map<String, AbstractValue> assignments) throws UnknownVariableException
+	public AbstractValue evaluate(Term term, Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
 	{
 		if(term instanceof Variable)
 		{
-			Variable var = (Variable) term;
-			
+			VariableWrapper wrapper = new VariableWrapper();
+			wrapper.setRootTerm(term);
+			wrapper.setVariable((Variable)term);
+
 			if(assignments == null)
 			{
-				throw new UnknownVariableException("Unknown variable: " + var.getName());
+				throw new UnknownVariableException("Unknown variable: " + wrapper.getVariable().getName());
 			}
-			AbstractValue value = assignments.get(var.getName());
+			
+			AbstractValue value = assignments.get(wrapper);
 			if(value == null)
 			{
-				throw new UnknownVariableException("Unknown variable: " + var.getName());
+				throw new UnknownVariableException("Unknown variable: " + wrapper.getVariable().getName());
 			}
 			
 			return value;
@@ -91,7 +84,7 @@ public class EvaluationManager
 		return evaluator.evaluate(values, op);
 	}
 	
-	public Set<AbstractValue> evaluateAll(Term term, Map<String, TermAssignment> assignments) throws UnknownVariableException
+	public Set<AbstractValue> evaluateAll(Term term, Map<TermWrapper, TermAssignment> assignments) throws UnknownVariableException
 	{
 		if(assignments == null || assignments.size() == 0)
 		{
@@ -110,8 +103,8 @@ public class EvaluationManager
 				for(AbstractValue value : ve.getValues())
 				{
 					// evaluate with each possible result
-					Map<String, AbstractValue> map = new HashMap<String, AbstractValue>();
-					map.put(ve.getVariableName(), value);
+					Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
+					map.put(ve.getTermWrapper(), value);
 					
 					result.add(evaluate(term, map));
 				}
@@ -119,15 +112,15 @@ public class EvaluationManager
 			return result;
 		}
 		
-		List<List<Pair<String, AbstractValue>>> mainList = new ArrayList<List<Pair<String,AbstractValue>>>();
+		List<List<Pair<TermWrapper, AbstractValue>>> mainList = new ArrayList<List<Pair<TermWrapper,AbstractValue>>>();
 		
-		for(String varName : assignments.keySet())
+		for(TermWrapper wrapper : assignments.keySet())
 		{
-			List<Pair<String, AbstractValue>> subList = new ArrayList<Pair<String,AbstractValue>>();
-			for(AbstractValue value : assignments.get(varName).getValues())
+			List<Pair<TermWrapper, AbstractValue>> subList = new ArrayList<Pair<TermWrapper,AbstractValue>>();
+			for(AbstractValue value : assignments.get(wrapper).getValues())
 			{
-				Pair<String, AbstractValue> p = new Pair<String, AbstractValue>();
-				p.setKey(varName);
+				Pair<TermWrapper, AbstractValue> p = new Pair<TermWrapper, AbstractValue>();
+				p.setKey(wrapper);
 				p.setValue(value);
 				
 				subList.add(p);
@@ -135,14 +128,14 @@ public class EvaluationManager
 			mainList.add(subList);
 		}
 		
-		CartesianProduct<Pair<String, AbstractValue>> product = new CartesianProduct<Pair<String,AbstractValue>>();
-		List<List<Pair<String, AbstractValue>>> prodList = product.product(mainList);
+		CartesianProduct<Pair<TermWrapper, AbstractValue>> product = new CartesianProduct<Pair<TermWrapper,AbstractValue>>();
+		List<List<Pair<TermWrapper, AbstractValue>>> prodList = product.product(mainList);
 		
 		Set<AbstractValue> result = new HashSet<AbstractValue>();
-		for(List<Pair<String, AbstractValue>> subSet : prodList)
+		for(List<Pair<TermWrapper, AbstractValue>> subSet : prodList)
 		{
-			Map<String, AbstractValue> assignmentSet = new HashMap<String, AbstractValue>();
-			for(Pair<String, AbstractValue> p : subSet)
+			Map<TermWrapper, AbstractValue> assignmentSet = new HashMap<TermWrapper, AbstractValue>();
+			for(Pair<TermWrapper, AbstractValue> p : subSet)
 			{
 				assignmentSet.put(p.getKey(), p.getValue());
 			}
