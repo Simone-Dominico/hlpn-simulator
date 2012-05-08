@@ -10,6 +10,7 @@ import java.util.Set;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -109,8 +110,9 @@ public class ReversibleOperationManager
 				}
 				else
 				{
-					TermWrapper rv = new TermWrapper();
+					VariableWrapper rv = new VariableWrapper();
 					rv.setRootTerm(var);
+					rv.setVariable(var);
 					
 					TermAssignment ve = new TermAssignment();
 					ve.getValues().add(value);
