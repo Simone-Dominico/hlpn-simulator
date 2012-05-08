@@ -7,6 +7,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 public class VariableWrapper extends TermWrapper
 {
 	protected Variable variable = null;
+	protected Integer hashCode = null;
 
 	public Variable getVariable()
     {
@@ -15,6 +16,7 @@ public class VariableWrapper extends TermWrapper
 	public void setVariable(Variable variable)
     {
     	this.variable = variable;
+    	this.hashCode = null;
     }
 	
 	@Override
@@ -26,16 +28,29 @@ public class VariableWrapper extends TermWrapper
 	@Override
     public int hashCode()
     {
+		if(hashCode == null)
+		{
+			final int prime = 31;
+		    int result = super.hashCode();
+		    result = prime * result
+		            + ((variable == null) ? 0 : hashCode(variable));
+		    hashCode = result;
+		}
+	    return hashCode;
+    }
+	
+	private static int hashCode(Variable variable)
+    {
 	    final int prime = 31;
 	    int result = 1;
-	    result = prime * result + ((this.variable.getName() == null) ? 0 : 
-	    	this.variable.getName().hashCode());
+	    result = prime * result + ((variable.getName() == null) ? 0 : 
+	    	variable.getName().hashCode());
 	    result = prime * result
-	            + ((this.variable.getRefvariable() == null) ? 0 : 
-	            	this.variable.getRefvariable().hashCode());
+	            + ((variable.getRefvariable() == null) ? 0 : 
+	            	variable.getRefvariable().hashCode());
 	    return result;
     }
-
+	
 	@Override
     public boolean equals(Object obj)
     {
@@ -43,34 +58,63 @@ public class VariableWrapper extends TermWrapper
 	    {
 		    return true;
 	    }
-	    if(obj == null)
+	    if(!super.equals(obj))
 	    {
 		    return false;
 	    }
-	    if(!(obj instanceof VariableImpl))
+	    if(!(obj instanceof VariableWrapper))
 	    {
 		    return false;
 	    }
-	    VariableImpl other = (VariableImpl) obj;
-	    if(this.variable.getName() == null)
+	    VariableWrapper other = (VariableWrapper) obj;
+	    if(variable == null)
+	    {
+		    if(other.variable != null)
+		    {
+			    return false;
+		    }
+	    }
+	    else if(!equals(variable, other.variable))
+	    {
+		    return false;
+	    }
+	    return true;
+    }
+	
+    private static boolean equals(Variable ref, Variable test)
+    {
+	    if(ref == test)
+	    {
+		    return true;
+	    }
+	    if(test == null)
+	    {
+		    return false;
+	    }
+	    if(!(test instanceof VariableImpl))
+	    {
+		    return false;
+	    }
+	    VariableImpl other = (VariableImpl) test;
+	    if(ref.getName() == null)
 	    {
 		    if(other.getName() != null)
 		    {
 			    return false;
 		    }
 	    }
-	    else if(!this.variable.getName().equals(other.getName()))
+	    else if(!ref.getName().equals(other.getName()))
 	    {
 		    return false;
 	    }
-	    if(this.variable.getRefvariable() == null)
+	    if(ref.getRefvariable() == null)
 	    {
 		    if(other.getRefvariable() != null)
 		    {
 			    return false;
 		    }
 	    }
-	    else if(!this.variable.getRefvariable().equals(other.getRefvariable()))
+	    else if(!ref.getRefvariable().equals(other.getRefvariable()))
 	    {
 		    return false;
 	    }
