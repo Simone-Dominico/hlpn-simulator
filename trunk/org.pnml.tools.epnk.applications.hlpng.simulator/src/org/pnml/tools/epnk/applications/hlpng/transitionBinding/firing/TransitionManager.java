@@ -74,8 +74,8 @@ public class TransitionManager
 					throws DependencyException, UnknownVariableException
 	{
 		// each inscription variable matches
-		List<List<List<Map<String, TermAssignment>>>> allInscriptionMatches =
-				new ArrayList<List<List<Map<String,TermAssignment>>>>();
+		List<List<List<Map<TermWrapper, TermAssignment>>>> allInscriptionMatches =
+				new ArrayList<List<List<Map<TermWrapper,TermAssignment>>>>();
 		for(String placeId : incomingArcs.keySet())
 		{
 			MSValue msValue = runtimeValues.get(placeId).getMsValue();
@@ -260,27 +260,29 @@ public class TransitionManager
 	}
 	
 	private static Map<String, TermAssignment> narrowing(
-			List<List<List<Map<String, TermAssignment>>>> mainList)
+			List<List<List<Map<TermWrapper, TermAssignment>>>> mainList)
 	{
 		Map<String, TermAssignment> globalMap = new HashMap<String, TermAssignment>();
 		
 		// for each arc
-		for(List<List<Map<String, TermAssignment>>> list : mainList)
+		for(List<List<Map<TermWrapper, TermAssignment>>> list : mainList)
 		{
 			Map<String, TermAssignment> map = new HashMap<String, TermAssignment>();
-			for(List<Map<String, TermAssignment>> assignments : list)
+			for(List<Map<TermWrapper, TermAssignment>> assignments : list)
 			{
-				for(Map<String, TermAssignment> assignment : assignments)
+				for(Map<TermWrapper, TermAssignment> assignment : assignments)
 				{
-					for(String name : assignment.keySet())
+					for(TermWrapper wrapper : assignment.keySet())
 					{
+						//TODO mla
+						String name = wrapper.getName();
 						if(map.containsKey(name))
 						{
-							map.get(name).getValues().addAll(assignment.get(name).getValues());
+							map.get(name).getValues().addAll(assignment.get(wrapper).getValues());
 						}
 						else
 						{
-							map.put(name, assignment.get(name));
+							map.put(name, assignment.get(wrapper));
 						}
 					}	
 				}

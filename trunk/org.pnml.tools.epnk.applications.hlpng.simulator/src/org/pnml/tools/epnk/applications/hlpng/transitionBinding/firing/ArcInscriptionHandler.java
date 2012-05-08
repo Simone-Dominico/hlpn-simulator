@@ -28,14 +28,14 @@ public class ArcInscriptionHandler
 		this.evaluationManager = evaluationManager;
 	}
 	
-	public List<List<Map<String, TermAssignment>>> match(MSValue value)
+	public List<List<Map<TermWrapper, TermAssignment>>> match(MSValue value)
 	{
 		// each inscription term compared to all multiset terms
-		List<List<Map<String, TermAssignment>>> list = 
-				new ArrayList<List<Map<String,TermAssignment>>>();
+		List<List<Map<TermWrapper, TermAssignment>>> list = 
+				new ArrayList<List<Map<TermWrapper,TermAssignment>>>();
 		if(operator instanceof NumberOf)
 		{
-			List<Map<String, TermAssignment>> assignments = contains(value, 
+			List<Map<TermWrapper, TermAssignment>> assignments = contains(value, 
 					evaluationManager, (NumberOf)operator);
 			
 			list.add(assignments);
@@ -44,7 +44,7 @@ public class ArcInscriptionHandler
 		{
 			for(Term refValue : operator.getSubterm())
 			{
-				List<Map<String, TermAssignment>> assignments = contains(value, 
+				List<Map<TermWrapper, TermAssignment>> assignments = contains(value, 
 						evaluationManager, ((NumberOf)refValue));
 				
 				list.add(assignments);	
@@ -65,17 +65,17 @@ public class ArcInscriptionHandler
 		return true;
 	}
 
-	private static List<Map<String, TermAssignment>> contains(
+	private static List<Map<TermWrapper, TermAssignment>> contains(
 			MSValue multiset, ComparisonManager resolutionManager, NumberOf numberOf)
 	{
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		List<Map<String, TermAssignment>> list = new ArrayList<Map<String,TermAssignment>>();
+		List<Map<TermWrapper, TermAssignment>> list = new ArrayList<Map<TermWrapper,TermAssignment>>();
 
 		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
-			Map<String, TermAssignment> assignments = new HashMap<String, TermAssignment>();
+			Map<TermWrapper, TermAssignment> assignments = new HashMap<TermWrapper, TermAssignment>();
 			
 			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
 			boolean madeAssignment = false;
