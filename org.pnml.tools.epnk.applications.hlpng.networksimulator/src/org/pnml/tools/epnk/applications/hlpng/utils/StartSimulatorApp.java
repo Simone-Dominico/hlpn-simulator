@@ -1,9 +1,17 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import networkmodel.DirectedEdge;
 import networkmodel.Network;
+import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelPackage;
+import networkmodel.Node;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.URI;
@@ -23,6 +31,17 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
+import org.pnml.tools.epnk.applications.hlpng.network.consensus.MFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.consensus.RBFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.consensus.RFFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.consensus.UFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.echo.InitiatorsFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.echo.M1Function;
+import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
+import org.pnml.tools.epnk.applications.hlpng.network.echo.OthersFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.mindist.IFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.mindist.RFunction;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
@@ -203,9 +222,51 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	
 	private static ExtensionManager createExtensionManager(Network network)
 	{
+		Map<String, NodeWrapper> nodeNameMap = new HashMap<String, NodeWrapper>();
+		Map<Integer, NodeWrapper> nodeIdMap = new HashMap<Integer, NodeWrapper>();
+		List<NodeWrapper> nodes = new ArrayList<NodeWrapper>();
+		int currentId = 0;
+		for(NetworkObject nobj : network.getNetwork())
+		{
+			if(nobj instanceof Node)
+			{
+				NodeWrapper wrapper = new NodeWrapper(currentId, (Node)nobj);
+				currentId++;
+				nodes.add(wrapper);
+				nodeNameMap.put(((Node)nobj).getLabel(), wrapper);
+				System.out.println(nodeNameMap.get(((Node)nobj).getLabel()).getId());
+				nodeIdMap.put(wrapper.getId(), wrapper);
+			}
+		}
+		
+		Integer[][] graph = new Integer[nodes.size()][nodes.size()];
+
+		for(NodeWrapper nw : nodes)
+		{
+			for(DirectedEdge edge : nw.getNode().getOut())
+			{
+				graph[nw.getId()][nodeNameMap.get(edge.getTarget().getLabel()).getId()] = 1;
+			}
+		}
+		System.out.println(Arrays.deepToString(graph));
 		ExtensionManager extensionManager = new ExtensionManager();
 		{
-
+			// min dist
+			extensionManager.register("R", new RFunction(nodes));
+			extensionManager.register("I", new IFunction(nodes));
+			extensionManager.register("N", new NFunction(graph, nodeNameMap, nodeIdMap));
+			
+			// consensus in networks
+			extensionManager.register("U", new UFunction());
+			extensionManager.register("M", new MFunction());
+			extensionManager.register("RF", new RFFunction());
+			extensionManager.register("RB", new RBFunction());
+			
+			// echo
+			extensionManager.register("INITIATORS", new InitiatorsFunction());
+			extensionManager.register("OTHERS", new OthersFunction());
+			extensionManager.register("M1", new M1Function());
+			extensionManager.register("M2", new M2Function());
 		}
 		return extensionManager;
 	}

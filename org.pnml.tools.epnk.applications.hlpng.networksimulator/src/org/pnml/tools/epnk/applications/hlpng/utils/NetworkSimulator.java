@@ -15,7 +15,6 @@ public class NetworkSimulator extends HLSimulator
             ReversibleOperationManager reversibleOperationManager, Font font)
     {
 	    super(petrinet, evaluationManager, comparisonManager,
-	            reversibleOperationManager, font, false);
-	    System.out.println("Network simulator---------------------------------");
+	            reversibleOperationManager, font, true);
     }
 }
