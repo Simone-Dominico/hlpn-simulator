@@ -96,18 +96,18 @@ public class NetworkNavigatorLabelProvider extends LabelProvider implements
 	{
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case NetworkEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?Diagram?http://org.pnml.tools/network?Network", NetworkElementTypes.Network_1000); //$NON-NLS-1$
-			case DirectedEdgeEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?Link?http://org.pnml.tools/network?DirectedEdge", NetworkElementTypes.DirectedEdge_4001); //$NON-NLS-1$
-			case NodeEditPart.VISUAL_ID:
-				return getImage(
-				        "Navigator?TopLevelNode?http://org.pnml.tools/network?Node", NetworkElementTypes.Node_2002); //$NON-NLS-1$
 			case CategoryEditPart.VISUAL_ID:
 				return getImage(
 				        "Navigator?TopLevelNode?http://org.pnml.tools/network?Category", NetworkElementTypes.Category_2001); //$NON-NLS-1$
+			case NodeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?TopLevelNode?http://org.pnml.tools/network?Node", NetworkElementTypes.Node_2002); //$NON-NLS-1$
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?Link?http://org.pnml.tools/network?DirectedEdge", NetworkElementTypes.DirectedEdge_4001); //$NON-NLS-1$
+			case NetworkEditPart.VISUAL_ID:
+				return getImage(
+				        "Navigator?Diagram?http://org.pnml.tools/network?Network", NetworkElementTypes.Network_1000); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -170,14 +170,14 @@ public class NetworkNavigatorLabelProvider extends LabelProvider implements
 		}
 		switch(NetworkVisualIDRegistry.getVisualID(view))
 		{
-			case NetworkEditPart.VISUAL_ID:
-				return getNetwork_1000Text(view);
-			case DirectedEdgeEditPart.VISUAL_ID:
-				return getDirectedEdge_4001Text(view);
-			case NodeEditPart.VISUAL_ID:
-				return getNode_2002Text(view);
 			case CategoryEditPart.VISUAL_ID:
 				return getCategory_2001Text(view);
+			case NodeEditPart.VISUAL_ID:
+				return getNode_2002Text(view);
+			case DirectedEdgeEditPart.VISUAL_ID:
+				return getDirectedEdge_4001Text(view);
+			case NetworkEditPart.VISUAL_ID:
+				return getNetwork_1000Text(view);
 		}
 		return getUnknownElementText(view);
 	}

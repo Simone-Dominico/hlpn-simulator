@@ -40,7 +40,7 @@ public interface Node extends NetworkObject
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see networkmodel.NetworkmodelPackage#getNode_Label()
-     * @model
+     * @model id="true"
      * @generated
      */
     String getLabel();
