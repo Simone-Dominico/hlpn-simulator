@@ -1,5 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
+import java.util.List;
+
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
@@ -13,19 +15,33 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 public abstract class AbstractIntegerOperation extends AbstractReversibleOperation
 {
 	protected abstract int computeTotal(int a, int b);
-	protected abstract int computeArg(int result, int a);
+	protected abstract int computeFirstArg(int result, int[] a);
+	protected abstract int computeSecondArg(int result, int[] a);
 
 	@Override
-    public AbstractValue reverse(AbstractValue result, AbstractValue arg)
-    {
-		Sort sort = arg.getSort();
+	public AbstractValue reverseAll(AbstractValue result, 
+			List<AbstractValue> args, Boolean firstArgumentIsKnown)
+	{
+		NumberValue value = createResultObject(result.getSort());
+		value.setSort(result.getSort());
+		value.setN(((NumberValue)result).getN());
 		
-		NumberValue v =  createResultObject(sort);
-		v.setSort(sort);
-		v.setN(computeArg(((NumberValue)result).getN(), ((NumberValue)arg).getN()));
+		int[] a = new int[args.size()];
+		for(int i = 0; i < args.size(); i++)
+		{
+			a[i] = ((NumberValue)args.get(i)).getN();
+		}
 		
-	    return v;
-    }
+		if(!firstArgumentIsKnown)
+		{
+			value.setN(computeFirstArg(value.getN(), a));
+		}
+		else
+		{
+			value.setN(computeSecondArg(value.getN(), a));
+		}
+		return value;
+	}
 
     public AbstractValue evaluate(AbstractValue arg1, AbstractValue arg2,
             Operator operator)

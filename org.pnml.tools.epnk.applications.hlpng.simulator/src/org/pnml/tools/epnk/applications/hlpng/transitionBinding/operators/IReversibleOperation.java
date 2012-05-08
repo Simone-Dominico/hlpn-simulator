@@ -9,7 +9,6 @@ public interface IReversibleOperation extends IEvaluator
 {
 	public Term getRootTerm();
 	public void setRootTerm(Term rootTerm);
-	public List<Term> getArguments();
-	public AbstractValue reverseAll(AbstractValue result, List<AbstractValue> args);
-	public AbstractValue reverse(AbstractValue result, AbstractValue arg);
+	public AbstractValue reverseAll(AbstractValue result, 
+			List<AbstractValue> args, Boolean firstArgumentIsKnown);
 }

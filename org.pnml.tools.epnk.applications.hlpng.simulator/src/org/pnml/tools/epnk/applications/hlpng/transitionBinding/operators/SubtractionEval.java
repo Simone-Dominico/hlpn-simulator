@@ -8,29 +8,34 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
 
-public class MultiplicationEval extends AbstractIntegerOperation
+public class SubtractionEval extends AbstractIntegerOperation
 {
 	@Override
     protected int computeTotal(int a, int b)
     {
-	    return a * b;
+	    return a - b;
     }
 
 	@Override
     protected int computeFirstArg(int result, int[] a)
     {
-		int mul = 1;
+		int sum = 0;
 		for(int i : a)
 		{
-			mul *= i;
+			sum += i;
 		}
-	    return result / mul;
+	    return result + sum;
     }
 
 	@Override
     protected int computeSecondArg(int result, int[] a)
     {
-		return computeFirstArg(result, a);
+		int sum = 0;
+		for(int i = 1; i < a.length; i++)
+		{
+			sum += a[i];
+		}
+		return a[0] - result - sum;
     }
 
 	@Override
@@ -41,21 +46,22 @@ public class MultiplicationEval extends AbstractIntegerOperation
 			throw new RuntimeException("Not enough arguments!");
 		}
 			
+		int sum = 0;
+		for(int i = 1; i < values.size(); i++)
+		{
+			sum += ((NumberValue)values.get(i)).getN();
+		}
+		
 		AbstractValue result = null;
 		{
 			NumberValue number = (NumberValue)values.get(0);
 			
 			Sort sort = number.getSort();
-			NumberValue res=  createResultObject(sort);
+			NumberValue res =  createResultObject(sort);
 			res.setSort(sort);
-			res.setN(1);
+			res.setN(number.getN() - sum);
 			
 			result = res;
-		}
-		
-		for(AbstractValue value : values)
-		{
-			result = evaluate(result, value, (Operator)rootTerm);
 		}
 		
 		return result;

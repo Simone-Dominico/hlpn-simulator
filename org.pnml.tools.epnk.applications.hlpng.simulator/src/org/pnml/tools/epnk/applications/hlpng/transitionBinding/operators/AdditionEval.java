@@ -45,8 +45,19 @@ public class AdditionEval extends AbstractIntegerOperation
     }
 
 	@Override
-    protected int computeArg(int result, int a)
+    protected int computeFirstArg(int result, int[] a)
     {
-	    return result - a;
+		int sum = 0;
+		for(int i : a)
+		{
+			sum += i;
+		}
+	    return result - sum;
+    }
+
+	@Override
+    protected int computeSecondArg(int result, int[] a)
+    {
+		return computeFirstArg(result, a);
     }
 }

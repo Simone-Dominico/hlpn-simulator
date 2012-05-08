@@ -27,6 +27,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Multip
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -34,6 +35,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstan
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.SubtractionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorImpl;
@@ -85,6 +87,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+		evaluationManager.register(SubtractionImpl.class, new SubtractionEval());
 		
 		// user extensions
 		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
@@ -109,6 +112,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		
 		reversibleOperationManager.register(AdditionImpl.class, new AdditionEval());
 		reversibleOperationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+		reversibleOperationManager.register(SubtractionImpl.class, new SubtractionEval());
 		
 		return reversibleOperationManager;
 	}
@@ -131,6 +135,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 				new ReversibleOperationComparator(evaluationManager, reversibleOperationManager);
 		comparisonManager.register(AdditionImpl.class, binEval);
 		comparisonManager.register(MultiplicationImpl.class, binEval);
+		comparisonManager.register(SubtractionImpl.class, binEval);
 		
 		comparisonManager.register(VariableImpl.class, new VariableComparator());
 		
