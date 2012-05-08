@@ -1,13 +1,11 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
-
 
 public class TermWrapper
 {
 	protected Term rootTerm = null;
-
+	
 	public Term getRootTerm()
     {
     	return rootTerm;
@@ -18,10 +16,6 @@ public class TermWrapper
     }
 	public String getName()
     {
-		if(rootTerm instanceof Variable)
-		{
-			return ((Variable)rootTerm).getName();
-		}
     	return rootTerm.toString();
     }
 	@Override
