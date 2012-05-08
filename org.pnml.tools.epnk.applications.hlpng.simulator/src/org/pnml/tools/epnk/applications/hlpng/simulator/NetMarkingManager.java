@@ -171,7 +171,7 @@ public class NetMarkingManager
 				try
                 {
 	                AbstractValue inscriptionValue = evalManager.
-	                		evaluateAdapt(hlArc.getHlinscription().getStructure(), firingMode.getParams());
+	                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 	                
 	                MSValue newMsValue = AbstractValueMath.append((MSValue)inscriptionValue,
 	                		currentMarking.getMsValue());

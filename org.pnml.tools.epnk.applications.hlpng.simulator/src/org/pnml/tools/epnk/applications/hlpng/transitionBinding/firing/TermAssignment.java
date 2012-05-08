@@ -7,16 +7,16 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 
 public class TermAssignment
 {
-	private TermWrapper variable = null;
+	private TermWrapper termWrapper = null;
 	private Set<AbstractValue> values = null;
 	
-	public TermWrapper getVariable()
+	public TermWrapper getTermWrapper()
     {
-    	return variable;
+    	return termWrapper;
     }
-	public void setVariable(TermWrapper variable)
+	public void setTermWrapper(TermWrapper variable)
     {
-    	this.variable = variable;
+    	this.termWrapper = variable;
     }
 	public Set<AbstractValue> getValues()
     {
@@ -30,11 +30,6 @@ public class TermAssignment
     {
     	this.values = values;
     }
-	public String getVariableName()
-    {
-    	return variable.getName();
-    }
-
 	@Override
     public String toString()
     {

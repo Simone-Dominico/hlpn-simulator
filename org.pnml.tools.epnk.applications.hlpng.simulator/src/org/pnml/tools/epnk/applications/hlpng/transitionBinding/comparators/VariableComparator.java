@@ -22,20 +22,19 @@ public class VariableComparator implements IComparable
 		}
 		
 		Variable var = (Variable)refValue;
+		VariableWrapper rv = new VariableWrapper();
+		rv.setRootTerm(var);
+		rv.setVariable(var);
 		
-		if(assignments.containsKey(var.getName()))
+		if(assignments.containsKey(rv))
 		{
-			assignments.get(var.getName()).getValues().add(testValue);
+			assignments.get(rv).getValues().add(testValue);
 		}
 		else
 		{
-			VariableWrapper rv = new VariableWrapper();
-			rv.setRootTerm(var);
-			rv.setVariable(var);
-			
 			TermAssignment ve = new TermAssignment();
 			ve.getValues().add(testValue);
-			ve.setVariable(rv);
+			ve.setTermWrapper(rv);
 
 			assignments.put(rv, ve);
 		}
