@@ -1,10 +1,12 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -25,12 +27,18 @@ public class ReversibleOperationComparator implements IComparable
 	
 	@Override
 	public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, TermAssignment> assignments)
+            Map<TermWrapper, TermAssignment> assignments)
     {
 		boolean cannotEval = false;
 		try
         {
-            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, assignments);
+			//TODO mla
+			Map<String, TermAssignment> strAssignments = new HashMap<String, TermAssignment>();
+			for(TermWrapper wrapper : assignments.keySet())
+			{
+				strAssignments.put(wrapper.getName(), assignments.get(wrapper));
+			}
+            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, strAssignments);
             return evals.contains(testValue);
         }
         catch(UnknownVariableException e)
@@ -52,7 +60,7 @@ public class ReversibleOperationComparator implements IComparable
 				ve.getValues().add(testValue);
 				ve.setVariable(operation);
 
-				assignments.put(operation.getName(), ve);
+				assignments.put(operation, ve);
 			}
 		}
 		return true;

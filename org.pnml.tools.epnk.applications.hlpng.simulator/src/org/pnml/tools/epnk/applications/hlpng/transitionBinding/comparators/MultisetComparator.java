@@ -8,6 +8,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
@@ -24,7 +25,7 @@ public class MultisetComparator implements IComparable
 	
 	@Override
     public boolean compare(Term refValue, AbstractValue testValue,
-            Map<String, TermAssignment> assignments)
+            Map<TermWrapper, TermAssignment> assignments)
     {
 		if(!(refValue instanceof MultiSetOperator || testValue instanceof MSValue) ||
 	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||
