@@ -53,7 +53,7 @@ public class ReversibleOperationManager
 	}
 	
 	public boolean resolve(AbstractValue result, IReversibleOperation operation,
-			Map<String, TermAssignment> knownVariables)
+			Map<TermWrapper, TermAssignment> knownVariables)
 	{
 		Term unknownTerm = null;
 		int numberOfUnknowns = 0;
@@ -64,7 +64,13 @@ public class ReversibleOperationManager
 		{
 			try
             {
-				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, knownVariables);
+				//TODO mla
+				Map<String, TermAssignment> strAssignments = new HashMap<String, TermAssignment>();
+				for(TermWrapper wrapper : knownVariables.keySet())
+				{
+					strAssignments.put(wrapper.getName(), knownVariables.get(wrapper));
+				}
+				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, strAssignments);
 				known.add(value);
 				termEval.add(true);
             }
@@ -102,23 +108,23 @@ public class ReversibleOperationManager
 			for(List<AbstractValue> args : setsOfResults)
 			{
 				Variable var = (Variable)unknownTerm;
-				String varName = var.getName();
+				
+				VariableWrapper rv = new VariableWrapper();
+				rv.setRootTerm(var);
+				rv.setVariable(var);
+				
 				AbstractValue value = operation.reverseAll(result, args, termEval.get(0));
-				if(knownVariables.containsKey(varName))
+				if(knownVariables.containsKey(rv))
 				{
-					knownVariables.get(varName).getValues().add(value);
+					knownVariables.get(rv).getValues().add(value);
 				}
 				else
 				{
-					VariableWrapper rv = new VariableWrapper();
-					rv.setRootTerm(var);
-					rv.setVariable(var);
-					
 					TermAssignment ve = new TermAssignment();
 					ve.getValues().add(value);
 					ve.setVariable(rv);
 					
-					knownVariables.put(varName, ve);
+					knownVariables.put(rv, ve);
 				}
 			}
 			return true;
@@ -136,12 +142,12 @@ public class ReversibleOperationManager
 	}
 	
 	public boolean resolveAll(Collection<AbstractValue> result, IReversibleOperation operation,
-			Map<String, TermAssignment> knownVariables)
+			Map<TermWrapper, TermAssignment> knownVariables)
 	{
-		List<Map<String, TermAssignment>> copies = new ArrayList<Map<String,TermAssignment>>();
+		List<Map<TermWrapper, TermAssignment>> copies = new ArrayList<Map<TermWrapper,TermAssignment>>();
 		for(AbstractValue value : result)
 		{
-			Map<String, TermAssignment> copy = copyMap(knownVariables);
+			Map<TermWrapper, TermAssignment> copy = copyMap(knownVariables);
 			copies.add(copy);
 			
 			if(!resolve(value, operation, copy))
@@ -149,34 +155,34 @@ public class ReversibleOperationManager
 				return false;
 			}
 		}
-		for(Map<String, TermAssignment> map : copies)
+		for(Map<TermWrapper, TermAssignment> map : copies)
 		{
 			mergeMap(knownVariables, map);
 		}
 		return true;
 	}
 	
-	private static Map<String, TermAssignment> copyMap(Map<String, TermAssignment> map)
+	private static Map<TermWrapper, TermAssignment> copyMap(Map<TermWrapper, TermAssignment> map)
 	{
-		Map<String, TermAssignment> copy = new HashMap<String, TermAssignment>();
+		Map<TermWrapper, TermAssignment> copy = new HashMap<TermWrapper, TermAssignment>();
 		
-		for(String key : map.keySet())
+		for(TermWrapper key : map.keySet())
 		{
 			TermAssignment ve = map.get(key);
 			TermAssignment copyVe = new TermAssignment();
 			copyVe.setVariable(ve.getVariable());
 			copyVe.getValues().addAll(ve.getValues());
 			
-			copy.put(ve.getVariableName(), copyVe);
+			copy.put(key, copyVe);
 		}
 		
 		return copy;
 	}
 	
-	private static void mergeMap(Map<String, TermAssignment> main,
-			Map<String, TermAssignment> map2)
+	private static void mergeMap(Map<TermWrapper, TermAssignment> main,
+			Map<TermWrapper, TermAssignment> map2)
 	{
-		for(String key : map2.keySet())
+		for(TermWrapper key : map2.keySet())
 		{
 			if(main.containsKey(key))
 			{
@@ -189,7 +195,7 @@ public class ReversibleOperationManager
 				copyVe.setVariable(ve.getVariable());
 				copyVe.getValues().addAll(ve.getValues());
 				
-				main.put(ve.getVariableName(), copyVe);		
+				main.put(key, copyVe);		
 			}
 		}
 	}
