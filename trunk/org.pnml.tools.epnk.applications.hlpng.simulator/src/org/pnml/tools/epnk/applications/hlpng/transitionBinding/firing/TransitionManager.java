@@ -86,11 +86,11 @@ public class TransitionManager
 		}
 		
 		// narrowing
-		Map<String, TermAssignment> globalMap = narrowing(allInscriptionMatches);
+		Map<TermWrapper, TermAssignment> globalMap = narrowing(allInscriptionMatches);
 		
 		// resolving undefined variables
 		List<TermAssignment> unresolved = new ArrayList<TermAssignment>();
-		for(String key : globalMap.keySet())
+		for(TermWrapper key : globalMap.keySet())
 		{
 			TermAssignment ve = globalMap.get(key);
 			if(!(ve.getVariable().getRootTerm() instanceof Variable))
@@ -100,7 +100,7 @@ public class TransitionManager
 		}
 		for(TermAssignment ve : unresolved)
 		{
-			globalMap.remove(ve.getVariable().getName());
+			globalMap.remove(ve.getVariable());
 		}
 		do
 		{		
@@ -125,7 +125,7 @@ public class TransitionManager
 		if(globalMap.keySet().size() == 1)
 		{
 			List<Map<Variable, AbstractValue>> varSets = new ArrayList<Map<Variable,AbstractValue>>();
-			for(String key : globalMap.keySet())
+			for(TermWrapper key : globalMap.keySet())
 			{
 				TermAssignment value = globalMap.get(key);
 				
@@ -156,18 +156,17 @@ public class TransitionManager
 		return eval(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 	}
 	
-	private static Map<String, TermAssignment> checkParams(Map<String, TermAssignment> globalMap)
+	private static Map<TermWrapper, TermAssignment> checkParams(Map<TermWrapper, TermAssignment> globalMap)
 	{
-		Map<String, TermAssignment> filtered = new HashMap<String, TermAssignment>();
-		for(String key : globalMap.keySet())
+		Map<TermWrapper, TermAssignment> filtered = new HashMap<TermWrapper, TermAssignment>();
+		for(TermWrapper key : globalMap.keySet())
 		{
 			TermAssignment oldVe = globalMap.get(key);
-			TermWrapper rv = (TermWrapper)oldVe.getVariable();
-			
+
 			Set<AbstractValue> newValues = new HashSet<AbstractValue>();
 			for(AbstractValue value : oldVe.getValues())
 			{
-				if(ConsistencyManager.check(value, rv.getRootTerm().getSort()))
+				if(ConsistencyManager.check(value, key.getRootTerm().getSort()))
 				{
 					newValues.add(value);
 				}
@@ -176,7 +175,7 @@ public class TransitionManager
 			if(newValues.size() > 0)
 			{
 				TermAssignment newVe = new TermAssignment();
-				newVe.setVariable(rv);
+				newVe.setVariable(key);
 				newVe.setValues(newValues);
 				
 				filtered.put(key, newVe);
@@ -259,52 +258,50 @@ public class TransitionManager
 		return assignemnts;
 	}
 	
-	private static Map<String, TermAssignment> narrowing(
+	private static Map<TermWrapper, TermAssignment> narrowing(
 			List<List<List<Map<TermWrapper, TermAssignment>>>> mainList)
 	{
-		Map<String, TermAssignment> globalMap = new HashMap<String, TermAssignment>();
+		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
 		
 		// for each arc
 		for(List<List<Map<TermWrapper, TermAssignment>>> list : mainList)
 		{
-			Map<String, TermAssignment> map = new HashMap<String, TermAssignment>();
+			Map<TermWrapper, TermAssignment> map = new HashMap<TermWrapper, TermAssignment>();
 			for(List<Map<TermWrapper, TermAssignment>> assignments : list)
 			{
 				for(Map<TermWrapper, TermAssignment> assignment : assignments)
 				{
 					for(TermWrapper wrapper : assignment.keySet())
 					{
-						//TODO mla
-						String name = wrapper.getName();
-						if(map.containsKey(name))
+						if(map.containsKey(wrapper))
 						{
-							map.get(name).getValues().addAll(assignment.get(wrapper).getValues());
+							map.get(wrapper).getValues().addAll(assignment.get(wrapper).getValues());
 						}
 						else
 						{
-							map.put(name, assignment.get(wrapper));
+							map.put(wrapper, assignment.get(wrapper));
 						}
 					}	
 				}
 			}
 			
-			for(String name : map.keySet())
+			for(TermWrapper wrapper : map.keySet())
 			{
 				TermAssignment ve = new TermAssignment();
-				ve.setVariable(map.get(name).getVariable());
+				ve.setVariable(map.get(wrapper).getVariable());
 				// intersection
-				if(globalMap.containsKey(name))
+				if(globalMap.containsKey(wrapper))
 				{
 					Set<AbstractValue> intersection = 
-							new HashSet<AbstractValue>(map.get(name).getValues());
-					intersection.retainAll(globalMap.get(name).getValues());
+							new HashSet<AbstractValue>(map.get(wrapper).getValues());
+					intersection.retainAll(globalMap.get(wrapper).getValues());
 					ve.setValues(intersection);
 				}
 				else
 				{
-					ve.getValues().addAll(map.get(name).getValues());
+					ve.getValues().addAll(map.get(wrapper).getValues());
 				}
-				globalMap.put(name, ve);
+				globalMap.put(wrapper, ve);
 			}
 		}
 		return globalMap;
@@ -321,16 +318,16 @@ public class TransitionManager
 		return map;
 	}
 	
-	private static List<List<Pair<TermAssignment, AbstractValue>>> pairVariablesToAssignments(Map<String, TermAssignment> globalMap)
+	private static List<List<Pair<TermAssignment, AbstractValue>>> pairVariablesToAssignments(Map<TermWrapper, TermAssignment> globalMap)
 	{
 		List<List<Pair<TermAssignment, AbstractValue>>> evaluations = 
 				new ArrayList<List<Pair<TermAssignment, AbstractValue>>>();
 		
-		for(String name : globalMap.keySet())
+		for(TermWrapper wrapper : globalMap.keySet())
 		{
 			List<Pair<TermAssignment, AbstractValue>> evaluation = new ArrayList<Pair<TermAssignment, AbstractValue>>();
 			
-			TermAssignment ve = globalMap.get(name);
+			TermAssignment ve = globalMap.get(wrapper);
 			List<AbstractValue> values = new ArrayList<AbstractValue>(ve.getValues());
 			for(AbstractValue entry : values)
 			{
