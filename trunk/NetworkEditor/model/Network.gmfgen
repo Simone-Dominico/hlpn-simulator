@@ -137,9 +137,37 @@
         <childMetaFeature
             href="Network.genmodel#//networkmodel/Network/network"/>
         <sourceMetaFeature
-            href="Network.genmodel#//networkmodel/DirectedEdge/source"/>
+            href="Network.genmodel#//networkmodel/UndirectedEdge/source"/>
         <targetMetaFeature
-            href="Network.genmodel#//networkmodel/DirectedEdge/target"/>
+            href="Network.genmodel#//networkmodel/UndirectedEdge/target"/>
+      </modelFacet>
+    </links>
+    <links
+        visualID="4002"
+        editPartClassName="UndirectedEdgeEditPart"
+        itemSemanticEditPolicyClassName="UndirectedEdgeItemSemanticEditPolicy"
+        createCommandClassName="UndirectedEdgeCreateCommand"
+        reorientCommandClassName="UndirectedEdgeReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="UndirectedEdgeEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass
+            href="Network.genmodel#//networkmodel/UndirectedEdge"/>
+        <containmentMetaFeature
+            href="Network.genmodel#//networkmodel/Network/network"/>
+        <childMetaFeature
+            href="Network.genmodel#//networkmodel/Network/network"/>
+        <sourceMetaFeature
+            href="Network.genmodel#//networkmodel/UndirectedEdge/source"/>
+        <targetMetaFeature
+            href="Network.genmodel#//networkmodel/UndirectedEdge/target"/>
       </modelFacet>
     </links>
     <palette>
@@ -160,6 +188,11 @@
             title="Category"
             description="Create new Category"
             genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="UndirectedEdge"
+            description="Create new UndirectedEdge"
+            genLinks="//@diagram/@links.1"/>
       </groups>
     </palette>
     <preferencePages
@@ -228,6 +261,35 @@
     <childReferences
         parent="//@diagram/@topLevelNodes.1"
         child="//@diagram/@links.0"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.1"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.1"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.1"
+        child="//@diagram/@topLevelNodes.1"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.1"
+        child="//@diagram/@links.1"
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>

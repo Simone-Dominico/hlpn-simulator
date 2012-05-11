@@ -5,6 +5,7 @@ import java.util.Iterator;
 import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.Node;
+import networkmodel.UndirectedEdge;
 import networkmodel.diagram.edit.helpers.NetworkBaseEditHelper;
 import networkmodel.diagram.part.NetworkDiagramEditorPlugin;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
@@ -389,8 +390,26 @@ public class NetworkBaseItemSemanticEditPolicy extends SemanticEditPolicy
 		/**
 		 * @generated
 		 */
+		public boolean canCreateUndirectedEdge_4002(Network container,
+		        Node source, Node target)
+		{
+			return canExistUndirectedEdge_4002(container, null, source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public boolean canExistDirectedEdge_4001(Network container,
 		        DirectedEdge linkInstance, Node source, Node target)
+		{
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistUndirectedEdge_4002(Network container,
+		        UndirectedEdge linkInstance, Node source, Node target)
 		{
 			return true;
 		}

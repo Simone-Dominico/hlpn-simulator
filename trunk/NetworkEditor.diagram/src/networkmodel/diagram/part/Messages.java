@@ -281,6 +281,16 @@ public class Messages extends NLS
 	/**
 	 * @generated
 	 */
+	public static String UndirectedEdge4CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String UndirectedEdge4CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
 	public static String CommandName_OpenDiagram;
 
 	/**
@@ -302,6 +312,16 @@ public class Messages extends NLS
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Node_2002_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_UndirectedEdge_4002_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_UndirectedEdge_4002_source;
 
 	/**
 	 * @generated

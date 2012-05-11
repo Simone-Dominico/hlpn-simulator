@@ -57,10 +57,27 @@
         href="Network.gmfgraph#DirectedEdge"/>
     <sourceMetaFeature
         xsi:type="ecore:EReference"
-        href="Network.ecore#//DirectedEdge/source"/>
+        href="Network.ecore#//UndirectedEdge/source"/>
     <linkMetaFeature
         xsi:type="ecore:EReference"
-        href="Network.ecore#//DirectedEdge/target"/>
+        href="Network.ecore#//UndirectedEdge/target"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="Network.ecore#//UndirectedEdge"/>
+    <containmentFeature
+        href="Network.ecore#//Network/network"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="Network.gmftool#//@palette/@tools.0/@tools.3"/>
+    <diagramLink
+        href="Network.gmfgraph#UndirectedEdge"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="Network.ecore#//UndirectedEdge/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="Network.ecore#//UndirectedEdge/target"/>
   </links>
   <diagram>
     <diagramCanvas

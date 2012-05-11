@@ -4,7 +4,10 @@ import java.util.Iterator;
 
 import networkmodel.diagram.edit.commands.DirectedEdgeCreateCommand;
 import networkmodel.diagram.edit.commands.DirectedEdgeReorientCommand;
+import networkmodel.diagram.edit.commands.UndirectedEdgeCreateCommand;
+import networkmodel.diagram.edit.commands.UndirectedEdgeReorientCommand;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
+import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 import networkmodel.diagram.providers.NetworkElementTypes;
 
@@ -54,11 +57,27 @@ public class NodeItemSemanticEditPolicy extends
 				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
 			}
+			if(NetworkVisualIDRegistry.getVisualID(incomingLink) == UndirectedEdgeEditPart.VISUAL_ID)
+			{
+				DestroyElementRequest r = new DestroyElementRequest(
+				        incomingLink.getElement(), false);
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
 		}
 		for(Iterator<?> it = view.getSourceEdges().iterator(); it.hasNext();)
 		{
 			Edge outgoingLink = (Edge) it.next();
 			if(NetworkVisualIDRegistry.getVisualID(outgoingLink) == DirectedEdgeEditPart.VISUAL_ID)
+			{
+				DestroyElementRequest r = new DestroyElementRequest(
+				        outgoingLink.getElement(), false);
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
+				continue;
+			}
+			if(NetworkVisualIDRegistry.getVisualID(outgoingLink) == UndirectedEdgeEditPart.VISUAL_ID)
 			{
 				DestroyElementRequest r = new DestroyElementRequest(
 				        outgoingLink.getElement(), false);
@@ -104,6 +123,11 @@ public class NodeItemSemanticEditPolicy extends
 			return getGEFWrapper(new DirectedEdgeCreateCommand(req,
 			        req.getSource(), req.getTarget()));
 		}
+		if(NetworkElementTypes.UndirectedEdge_4002 == req.getElementType())
+		{
+			return getGEFWrapper(new UndirectedEdgeCreateCommand(req,
+			        req.getSource(), req.getTarget()));
+		}
 		return null;
 	}
 
@@ -116,6 +140,11 @@ public class NodeItemSemanticEditPolicy extends
 		if(NetworkElementTypes.DirectedEdge_4001 == req.getElementType())
 		{
 			return getGEFWrapper(new DirectedEdgeCreateCommand(req,
+			        req.getSource(), req.getTarget()));
+		}
+		if(NetworkElementTypes.UndirectedEdge_4002 == req.getElementType())
+		{
+			return getGEFWrapper(new UndirectedEdgeCreateCommand(req,
 			        req.getSource(), req.getTarget()));
 		}
 		return null;
@@ -134,6 +163,8 @@ public class NodeItemSemanticEditPolicy extends
 		{
 			case DirectedEdgeEditPart.VISUAL_ID:
 				return getGEFWrapper(new DirectedEdgeReorientCommand(req));
+			case UndirectedEdgeEditPart.VISUAL_ID:
+				return getGEFWrapper(new UndirectedEdgeReorientCommand(req));
 		}
 		return super.getReorientRelationshipCommand(req);
 	}

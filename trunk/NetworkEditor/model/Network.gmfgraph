@@ -52,6 +52,12 @@
       <accessors
           figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
     </descriptors>
+    <descriptors
+        name="UndirectedEdgeFigure">
+      <actualFigure
+          xsi:type="gmfgraph:PolylineConnection"
+          name="DirectedEdgeFigure"/>
+    </descriptors>
   </figures>
   <nodes
       name="Node"
@@ -62,6 +68,9 @@
   <connections
       name="DirectedEdge"
       figure="DirectedEdgeFigure"/>
+  <connections
+      name="UndirectedEdge"
+      figure="UndirectedEdgeFigure"/>
   <labels
       name="NodeLabel"
       figure="NodeFigure"

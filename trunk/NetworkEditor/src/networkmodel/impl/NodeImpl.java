@@ -9,10 +9,10 @@ package networkmodel.impl;
 import java.util.Collection;
 
 import networkmodel.Category;
-import networkmodel.DirectedEdge;
 import networkmodel.NetworkmodelPackage;
 import networkmodel.Node;
 
+import networkmodel.UndirectedEdge;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -72,7 +72,7 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * @generated
      * @ordered
      */
-    protected EList<DirectedEdge> out;
+    protected EList<UndirectedEdge> out;
 
     /**
      * The cached value of the '{@link #getIn() <em>In</em>}' reference list.
@@ -82,7 +82,7 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * @generated
      * @ordered
      */
-    protected EList<DirectedEdge> in;
+    protected EList<UndirectedEdge> in;
 
     /**
      * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -143,11 +143,11 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<DirectedEdge> getOut()
+    public EList<UndirectedEdge> getOut()
     {
         if (out == null)
         {
-            out = new EObjectWithInverseResolvingEList<DirectedEdge>(DirectedEdge.class, this, NetworkmodelPackage.NODE__OUT, NetworkmodelPackage.DIRECTED_EDGE__SOURCE);
+            out = new EObjectWithInverseResolvingEList<UndirectedEdge>(UndirectedEdge.class, this, NetworkmodelPackage.NODE__OUT, NetworkmodelPackage.UNDIRECTED_EDGE__SOURCE);
         }
         return out;
     }
@@ -157,11 +157,11 @@ public class NodeImpl extends NetworkObjectImpl implements Node
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList<DirectedEdge> getIn()
+    public EList<UndirectedEdge> getIn()
     {
         if (in == null)
         {
-            in = new EObjectWithInverseResolvingEList<DirectedEdge>(DirectedEdge.class, this, NetworkmodelPackage.NODE__IN, NetworkmodelPackage.DIRECTED_EDGE__TARGET);
+            in = new EObjectWithInverseResolvingEList<UndirectedEdge>(UndirectedEdge.class, this, NetworkmodelPackage.NODE__IN, NetworkmodelPackage.UNDIRECTED_EDGE__TARGET);
         }
         return in;
     }
@@ -259,11 +259,11 @@ public class NodeImpl extends NetworkObjectImpl implements Node
                 return;
             case NetworkmodelPackage.NODE__OUT:
                 getOut().clear();
-                getOut().addAll((Collection<? extends DirectedEdge>)newValue);
+                getOut().addAll((Collection<? extends UndirectedEdge>)newValue);
                 return;
             case NetworkmodelPackage.NODE__IN:
                 getIn().clear();
-                getIn().addAll((Collection<? extends DirectedEdge>)newValue);
+                getIn().addAll((Collection<? extends UndirectedEdge>)newValue);
                 return;
             case NetworkmodelPackage.NODE__CATEGORY:
                 getCategory().clear();
