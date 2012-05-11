@@ -54,13 +54,16 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Multip
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.SubtractionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorImpl;
@@ -176,9 +179,12 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		evaluationManager.register(NumberOfImpl.class.getPackage(), new MultisetsEval());
 		// terms package
 		evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
+		// variables
+		evaluationManager.register(VariableImpl.class, new VariableEval());
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
+		evaluationManager.register(SubtractionImpl.class, new SubtractionEval());
 		
 		return evaluationManager;
 	}

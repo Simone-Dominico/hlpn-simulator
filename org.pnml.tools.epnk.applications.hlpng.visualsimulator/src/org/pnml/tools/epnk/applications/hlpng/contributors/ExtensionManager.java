@@ -2,13 +2,15 @@ package org.pnml.tools.epnk.applications.hlpng.contributors;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
 
@@ -27,11 +29,12 @@ public class ExtensionManager implements IUserExtensions
 	}
 	
 	@Override
-    public AbstractValue evaluate(List<AbstractValue> values, Operator operator)
-    {
-		String name = ((UserOperator)operator).getDeclaration().getName();
+	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	{
+		String name = ((UserOperator)term).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
-	    return eval.evaluate(values, operator);
+	    return eval.evaluate(term, evaluationManager, assignments);
     }
 
 	public Map<String, IEvaluator> getHandlers()
