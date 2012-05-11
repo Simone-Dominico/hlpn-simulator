@@ -62,18 +62,21 @@ public class ResourceManager
 		evaluationManager.register(SubtractionImpl.class, new SubtractionEval());
 		
 		// user extensions
-		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
-		for(IConfigurationElement e : config)
+		if(extensionId != null)
 		{
-			try
+			IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
+			for(IConfigurationElement e : config)
 			{
-				IEvaluator arbitraryOperatorEval = (IEvaluator) e.createExecutableExtension("class");
-				userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
-			}
-			catch(CoreException e1)
-			{
-				e1.printStackTrace();
-			}
+				try
+				{
+					IEvaluator arbitraryOperatorEval = (IEvaluator) e.createExecutableExtension("class");
+					userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
+				}
+				catch(CoreException e1)
+				{
+					e1.printStackTrace();
+				}
+			}	
 		}
 		return evaluationManager;
 	}
