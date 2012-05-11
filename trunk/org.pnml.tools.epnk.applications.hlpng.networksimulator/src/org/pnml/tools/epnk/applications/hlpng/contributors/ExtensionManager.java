@@ -15,6 +15,12 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 public class ExtensionManager implements IUserExtensions
 {
 	private Map<String, IEvaluator> handlers = new HashMap<String, IEvaluator>();
+	private IEvaluator defaultEvaluator = null;
+	
+	public ExtensionManager(IEvaluator defaultEvaluator)
+	{
+		this.defaultEvaluator = defaultEvaluator;
+	}
 	
 	public void register(String name, IEvaluator eval)
 	{
@@ -31,6 +37,11 @@ public class ExtensionManager implements IUserExtensions
     {
 		String name = ((UserOperator)operator).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
+		
+		if(eval == null)
+		{
+			return defaultEvaluator.evaluate(values, operator);
+		}
 	    return eval.evaluate(values, operator);
     }
 
