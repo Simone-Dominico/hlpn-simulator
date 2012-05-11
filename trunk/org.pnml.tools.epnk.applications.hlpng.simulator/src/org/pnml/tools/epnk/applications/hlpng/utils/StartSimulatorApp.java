@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Mult
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberOfComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ReversibleOperationComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TupleComparator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.UserOperatorComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
@@ -29,6 +30,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Revers
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -87,6 +89,9 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
 		// variables
 		evaluationManager.register(VariableImpl.class, new VariableEval());
+		// user operations
+		UserOperatorEval userOperatorEval = new UserOperatorEval();
+		evaluationManager.register(UserOperatorImpl.class, userOperatorEval);
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
@@ -98,9 +103,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		{
 			try
 			{
-				// FIXME mla: Arbitrary Operator
-				evaluationManager.register(UserOperatorImpl.class,
-				        (IEvaluator) e.createExecutableExtension("class"));
+				IEvaluator arbitraryOperatorEval = (IEvaluator) e.createExecutableExtension("class");
+				userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
 			}
 			catch(CoreException e1)
 			{
@@ -142,6 +146,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		comparisonManager.register(SubtractionImpl.class, binEval);
 		
 		comparisonManager.register(VariableImpl.class, new VariableComparator());
+		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());
 		
 		return comparisonManager;
 	}
