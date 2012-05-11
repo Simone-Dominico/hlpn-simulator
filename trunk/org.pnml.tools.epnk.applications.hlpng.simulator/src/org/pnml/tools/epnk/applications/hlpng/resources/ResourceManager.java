@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.utils;
+package org.pnml.tools.epnk.applications.hlpng.resources;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
