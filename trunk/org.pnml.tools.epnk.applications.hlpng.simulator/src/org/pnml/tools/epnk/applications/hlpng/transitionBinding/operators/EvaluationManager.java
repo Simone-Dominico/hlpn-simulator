@@ -10,12 +10,9 @@ import java.util.Set;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class EvaluationManager
 {
@@ -46,42 +43,9 @@ public class EvaluationManager
 	
 	public AbstractValue evaluate(Term term, Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
 	{
-		if(term instanceof Variable)
-		{
-			VariableWrapper wrapper = new VariableWrapper();
-			wrapper.setRootTerm(term);
-			wrapper.setVariable((Variable)term);
-
-			if(assignments == null)
-			{
-				throw new UnknownVariableException("Unknown variable: " + wrapper.getVariable().getName());
-			}
-			
-			AbstractValue value = assignments.get(wrapper);
-			if(value == null)
-			{
-				throw new UnknownVariableException("Unknown variable: " + wrapper.getVariable().getName());
-			}
-			
-			return value;
-		}
-		
-		Operator op = (Operator) term;
-		List<AbstractValue> values = new ArrayList<AbstractValue>();
-		for(Term subterm : op.getSubterm())
-		{
-			AbstractValue value = evaluate(subterm, assignments);
-			values.add(value);
-		}
-
 		IEvaluator evaluator = getHandler(term.getClass());
 		
-		if(evaluator == null)
-		{
-			System.out.println(term.getClass());
-		}
-		
-		return evaluator.evaluate(values, op);
+		return evaluator.evaluate(term, this, assignments);
 	}
 	
 	public Set<AbstractValue> evaluateAll(Term term, Map<TermWrapper, TermAssignment> assignments) throws UnknownVariableException

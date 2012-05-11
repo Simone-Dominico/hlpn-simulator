@@ -29,6 +29,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Revers
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
@@ -84,6 +85,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		evaluationManager.register(NumberOfImpl.class.getPackage(), new MultisetsEval());
 		// terms package
 		evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());
+		// variables
+		evaluationManager.register(VariableImpl.class, new VariableEval());
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
@@ -95,6 +98,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		{
 			try
 			{
+				// FIXME mla: Arbitrary Operator
 				evaluationManager.register(UserOperatorImpl.class,
 				        (IEvaluator) e.createExecutableExtension("class"));
 			}

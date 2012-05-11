@@ -19,4 +19,5 @@ Export-Package: org.pnml.tools.epnk.applications.hlpng.runtime,
  org.pnml.tools.epnk.applications.hlpng.simulator,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions,
+ org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators
