@@ -16,6 +16,7 @@ import networkmodel.diagram.edit.parts.CategoryEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
+import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.NetworkDiagramUpdater;
 import networkmodel.diagram.part.NetworkLinkDescriptor;
 import networkmodel.diagram.part.NetworkNodeDescriptor;
@@ -331,6 +332,19 @@ public class NetworkCanonicalEditPolicy extends CanonicalEditPolicy
 				{
 					result.addAll(NetworkDiagramUpdater
 					        .getDirectedEdge_4001ContainedLinks(view));
+				}
+				if(!domain2NotationMap.containsKey(view.getElement())
+				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
+					domain2NotationMap.put(view.getElement(), view);
+				}
+				break;
+			}
+			case UndirectedEdgeEditPart.VISUAL_ID:
+			{
+				if(!domain2NotationMap.containsKey(view.getElement()))
+				{
+					result.addAll(NetworkDiagramUpdater
+					        .getUndirectedEdge_4002ContainedLinks(view));
 				}
 				if(!domain2NotationMap.containsKey(view.getElement())
 				        || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$

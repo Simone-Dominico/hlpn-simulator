@@ -57,8 +57,8 @@ public interface Node extends NetworkObject
 
     /**
      * Returns the value of the '<em><b>Out</b></em>' reference list.
-     * The list contents are of type {@link networkmodel.DirectedEdge}.
-     * It is bidirectional and its opposite is '{@link networkmodel.DirectedEdge#getSource <em>Source</em>}'.
+     * The list contents are of type {@link networkmodel.UndirectedEdge}.
+     * It is bidirectional and its opposite is '{@link networkmodel.UndirectedEdge#getSource <em>Source</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Out</em>' reference list isn't clear,
@@ -67,16 +67,16 @@ public interface Node extends NetworkObject
      * <!-- end-user-doc -->
      * @return the value of the '<em>Out</em>' reference list.
      * @see networkmodel.NetworkmodelPackage#getNode_Out()
-     * @see networkmodel.DirectedEdge#getSource
+     * @see networkmodel.UndirectedEdge#getSource
      * @model opposite="source"
      * @generated
      */
-    EList<DirectedEdge> getOut();
+    EList<UndirectedEdge> getOut();
 
     /**
      * Returns the value of the '<em><b>In</b></em>' reference list.
-     * The list contents are of type {@link networkmodel.DirectedEdge}.
-     * It is bidirectional and its opposite is '{@link networkmodel.DirectedEdge#getTarget <em>Target</em>}'.
+     * The list contents are of type {@link networkmodel.UndirectedEdge}.
+     * It is bidirectional and its opposite is '{@link networkmodel.UndirectedEdge#getTarget <em>Target</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>In</em>' reference list isn't clear,
@@ -85,11 +85,11 @@ public interface Node extends NetworkObject
      * <!-- end-user-doc -->
      * @return the value of the '<em>In</em>' reference list.
      * @see networkmodel.NetworkmodelPackage#getNode_In()
-     * @see networkmodel.DirectedEdge#getTarget
+     * @see networkmodel.UndirectedEdge#getTarget
      * @model opposite="target"
      * @generated
      */
-    EList<DirectedEdge> getIn();
+    EList<UndirectedEdge> getIn();
 
     /**
      * Returns the value of the '<em><b>Category</b></em>' reference list.

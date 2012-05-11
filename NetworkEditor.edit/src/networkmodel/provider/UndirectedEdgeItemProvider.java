@@ -24,13 +24,13 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 /**
- * This is the item provider adapter for a {@link networkmodel.DirectedEdge} object.
+ * This is the item provider adapter for a {@link networkmodel.UndirectedEdge} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DirectedEdgeItemProvider
-    extends UndirectedEdgeItemProvider
+public class UndirectedEdgeItemProvider
+    extends NetworkObjectItemProvider
     implements
         IEditingDomainItemProvider,
         IStructuredItemContentProvider,
@@ -44,7 +44,7 @@ public class DirectedEdgeItemProvider
      * <!-- end-user-doc -->
      * @generated
      */
-    public DirectedEdgeItemProvider(AdapterFactory adapterFactory)
+    public UndirectedEdgeItemProvider(AdapterFactory adapterFactory)
     {
         super(adapterFactory);
     }
@@ -62,12 +62,60 @@ public class DirectedEdgeItemProvider
         {
             super.getPropertyDescriptors(object);
 
+            addSourcePropertyDescriptor(object);
+            addTargetPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
 
     /**
-     * This returns DirectedEdge.gif.
+     * This adds a property descriptor for the Source feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addSourcePropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_UndirectedEdge_source_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_UndirectedEdge_source_feature", "_UI_UndirectedEdge_type"),
+                 NetworkmodelPackage.Literals.UNDIRECTED_EDGE__SOURCE,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Target feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTargetPropertyDescriptor(Object object)
+    {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_UndirectedEdge_target_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_UndirectedEdge_target_feature", "_UI_UndirectedEdge_type"),
+                 NetworkmodelPackage.Literals.UNDIRECTED_EDGE__TARGET,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
+     * This returns UndirectedEdge.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -75,7 +123,7 @@ public class DirectedEdgeItemProvider
     @Override
     public Object getImage(Object object)
     {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/DirectedEdge"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/UndirectedEdge"));
     }
 
     /**
@@ -87,7 +135,7 @@ public class DirectedEdgeItemProvider
     @Override
     public String getText(Object object)
     {
-        return getString("_UI_DirectedEdge_type");
+        return getString("_UI_UndirectedEdge_type");
     }
 
     /**

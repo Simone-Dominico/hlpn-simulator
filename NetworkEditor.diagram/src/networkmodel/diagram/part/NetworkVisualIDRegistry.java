@@ -9,6 +9,7 @@ import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
 import networkmodel.diagram.edit.parts.NodeLabelEditPart;
 
+import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
@@ -235,6 +236,11 @@ public class NetworkVisualIDRegistry
 		        domainElement.eClass()))
 		{
 			return DirectedEdgeEditPart.VISUAL_ID;
+		}
+		if(NetworkmodelPackage.eINSTANCE.getUndirectedEdge().isSuperTypeOf(
+		        domainElement.eClass()))
+		{
+			return UndirectedEdgeEditPart.VISUAL_ID;
 		}
 		return -1;
 	}

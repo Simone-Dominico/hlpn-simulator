@@ -172,6 +172,43 @@ public interface NetworkmodelPackage extends EPackage
     int NODE_FEATURE_COUNT = NETWORK_OBJECT_FEATURE_COUNT + 4;
 
     /**
+     * The meta object id for the '{@link networkmodel.impl.UndirectedEdgeImpl <em>Undirected Edge</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see networkmodel.impl.UndirectedEdgeImpl
+     * @see networkmodel.impl.NetworkmodelPackageImpl#getUndirectedEdge()
+     * @generated
+     */
+    int UNDIRECTED_EDGE = 5;
+
+    /**
+     * The feature id for the '<em><b>Source</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNDIRECTED_EDGE__SOURCE = NETWORK_OBJECT_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Target</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNDIRECTED_EDGE__TARGET = NETWORK_OBJECT_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Undirected Edge</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int UNDIRECTED_EDGE_FEATURE_COUNT = NETWORK_OBJECT_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link networkmodel.impl.DirectedEdgeImpl <em>Directed Edge</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -182,22 +219,22 @@ public interface NetworkmodelPackage extends EPackage
     int DIRECTED_EDGE = 3;
 
     /**
-     * The feature id for the '<em><b>Target</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DIRECTED_EDGE__TARGET = NETWORK_OBJECT_FEATURE_COUNT + 0;
-
-    /**
      * The feature id for the '<em><b>Source</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DIRECTED_EDGE__SOURCE = NETWORK_OBJECT_FEATURE_COUNT + 1;
+    int DIRECTED_EDGE__SOURCE = UNDIRECTED_EDGE__SOURCE;
+
+    /**
+     * The feature id for the '<em><b>Target</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DIRECTED_EDGE__TARGET = UNDIRECTED_EDGE__TARGET;
 
     /**
      * The number of structural features of the '<em>Directed Edge</em>' class.
@@ -206,7 +243,7 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      * @ordered
      */
-    int DIRECTED_EDGE_FEATURE_COUNT = NETWORK_OBJECT_FEATURE_COUNT + 2;
+    int DIRECTED_EDGE_FEATURE_COUNT = UNDIRECTED_EDGE_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link networkmodel.impl.CategoryImpl <em>Category</em>}' class.
@@ -353,28 +390,6 @@ public interface NetworkmodelPackage extends EPackage
     EClass getDirectedEdge();
 
     /**
-     * Returns the meta object for the reference '{@link networkmodel.DirectedEdge#getTarget <em>Target</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Target</em>'.
-     * @see networkmodel.DirectedEdge#getTarget()
-     * @see #getDirectedEdge()
-     * @generated
-     */
-    EReference getDirectedEdge_Target();
-
-    /**
-     * Returns the meta object for the reference '{@link networkmodel.DirectedEdge#getSource <em>Source</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Source</em>'.
-     * @see networkmodel.DirectedEdge#getSource()
-     * @see #getDirectedEdge()
-     * @generated
-     */
-    EReference getDirectedEdge_Source();
-
-    /**
      * Returns the meta object for class '{@link networkmodel.Category <em>Category</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -405,6 +420,38 @@ public interface NetworkmodelPackage extends EPackage
      * @generated
      */
     EReference getCategory_Node();
+
+    /**
+     * Returns the meta object for class '{@link networkmodel.UndirectedEdge <em>Undirected Edge</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Undirected Edge</em>'.
+     * @see networkmodel.UndirectedEdge
+     * @generated
+     */
+    EClass getUndirectedEdge();
+
+    /**
+     * Returns the meta object for the reference '{@link networkmodel.UndirectedEdge#getSource <em>Source</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Source</em>'.
+     * @see networkmodel.UndirectedEdge#getSource()
+     * @see #getUndirectedEdge()
+     * @generated
+     */
+    EReference getUndirectedEdge_Source();
+
+    /**
+     * Returns the meta object for the reference '{@link networkmodel.UndirectedEdge#getTarget <em>Target</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Target</em>'.
+     * @see networkmodel.UndirectedEdge#getTarget()
+     * @see #getUndirectedEdge()
+     * @generated
+     */
+    EReference getUndirectedEdge_Target();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -518,22 +565,6 @@ public interface NetworkmodelPackage extends EPackage
         EClass DIRECTED_EDGE = eINSTANCE.getDirectedEdge();
 
         /**
-         * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference DIRECTED_EDGE__TARGET = eINSTANCE.getDirectedEdge_Target();
-
-        /**
-         * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference DIRECTED_EDGE__SOURCE = eINSTANCE.getDirectedEdge_Source();
-
-        /**
          * The meta object literal for the '{@link networkmodel.impl.CategoryImpl <em>Category</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -558,6 +589,32 @@ public interface NetworkmodelPackage extends EPackage
          * @generated
          */
         EReference CATEGORY__NODE = eINSTANCE.getCategory_Node();
+
+        /**
+         * The meta object literal for the '{@link networkmodel.impl.UndirectedEdgeImpl <em>Undirected Edge</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see networkmodel.impl.UndirectedEdgeImpl
+         * @see networkmodel.impl.NetworkmodelPackageImpl#getUndirectedEdge()
+         * @generated
+         */
+        EClass UNDIRECTED_EDGE = eINSTANCE.getUndirectedEdge();
+
+        /**
+         * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference UNDIRECTED_EDGE__SOURCE = eINSTANCE.getUndirectedEdge_Source();
+
+        /**
+         * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference UNDIRECTED_EDGE__TARGET = eINSTANCE.getUndirectedEdge_Target();
 
     }
 

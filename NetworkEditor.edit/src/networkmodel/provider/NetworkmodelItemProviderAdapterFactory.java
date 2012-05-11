@@ -178,6 +178,31 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link networkmodel.UndirectedEdge} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected UndirectedEdgeItemProvider undirectedEdgeItemProvider;
+
+    /**
+     * This creates an adapter for a {@link networkmodel.UndirectedEdge}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createUndirectedEdgeAdapter()
+    {
+        if (undirectedEdgeItemProvider == null)
+        {
+            undirectedEdgeItemProvider = new UndirectedEdgeItemProvider(this);
+        }
+
+        return undirectedEdgeItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -292,6 +317,7 @@ public class NetworkmodelItemProviderAdapterFactory extends NetworkmodelAdapterF
         if (nodeItemProvider != null) nodeItemProvider.dispose();
         if (directedEdgeItemProvider != null) directedEdgeItemProvider.dispose();
         if (categoryItemProvider != null) categoryItemProvider.dispose();
+        if (undirectedEdgeItemProvider != null) undirectedEdgeItemProvider.dispose();
     }
 
 }

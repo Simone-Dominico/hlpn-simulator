@@ -10,6 +10,7 @@ import networkmodel.diagram.edit.parts.CategoryEditPart;
 import networkmodel.diagram.edit.parts.DirectedEdgeEditPart;
 import networkmodel.diagram.edit.parts.NetworkEditPart;
 import networkmodel.diagram.edit.parts.NodeEditPart;
+import networkmodel.diagram.edit.parts.UndirectedEdgeEditPart;
 import networkmodel.diagram.part.Messages;
 import networkmodel.diagram.part.NetworkVisualIDRegistry;
 
@@ -272,6 +273,18 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 				                .getType(DirectedEdgeEditPart.VISUAL_ID));
 				outgoinglinks.addChildren(createNavigatorItems(connectedViews,
 				        outgoinglinks, true));
+				connectedViews = getIncomingLinksByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry
+				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
+				incominglinks.addChildren(createNavigatorItems(connectedViews,
+				        incominglinks, true));
+				connectedViews = getOutgoingLinksByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry
+				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
+				outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+				        outgoinglinks, true));
 				if(!incominglinks.isEmpty())
 				{
 					result.add(incominglinks);
@@ -283,15 +296,15 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 				return result.toArray();
 			}
 
-			case DirectedEdgeEditPart.VISUAL_ID:
+			case UndirectedEdgeEditPart.VISUAL_ID:
 			{
 				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
 				Edge sv = (Edge) view;
 				NetworkNavigatorGroup target = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_DirectedEdge_4001_target,
+				        Messages.NavigatorGroupName_UndirectedEdge_4002_target,
 				        "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				NetworkNavigatorGroup source = new NetworkNavigatorGroup(
-				        Messages.NavigatorGroupName_DirectedEdge_4001_source,
+				        Messages.NavigatorGroupName_UndirectedEdge_4002_source,
 				        "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 				Collection<View> connectedViews;
 				connectedViews = getLinksTargetByType(
@@ -338,9 +351,47 @@ public class NetworkNavigatorContentProvider implements ICommonContentProvider
 				                .getType(DirectedEdgeEditPart.VISUAL_ID));
 				links.addChildren(createNavigatorItems(connectedViews, links,
 				        false));
+				connectedViews = getDiagramLinksByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry
+				                .getType(UndirectedEdgeEditPart.VISUAL_ID));
+				links.addChildren(createNavigatorItems(connectedViews, links,
+				        false));
 				if(!links.isEmpty())
 				{
 					result.add(links);
+				}
+				return result.toArray();
+			}
+
+			case DirectedEdgeEditPart.VISUAL_ID:
+			{
+				LinkedList<NetworkAbstractNavigatorItem> result = new LinkedList<NetworkAbstractNavigatorItem>();
+				Edge sv = (Edge) view;
+				NetworkNavigatorGroup target = new NetworkNavigatorGroup(
+				        Messages.NavigatorGroupName_DirectedEdge_4001_target,
+				        "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+				NetworkNavigatorGroup source = new NetworkNavigatorGroup(
+				        Messages.NavigatorGroupName_DirectedEdge_4001_source,
+				        "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+				Collection<View> connectedViews;
+				connectedViews = getLinksTargetByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
+				target.addChildren(createNavigatorItems(connectedViews, target,
+				        true));
+				connectedViews = getLinksSourceByType(
+				        Collections.singleton(sv),
+				        NetworkVisualIDRegistry.getType(NodeEditPart.VISUAL_ID));
+				source.addChildren(createNavigatorItems(connectedViews, source,
+				        true));
+				if(!target.isEmpty())
+				{
+					result.add(target);
+				}
+				if(!source.isEmpty())
+				{
+					result.add(source);
 				}
 				return result.toArray();
 			}

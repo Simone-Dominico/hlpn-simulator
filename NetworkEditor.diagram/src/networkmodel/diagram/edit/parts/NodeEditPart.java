@@ -288,8 +288,9 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 */
 	public List<IElementType> getMARelTypesOnSource()
 	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(NetworkElementTypes.DirectedEdge_4001);
+		types.add(NetworkElementTypes.UndirectedEdge_4002);
 		return types;
 	}
 
@@ -304,6 +305,10 @@ public class NodeEditPart extends ShapeNodeEditPart
 		{
 			types.add(NetworkElementTypes.DirectedEdge_4001);
 		}
+		if(targetEditPart instanceof networkmodel.diagram.edit.parts.NodeEditPart)
+		{
+			types.add(NetworkElementTypes.UndirectedEdge_4002);
+		}
 		return types;
 	}
 
@@ -317,6 +322,10 @@ public class NodeEditPart extends ShapeNodeEditPart
 		{
 			types.add(NetworkElementTypes.Node_2002);
 		}
+		else if(relationshipType == NetworkElementTypes.UndirectedEdge_4002)
+		{
+			types.add(NetworkElementTypes.Node_2002);
+		}
 		return types;
 	}
 
@@ -325,8 +334,9 @@ public class NodeEditPart extends ShapeNodeEditPart
 	 */
 	public List<IElementType> getMARelTypesOnTarget()
 	{
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(NetworkElementTypes.DirectedEdge_4001);
+		types.add(NetworkElementTypes.UndirectedEdge_4002);
 		return types;
 	}
 
@@ -337,6 +347,10 @@ public class NodeEditPart extends ShapeNodeEditPart
 	{
 		LinkedList<IElementType> types = new LinkedList<IElementType>();
 		if(relationshipType == NetworkElementTypes.DirectedEdge_4001)
+		{
+			types.add(NetworkElementTypes.Node_2002);
+		}
+		else if(relationshipType == NetworkElementTypes.UndirectedEdge_4002)
 		{
 			types.add(NetworkElementTypes.Node_2002);
 		}

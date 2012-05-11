@@ -173,6 +173,11 @@ public class NetworkItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (NetworkmodelPackage.Literals.NETWORK__NETWORK,
+                 NetworkmodelFactory.eINSTANCE.createUndirectedEdge()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (NetworkmodelPackage.Literals.NETWORK__NETWORK,
                  NetworkmodelFactory.eINSTANCE.createDirectedEdge()));
 
         newChildDescriptors.add

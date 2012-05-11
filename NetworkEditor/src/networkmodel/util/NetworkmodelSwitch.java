@@ -102,6 +102,7 @@ public class NetworkmodelSwitch<T> extends Switch<T>
             {
                 DirectedEdge directedEdge = (DirectedEdge)theEObject;
                 T result = caseDirectedEdge(directedEdge);
+                if (result == null) result = caseUndirectedEdge(directedEdge);
                 if (result == null) result = caseNetworkObject(directedEdge);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -110,6 +111,14 @@ public class NetworkmodelSwitch<T> extends Switch<T>
             {
                 Category category = (Category)theEObject;
                 T result = caseCategory(category);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case NetworkmodelPackage.UNDIRECTED_EDGE:
+            {
+                UndirectedEdge undirectedEdge = (UndirectedEdge)theEObject;
+                T result = caseUndirectedEdge(undirectedEdge);
+                if (result == null) result = caseNetworkObject(undirectedEdge);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -193,6 +202,22 @@ public class NetworkmodelSwitch<T> extends Switch<T>
      * @generated
      */
     public T caseCategory(Category object)
+    {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Undirected Edge</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Undirected Edge</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseUndirectedEdge(UndirectedEdge object)
     {
         return null;
     }
