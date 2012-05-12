@@ -2,10 +2,12 @@ package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import networkmodel.DirectedEdge;
 import networkmodel.Network;
 import networkmodel.NetworkObject;
 import networkmodel.NetworkmodelPackage;
@@ -51,7 +53,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	private PetriNet petrinet;
     private String filename = null;
     private IFile pnfile = null;
-    private String extension = "networkmodel";
+    private static final String extension = "networkmodel";
     
 	@Override
 	public void run(IAction action)
@@ -165,12 +167,16 @@ public class StartSimulatorApp implements IObjectActionDelegate
 
 		for(NodeWrapper nw : nodes)
 		{
-			// FIXME 
 			for(UndirectedEdge edge : nw.getNode().getOut())
 			{
 				graph[nw.getId()][nodeNameMap.get(edge.getTarget().getLabel()).getId()] = 1;
+				if(!(edge instanceof DirectedEdge))
+				{
+					graph[nodeNameMap.get(edge.getTarget().getLabel()).getId()][nw.getId()] = 1;
+				}
 			}
 		}
+
 		ExtensionManager extensionManager = new ExtensionManager(new InputFunction(network.getCategories()));
 		{
 			// min dist
@@ -182,6 +188,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			extensionManager.register("RB", new RBFunction());
 			
 			// echo
+			//extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
+			//extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
 			extensionManager.register("M1", new M1Function());
 			extensionManager.register("M2", new M2Function());
 		}
@@ -189,7 +197,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	}
 	
 
-	public String fileChooser(Shell shell, String path)
+	private static String fileChooser(Shell shell, String path)
 	{
 		FileDialog fd = new FileDialog(shell, SWT.OPEN);
 		fd.setText("Open");
