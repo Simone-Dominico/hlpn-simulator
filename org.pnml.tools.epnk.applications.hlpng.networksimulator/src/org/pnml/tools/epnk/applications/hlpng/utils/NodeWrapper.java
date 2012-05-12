@@ -22,4 +22,12 @@ public class NodeWrapper
     {
     	return node;
     }
+
+	@Override
+    public String toString()
+    {
+	    return "NodeWrapper [id=" + id + ", node=" + node + "]";
+    }
+	
+	
 }
