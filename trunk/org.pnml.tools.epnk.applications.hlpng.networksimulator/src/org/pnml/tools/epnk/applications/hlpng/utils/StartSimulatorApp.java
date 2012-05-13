@@ -2,7 +2,6 @@ package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,10 +187,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			extensionManager.register("RB", new RBFunction());
 			
 			// echo
-			//extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
-			//extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
-			extensionManager.register("M1", new M1Function());
-			extensionManager.register("M2", new M2Function());
+			extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
+			extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
 		}
 		return extensionManager;
 	}
