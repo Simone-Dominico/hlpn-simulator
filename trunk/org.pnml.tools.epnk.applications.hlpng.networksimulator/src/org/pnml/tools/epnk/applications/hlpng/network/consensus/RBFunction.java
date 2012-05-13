@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
@@ -16,30 +18,52 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
 public class RBFunction implements IEvaluator
 {
-	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
-	{
-		Operator operator = (Operator) term;
-		List<AbstractValue> values = new ArrayList<AbstractValue>();
-		for(Term subterm : operator.getSubterm())
-		{
-			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
-			values.add(value);
-		}
-			
-		UserOperator uOp = (UserOperator) operator;
-		
-		MSValue msValue = new MSValue();
-		msValue.setSort(uOp.getOutputSort());
-	    
-		List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-		for(AbstractValue value : Database.getMessagesByReceiver(list.get(0)))
-		{
-			msValue.getValues().put(value, 1);
-		}
-		
-	    return msValue;
+    private List<AbstractValue> messages = null;
+    
+    public RBFunction(List<AbstractValue> messages)
+    {
+        this.messages = messages;
+    }
+    
+    @Override
+    public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
+            Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+    {
+        Operator operator = (Operator) term;
+        List<AbstractValue> values = new ArrayList<AbstractValue>();
+        for(Term subterm : operator.getSubterm())
+        {
+            IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
+            AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+            values.add(value);
+        }
+            
+        UserOperator uOp = (UserOperator) operator;
+        
+        MSValue msValue = new MSValue();
+        msValue.setSort(uOp.getOutputSort());
+        
+        List<AbstractValue> list = new ArrayList<AbstractValue>(values);
+        for(AbstractValue value : getMessagesByReceiver(list.get(0), messages))
+        {
+            msValue.getValues().put(value, 1);
+        }
+        
+        return msValue;
+    }
+    
+    private static List<AbstractValue> getMessagesByReceiver(AbstractValue receiver, List<AbstractValue> allMessages)
+    {
+        List<AbstractValue> messages = new ArrayList<AbstractValue>();
+        
+        for(AbstractValue pValue : allMessages)
+        {
+            StringValue r = (StringValue)((ProductValue)pValue).getComponents().get(1);
+            if(r.getData().equals(((StringValue)receiver).getData()))
+            {
+                messages.add(pValue);
+            }
+        }
+        return messages;
     }
 }

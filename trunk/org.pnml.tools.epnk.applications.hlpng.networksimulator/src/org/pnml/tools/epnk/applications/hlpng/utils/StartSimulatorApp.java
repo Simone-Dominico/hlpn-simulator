@@ -182,10 +182,11 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			extensionManager.register("N", new NFunction(graph, nodeNameMap, nodeIdMap));
 			
 			// consensus in networks
-			extensionManager.register("M", new MFunction());
-			extensionManager.register("RF", new RFFunction());
-			extensionManager.register("RB", new RBFunction());
-			
+			MFunction mFunction = new MFunction(nodes);
+			extensionManager.register("M", mFunction);
+			extensionManager.register("RF", new RFFunction(mFunction.getMessages()));
+			extensionManager.register("RB", new RBFunction(mFunction.getMessages()));
+
 			// echo
 			extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
 			extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
