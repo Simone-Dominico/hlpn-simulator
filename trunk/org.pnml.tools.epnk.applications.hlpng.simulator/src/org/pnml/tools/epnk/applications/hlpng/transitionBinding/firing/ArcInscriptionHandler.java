@@ -12,7 +12,9 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ICom
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
@@ -20,12 +22,19 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public class ArcInscriptionHandler
 {
 	private Operator operator = null;
-	private ComparisonManager evaluationManager = null;
+	private ComparisonManager comparisonManager = null;
 	
-	public ArcInscriptionHandler(Operator operator, ComparisonManager evaluationManager)
+	private List<NumberOf> allNumberOf = new ArrayList<NumberOf>();
+	
+	public ArcInscriptionHandler(Operator operator, ComparisonManager comparisonManager)
 	{
 		this.operator = operator;
-		this.evaluationManager = evaluationManager;
+		this.comparisonManager = comparisonManager;
+		
+		if(operator instanceof MultiSetOperator)
+		{
+			findAllNumberOf((MultiSetOperator)operator, allNumberOf);
+		}
 	}
 	
 	public List<Map<TermWrapper, TermAssignment>> match(MSValue value)
@@ -33,36 +42,39 @@ public class ArcInscriptionHandler
 		// each inscription term compared to all multiset terms
 		List<Map<TermWrapper, TermAssignment>> list = 
 				new ArrayList<Map<TermWrapper,TermAssignment>>();
-		if(operator instanceof NumberOf)
+		
+		for(NumberOf nof : allNumberOf)
 		{
-			Map<TermWrapper, TermAssignment> assignments = contains(value, 
-					evaluationManager, (NumberOf)operator);
-			
+			Map<TermWrapper, TermAssignment> assignments = contains(value, comparisonManager, nof);
 			list.add(assignments);
-		}
-		else if(operator instanceof MultiSetOperator && checkMSOpertator((MultiSetOperator)operator))
-		{
-			for(Term refValue : operator.getSubterm())
-			{
-				Map<TermWrapper, TermAssignment> assignments = contains(value, 
-						evaluationManager, ((NumberOf)refValue));
-				
-				list.add(assignments);	
-			}
 		}
 		return list;
 	}
 	
-	private static boolean checkMSOpertator(MultiSetOperator operator)
+	private static void findAllNumberOf(MultiSetOperator operator, List<NumberOf> allNumberOf)
 	{
-		for(Term term : operator.getSubterm())
+		if(operator instanceof NumberOf)
 		{
-			if(!(term instanceof NumberOf))
+			allNumberOf.add(((NumberOf)operator));
+		}
+		else if(operator instanceof Add)
+		{
+			for(Term subterm : operator.getSubterm())
 			{
-				return false;
+				if(subterm instanceof MultiSetOperator)
+				{
+					findAllNumberOf((MultiSetOperator)subterm, allNumberOf);
+				}
 			}
 		}
-		return true;
+		else if(operator instanceof Subtract)
+		{
+			Term subterm = operator.getSubterm().get(0);
+			if(subterm instanceof MultiSetOperator)
+			{
+				findAllNumberOf((MultiSetOperator)subterm, allNumberOf);
+			}
+		}	
 	}
 
 	private static Map<TermWrapper, TermAssignment> contains(
@@ -86,7 +98,7 @@ public class ArcInscriptionHandler
 				if(!(refMul instanceof NumberConstant))
 				{
 					IComparable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
-					for(int i = 1; i <= multiplicity; i++)
+					for(int i = 0; i <= multiplicity; i++)
 					{
 						PosValue testMul = new PosValue();
 						testMul.setN(i);
