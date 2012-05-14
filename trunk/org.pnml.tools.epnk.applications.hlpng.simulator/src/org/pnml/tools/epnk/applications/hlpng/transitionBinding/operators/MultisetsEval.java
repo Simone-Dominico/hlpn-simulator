@@ -10,6 +10,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.All;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -17,7 +18,8 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class MultisetsEval implements IEvaluator
 {
-
+	private DataTypeEvaluationManager dataTypeEvaluationManager = null;
+	
 	@Override
 	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -62,11 +64,22 @@ public class MultisetsEval implements IEvaluator
 			}
 			return set;
 		}
-		if(operator instanceof NumberOf)
+		if(operator instanceof All)
 		{
-			
+			All allOp = (All) operator;
+			return dataTypeEvaluationManager.evaluate(allOp.getRefsort());
 		}
 		return null;
 	}
 
+	public DataTypeEvaluationManager getDataTypeEvaluationManager()
+    {
+    	return dataTypeEvaluationManager;
+    }
+
+	public void setDataTypeEvaluationManager(
+            DataTypeEvaluationManager dataTypeEvaluationManager)
+    {
+    	this.dataTypeEvaluationManager = dataTypeEvaluationManager;
+    }
 }
