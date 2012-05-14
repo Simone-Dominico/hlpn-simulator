@@ -12,20 +12,25 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IDataTypeEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class InputFunction implements IEvaluator
+public class InputFunction implements IEvaluator, IDataTypeEvaluator
 {
 	protected List<Category> categories = null;
+	private List<NodeWrapper> nodes = null;
 	
-	public InputFunction(List<Category> categories)
+	public InputFunction(List<Category> categories, List<NodeWrapper> nodes)
 	{
 		this.categories = categories;
+		this.nodes = nodes;
 	}
 	
 	@Override
@@ -45,8 +50,10 @@ public class InputFunction implements IEvaluator
 		
 		MSValue msValue = new MSValue();
 		msValue.setSort(uOp.getOutputSort());
-	    
-		for(Node n : getNodes(uOp.getName(), categories))
+		
+		List<Node> nodesInCategory = getNodes(uOp.getName(), categories);
+		
+		for(Node n : nodesInCategory)
 		{
 			StringValue sValue = new StringValue();
 			sValue.setData(n.getLabel());
@@ -56,6 +63,18 @@ public class InputFunction implements IEvaluator
 		}
 		return msValue;
     }
+	
+	protected boolean isCategory(String categoryName, List<Category> categories)
+	{
+		for(Category c : categories)
+		{
+			if(c.getName().equals(categoryName))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	protected List<Node> getNodes(String categoryName, List<Category> categories)
 	{
@@ -68,4 +87,26 @@ public class InputFunction implements IEvaluator
 		}
 		return null;
 	}
+
+	@Override
+    public AbstractValue evaluate(Sort sort)
+    {
+		MSValue msValue = new MSValue();
+		msValue.setSort(sort);
+		
+		List<Node> nodesInCategory = new ArrayList<Node>();
+		for(NodeWrapper n : nodes)
+		{
+			nodesInCategory.add(n.getNode());
+		}
+		for(Node n : nodesInCategory)
+		{
+			StringValue sValue = new StringValue();
+			sValue.setData(n.getLabel());
+			sValue.setSort(TermsFactory.eINSTANCE.createUserSort());
+			
+			msValue.getValues().put(sValue, 1);
+		}
+	    return msValue;
+    }
 }
