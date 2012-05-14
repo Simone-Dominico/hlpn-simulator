@@ -81,6 +81,9 @@
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
             <layoutConstraint xsi:type="notation:Bounds" x="215" y="300" width="-1" height="-1"/>
           </children>
+          <children xsi:type="notation:Shape" visible="true" type="2003" element="t3" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
+            <layoutConstraint xsi:type="notation:Bounds" x="373" y="348" width="-1" height="-1"/>
+          </children>
           <styles xsi:type="notation:DiagramStyle" pageX="0" pageY="0" pageWidth="100" pageHeight="100" description=""/>
           <edges visible="true" type="4001" element="a1" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.2" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.4">
             <styles xsi:type="notation:ConnectorStyle" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1"/>
@@ -126,7 +129,7 @@
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[0, 0, 74, -21]$[-79, 18, -5, -3]"/>
             <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.175,0.3)"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4001" element="a3" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.9" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.4" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4001" element="a3" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.9" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.13" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[18, -8, -294, 132]$[311, -115, -1, 25]"/>
           </edges>
@@ -498,7 +501,7 @@ x`g() ++ &#xD;
 2`1</text>
         </hlinitialMarking>
       </place>
-      <arc id="a3" source="p2" target="t1">
+      <arc id="a3" source="p2" target="t3">
         <graphics>
           <position x="82.0" y="315.0"/>
           <position x="375.0" y="208.0"/>
@@ -522,6 +525,12 @@ x`g() ++ &#xD;
           <text>1`x</text>
         </hlinscription>
       </arc>
+      <transition id="t3">
+        <graphics>
+          <position x="372.5" y="347.5"/>
+          <dimension x="40.0" y="40.0"/>
+        </graphics>
+      </transition>
       <declaration>
         <graphics>
           <offset x="180.0" y="20.0"/>

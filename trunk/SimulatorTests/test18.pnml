@@ -460,30 +460,64 @@
             <offset x="-33.0" y="40.0"/>
           </graphics>
           <structure>
-            <numberof>
+            <subtract>
               <subterm>
-                <numberconstant value="2">
-                  <positive/>
-                </numberconstant>
-              </subterm>
-              <subterm>
-                <addition>
+                <numberof>
                   <subterm>
-                    <subtraction>
+                    <numberconstant value="2">
+                      <positive/>
+                    </numberconstant>
+                  </subterm>
+                  <subterm>
+                    <addition>
                       <subterm>
                         <subtraction>
                           <subterm>
-                            <numberconstant value="8">
-                              <positive/>
-                            </numberconstant>
+                            <subtraction>
+                              <subterm>
+                                <numberconstant value="8">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="1">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                            </subtraction>
                           </subterm>
                           <subterm>
-                            <numberconstant value="1">
-                              <positive/>
-                            </numberconstant>
+                            <mult>
+                              <subterm>
+                                <numberconstant value="2">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                              <subterm>
+                                <variable refvariable="id18"/>
+                              </subterm>
+                            </mult>
                           </subterm>
                         </subtraction>
                       </subterm>
+                      <subterm>
+                        <numberconstant value="2">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                    </addition>
+                  </subterm>
+                </numberof>
+              </subterm>
+              <subterm>
+                <numberof>
+                  <subterm>
+                    <numberconstant value="1">
+                      <positive/>
+                    </numberconstant>
+                  </subterm>
+                  <subterm>
+                    <addition>
                       <subterm>
                         <mult>
                           <subterm>
@@ -496,18 +530,19 @@
                           </subterm>
                         </mult>
                       </subterm>
-                    </subtraction>
+                      <subterm>
+                        <numberconstant value="1">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                    </addition>
                   </subterm>
-                  <subterm>
-                    <numberconstant value="2">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                </addition>
+                </numberof>
               </subterm>
-            </numberof>
+            </subtract>
           </structure>
-          <text>2`(8- 1- 2*z+2)</text>
+          <text>2`(8- 1- 2*z+2)--
+1`(2*z+1)</text>
         </hlinscription>
       </arc>
       <place id="p1">
@@ -723,50 +758,98 @@
             <offset x="31.0" y="1.0"/>
           </graphics>
           <structure>
-            <numberof>
-              <subterm>
-                <numberconstant value="2">
-                  <positive/>
-                </numberconstant>
-              </subterm>
+            <add>
               <subterm>
                 <numberof>
                   <subterm>
-                    <numberconstant value="5">
+                    <numberconstant value="2">
                       <positive/>
                     </numberconstant>
                   </subterm>
                   <subterm>
-                    <tuple>
+                    <numberof>
                       <subterm>
-                        <subtraction>
+                        <numberconstant value="5">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                      <subterm>
+                        <tuple>
                           <subterm>
-                            <addition>
+                            <subtraction>
+                              <subterm>
+                                <addition>
+                                  <subterm>
+                                    <variable refvariable="id16"/>
+                                  </subterm>
+                                  <subterm>
+                                    <variable refvariable="id17"/>
+                                  </subterm>
+                                </addition>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="5">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                            </subtraction>
+                          </subterm>
+                          <subterm>
+                            <variable refvariable="id18"/>
+                          </subterm>
+                        </tuple>
+                      </subterm>
+                    </numberof>
+                  </subterm>
+                </numberof>
+              </subterm>
+              <subterm>
+                <numberof>
+                  <subterm>
+                    <numberconstant value="3">
+                      <positive/>
+                    </numberconstant>
+                  </subterm>
+                  <subterm>
+                    <numberof>
+                      <subterm>
+                        <numberconstant value="5">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                      <subterm>
+                        <tuple>
+                          <subterm>
+                            <subtraction>
                               <subterm>
                                 <variable refvariable="id16"/>
                               </subterm>
                               <subterm>
+                                <variable refvariable="id18"/>
+                              </subterm>
+                            </subtraction>
+                          </subterm>
+                          <subterm>
+                            <addition>
+                              <subterm>
                                 <variable refvariable="id17"/>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="2">
+                                  <positive/>
+                                </numberconstant>
                               </subterm>
                             </addition>
                           </subterm>
-                          <subterm>
-                            <numberconstant value="5">
-                              <positive/>
-                            </numberconstant>
-                          </subterm>
-                        </subtraction>
+                        </tuple>
                       </subterm>
-                      <subterm>
-                        <variable refvariable="id18"/>
-                      </subterm>
-                    </tuple>
+                    </numberof>
                   </subterm>
                 </numberof>
               </subterm>
-            </numberof>
+            </add>
           </structure>
-          <text>2`(5`(x+y- 5,z))</text>
+          <text>2`(5`(x+y- 5,z))++3`(5`(x- z,y+2))</text>
         </hlinscription>
       </arc>
       <place id="p4">
