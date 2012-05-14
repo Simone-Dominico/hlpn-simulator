@@ -59,8 +59,8 @@ public class TransitionManager
 	{		
 		Map<String, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(transition.getId());
 		// each inscription variable matches
-		List<List<Map<TermWrapper, TermAssignment>>> allInscriptionMatches =
-				new ArrayList<List<Map<TermWrapper,TermAssignment>>>();
+		List<Map<TermWrapper, TermAssignment>> allInscriptionMatches =
+				new ArrayList<Map<TermWrapper,TermAssignment>>();
 		for(String placeId : incomingArcs.keySet())
 		{
 			MSValue msValue = runtimeValues.get(placeId).getMsValue();
@@ -71,7 +71,7 @@ public class TransitionManager
 		}
 		
 		// narrowing
-		Map<TermWrapper, TermAssignment> globalMap = narrowing(allInscriptionMatches);
+		Map<TermWrapper, TermAssignment> globalMap = intersection(allInscriptionMatches);
 		
 		// resolving undefined variables
 		VariableResolver resolver = new VariableResolver(globalMap, reversibleOperationManager);
@@ -115,49 +115,35 @@ public class TransitionManager
 		return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 	}
 	
-	private static Map<TermWrapper, TermAssignment> narrowing(
-			List<List<Map<TermWrapper, TermAssignment>>> mainList)
+	private static Map<TermWrapper, TermAssignment> intersection(
+			List<Map<TermWrapper, TermAssignment>> mainList)
 	{
 		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
 		
 		// for each arc
-		for(List<Map<TermWrapper, TermAssignment>> list : mainList)
+		for(Map<TermWrapper, TermAssignment> assignment : mainList)
 		{
-			Map<TermWrapper, TermAssignment> map = new HashMap<TermWrapper, TermAssignment>();
-			for(Map<TermWrapper, TermAssignment> assignment : list)
-			{
-				for(TermWrapper wrapper : assignment.keySet())
-				{
-					if(map.containsKey(wrapper))
-					{
-						map.get(wrapper).getValues().addAll(assignment.get(wrapper).getValues());
-					}
-					else
-					{
-						map.put(wrapper, assignment.get(wrapper));
-					}
-				}	
-			}
-			
-			for(TermWrapper wrapper : map.keySet())
+			for(TermWrapper wrapper : assignment.keySet())
 			{
 				TermAssignment ve = new TermAssignment();
-				ve.setTermWrapper(map.get(wrapper).getTermWrapper());
-				// intersection
+				ve.setTermWrapper(assignment.get(wrapper).getTermWrapper());
+				
 				if(globalMap.containsKey(wrapper))
 				{
+					// intersection
 					Set<AbstractValue> intersection = 
-							new HashSet<AbstractValue>(map.get(wrapper).getValues());
+							new HashSet<AbstractValue>(assignment.get(wrapper).getValues());
 					intersection.retainAll(globalMap.get(wrapper).getValues());
 					ve.setValues(intersection);
 				}
 				else
 				{
-					ve.getValues().addAll(map.get(wrapper).getValues());
+					ve.getValues().addAll(assignment.get(wrapper).getValues());
 				}
 				globalMap.put(wrapper, ve);
-			}
+			}	
 		}
+		
 		return globalMap;
 	}
 	
