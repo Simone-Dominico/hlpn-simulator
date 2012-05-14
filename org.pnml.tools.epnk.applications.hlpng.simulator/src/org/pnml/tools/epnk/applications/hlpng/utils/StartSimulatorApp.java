@@ -10,10 +10,13 @@ import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
 
 public class StartSimulatorApp implements IObjectActionDelegate
 {
@@ -24,8 +27,14 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	public void run(IAction action)
 	{
 		// init the evaluation manager
+		// TODO an ID for All
 		EvaluationManager evaluationManager = 
 				ResourceManager.createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+		DataTypeEvaluationManager dataTypeEvaluationManager =
+				ResourceManager.createDataTypeEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.userDataTypes");
+		MultisetsEval multisetsEval = 
+                (MultisetsEval)evaluationManager.getHandler(AllImpl.class);
+        multisetsEval.setDataTypeEvaluationManager(dataTypeEvaluationManager);
 		
 		// init the reversible operation manager
 		ReversibleOperationManager reversibleOperationManager = ResourceManager.createReversibleOperationManager(evaluationManager);
