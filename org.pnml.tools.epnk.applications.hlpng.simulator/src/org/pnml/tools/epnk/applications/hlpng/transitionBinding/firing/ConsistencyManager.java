@@ -44,7 +44,7 @@ public class ConsistencyManager
 			for(AbstractValue key : ((MSValue)value).getValues().keySet())
 			{
 				Integer n = ((MSValue)value).getValues().get(key);
-				if(n == null || n <= 0)
+				if(n == null || n < 0)
 				{
 					return false;
 				}
