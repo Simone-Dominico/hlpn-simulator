@@ -40,24 +40,28 @@ import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserSortImpl;
 
 public class StartSimulatorApp implements IObjectActionDelegate
 {
-	private PetriNet petrinet;
+    private PetriNet petrinet;
     private String filename = null;
     private IFile pnfile = null;
     private static final String extension = "networkmodel";
     
-	@Override
-	public void run(IAction action)
-	{
-		ResourceSet resourceSet = new ResourceSetImpl();
+    @Override
+    public void run(IAction action)
+    {
+        ResourceSet resourceSet = new ResourceSetImpl();
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new XMLResourceFactoryImpl());
         NetworkmodelPackage networkmodelPackage = NetworkmodelPackage.eINSTANCE;
         
@@ -66,142 +70,156 @@ public class StartSimulatorApp implements IObjectActionDelegate
         File file = new File(configFilePath);
         if(!file.exists())
         {
-        	configFilePath = fileChooser(Display.getCurrent().getActiveShell(), ".");
+            configFilePath = fileChooser(Display.getCurrent().getActiveShell(), ".");
         }
         
         Resource resource = null;
         try
         {
-        	URI fileUri = URI.createFileURI(configFilePath);
-	        resource = resourceSet.getResource(fileUri, true);
+            URI fileUri = URI.createFileURI(configFilePath);
+            resource = resourceSet.getResource(fileUri, true);
         }
         catch(Exception e){e.printStackTrace();}
 
-		if(resource != null && resource.getContents().size() > 0)
-		{
-			// init the evaluation manager
-			EvaluationManager evaluationManager = ResourceManager.createEvaluationManager(null);
-			
-			// init extension manager
-			ExtensionManager extensionManager = 
-					createExtensionManager((Network)resource.getContents().get(0));
-			UserOperatorEval userOperatorEval = 
-					(UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-			userOperatorEval.setArbitraryOperatorEvaluator(extensionManager);
-			
-			// init the reversible operation manager
-			ReversibleOperationManager reversibleOperationManager = 
-					ResourceManager.createReversibleOperationManager(evaluationManager);
-					
-			// init the comparison manager
-			ComparisonManager comparisonManager = 
-					ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
-					
-			// init HLPNG simualtor
-			NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
-					comparisonManager, reversibleOperationManager,
-					Display.getCurrent().getSystemFont());
+        if(resource != null && resource.getContents().size() > 0)
+        {
+            // init the evaluation manager
+            EvaluationManager evaluationManager = ResourceManager.createEvaluationManager(null);
+            DataTypeEvaluationManager dataTypeEvaluationManager = 
+            		ResourceManager.createDataTypeEvaluationManager(null);
+            // init extension manager
+            List<NodeWrapper> nodes = new ArrayList<NodeWrapper>();
+            InputFunction inputFunction = null;
+            {
+                Network network = (Network)resource.getContents().get(0);
+                int currentId = 0;
+                for(NetworkObject nobj : network.getNetwork())
+                {
+                    if(nobj instanceof Node)
+                    {
+                        NodeWrapper wrapper = new NodeWrapper(currentId, (Node)nobj);
+                        currentId++;
+                        nodes.add(wrapper);
+                    }
+                }
+                inputFunction = new InputFunction(network.getCategories(), nodes);
+                dataTypeEvaluationManager.register(UserSortImpl.class, inputFunction);
+            }
+            ExtensionManager extensionManager = 
+                    createExtensionManager((Network)resource.getContents().get(0), inputFunction, nodes);
+            UserOperatorEval userOperatorEval = 
+                    (UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
+            userOperatorEval.setArbitraryOperatorEvaluator(extensionManager);
+            MultisetsEval multisetsEval = 
+                    (MultisetsEval)evaluationManager.getHandler(AllImpl.class);
+            multisetsEval.setDataTypeEvaluationManager(dataTypeEvaluationManager);
+            
+            // init the reversible operation manager
+            ReversibleOperationManager reversibleOperationManager = 
+                    ResourceManager.createReversibleOperationManager(evaluationManager);
+                    
+            // init the comparison manager
+            ComparisonManager comparisonManager = 
+                    ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
+                    
+            // init HLPNG simualtor
+            NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
+                    comparisonManager, reversibleOperationManager,
+                    Display.getCurrent().getSystemFont());
 
-//			 registers the simulator
-			Activator activator = Activator.getInstance();
-			ApplicationRegistry registry = activator.getApplicationRegistry();
-			registry.addApplication(simulator);
-		}
-		else
-		{
-			System.err.println("Configuration file is empty!");
-		}
-	}
-	
-	@Override
-	public void selectionChanged(IAction action, ISelection selection)
-	{
-		petrinet = null;
-		if(selection instanceof IStructuredSelection)
-		{
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if(structuredSelection.size() == 1)
-			{
-				java.lang.Object selected = structuredSelection.getFirstElement();
-				if(selected instanceof PetriNet)
-				{
-					IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
-					
-					pnfile = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
+//           registers the simulator
+            Activator activator = Activator.getInstance();
+            ApplicationRegistry registry = activator.getApplicationRegistry();
+            registry.addApplication(simulator);
+        }
+        else
+        {
+            System.err.println("Configuration file is empty!");
+        }
+    }
+    
+    @Override
+    public void selectionChanged(IAction action, ISelection selection)
+    {
+        petrinet = null;
+        if(selection instanceof IStructuredSelection)
+        {
+            IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+            if(structuredSelection.size() == 1)
+            {
+                java.lang.Object selected = structuredSelection.getFirstElement();
+                if(selected instanceof PetriNet)
+                {
+                    IWorkbenchPart workbenchPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart();
+                    
+                    pnfile = (IFile) workbenchPart.getSite().getPage().getActiveEditor().getEditorInput().getAdapter(IFile.class);
                     filename = pnfile.getRawLocation().toOSString();
                     petrinet = (PetriNet) selected;
-				}
-			}
-		}
-		action.setEnabled(isEnabled());
-	}
+                }
+            }
+        }
+        action.setEnabled(isEnabled());
+    }
 
-	private boolean isEnabled()
-	{
-		return petrinet != null;
-	}
+    private boolean isEnabled()
+    {
+        return petrinet != null;
+    }
 
-	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart){}
-	
-	private static ExtensionManager createExtensionManager(Network network)
-	{
-		Map<String, NodeWrapper> nodeNameMap = new HashMap<String, NodeWrapper>();
-		Map<Integer, NodeWrapper> nodeIdMap = new HashMap<Integer, NodeWrapper>();
-		List<NodeWrapper> nodes = new ArrayList<NodeWrapper>();
-		int currentId = 0;
-		for(NetworkObject nobj : network.getNetwork())
-		{
-			if(nobj instanceof Node)
-			{
-				NodeWrapper wrapper = new NodeWrapper(currentId, (Node)nobj);
-				currentId++;
-				nodes.add(wrapper);
-				nodeNameMap.put(((Node)nobj).getLabel(), wrapper);
-				nodeIdMap.put(wrapper.getId(), wrapper);
-			}
-		}
-		
-		Integer[][] graph = new Integer[nodes.size()][nodes.size()];
+    @Override
+    public void setActivePart(IAction action, IWorkbenchPart targetPart){}
+    
+    private static ExtensionManager createExtensionManager(Network network, InputFunction inputFunction, List<NodeWrapper> nodes)
+    {
+        Map<String, NodeWrapper> nodeNameMap = new HashMap<String, NodeWrapper>();
+        Map<Integer, NodeWrapper> nodeIdMap = new HashMap<Integer, NodeWrapper>();
+        
+        for(NodeWrapper nw : nodes)
+        {
+        	nodeNameMap.put(nw.getNode().getLabel(), nw);
+            nodeIdMap.put(nw.getId(), nw);
+        }
+        
+        Integer[][] graph = new Integer[nodes.size()][nodes.size()];
 
-		for(NodeWrapper nw : nodes)
-		{
-			for(UndirectedEdge edge : nw.getNode().getOut())
-			{
-				graph[nw.getId()][nodeNameMap.get(edge.getTarget().getLabel()).getId()] = 1;
-				if(!(edge instanceof DirectedEdge))
-				{
-					graph[nodeNameMap.get(edge.getTarget().getLabel()).getId()][nw.getId()] = 1;
-				}
-			}
-		}
+        for(NodeWrapper nw : nodes)
+        {
+            for(UndirectedEdge edge : nw.getNode().getOut())
+            {
+                graph[nw.getId()][nodeNameMap.get(edge.getTarget().getLabel()).getId()] = 1;
+                if(!(edge instanceof DirectedEdge))
+                {
+                    graph[nodeNameMap.get(edge.getTarget().getLabel()).getId()][nw.getId()] = 1;
+                }
+            }
+        }
 
-		ExtensionManager extensionManager = new ExtensionManager(new InputFunction(network.getCategories()));
-		{
-			// min dist
-			extensionManager.register("N", new NFunction(graph, nodeNameMap, nodeIdMap));
-			
-			// consensus in networks
-			MFunction mFunction = new MFunction(nodes);
-			extensionManager.register("M", mFunction);
-			extensionManager.register("RF", new RFFunction(mFunction.getMessages()));
-			extensionManager.register("RB", new RBFunction(mFunction.getMessages()));
+        ExtensionManager extensionManager = new ExtensionManager(inputFunction);
+        {
+            // min dist
+            extensionManager.register("N", new NFunction(graph, nodeNameMap, nodeIdMap));
+            
+            // consensus in networks
+            MFunction mFunction = new MFunction(nodes);
+            extensionManager.register("M", mFunction);
+            extensionManager.register("RF", new RFFunction(mFunction.getMessages()));
+            extensionManager.register("RB", new RBFunction(mFunction.getMessages()));
 
-			// echo
-			extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
-			extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
-		}
-		return extensionManager;
-	}
-	
+            // echo
+            extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
+            extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
+        }
+        return extensionManager;
+    }
+    
 
-	private static String fileChooser(Shell shell, String path)
-	{
-		FileDialog fd = new FileDialog(shell, SWT.OPEN);
-		fd.setText("Open");
-		fd.setFilterPath(path);
-		String[] filterExt = { "*." + extension };
-		fd.setFilterExtensions(filterExt);
-		return fd.open();
-	}
+    private static String fileChooser(Shell shell, String path)
+    {
+        FileDialog fd = new FileDialog(shell, SWT.OPEN);
+        fd.setText("Open");
+        fd.setFilterPath(path);
+        String[] filterExt = { "*." + extension };
+        fd.setFilterExtensions(filterExt);
+        return fd.open();
+    }
 }
