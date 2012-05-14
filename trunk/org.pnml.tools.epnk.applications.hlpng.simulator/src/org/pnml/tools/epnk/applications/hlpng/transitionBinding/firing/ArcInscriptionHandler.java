@@ -28,14 +28,14 @@ public class ArcInscriptionHandler
 		this.evaluationManager = evaluationManager;
 	}
 	
-	public List<List<Map<TermWrapper, TermAssignment>>> match(MSValue value)
+	public List<Map<TermWrapper, TermAssignment>> match(MSValue value)
 	{
 		// each inscription term compared to all multiset terms
-		List<List<Map<TermWrapper, TermAssignment>>> list = 
-				new ArrayList<List<Map<TermWrapper,TermAssignment>>>();
+		List<Map<TermWrapper, TermAssignment>> list = 
+				new ArrayList<Map<TermWrapper,TermAssignment>>();
 		if(operator instanceof NumberOf)
 		{
-			List<Map<TermWrapper, TermAssignment>> assignments = contains(value, 
+			Map<TermWrapper, TermAssignment> assignments = contains(value, 
 					evaluationManager, (NumberOf)operator);
 			
 			list.add(assignments);
@@ -44,7 +44,7 @@ public class ArcInscriptionHandler
 		{
 			for(Term refValue : operator.getSubterm())
 			{
-				List<Map<TermWrapper, TermAssignment>> assignments = contains(value, 
+				Map<TermWrapper, TermAssignment> assignments = contains(value, 
 						evaluationManager, ((NumberOf)refValue));
 				
 				list.add(assignments);	
@@ -65,29 +65,25 @@ public class ArcInscriptionHandler
 		return true;
 	}
 
-	private static List<Map<TermWrapper, TermAssignment>> contains(
+	private static Map<TermWrapper, TermAssignment> contains(
 			MSValue multiset, ComparisonManager resolutionManager, NumberOf numberOf)
 	{
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		List<Map<TermWrapper, TermAssignment>> list = new ArrayList<Map<TermWrapper,TermAssignment>>();
+		Map<TermWrapper, TermAssignment> assignments = new HashMap<TermWrapper,TermAssignment>();
 
 		for(AbstractValue testValue : multiset.getValues().keySet())
 		{
-			Map<TermWrapper, TermAssignment> assignments = new HashMap<TermWrapper, TermAssignment>();
-			
 			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
-			boolean madeAssignment = false;
+
 			if(valueEvaluator.compare(refValue, testValue, assignments))
 			{
 				Integer multiplicity = multiset.getValues().get(testValue);
 				
-				if(refMul instanceof NumberConstant && ((NumberConstant)refMul).getValue() <= multiplicity)
-				{
-					madeAssignment = true;
-				}
-				else if(!(refMul instanceof NumberConstant))
+				// if it is not simple number-to-number comparison
+				// e.g. assigning values to a variable
+				if(!(refMul instanceof NumberConstant))
 				{
 					IComparable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
 					for(int i = 1; i <= multiplicity; i++)
@@ -98,15 +94,10 @@ public class ArcInscriptionHandler
 						
 						mulEvaluator.compare(refMul, testMul, assignments);
 					}
-					madeAssignment = true;
 				}
 			}
-			if(madeAssignment)
-			{
-				list.add(assignments);
-			}
 		}
-		return list;
+		return assignments;
 	}
 
 	public Operator getOperator()

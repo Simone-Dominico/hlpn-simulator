@@ -59,8 +59,8 @@ public class TransitionManager
 	{		
 		Map<String, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(transition.getId());
 		// each inscription variable matches
-		List<List<List<Map<TermWrapper, TermAssignment>>>> allInscriptionMatches =
-				new ArrayList<List<List<Map<TermWrapper,TermAssignment>>>>();
+		List<List<Map<TermWrapper, TermAssignment>>> allInscriptionMatches =
+				new ArrayList<List<Map<TermWrapper,TermAssignment>>>();
 		for(String placeId : incomingArcs.keySet())
 		{
 			MSValue msValue = runtimeValues.get(placeId).getMsValue();
@@ -116,30 +116,27 @@ public class TransitionManager
 	}
 	
 	private static Map<TermWrapper, TermAssignment> narrowing(
-			List<List<List<Map<TermWrapper, TermAssignment>>>> mainList)
+			List<List<Map<TermWrapper, TermAssignment>>> mainList)
 	{
 		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
 		
 		// for each arc
-		for(List<List<Map<TermWrapper, TermAssignment>>> list : mainList)
+		for(List<Map<TermWrapper, TermAssignment>> list : mainList)
 		{
 			Map<TermWrapper, TermAssignment> map = new HashMap<TermWrapper, TermAssignment>();
-			for(List<Map<TermWrapper, TermAssignment>> assignments : list)
+			for(Map<TermWrapper, TermAssignment> assignment : list)
 			{
-				for(Map<TermWrapper, TermAssignment> assignment : assignments)
+				for(TermWrapper wrapper : assignment.keySet())
 				{
-					for(TermWrapper wrapper : assignment.keySet())
+					if(map.containsKey(wrapper))
 					{
-						if(map.containsKey(wrapper))
-						{
-							map.get(wrapper).getValues().addAll(assignment.get(wrapper).getValues());
-						}
-						else
-						{
-							map.put(wrapper, assignment.get(wrapper));
-						}
-					}	
-				}
+						map.get(wrapper).getValues().addAll(assignment.get(wrapper).getValues());
+					}
+					else
+					{
+						map.put(wrapper, assignment.get(wrapper));
+					}
+				}	
 			}
 			
 			for(TermWrapper wrapper : map.keySet())
