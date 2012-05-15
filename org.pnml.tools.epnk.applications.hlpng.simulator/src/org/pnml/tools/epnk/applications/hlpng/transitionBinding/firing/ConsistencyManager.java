@@ -11,7 +11,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
@@ -85,7 +84,7 @@ public class ConsistencyManager
 	
 	public static List<FiringMode> checkSolution(List<Map<TermWrapper, AbstractValue>> varSets,
 			Map<String, ArcInscriptionHandler> incomingArcs,
-			Map<String, PlaceMarking> runtimeValues, Transition transition,
+			Map<String, MSValue> runtimeValues, Transition transition,
 			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
@@ -120,7 +119,7 @@ public class ConsistencyManager
 				{
 					if(matched)
 					{
-						MSValue runtimeValue = runtimeValues.get(placeId).getMsValue();
+						MSValue runtimeValue = runtimeValues.get(placeId);
 						// it may be not possible to initialize some of the variables
 						MSValue inscriptionValue = null;
 	                    try

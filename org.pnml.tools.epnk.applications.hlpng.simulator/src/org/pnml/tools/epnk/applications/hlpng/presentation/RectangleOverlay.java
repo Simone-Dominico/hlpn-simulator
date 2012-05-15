@@ -92,7 +92,10 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	@Override
     public void executeAction(IAction action)
     {
-	    simulator.fire(transition, (AbstractMenuItem)action);
+		if(action instanceof PopupMenuItem)
+		{
+			simulator.fire(((PopupMenuItem)action).getMode());	
+		}
     }
 	
 	private static AbstractMenuItem getCategory(FiringMode mode)
