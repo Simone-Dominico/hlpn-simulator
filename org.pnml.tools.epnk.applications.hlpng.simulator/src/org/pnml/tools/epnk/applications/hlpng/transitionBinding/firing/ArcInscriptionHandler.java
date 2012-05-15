@@ -28,7 +28,7 @@ public class ArcInscriptionHandler
 	private ComparisonManager comparisonManager = null;
 	
 	private List<NumberOf> allNumberOf = new ArrayList<NumberOf>();
-	private Set<VariableWrapper> variables = new HashSet<VariableWrapper>();
+	private Set<TermWrapper> variables = new HashSet<TermWrapper>();
 	
 	public ArcInscriptionHandler(Operator operator, ComparisonManager comparisonManager)
 	{
@@ -96,12 +96,12 @@ public class ArcInscriptionHandler
     	return operator;
     }
 	
-	public Set<VariableWrapper> getVariables()
+	public Set<TermWrapper> getVariables()
     {
     	return variables;
     }
 	
-	private static void allVars(Term term, Set<VariableWrapper> vars)
+	private static void allVars(Term term, Set<TermWrapper> vars)
 	{
 		if(term instanceof Variable)
 		{
