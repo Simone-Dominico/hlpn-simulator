@@ -5,6 +5,7 @@ import geditor.Geometry;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -101,7 +103,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		this.animator.initRequested();
     }
 
-	private void reset()
+	@Override
+	public void reset()
     {
 		animator.setReset(true);
     }
@@ -116,7 +119,12 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		if(runningAnimations.contains(ItemID))
 		{
 			runningAnimations.remove(ItemID);
-			checkTransitions();
+			List<FiringMode> modes = updateTransitionMarking();
+			
+			while(modes.size() > 0)
+			{
+				modes = fire(modes.get(0));
+			}
 		}
     }
 
@@ -131,6 +139,13 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     public void start(IAnimator animator)
     {
 		animator.setUpdatePosition(true);
+		
+		List<FiringMode> modes = updateTransitionMarking();
+		
+		while(modes.size() > 0)
+		{
+			modes = fire(modes.get(0));
+		}
     }
 	
 	@Override
