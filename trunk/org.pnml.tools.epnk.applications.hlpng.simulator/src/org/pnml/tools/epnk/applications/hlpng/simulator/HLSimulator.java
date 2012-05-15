@@ -1,25 +1,30 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
-import org.pnml.tools.epnk.applications.hlpng.selection.AbstractMenuItem;
-import org.pnml.tools.epnk.applications.hlpng.selection.PopupMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 public class HLSimulator extends Application 
-	implements IApplicationWithPresentation, ISimulator
+	implements IApplicationWithPresentation, ISimulator, IWorker
 {
 	protected IPresentationManager presentationManager = null;
 	protected NetMarkingManager netMarkingManager = null;
@@ -29,6 +34,14 @@ public class HLSimulator extends Application
 	protected EvaluationManager evaluationManager = null; 
 	protected ComparisonManager comparisonManager = null; 
 	protected ReversibleOperationManager reversibleOperationManager = null;
+	
+	protected TransitionManager transitionManager = null;
+	protected TransitionFiringManager transitionFiringManager = null;
+	
+	protected AutoModeJob autoMode = null;
+	
+	protected List<FiringMode> initialFiringModes = null;
+	private IFiringStrategy firingStrategy = new RandomFiringStrategy();
 	
 	private Action[] actions;
 	
@@ -44,7 +57,6 @@ public class HLSimulator extends Application
 	    this.reversibleOperationManager = reversibleOperationManager;
 	    
 	    this.font = font;
-	    this.flatAccess = new FlatAccess(this.petrinet);
 		
 	    if(init)
 	    {
@@ -55,11 +67,24 @@ public class HLSimulator extends Application
 	@Override
 	public void init()
 	{
+		this.flatAccess = new FlatAccess(this.petrinet);
+	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
+	    this.autoMode = new AutoModeJob(Display.getDefault(), 
+	    		"Auto transition firing", this, 500);
+	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
+				evaluationManager, reversibleOperationManager);
+	    
 		this.presentationManager = new SimulatorPresentationManager(this, font);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet, flatAccess, 
-				evaluationManager, comparisonManager, reversibleOperationManager);
+		this.netMarkingManager= new NetMarkingManager(this.petrinet,  
+				comparisonManager, reversibleOperationManager);
 		
-		NetMarking netMarking = netMarkingManager.createNetMarking();
+		List<Pair<Place, MSValue>> runtimeValueList = 
+				this.transitionFiringManager.createInitialMarking(this.evaluationManager);
+		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValueList);
+		this.initialFiringModes = this.transitionFiringManager.computeFiringModes(
+				this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
+		
+		NetMarking netMarking = netMarkingManager.createNetMarking(runtimeValueList, this.initialFiringModes);
 		NetAnnotations netAnnotations = getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);
@@ -68,34 +93,48 @@ public class HLSimulator extends Application
 	}
 	
 	@Override
-    public void fire(Transition transition, AbstractMenuItem abstractAction)
-    {
-		if(abstractAction instanceof PopupMenuItem)
-		{
-			PopupMenuItem action = (PopupMenuItem) abstractAction;
-			
-			FiringMode mode = action.getMode();
-
-			NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
-			
-			NetMarking netMarking = this.netMarkingManager.createNetMarking(prevMarking, mode);
-			
-			NetAnnotations netAnnotations = this.getNetAnnotations();
-			netAnnotations.getNetAnnotations().add(netMarking);
-			netAnnotations.setCurrent(netMarking);
-		}
-    }
-	
-	@Override
-    public void checkTransitions()
+    public List<FiringMode> fire(FiringMode mode)
     {
 		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
+		List<Pair<Place, MSValue>> currentRuntimeValueList = 
+				this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
+		Map<String, MSValue> currentValuesMap = this.transitionFiringManager.
+				createRuntimeValueMap(currentRuntimeValueList);
 		
-		NetMarking netMarking = this.netMarkingManager.createNetMarking(prevMarking);
+		Pair<List<Pair<Place, MSValue>>, Map<String, MSValue>> result =
+				this.transitionFiringManager.createNextMarking(evaluationManager, currentValuesMap, mode);
+		
+		List<FiringMode> firingModes =
+				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), 
+						result.getValue(), this.transitionManager);
+		
+		NetMarking netMarking = this.netMarkingManager.
+				createNetMarking(result.getKey(), firingModes);
 		
 		NetAnnotations netAnnotations = this.getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);
+		
+		return firingModes;
+    }
+	
+	@Override
+    public List<FiringMode> updateTransitionMarking()
+    {
+		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
+		
+		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
+		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
+		List<FiringMode> firingModes =
+				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
+		
+		NetMarking netMarking = netMarkingManager.createNetMarking(runtimeValuesList, firingModes);
+		
+		NetAnnotations netAnnotations = this.getNetAnnotations();
+		netAnnotations.getNetAnnotations().add(netMarking);
+		netAnnotations.setCurrent(netMarking);
+		
+		return firingModes;
     }
 	
 	public IPresentationManager getPresentationManager()
@@ -113,7 +152,7 @@ public class HLSimulator extends Application
     {
 		if(actions == null)
 		{
-	    	actions = new Action[4];
+	    	actions = new Action[5];
 			
 			actions[0] = new Action() {
 				public void run() {
@@ -159,10 +198,28 @@ public class HLSimulator extends Application
 			actions[3].setToolTipText("Show next");
 //			actions[3].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 //				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+			
+			actions[4] = new Action() {
+				public void run() {
+					reset();
+				}
+			};
+			actions[4].setId("reset");
+			actions[4].setText("Reset");
+			actions[4].setToolTipText("Show reset");
+//			actions[4].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
+//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
 	    }
 	    return actions;
     }
 
+	@Override
+	public void reset()
+	{
+		autoMode.setStopped(true);
+		init();
+	}
+	
 	@Override
     public void next()
     {
@@ -176,9 +233,43 @@ public class HLSimulator extends Application
     }
 	
 	@Override
-	public void auto(){}
+	public void auto()
+	{
+		if(autoMode.isStopped())
+		{
+			autoMode.setStopped(false);
+			autoMode.runInUIThread(null);
+		}
+	}
 	
 	@Override
-	public void stop(){}
+	public void stop()
+	{
+		autoMode.setStopped(true);
+	}
 
+	@Override
+    public void work()
+    {
+		NetMarking currentMarking = (NetMarking)this.getNetAnnotations().getCurrent();
+		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(currentMarking);
+		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
+		List<FiringMode> firingModes =
+				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
+
+		FiringMode mode = firingStrategy.fire(firingModes);
+		if(mode != null)
+		{
+			this.fire(mode);	
+		}
+		else
+		{
+			autoMode.setStopped(true);
+			/*MessageBox messageBox = new MessageBox(new Shell(Display.getCurrent()), SWT.ICON_INFORMATION);
+	        messageBox.setText("Information");
+	        messageBox.setMessage("There are no more enabled transitions anymore.\n" +
+	        		"Turning auto mode off.");
+	        messageBox.open();*/
+		}
+    }
 }

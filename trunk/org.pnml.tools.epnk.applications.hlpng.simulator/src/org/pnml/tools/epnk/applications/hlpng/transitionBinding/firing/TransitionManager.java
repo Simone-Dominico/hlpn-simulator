@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -55,7 +54,7 @@ public class TransitionManager
 	}
 	
 	public List<FiringMode> checkTransition(Transition transition, Map<String, 
-			PlaceMarking> runtimeValues) throws DependencyException, UnknownVariableException
+			MSValue> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
 		Map<String, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(transition.getId());
 		// each inscription variable/term assignments
@@ -66,7 +65,7 @@ public class TransitionManager
 		
 		for(String placeId : incomingArcs.keySet())
 		{
-			MSValue msValue = runtimeValues.get(placeId).getMsValue();
+			MSValue msValue = runtimeValues.get(placeId);
 			
 			// each inscription term compared to all multiset terms
 			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
