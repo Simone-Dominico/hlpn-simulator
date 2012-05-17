@@ -10,10 +10,18 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
+import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.states.IStateContext;
 
 public class SelectionHandler implements SelectionListener, MouseListener
 {	
+	protected ISimulator simulator = null;
+	
+	public SelectionHandler(ISimulator simulator)
+	{
+		this.simulator = simulator;
+	}
+	
 	@Override
     public void widgetSelected(SelectionEvent e)
     {
@@ -45,7 +53,7 @@ public class SelectionHandler implements SelectionListener, MouseListener
 		// left-click
 		if(e.button == 1)
 		{
-			if(e.getSource() instanceof IActionProvider)
+			if(e.getSource() instanceof IActionProvider && !simulator.isAutoModeEnabled())
 			{
 				final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow(); 
 				final Shell shell = window.getShell();

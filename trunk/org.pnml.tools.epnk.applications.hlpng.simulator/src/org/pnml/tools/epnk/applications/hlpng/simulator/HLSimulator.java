@@ -41,6 +41,7 @@ public class HLSimulator extends Application
 	protected AutoModeJob autoMode = null;
 	
 	protected long simulationPause = 500;
+	protected boolean autoModeEnabled;
 	
 	protected List<FiringMode> initialFiringModes = null;
 	private IFiringStrategy firingStrategy = new RandomFiringStrategy();
@@ -239,6 +240,7 @@ public class HLSimulator extends Application
 	{
 		if(autoMode.isStopped())
 		{
+			autoModeEnabled = true;
 			autoMode.setStopped(false);
 			autoMode.runInUIThread(null);
 		}
@@ -248,6 +250,7 @@ public class HLSimulator extends Application
 	public void stop()
 	{
 		autoMode.setStopped(true);
+		autoModeEnabled = false;
 	}
 
 	@Override
@@ -273,5 +276,15 @@ public class HLSimulator extends Application
 	        		"Turning auto mode off.");
 	        messageBox.open();*/
 		}
+    }
+
+	public boolean isAutoModeEnabled()
+    {
+    	return autoModeEnabled;
+    }
+
+	public void setAutoModeEnabled(boolean autoModeEnabled)
+    {
+    	this.autoModeEnabled = autoModeEnabled;
     }
 }

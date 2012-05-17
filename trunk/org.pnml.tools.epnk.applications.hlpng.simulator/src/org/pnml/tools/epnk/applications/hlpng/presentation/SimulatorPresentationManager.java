@@ -23,7 +23,7 @@ public class SimulatorPresentationManager implements IPresentationManager
 	{
 		this.simulator = simulator;
 		
-		this.selectionHandler = new SelectionHandler();
+		this.selectionHandler = new SelectionHandler(simulator);
 		
 		this.font = font;
 	}

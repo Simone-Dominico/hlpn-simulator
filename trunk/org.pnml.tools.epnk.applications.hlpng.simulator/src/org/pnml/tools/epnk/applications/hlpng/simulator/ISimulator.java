@@ -15,4 +15,5 @@ public interface ISimulator extends IApplicationWithPresentation
 	public void previous();
 	public List<FiringMode> fire(FiringMode mode);
 	public List<FiringMode> updateTransitionMarking();
+	public boolean isAutoModeEnabled();
 }
