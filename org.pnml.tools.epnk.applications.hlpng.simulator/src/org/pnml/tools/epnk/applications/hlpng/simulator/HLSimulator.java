@@ -40,6 +40,8 @@ public class HLSimulator extends Application
 	
 	protected AutoModeJob autoMode = null;
 	
+	protected long simulationPause = 500;
+	
 	protected List<FiringMode> initialFiringModes = null;
 	private IFiringStrategy firingStrategy = new RandomFiringStrategy();
 	
@@ -70,7 +72,7 @@ public class HLSimulator extends Application
 		this.flatAccess = new FlatAccess(this.petrinet);
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
-	    		"Auto transition firing", this, 500);
+	    		"Auto transition firing", this, this.simulationPause);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
 				evaluationManager, reversibleOperationManager);
 	    
