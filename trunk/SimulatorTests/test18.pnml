@@ -85,21 +85,21 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="72" y="72" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="228" y="72" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.9">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="36" y="36" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="108" y="96" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.10">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="72" y="108" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="12" y="36" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.11">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -656,7 +656,7 @@
       <place id="p3">
         <name>
           <graphics>
-            <offset x="-95.0" y="25.0"/>
+            <offset x="61.0" y="25.0"/>
           </graphics>
           <text>place03</text>
         </name>
@@ -666,7 +666,7 @@
         </graphics>
         <type>
           <graphics>
-            <offset x="-131.0" y="-11.0"/>
+            <offset x="-59.0" y="49.0"/>
           </graphics>
           <structure>
             <usersort declaration="id2"/>
@@ -675,10 +675,78 @@
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="-95.0" y="61.0"/>
+            <offset x="-155.0" y="-11.0"/>
           </graphics>
           <structure>
             <add>
+              <subterm>
+                <add>
+                  <subterm>
+                    <numberof>
+                      <subterm>
+                        <numberconstant value="2">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                      <subterm>
+                        <numberof>
+                          <subterm>
+                            <numberconstant value="5">
+                              <positive/>
+                            </numberconstant>
+                          </subterm>
+                          <subterm>
+                            <tuple>
+                              <subterm>
+                                <numberconstant value="8">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="2">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                            </tuple>
+                          </subterm>
+                        </numberof>
+                      </subterm>
+                    </numberof>
+                  </subterm>
+                  <subterm>
+                    <numberof>
+                      <subterm>
+                        <numberconstant value="2">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                      <subterm>
+                        <numberof>
+                          <subterm>
+                            <numberconstant value="5">
+                              <positive/>
+                            </numberconstant>
+                          </subterm>
+                          <subterm>
+                            <tuple>
+                              <subterm>
+                                <numberconstant value="10">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="3">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                            </tuple>
+                          </subterm>
+                        </numberof>
+                      </subterm>
+                    </numberof>
+                  </subterm>
+                </add>
+              </subterm>
               <subterm>
                 <numberof>
                   <subterm>
@@ -687,65 +755,89 @@
                     </numberconstant>
                   </subterm>
                   <subterm>
-                    <numberof>
+                    <add>
                       <subterm>
-                        <numberconstant value="5">
-                          <positive/>
-                        </numberconstant>
-                      </subterm>
-                      <subterm>
-                        <tuple>
-                          <subterm>
-                            <numberconstant value="8">
-                              <positive/>
-                            </numberconstant>
-                          </subterm>
-                          <subterm>
-                            <numberconstant value="2">
-                              <positive/>
-                            </numberconstant>
-                          </subterm>
-                        </tuple>
-                      </subterm>
-                    </numberof>
-                  </subterm>
-                </numberof>
-              </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="4">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <numberof>
-                      <subterm>
-                        <numberconstant value="5">
-                          <positive/>
-                        </numberconstant>
-                      </subterm>
-                      <subterm>
-                        <tuple>
-                          <subterm>
-                            <numberconstant value="10">
-                              <positive/>
-                            </numberconstant>
-                          </subterm>
+                        <numberof>
                           <subterm>
                             <numberconstant value="3">
                               <positive/>
                             </numberconstant>
                           </subterm>
-                        </tuple>
+                          <subterm>
+                            <tuple>
+                              <subterm>
+                                <numberconstant value="10">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                              <subterm>
+                                <numberconstant value="3">
+                                  <positive/>
+                                </numberconstant>
+                              </subterm>
+                            </tuple>
+                          </subterm>
+                        </numberof>
                       </subterm>
-                    </numberof>
+                      <subterm>
+                        <numberof>
+                          <subterm>
+                            <numberconstant value="2">
+                              <positive/>
+                            </numberconstant>
+                          </subterm>
+                          <subterm>
+                            <tuple>
+                              <subterm>
+                                <mult>
+                                  <subterm>
+                                    <numberconstant value="2">
+                                      <positive/>
+                                    </numberconstant>
+                                  </subterm>
+                                  <subterm>
+                                    <numberconstant value="5">
+                                      <positive/>
+                                    </numberconstant>
+                                  </subterm>
+                                </mult>
+                              </subterm>
+                              <subterm>
+                                <addition>
+                                  <subterm>
+                                    <mult>
+                                      <subterm>
+                                        <numberconstant value="2">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                      <subterm>
+                                        <numberconstant value="1">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                    </mult>
+                                  </subterm>
+                                  <subterm>
+                                    <numberconstant value="1">
+                                      <positive/>
+                                    </numberconstant>
+                                  </subterm>
+                                </addition>
+                              </subterm>
+                            </tuple>
+                          </subterm>
+                        </numberof>
+                      </subterm>
+                    </add>
                   </subterm>
                 </numberof>
               </subterm>
             </add>
           </structure>
-          <text>2`(5`(8,2))++4`(5`(10,3))</text>
+          <text>2`(5`(8,2))++2`(5`(10,3))
+++2`(3`(10,3)++
+2`(2*5,2*1+1))</text>
         </hlinitialMarking>
       </place>
       <arc id="a3" source="p3" target="t1">
