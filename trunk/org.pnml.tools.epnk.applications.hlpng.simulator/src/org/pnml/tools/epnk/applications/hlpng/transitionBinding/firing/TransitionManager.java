@@ -16,6 +16,8 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Unknow
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
+import org.pnml.tools.epnk.pnmlcoremodel.Place;
+import org.pnml.tools.epnk.pnmlcoremodel.PlaceNode;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -46,7 +48,13 @@ public class TransitionManager
 						hlArc.getHlinscription().getStructure() != null)
 				{
 					Operator term = (Operator)hlArc.getHlinscription().getStructure();
-					map.put(arc.getSource().getId(), new ArcInscriptionHandler(term, comparatorManager));
+					
+					Place place = flatAccess.resolve((PlaceNode)arc.getSource());
+					
+					if(place != null)
+					{
+						map.put(place.getId(), new ArcInscriptionHandler(term, comparatorManager));	
+					}
 				}
 			}
 			this.patternMatcherMap.put(transition.getId(), map);

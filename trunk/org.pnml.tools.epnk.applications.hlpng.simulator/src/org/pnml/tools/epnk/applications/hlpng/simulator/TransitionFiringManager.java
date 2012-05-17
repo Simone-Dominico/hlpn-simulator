@@ -20,6 +20,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Evalua
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
+import org.pnml.tools.epnk.pnmlcoremodel.PlaceNode;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
@@ -55,47 +56,50 @@ public class TransitionFiringManager
 		// updates outgoing places
 		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : firingMode.getTransition().getOut())
 		{
-			Place place = (Place)arc.getTarget();
-			String placeId = place.getId();
-			
-			MSValue currentMarking = null;
-			
-			// handles cyclic behavior when the same place is a source and a destination
-			if(oldPlaces.contains(placeId))
+			Place place = (Place)this.flatAccess.resolve((PlaceNode)arc.getTarget());
+			if(place != null)
 			{
-				currentMarking = oldValuesMap.get(placeId);
-				oldPlaces.remove(placeId);
-			}
-			else
-			{
-				currentMarking = newValuesMap.get(placeId);
-				newValuesMap.remove(placeId);
-			}
+				String placeId = place.getId();
+				
+				MSValue currentMarking = null;
+				
+				// handles cyclic behavior when the same place is a source and a destination
+				if(oldPlaces.contains(placeId))
+				{
+					currentMarking = oldValuesMap.get(placeId);
+					oldPlaces.remove(placeId);
+				}
+				else
+				{
+					currentMarking = newValuesMap.get(placeId);
+					newValuesMap.remove(placeId);
+				}
 
-			MSValue newMarking = null;
-			
-			// one of the outgoing arc has no inscription
-			Arc hlArc = (Arc)arc;
-			if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
-			{
-				try
-                {
-	                AbstractValue inscriptionValue = evalManager.
-	                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
-	                
-	                newMarking = AbstractValueMath.append((MSValue)inscriptionValue,
-	                		currentMarking);
-                }
-                catch(UnknownVariableException e)
-                {
-	                e.printStackTrace();
-                }	
+				MSValue newMarking = null;
+				
+				// one of the outgoing arc has no inscription
+				Arc hlArc = (Arc)arc;
+				if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
+				{
+					try
+	                {
+		                AbstractValue inscriptionValue = evalManager.
+		                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
+		                
+		                newMarking = AbstractValueMath.append((MSValue)inscriptionValue,
+		                		currentMarking);
+	                }
+	                catch(UnknownVariableException e)
+	                {
+		                e.printStackTrace();
+	                }	
+				}
+				else
+				{
+					newMarking = AbstractValueMath.lightCopy(currentMarking);
+				}
+				newValuesMap.put(placeId, newMarking);	
 			}
-			else
-			{
-				newMarking = AbstractValueMath.lightCopy(currentMarking);
-			}
-			newValuesMap.put(placeId, newMarking);
 		}
 		
 		List<Pair<Place, MSValue>> runtimeValues = new ArrayList<Pair<Place,MSValue>>();
