@@ -167,37 +167,21 @@
               <subterm>
                 <add>
                   <subterm>
-                    <add>
+                    <numberof>
                       <subterm>
-                        <numberof>
+                        <variable refvariable="id5"/>
+                      </subterm>
+                      <subterm>
+                        <useroperator declaration="id1">
                           <subterm>
                             <variable refvariable="id5"/>
                           </subterm>
                           <subterm>
-                            <useroperator declaration="id1">
-                              <subterm>
-                                <variable refvariable="id5"/>
-                              </subterm>
-                              <subterm>
-                                <variable refvariable="id5"/>
-                              </subterm>
-                            </useroperator>
-                          </subterm>
-                        </numberof>
-                      </subterm>
-                      <subterm>
-                        <numberof>
-                          <subterm>
-                            <numberconstant value="1">
-                              <positive/>
-                            </numberconstant>
-                          </subterm>
-                          <subterm>
                             <variable refvariable="id5"/>
                           </subterm>
-                        </numberof>
+                        </useroperator>
                       </subterm>
-                    </add>
+                    </numberof>
                   </subterm>
                   <subterm>
                     <numberof>
@@ -228,7 +212,6 @@
             </add>
           </structure>
           <text>x`f(x,x) ++&#xD;
-1`x ++ &#xD;
 x`g() ++ &#xD;
 1`5 </text>
         </hlinscription>
