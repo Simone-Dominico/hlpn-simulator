@@ -165,7 +165,6 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	{
 		init();
 		init((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager);
-		start(animator);
 	}
 	private static void init(NetMarking netMarking, ExtensionManager extensionManager)
 	{
