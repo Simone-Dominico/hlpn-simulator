@@ -6,4 +6,6 @@
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrainN.obj" id="fast"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_green_normals.obj" id="greenSignal2"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_red_normals.obj" id="redSignal2"/>
+  <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_green_normals.obj" id="greenSignal3"/>
+  <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_red_normals.obj" id="redSignal3"/>
 </Appearence:Shapes>

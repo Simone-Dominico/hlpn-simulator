@@ -38,14 +38,15 @@
     <controlPoints x="60" z="168"/>
   </GeometryObjects>
   <GeometryObjects xsi:type="geditor:Arc" id="track4" appearancePath="platform:/resource/TrainTraffic/graphics/track-unit-new.png" start="//@GeometryObjects.3" end="//@GeometryObjects.1">
-    <controlPoints x="315" z="305"/>
+    <controlPoints x="305" z="295"/>
     <controlPoints x="305" z="295"/>
     <controlPoints x="432" z="84"/>
     <controlPoints x="276" z="60"/>
     <controlPoints x="156" z="96"/>
     <controlPoints x="67" z="247"/>
-    <controlPoints x="77" z="257"/>
+    <controlPoints x="67" z="247"/>
   </GeometryObjects>
-  <GeometryObjects xsi:type="geditor:Point" id="signalPoint2" x="421" z="251"/>
+  <GeometryObjects xsi:type="geditor:Point" id="signalPoint2" x="365" z="293"/>
   <GeometryObjects xsi:type="geditor:Point" id="signalPoint1" x="26" z="170"/>
+  <GeometryObjects xsi:type="geditor:Point" id="signalPoint3" x="305" z="257"/>
 </geditor:Geometry>
