@@ -1,5 +1,9 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -14,6 +18,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTy
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
+import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
@@ -27,7 +32,6 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	public void run(IAction action)
 	{
 		// init the evaluation manager
-		// TODO an ID for All
 		EvaluationManager evaluationManager = 
 				ResourceManager.createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 		DataTypeEvaluationManager dataTypeEvaluationManager =
@@ -42,14 +46,25 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the comparison manager
 		ComparisonManager comparisonManager = ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
 
-		// creates a simulator
-		HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
-				comparisonManager, reversibleOperationManager,
-				Display.getDefault().getSystemFont(), true);
-		// registers the simulator
-		Activator activator = Activator.getInstance();
-		ApplicationRegistry registry = activator.getApplicationRegistry();
-		registry.addApplication(application);
+		// perform validaion
+		ValidationDelegateClientSelector.running = true;
+		IBatchValidator validator = (IBatchValidator) ModelValidationService
+		        .getInstance().newValidator(EvaluationMode.BATCH);
+		validator.setIncludeLiveConstraints(true);
+		IStatus status = validator.validate(petrinet);
+		ValidationDelegateClientSelector.running = false;
+System.out.println(status);
+		if(status.isOK())
+		{
+			// creates a simulator
+			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
+					comparisonManager, reversibleOperationManager,
+					Display.getDefault().getSystemFont(), true);
+			// registers the simulator
+			Activator activator = Activator.getInstance();
+			ApplicationRegistry registry = activator.getApplicationRegistry();
+			registry.addApplication(application);	
+		}
 	}
 	
 	@Override
