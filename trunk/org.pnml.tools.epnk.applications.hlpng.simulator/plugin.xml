@@ -27,5 +27,44 @@
          </action>
       </objectContribution>
    </extension>
-
+   
+   <extension
+         point="org.eclipse.emf.validation.constraintProviders">
+      <category
+            name="HLPNG Simulator Constraints"
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.validation"/>
+      <constraintProvider cache="true">
+         <package namespaceUri="http://org.pnml.tools/epnk/pnmlcoremodel"/>
+         <constraints categories="org.pnml.tools.epnk.applications.hlpng.simulator.validation">
+            <constraint
+                  lang="Java"
+                  class="org.pnml.tools.epnk.applications.hlpng.validation.EvaluationValidator"
+                  severity="ERROR"
+                  mode="Batch"
+                  name="Ensures that any data type or operation defined in the Petri net is supported by the Simulator"
+                  id="org.pnml.tools.epnk.applications.hlpng.simulator.evaluationConstraint"
+                  statusCode="1">
+               <description>
+                  This constraint ensures that all data types and operations defined in the Petri net are known by the Simulator.
+               </description>
+               <message>
+                  The operation {0} is not supported by the Simulator.
+               </message>
+               <target class="PetriNet:http://org.pnml.tools/epnk/pnmlcoremodel"/>
+            </constraint>
+         </constraints>
+      </constraintProvider>
+   </extension>
+   
+   <extension
+         point="org.eclipse.emf.validation.constraintBindings">
+      <clientContext
+            default="false"
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.validationContext">
+         <selector class="org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector"/>
+      </clientContext>
+      <binding
+            context="org.pnml.tools.epnk.applications.hlpng.simulator.validationContext"
+            category="org.pnml.tools.epnk.applications.hlpng.simulator.validation"/>
+   </extension>
 </plugin>
