@@ -54,7 +54,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		IStatus status = validator.validate(petrinet);
 		ValidationDelegateClientSelector.running = false;
 System.out.println(status);
-		if(status.isOK())
+		//if(status.isOK())
 		{
 			// creates a simulator
 			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
