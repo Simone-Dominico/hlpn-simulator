@@ -11,8 +11,11 @@ import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
@@ -39,6 +42,7 @@ public class HLSimulator extends Application
 	protected TransitionFiringManager transitionFiringManager = null;
 	
 	protected AutoModeJob autoMode = null;
+	protected SimulationViewController simulationViewController = null;
 	
 	protected long simulationPause = 500;
 	protected boolean autoModeEnabled;
@@ -70,6 +74,7 @@ public class HLSimulator extends Application
 	@Override
 	public void init()
 	{
+		this.simulationViewController = new SimulationViewController();
 		this.flatAccess = new FlatAccess(this.petrinet);
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
@@ -99,6 +104,21 @@ public class HLSimulator extends Application
     public List<FiringMode> fire(FiringMode mode)
     {
 		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
+		
+		// marking as fired
+		for(AbstractMarking m : prevMarking.getMarkings())
+		{
+			if(m instanceof TransitionMarking && 
+					((TransitionMarking)m).getTransition().getId().equals(mode.getTransition().getId()))
+			{
+				((TransitionMarking)m).setFired(true);
+			}
+		}
+		
+		// recording
+		this.simulationViewController.record(mode);
+		
+		// computing the following modes
 		List<Pair<Place, MSValue>> currentRuntimeValueList = 
 				this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
 		Map<String, MSValue> currentValuesMap = this.transitionFiringManager.
@@ -111,9 +131,9 @@ public class HLSimulator extends Application
 				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), 
 						result.getValue(), this.transitionManager);
 		
+		// creating next annotation layer
 		NetMarking netMarking = this.netMarkingManager.
 				createNetMarking(result.getKey(), firingModes);
-		
 		NetAnnotations netAnnotations = this.getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);
@@ -251,6 +271,12 @@ public class HLSimulator extends Application
 	{
 		autoMode.setStopped(true);
 		autoModeEnabled = false;
+	}
+	
+	@Override
+	protected void shutDown() 
+	{
+		autoMode.setStopped(true);
 	}
 
 	@Override
