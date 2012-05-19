@@ -11,7 +11,6 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
-import org.pnml.tools.epnk.applications.hlpng.states.IStateContext;
 
 public class SelectionHandler implements SelectionListener, MouseListener
 {	
@@ -44,12 +43,6 @@ public class SelectionHandler implements SelectionListener, MouseListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		// middle button
-		if(e.button == 2 && e.getSource() instanceof IStateContext)
-		{
-			((IStateContext)e.getSource()).request();
-		}
-		
 		// left-click
 		if(e.button == 1)
 		{
