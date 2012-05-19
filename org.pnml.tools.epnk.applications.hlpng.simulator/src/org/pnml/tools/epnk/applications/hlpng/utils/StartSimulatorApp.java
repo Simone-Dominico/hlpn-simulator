@@ -5,6 +5,7 @@ import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Display;
@@ -46,15 +47,19 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		// init the comparison manager
 		ComparisonManager comparisonManager = ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
 
-		// perform validaion
+		// perform validation
 		ValidationDelegateClientSelector.running = true;
 		IBatchValidator validator = (IBatchValidator) ModelValidationService
 		        .getInstance().newValidator(EvaluationMode.BATCH);
 		validator.setIncludeLiveConstraints(true);
 		IStatus status = validator.validate(petrinet);
 		ValidationDelegateClientSelector.running = false;
-System.out.println(status);
-		//if(status.isOK())
+
+		if (!status.isOK()) 
+		{
+            ErrorDialog.openError(null, "Validation", "Validation Failed", status);
+        }
+		else
 		{
 			// creates a simulator
 			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
