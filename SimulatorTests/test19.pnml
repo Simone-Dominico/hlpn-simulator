@@ -757,14 +757,50 @@
                           <subterm>
                             <tuple>
                               <subterm>
-                                <numberconstant value="8">
-                                  <positive/>
-                                </numberconstant>
+                                <subtraction>
+                                  <subterm>
+                                    <mult>
+                                      <subterm>
+                                        <numberconstant value="3">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                      <subterm>
+                                        <numberconstant value="3">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                    </mult>
+                                  </subterm>
+                                  <subterm>
+                                    <numberconstant value="1">
+                                      <positive/>
+                                    </numberconstant>
+                                  </subterm>
+                                </subtraction>
                               </subterm>
                               <subterm>
-                                <numberconstant value="2">
-                                  <positive/>
-                                </numberconstant>
+                                <subtraction>
+                                  <subterm>
+                                    <numberconstant value="8">
+                                      <positive/>
+                                    </numberconstant>
+                                  </subterm>
+                                  <subterm>
+                                    <mult>
+                                      <subterm>
+                                        <numberconstant value="2">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                      <subterm>
+                                        <numberconstant value="3">
+                                          <positive/>
+                                        </numberconstant>
+                                      </subterm>
+                                    </mult>
+                                  </subterm>
+                                </subtraction>
                               </subterm>
                             </tuple>
                           </subterm>
@@ -827,7 +863,8 @@
             </add>
           </structure>
           <text>2`(5`(8,2)++7`(10,3))
-++2`(5`(8,2)++7`(2*5,2*1+1))</text>
+++2`(5`(3*3- 1,8- 2*3)++
+7`(2*5,2*1+1))</text>
         </hlinitialMarking>
       </place>
       <arc id="a3" source="p3" target="t1">
@@ -895,7 +932,7 @@
                   <subterm>
                     <numberof>
                       <subterm>
-                        <numberconstant value="5">
+                        <numberconstant value="7">
                           <positive/>
                         </numberconstant>
                       </subterm>
@@ -931,7 +968,7 @@
               </subterm>
             </add>
           </structure>
-          <text>2`(5`(x+y- 5,z))++3`(5`(x- z,y+2))</text>
+          <text>2`(5`(x+y- 5,z))++3`(7`(x- z,y+2))</text>
         </hlinscription>
       </arc>
       <place id="p4">
