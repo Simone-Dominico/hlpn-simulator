@@ -10,6 +10,7 @@ public class TransitionMarking extends AbstractMarking
 {
 	private Transition transition = null;
 	private List<FiringMode> modes = new ArrayList<FiringMode>();
+	private boolean fired = false;
 	
 	public Transition getTransition()
     {
@@ -26,5 +27,13 @@ public class TransitionMarking extends AbstractMarking
 	public void setModes(List<FiringMode> modes)
     {
     	this.modes = modes;
+    }
+	public boolean isFired()
+    {
+    	return fired;
+    }
+	public void setFired(boolean fired)
+    {
+    	this.fired = fired;
     }
 }

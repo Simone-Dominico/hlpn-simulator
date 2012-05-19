@@ -37,10 +37,15 @@ public class SimulatorPresentationManager implements IPresentationManager
 			TransitionMarking marking = (TransitionMarking) objectAnnotation;
 			Transition transition = marking.getTransition();
 
-			IFigure coloredMarking = new RectangleOverlay(simulator,
+			RectangleOverlay coloredMarking = new RectangleOverlay(simulator,
 					graphicalEditPart.getFigure(), transition, marking);
 			coloredMarking.addMouseListener(selectionHandler);
-
+			
+			if(marking.isFired())
+			{
+				coloredMarking.request();	
+			}
+			
 			return coloredMarking;
 		}
 		else if(objectAnnotation instanceof PlaceMarking)
