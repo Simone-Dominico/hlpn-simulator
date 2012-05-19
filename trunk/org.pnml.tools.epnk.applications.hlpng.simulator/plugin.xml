@@ -67,4 +67,36 @@
             context="org.pnml.tools.epnk.applications.hlpng.simulator.validationContext"
             category="org.pnml.tools.epnk.applications.hlpng.simulator.validation"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.simulation.view"
+            name="HLPNG Simulator Category">
+      </category>
+      <view
+            category="org.pnml.tools.epnk.applications.hlpng.simulator.simulation.view"
+            class="org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView"
+            icon="icons/sample.gif"
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView"
+            name="Simulation View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               id="org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView"
+               ratio="0.5"
+               relationship="right"
+               relative="org.eclipse.ui.views.TaskList">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
 </plugin>
