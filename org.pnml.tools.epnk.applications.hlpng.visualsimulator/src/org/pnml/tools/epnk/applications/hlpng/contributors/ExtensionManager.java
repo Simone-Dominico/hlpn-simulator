@@ -41,4 +41,16 @@ public class ExtensionManager implements IUserExtensions
     {
     	return handlers;
     }
+
+	@Override
+    public boolean validate(Term term)
+    {
+		String name = ((UserOperator)term).getDeclaration().getName();
+		IEvaluator eval = this.handlers.get(name);
+		if(eval != null)
+		{
+			return true;
+		}
+	    return false;
+    }
 }
