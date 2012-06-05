@@ -100,4 +100,10 @@ public abstract class AbstractFunction implements IEvaluator
     {
     	this.visualSimulator = visualSimulator;
     }
+	
+	@Override
+    public boolean validate(Term term)
+    {
+	    return true;
+    }
 }
