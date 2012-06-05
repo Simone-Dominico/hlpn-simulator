@@ -7,6 +7,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
+import org.pnml.tools.epnk.annotations.netannotations.NetAnnotation;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
@@ -74,7 +75,7 @@ public class HLSimulator extends Application
 	@Override
 	public void init()
 	{
-		this.simulationViewController = new SimulationViewController();
+		this.simulationViewController = new SimulationViewController(this);
 		this.flatAccess = new FlatAccess(this.petrinet);
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
@@ -116,7 +117,15 @@ public class HLSimulator extends Application
 		}
 		
 		// recording
-		this.simulationViewController.record(mode);
+		{
+			NetAnnotations netAnnotations = this.getNetAnnotations();
+			List<NetAnnotation> annotations = netAnnotations.getNetAnnotations();
+			int index = annotations.indexOf(prevMarking);
+			if(index >= 0 && index < annotations.size())
+			{
+				this.simulationViewController.record(mode, index);
+			}	
+		}
 		
 		// computing the following modes
 		List<Pair<Place, MSValue>> currentRuntimeValueList = 
@@ -247,6 +256,22 @@ public class HLSimulator extends Application
     public void next()
     {
 		super.nextAnnotation();
+    }
+	
+	@Override
+    public void show(int index)
+    {
+		NetAnnotations netAnnotations = this.getNetAnnotations();
+		
+		if(netAnnotations != null)
+		{
+			List<NetAnnotation> annotations = netAnnotations
+			        .getNetAnnotations();
+			if(index >= 0 && index < annotations.size())
+			{
+				netAnnotations.setCurrent(annotations.get(index));
+			}
+		}
     }
 
 	@Override

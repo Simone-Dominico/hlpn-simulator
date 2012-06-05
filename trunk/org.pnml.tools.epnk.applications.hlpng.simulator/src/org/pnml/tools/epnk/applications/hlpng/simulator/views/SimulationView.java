@@ -7,13 +7,11 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.action.*;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
-public class SimulationView extends ViewPart
+public class SimulationView extends ViewPart implements ISelectionListener, ISelectionChangedListener
 {
 	/**
 	 * The ID of the view as specified by the extension.
@@ -21,10 +19,14 @@ public class SimulationView extends ViewPart
 	public static final String ID = "org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView";
 
 	private static final String[] columnHead = new String[] { "Transition ID", "Firing mode" };
-	private static final int[] columnWidth = new int[] { 300, 500 };
+	private static final int[] columnWidth = new int[] { 100, 500 };
 	private static final int[] columnAlignment = new int[] { SWT.LEFT, SWT.LEFT };
 
 	private TableViewer viewer;
+	private SimulationViewController controller = null;
+	
+	private Action clear;
+	private Action doubleClickAction;
 
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
@@ -38,6 +40,8 @@ public class SimulationView extends ViewPart
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setLabelProvider(new SimulationViewLabelProvider());
 		viewer.setInput(getViewSite());
+		
+		viewer.addSelectionChangedListener(this);
 
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
@@ -60,7 +64,13 @@ public class SimulationView extends ViewPart
 		                "org.pnml.tools.epnk.applications.hlpng.simulator.viewer");
 		makeActions();
 		hookContextMenu();
-		hookDoubleClickAction();
+		viewer.addDoubleClickListener(new IDoubleClickListener()
+		{
+			public void doubleClick(DoubleClickEvent event)
+			{
+				doubleClickAction.run();
+			}
+		});
 		contributeToActionBars();
 	}
 
@@ -86,9 +96,6 @@ public class SimulationView extends ViewPart
 		fillLocalPullDown(bars.getMenuManager());
 		fillLocalToolBar(bars.getToolBarManager());
 	}
-
-	private Action clear;
-	private Action doubleClickAction;
 
 	private void fillLocalPullDown(IMenuManager manager)
 	{
@@ -126,10 +133,11 @@ public class SimulationView extends ViewPart
 		{
 			public void run()
 			{
-				ISelection selection = viewer.getSelection();
-				Object obj = ((IStructuredSelection) selection)
-				        .getFirstElement();
-				showMessage("Double-click detected on " + obj.toString());
+				Object data = currentData(viewer);
+				if(data != null)
+				{
+					controller.itemSelected(data);
+				}
 			}
 		};
 	}
@@ -137,32 +145,6 @@ public class SimulationView extends ViewPart
 	private void clear()
 	{
 		viewer.getTable().removeAll();
-	}
-	
-	public void record(FiringMode firingMode)
-	{
-		String[] data = new String[] {firingMode.getTransition().getId(), firingMode.toString()};
-		TableItem item = new TableItem(viewer.getTable(), SWT.NONE);
-        item.setText(data);
-        item.setData(firingMode);
-		
-	}
-	
-	private void hookDoubleClickAction()
-	{
-		viewer.addDoubleClickListener(new IDoubleClickListener()
-		{
-			public void doubleClick(DoubleClickEvent event)
-			{
-				doubleClickAction.run();
-			}
-		});
-	}
-
-	private void showMessage(String message)
-	{
-		MessageDialog.openInformation(viewer.getControl().getShell(),
-		        "Simulation View", message);
 	}
 
 	/**
@@ -173,4 +155,44 @@ public class SimulationView extends ViewPart
 		viewer.getControl().setFocus();
 	}
 
+	@Override
+    public void selectionChanged(IWorkbenchPart part, ISelection selection){}
+
+	@Override
+    public void selectionChanged(SelectionChangedEvent event)
+    {
+		Object data = currentData(viewer);
+		if(data != null)
+		{
+			controller.itemSelected(data);
+		}
+    }
+	
+	private static Object currentData(TableViewer viewer)
+	{
+		TableItem[] items = viewer.getTable().getSelection();
+		if(items != null && items.length > 0)
+		{
+			return items[0].getData();
+		}
+		
+		return null;
+	}
+	
+	public void record(String[] text, Object data)
+	{
+		TableItem item = new TableItem(viewer.getTable(), SWT.NONE);
+        item.setText(text);
+        item.setData(data);
+	}
+
+	public SimulationViewController getController()
+    {
+    	return controller;
+    }
+
+	public void setController(SimulationViewController controller)
+    {
+    	this.controller = controller;
+    }
 }
