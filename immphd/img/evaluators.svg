@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="902" height="868" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="536" cy="124" rx="10" ry="10" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="536" y="145">IEvaluator</text>
+	<line stroke="black" stroke-opacity="1" x1="182" y1="154" x2="890" y2="154" />
+	<line stroke="black" stroke-opacity="1" x1="182" y1="162" x2="890" y2="162" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="186" y="173">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="200" y="173">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+</g>
+<g>
+	<ellipse fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" cx="535" cy="14" rx="10" ry="10" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="535" y="35">IValidator</text>
+	<line stroke="black" stroke-opacity="1" x1="452" y1="44" x2="618" y2="44" />
+	<line stroke="black" stroke-opacity="1" x1="452" y1="52" x2="618" y2="52" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="456" y="63">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="470" y="63">String validate(Object obj) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="754" y="639" width="3" height="65" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="50" y="701" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="46" y="635" width="708" height="66" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="400" y="646">BooleansEval</text>
+	<line stroke="black" stroke-opacity="1" x1="46" y1="655" x2="754" y2="655" />
+	<line stroke="black" stroke-opacity="1" x1="46" y1="663" x2="754" y2="663" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="50" y="674">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="64" y="674">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="50" y="692">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="64" y="692">String validate(Object term) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="755" y="715" width="3" height="65" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="51" y="777" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="47" y="711" width="708" height="66" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="401" y="722">TermsEval</text>
+	<line stroke="black" stroke-opacity="1" x1="47" y1="731" x2="755" y2="731" />
+	<line stroke="black" stroke-opacity="1" x1="47" y1="739" x2="755" y2="739" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="51" y="750">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="65" y="750">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="51" y="768">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="65" y="768">String validate(Object term) </text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="535" y1="113" x2="535" y2="78" />
+	<line stroke="black" stroke-opacity="1" x1="535" y1="72" x2="529" y2="78" />
+	<line stroke="black" stroke-opacity="1" x1="535" y1="72" x2="541" y2="78" />
+	<line stroke="black" stroke-opacity="1" x1="529" y1="78" x2="541" y2="78" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="758" y1="679" x2="865" y2="679" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="865" y1="679" x2="865" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="859" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="871" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="859" y1="187" x2="871" y2="188" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="759" y1="739" x2="866" y2="739" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="866" y1="739" x2="864" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="864" y1="182" x2="858" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="864" y1="182" x2="870" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="858" y1="188" x2="870" y2="187" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="751" y="453" width="3" height="65" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="47" y="515" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="43" y="449" width="708" height="66" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="397" y="460">IntegersEval</text>
+	<line stroke="black" stroke-opacity="1" x1="43" y1="469" x2="751" y2="469" />
+	<line stroke="black" stroke-opacity="1" x1="43" y1="477" x2="751" y2="477" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="47" y="488">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="61" y="488">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="47" y="506">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="61" y="506">String validate(Object term) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="746" y="266" width="3" height="101" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="42" y="364" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="38" y="262" width="708" height="102" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="392" y="273">UserOperatorEval</text>
+	<line stroke="black" stroke-opacity="1" x1="38" y1="282" x2="746" y2="282" />
+	<line stroke="black" stroke-opacity="1" x1="38" y1="290" x2="746" y2="290" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="42" y="301">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="56" y="301">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="42" y="319">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="56" y="319">IEvaluator getArbitraryOperatorEvaluator() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="42" y="337">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="56" y="337">void setArbitraryOperatorEvaluator(IEvaluator arbitraryOperatorEvaluator) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="42" y="355">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="56" y="355">String validate(Object term) </text>
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="755" y1="477" x2="865" y2="477" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="865" y1="477" x2="865" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="859" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="871" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="859" y1="187" x2="871" y2="188" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="750" y1="302" x2="863" y2="302" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="863" y1="302" x2="866" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="867" y1="182" x2="860" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="867" y1="182" x2="872" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="860" y1="187" x2="872" y2="188" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="536" y1="182" x2="530" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="536" y1="182" x2="542" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="536" y1="261" x2="536" y2="182" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="757" y="790" width="3" height="65" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="53" y="852" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="49" y="786" width="708" height="66" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="403" y="797">VariableEval</text>
+	<line stroke="black" stroke-opacity="1" x1="49" y1="806" x2="757" y2="806" />
+	<line stroke="black" stroke-opacity="1" x1="49" y1="814" x2="757" y2="814" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="53" y="825">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="67" y="825">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="53" y="843">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="67" y="843">String validate(Object term) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="752" y="529" width="3" height="101" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="48" y="627" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="44" y="525" width="708" height="102" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="398" y="536">MultisetsEval</text>
+	<line stroke="black" stroke-opacity="1" x1="44" y1="545" x2="752" y2="545" />
+	<line stroke="black" stroke-opacity="1" x1="44" y1="553" x2="752" y2="553" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="48" y="564">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="62" y="564">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="48" y="582">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="62" y="582">DataTypeEvaluationManager getDataTypeEvaluationManager() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="48" y="600">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="62" y="600">void setDataTypeEvaluationManager(DataTypeEvaluationManager dataTypeEvaluationManager) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="48" y="618">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="62" y="618">String validate(Object term) </text>
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="761" y1="819" x2="866" y2="819" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="866" y1="819" x2="866" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="860" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="866" y1="182" x2="872" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="860" y1="188" x2="872" y2="188" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="756" y1="575" x2="865" y2="575" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="865" y1="575" x2="864" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="864" y1="182" x2="858" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="864" y1="182" x2="870" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="858" y1="188" x2="870" y2="187" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="749" y="377" width="3" height="65" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="45" y="439" width="707" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="41" y="373" width="708" height="66" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="395" y="384">StringsEval</text>
+	<line stroke="black" stroke-opacity="1" x1="41" y1="393" x2="749" y2="393" />
+	<line stroke="black" stroke-opacity="1" x1="41" y1="401" x2="749" y2="401" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="45" y="412">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="59" y="412">AbstractValue evaluate(Term term, EvaluationManager evaluationManager, Map&lt;TermWrapper, AbstractValue&gt; assignments) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="45" y="430">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="59" y="430">String validate(Object term) </text>
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="753" y1="408" x2="863" y2="408" />
+</g>
+<g>
+	<line stroke-dasharray="4,4" stroke="black" stroke-opacity="1" x1="863" y1="408" x2="866" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="867" y1="182" x2="860" y2="187" />
+	<line stroke="black" stroke-opacity="1" x1="867" y1="182" x2="872" y2="188" />
+	<line stroke="black" stroke-opacity="1" x1="860" y1="187" x2="872" y2="188" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="546" y="199">-arbitraryOperatorEvaluator</text>
+</g>
+</svg>
