@@ -3,12 +3,17 @@ package org.pnml.tools.epnk.applications.hlpng.utils;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -20,19 +25,17 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
-import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR;
-import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
-import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
-import org.pnml.tools.epnk.applications.hlpng.functions.READY;
-import org.pnml.tools.epnk.applications.hlpng.functions.TRIGGER;
+import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
+import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
@@ -76,7 +79,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		if(resource != null && resource.getContents().size() > 0)
 		{
 			// init the evaluation manager
-			EvaluationManager evaluationManager = ResourceManager.createEvaluationManager(null);
+			EvaluationManager evaluationManager = ResourceManager.
+					createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 			DataTypeEvaluationManager dataTypeEvaluationManager =
 					ResourceManager.createDataTypeEvaluationManager(null);
 			MultisetsEval multisetsEval = 
@@ -97,23 +101,42 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// init config
 			VisualSimulatorConfig config = (VisualSimulatorConfig)resource.getContents().get(0);
 			
-			// init extension manager
-			ExtensionManager extensionManager = createExtensionManager(animator);
+			// set the Animator to each user defined evaluator
 			UserOperatorEval userOperatorEval = 
 					(UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-			userOperatorEval.setArbitraryOperatorEvaluator(extensionManager);
+			ExtensionManager extensionManager = 
+					(ExtensionManager)userOperatorEval.getArbitraryOperatorEvaluator();
+			for(IEvaluator eval : extensionManager.getEvaluators())
+			{
+				((AbstractFunction)eval).setAnimator(animator);
+			}
 					
-			// init HLPNG simualtor
-			VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
-					comparisonManager, reversibleOperationManager,
-					Display.getCurrent().getSystemFont(), animator, 
-					config.getGeometry().getGlobalAppearancePath(), 
-					config.getGeometry(), config.getShapes(), extensionManager);
+			// perform validation
+			ValidationDelegateClientSelector.running = true;
+			IBatchValidator validator = (IBatchValidator) ModelValidationService
+			        .getInstance().newValidator(EvaluationMode.BATCH);
+			validator.setIncludeLiveConstraints(true);
+			IStatus status = validator.validate(petrinet);
+			ValidationDelegateClientSelector.running = false;
 
-//			 registers the simulator
-			Activator activator = Activator.getInstance();
-			ApplicationRegistry registry = activator.getApplicationRegistry();
-			registry.addApplication(simulator);
+			if (!status.isOK()) 
+			{
+	            ErrorDialog.openError(null, "Validation", "Validation Failed", status);
+	        }
+			else
+			{
+    			// init HLPNG simualtor
+    			VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
+    					comparisonManager, reversibleOperationManager,
+    					Display.getCurrent().getSystemFont(), animator, 
+    					config.getGeometry().getGlobalAppearancePath(), 
+    					config.getGeometry(), config.getShapes(), extensionManager);
+    
+    //			 registers the simulator
+    			Activator activator = Activator.getInstance();
+    			ApplicationRegistry registry = activator.getApplicationRegistry();
+    			registry.addApplication(simulator);
+			}
 		}
 		else
 		{
@@ -151,24 +174,6 @@ public class StartSimulatorApp implements IObjectActionDelegate
 
 	@Override
 	public void setActivePart(IAction action, IWorkbenchPart targetPart){}
-
-	private static ExtensionManager createExtensionManager(Animator animator)
-	{
-		ExtensionManager extensionManager = new ExtensionManager();
-		{
-			extensionManager.register("APPEAR", 
-					new APPEAR(animator));
-			extensionManager.register("APPEAR_POINT", 
-					new APPEAR_POINT(animator));
-			extensionManager.register("MOVE", 
-					new MOVE(animator));
-			extensionManager.register("READY", 
-					new READY(animator));
-			extensionManager.register("TRIGGER", 
-					new TRIGGER(animator));
-		}
-		return extensionManager;
-	}
 	
 	private static Animator createAnimator(String path)
 	{

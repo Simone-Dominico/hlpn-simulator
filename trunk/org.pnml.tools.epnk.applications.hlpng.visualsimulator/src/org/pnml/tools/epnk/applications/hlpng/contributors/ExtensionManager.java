@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR;
+import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
+import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
+import org.pnml.tools.epnk.applications.hlpng.functions.READY;
+import org.pnml.tools.epnk.applications.hlpng.functions.TRIGGER;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
@@ -13,10 +18,18 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Unknow
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-
 public class ExtensionManager implements IUserExtensions
 {
 	private Map<String, IEvaluator> handlers = new HashMap<String, IEvaluator>();
+	
+	public ExtensionManager()
+	{
+		register("APPEAR", new APPEAR());
+		register("APPEAR_POINT", new APPEAR_POINT());
+		register("MOVE", new MOVE());
+		register("READY", new READY());
+		register("TRIGGER", new TRIGGER());
+	}
 	
 	public void register(String name, IEvaluator eval)
 	{
@@ -43,14 +56,14 @@ public class ExtensionManager implements IUserExtensions
     }
 
 	@Override
-    public boolean validate(Term term)
+    public String validate(Term term)
     {
 		String name = ((UserOperator)term).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
 		if(eval != null)
 		{
-			return true;
+			return null;
 		}
-	    return false;
+	    return "(user defined) " + name;
     }
 }
