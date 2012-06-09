@@ -19,12 +19,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 public class RBFunction implements IEvaluator
 {
     private List<AbstractValue> messages = null;
-    
-    public RBFunction(List<AbstractValue> messages)
-    {
-        this.messages = messages;
-    }
-    
+
     @Override
     public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
             Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -65,5 +60,21 @@ public class RBFunction implements IEvaluator
             }
         }
         return messages;
+    }
+    
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
+
+	public List<AbstractValue> getMessages()
+    {
+    	return messages;
+    }
+
+	public void setMessages(List<AbstractValue> messages)
+    {
+    	this.messages = messages;
     }
 }

@@ -27,12 +27,6 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 	protected List<Category> categories = null;
 	private List<NodeWrapper> nodes = null;
 	
-	public InputFunction(List<Category> categories, List<NodeWrapper> nodes)
-	{
-		this.categories = categories;
-		this.nodes = nodes;
-	}
-	
 	@Override
 	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -108,5 +102,31 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 			msValue.getValues().put(sValue, 1);
 		}
 	    return msValue;
+    }
+	
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
+
+	public List<Category> getCategories()
+    {
+    	return categories;
+    }
+
+	public void setCategories(List<Category> categories)
+    {
+    	this.categories = categories;
+    }
+
+	public List<NodeWrapper> getNodes()
+    {
+    	return nodes;
+    }
+
+	public void setNodes(List<NodeWrapper> nodes)
+    {
+    	this.nodes = nodes;
     }
 }
