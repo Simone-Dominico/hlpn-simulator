@@ -24,14 +24,6 @@ public class M1Function implements IEvaluator
     private Map<String, NodeWrapper> nodeMap = null;
     private Map<Integer, NodeWrapper> nodeIdMap = null;
     
-    public M1Function(Integer[][] graph, Map<String, NodeWrapper> nodeMap,
-            Map<Integer, NodeWrapper> nodeIdMap)
-    {
-        this.graph = graph;
-        this.nodeMap = nodeMap;
-        this.nodeIdMap = nodeIdMap;
-    }
-    
     @Override
     public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
             Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -83,5 +75,41 @@ public class M1Function implements IEvaluator
             }
         }
         return messages;
+    }
+    
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
+
+	public Integer[][] getGraph()
+    {
+    	return graph;
+    }
+
+	public void setGraph(Integer[][] graph)
+    {
+    	this.graph = graph;
+    }
+
+	public Map<String, NodeWrapper> getNodeMap()
+    {
+    	return nodeMap;
+    }
+
+	public void setNodeMap(Map<String, NodeWrapper> nodeMap)
+    {
+    	this.nodeMap = nodeMap;
+    }
+
+	public Map<Integer, NodeWrapper> getNodeIdMap()
+    {
+    	return nodeIdMap;
+    }
+
+	public void setNodeIdMap(Map<Integer, NodeWrapper> nodeIdMap)
+    {
+    	this.nodeIdMap = nodeIdMap;
     }
 }

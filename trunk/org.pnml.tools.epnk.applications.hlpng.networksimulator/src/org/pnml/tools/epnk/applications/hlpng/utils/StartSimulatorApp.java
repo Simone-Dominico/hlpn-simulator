@@ -14,12 +14,17 @@ import networkmodel.Node;
 import networkmodel.UndirectedEdge;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceFactoryImpl;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.service.IBatchValidator;
+import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -30,8 +35,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.activator.Activator;
-import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
-import org.pnml.tools.epnk.applications.hlpng.network.InputFunction;
+import org.pnml.tools.epnk.applications.hlpng.contributors.NetworkExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.network.consensus.MFunction;
 import org.pnml.tools.epnk.applications.hlpng.network.consensus.RBFunction;
 import org.pnml.tools.epnk.applications.hlpng.network.consensus.RFFunction;
@@ -40,16 +44,13 @@ import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
+import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserSortImpl;
 
 public class StartSimulatorApp implements IObjectActionDelegate
 {
@@ -79,17 +80,19 @@ public class StartSimulatorApp implements IObjectActionDelegate
             URI fileUri = URI.createFileURI(configFilePath);
             resource = resourceSet.getResource(fileUri, true);
         }
-        catch(Exception e){e.printStackTrace();}
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
 
         if(resource != null && resource.getContents().size() > 0)
         {
             // init the evaluation manager
-            EvaluationManager evaluationManager = ResourceManager.createEvaluationManager(null);
-            DataTypeEvaluationManager dataTypeEvaluationManager = 
-            		ResourceManager.createDataTypeEvaluationManager(null);
+            EvaluationManager evaluationManager = ResourceManager.
+            		createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+
             // init extension manager
             List<NodeWrapper> nodes = new ArrayList<NodeWrapper>();
-            InputFunction inputFunction = null;
             {
                 Network network = (Network)resource.getContents().get(0);
                 int currentId = 0;
@@ -102,18 +105,14 @@ public class StartSimulatorApp implements IObjectActionDelegate
                         nodes.add(wrapper);
                     }
                 }
-                inputFunction = new InputFunction(network.getCategories(), nodes);
-                dataTypeEvaluationManager.register(UserSortImpl.class, inputFunction);
             }
-            ExtensionManager extensionManager = 
-                    createExtensionManager((Network)resource.getContents().get(0), inputFunction, nodes);
+                 
             UserOperatorEval userOperatorEval = 
                     (UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-            userOperatorEval.setArbitraryOperatorEvaluator(extensionManager);
-            MultisetsEval multisetsEval = 
-                    (MultisetsEval)evaluationManager.getHandler(AllImpl.class);
-            multisetsEval.setDataTypeEvaluationManager(dataTypeEvaluationManager);
-            
+            NetworkExtensionManager extensionManager = 
+            		(NetworkExtensionManager)userOperatorEval.getArbitraryOperatorEvaluator();
+            updateExtensionManager((Network)resource.getContents().get(0), nodes, extensionManager);
+
             // init the reversible operation manager
             ReversibleOperationManager reversibleOperationManager = 
                     ResourceManager.createReversibleOperationManager(evaluationManager);
@@ -121,16 +120,31 @@ public class StartSimulatorApp implements IObjectActionDelegate
             // init the comparison manager
             ComparisonManager comparisonManager = 
                     ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
-                    
-            // init HLPNG simualtor
-            NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
-                    comparisonManager, reversibleOperationManager,
-                    Display.getCurrent().getSystemFont());
+            
+            // perform validation
+    		ValidationDelegateClientSelector.running = true;
+    		IBatchValidator validator = (IBatchValidator) ModelValidationService
+    		        .getInstance().newValidator(EvaluationMode.BATCH);
+    		validator.setIncludeLiveConstraints(true);
+    		IStatus status = validator.validate(petrinet);
+    		ValidationDelegateClientSelector.running = false;
 
-//           registers the simulator
-            Activator activator = Activator.getInstance();
-            ApplicationRegistry registry = activator.getApplicationRegistry();
-            registry.addApplication(simulator);
+    		if (!status.isOK()) 
+    		{
+                ErrorDialog.openError(null, "Validation", "Validation Failed", status);
+            }
+    		else
+    		{
+                // init HLPNG simualtor
+                NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
+                        comparisonManager, reversibleOperationManager,
+                        Display.getCurrent().getSystemFont());
+
+                // registers the simulator
+                Activator activator = Activator.getInstance();
+                ApplicationRegistry registry = activator.getApplicationRegistry();
+                registry.addApplication(simulator);	
+    		}
         }
         else
         {
@@ -169,7 +183,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
     @Override
     public void setActivePart(IAction action, IWorkbenchPart targetPart){}
     
-    private static ExtensionManager createExtensionManager(Network network, InputFunction inputFunction, List<NodeWrapper> nodes)
+    private static void updateExtensionManager(Network network, 
+    		List<NodeWrapper> nodes, NetworkExtensionManager extensionManager)
     {
         Map<String, NodeWrapper> nodeNameMap = new HashMap<String, NodeWrapper>();
         Map<Integer, NodeWrapper> nodeIdMap = new HashMap<Integer, NodeWrapper>();
@@ -194,22 +209,41 @@ public class StartSimulatorApp implements IObjectActionDelegate
             }
         }
 
-        ExtensionManager extensionManager = new ExtensionManager(inputFunction);
+        // update the evaluators managed by ExtensionManager
         {
+        	// input function
+        	extensionManager.getInputFunction().setCategories(network.getCategories());
+        	extensionManager.getInputFunction().setNodes(nodes);
+        	
             // min dist
-            extensionManager.register("N", new NFunction(graph, nodeNameMap, nodeIdMap));
-            
-            // consensus in networks
-            MFunction mFunction = new MFunction(nodes);
-            extensionManager.register("M", mFunction);
-            extensionManager.register("RF", new RFFunction(mFunction.getMessages()));
-            extensionManager.register("RB", new RBFunction(mFunction.getMessages()));
+        	NFunction nf = (NFunction) extensionManager.getEvaluator("N");
+        	nf.setGraph(graph);
+        	nf.setNodeIdMap(nodeIdMap);
+        	nf.setNodeMap(nodeNameMap);
 
+            // consensus in networks
+            MFunction mFunction = (MFunction) extensionManager.getEvaluator("M");
+            mFunction.setNodes(nodes);
+            
+            RFFunction fFunction = (RFFunction) extensionManager.getEvaluator("RF");
+            fFunction.setMessages(mFunction.getMessages());
+            RBFunction bFunction = (RBFunction) extensionManager.getEvaluator("RB");
+            bFunction.setMessages(mFunction.getMessages());
+            
             // echo
-            extensionManager.register("M1", new M1Function(graph, nodeNameMap, nodeIdMap));
-            extensionManager.register("M2", new M2Function(graph, nodeNameMap, nodeIdMap));
+            {
+            	M1Function mf = (M1Function) extensionManager.getEvaluator("M1");
+                mf.setGraph(graph);
+                mf.setNodeIdMap(nodeIdMap);
+                mf.setNodeMap(nodeNameMap);
+            }
+            {
+            	M2Function mf = (M2Function) extensionManager.getEvaluator("M2");
+                mf.setGraph(graph);
+                mf.setNodeIdMap(nodeIdMap);
+                mf.setNodeMap(nodeNameMap);
+            }
         }
-        return extensionManager;
     }
     
 

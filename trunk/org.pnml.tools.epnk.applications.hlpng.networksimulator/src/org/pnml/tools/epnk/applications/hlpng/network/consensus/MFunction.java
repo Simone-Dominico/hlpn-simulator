@@ -23,11 +23,6 @@ public class MFunction implements IEvaluator
     private List<AbstractValue> messages = null;
     private List<NodeWrapper> nodes = null;
     
-    public MFunction(List<NodeWrapper> nodes)
-    {
-        this.nodes = nodes;
-    }
-    
     @Override
     public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
             Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -83,4 +78,24 @@ public class MFunction implements IEvaluator
         return messages;
     }
 
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
+
+	public List<NodeWrapper> getNodes()
+    {
+    	return nodes;
+    }
+
+	public void setNodes(List<NodeWrapper> nodes)
+    {
+    	this.nodes = nodes;
+    }
+
+	public void setMessages(List<AbstractValue> messages)
+    {
+    	this.messages = messages;
+    }
 }
