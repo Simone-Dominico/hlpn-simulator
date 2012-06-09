@@ -56,7 +56,7 @@ public class ExtensionManager implements IUserExtensions
     }
 
 	@Override
-    public String validate(Term term)
+    public String validate(Object term)
     {
 		String name = ((UserOperator)term).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
