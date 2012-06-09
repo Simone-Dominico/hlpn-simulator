@@ -29,11 +29,6 @@ public abstract class AbstractFunction implements IEvaluator
 	protected IAnimator animator = null;
 	protected IVisualSimulator visualSimulator = null;
 	
-	public AbstractFunction(IAnimator animator)
-	{
-		this.animator = animator;
-	}
-	
 	@Override
 	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
@@ -102,8 +97,8 @@ public abstract class AbstractFunction implements IEvaluator
     }
 	
 	@Override
-    public boolean validate(Term term)
+    public String validate(Term term)
     {
-	    return true;
+	    return null;
     }
 }

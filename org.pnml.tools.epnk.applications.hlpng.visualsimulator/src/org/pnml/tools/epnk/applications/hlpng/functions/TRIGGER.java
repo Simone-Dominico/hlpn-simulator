@@ -6,16 +6,9 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 
 import Appearence.Shape;
-import dk.dtu.imm.se2.group6.interfaces.IAnimator;
 
 public class TRIGGER extends AbstractFunction
 {
-
-	public TRIGGER(IAnimator animator)
-    {
-	    super(animator);
-    }
-
 	@Override
 	public AbstractValue execute(List<AbstractValue> values)
 	{
