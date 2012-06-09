@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Bouml (http://bouml.free.fr/) -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="847" height="550" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="398" y="21" width="3" height="81" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="258" y="99" width="143" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="254" y="17" width="144" height="82" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" font-style="italic" text-anchor="middle" x="326" y="28">AbstractValue</text>
+	<line stroke="black" stroke-opacity="1" x1="254" y1="37" x2="398" y2="37" />
+	<line stroke="black" stroke-opacity="1" x1="254" y1="45" x2="398" y2="45" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="258" y="56">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="272" y="56">Sort getSort() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="258" y="74">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="272" y="74">void setSort(Sort sort) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="62" y="340" width="3" height="35" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="12" y="372" width="53" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="8" y="336" width="54" height="36" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="35" y="347">IntValue</text>
+	<line stroke="black" stroke-opacity="1" x1="8" y1="356" x2="62" y2="356" />
+	<line stroke="black" stroke-opacity="1" x1="8" y1="364" x2="62" y2="364" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="214" y="161" width="3" height="119" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="46" y="277" width="171" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="42" y="157" width="172" height="120" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="128" y="168">NumberValue</text>
+	<line stroke="black" stroke-opacity="1" x1="42" y1="177" x2="214" y2="177" />
+	<line stroke="black" stroke-opacity="1" x1="42" y1="185" x2="214" y2="185" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="46" y="196">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="60" y="196">int getN() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="46" y="214">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="60" y="214">void setN(int n) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="46" y="232">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="60" y="232">String toString() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="46" y="250">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="60" y="250">int hashCode() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="46" y="268">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="60" y="268">boolean equals(Object obj) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="486" y="418" width="3" height="119" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="304" y="534" width="185" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="300" y="414" width="186" height="120" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="393" y="425">BooleanValue</text>
+	<line stroke="black" stroke-opacity="1" x1="300" y1="434" x2="486" y2="434" />
+	<line stroke="black" stroke-opacity="1" x1="300" y1="442" x2="486" y2="442" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="304" y="453">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="318" y="453">String toString() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="304" y="471">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="318" y="471">int hashCode() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="304" y="489">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="318" y="489">boolean equals(Object obj) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="304" y="507">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="318" y="507">Boolean getValue() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="304" y="525">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="318" y="525">void setValue(Boolean value) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="771" y="277" width="3" height="119" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="451" y="393" width="323" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="447" y="273" width="324" height="120" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="609" y="284">ProductValue</text>
+	<line stroke="black" stroke-opacity="1" x1="447" y1="293" x2="771" y2="293" />
+	<line stroke="black" stroke-opacity="1" x1="447" y1="301" x2="771" y2="301" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="451" y="312">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="465" y="312">List&lt;AbstractValue&gt; getComponents() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="451" y="330">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="465" y="330">void setComponents(List&lt;AbstractValue&gt; components) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="451" y="348">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="465" y="348">String toString() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="451" y="366">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="465" y="366">int hashCode() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="451" y="384">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="465" y="384">boolean equals(Object obj) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="274" y="417" width="3" height="119" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="106" y="533" width="171" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="102" y="413" width="172" height="120" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="188" y="424">StringValue</text>
+	<line stroke="black" stroke-opacity="1" x1="102" y1="433" x2="274" y2="433" />
+	<line stroke="black" stroke-opacity="1" x1="102" y1="441" x2="274" y2="441" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="106" y="452">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="120" y="452">String toString() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="106" y="470">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="120" y="470">int hashCode() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="106" y="488">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="120" y="488">boolean equals(Object obj) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="106" y="506">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="120" y="506">String getData() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="106" y="524">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="120" y="524">void setData(String data) </text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="205" y1="156" x2="265" y2="106" />
+	<line stroke="black" stroke-opacity="1" x1="270" y1="103" x2="261" y2="102" />
+	<line stroke="black" stroke-opacity="1" x1="270" y1="103" x2="269" y2="111" />
+	<line stroke="black" stroke-opacity="1" x1="261" y1="102" x2="269" y2="111" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="48" y1="335" x2="80" y2="285" />
+	<line stroke="black" stroke-opacity="1" x1="84" y1="281" x2="75" y2="282" />
+	<line stroke="black" stroke-opacity="1" x1="84" y1="281" x2="85" y2="289" />
+	<line stroke="black" stroke-opacity="1" x1="75" y1="282" x2="85" y2="289" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="325" y1="413" x2="326" y2="108" />
+	<line stroke="black" stroke-opacity="1" x1="327" y1="103" x2="320" y2="108" />
+	<line stroke="black" stroke-opacity="1" x1="327" y1="103" x2="332" y2="109" />
+	<line stroke="black" stroke-opacity="1" x1="320" y1="108" x2="332" y2="109" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="446" y1="334" x2="363" y2="334" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="382" y1="103" x2="379" y2="111" />
+	<line stroke="black" stroke-opacity="1" x1="382" y1="103" x2="390" y2="105" />
+	<line stroke="black" stroke-opacity="1" x1="465" y1="272" x2="382" y2="103" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="400" y="196">&lt;&lt;List&gt;&gt;</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="210" y1="412" x2="296" y2="108" />
+	<line stroke="black" stroke-opacity="1" x1="298" y1="103" x2="290" y2="107" />
+	<line stroke="black" stroke-opacity="1" x1="298" y1="103" x2="302" y2="110" />
+	<line stroke="black" stroke-opacity="1" x1="290" y1="107" x2="302" y2="110" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="363" y1="334" x2="363" y2="108" />
+	<line stroke="black" stroke-opacity="1" x1="364" y1="103" x2="357" y2="108" />
+	<line stroke="black" stroke-opacity="1" x1="364" y1="103" x2="369" y2="109" />
+	<line stroke="black" stroke-opacity="1" x1="357" y1="108" x2="369" y2="109" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="831" y="90" width="3" height="119" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="525" y="206" width="309" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="521" y="86" width="310" height="120" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="676" y="97">MSValue</text>
+	<line stroke="black" stroke-opacity="1" x1="521" y1="106" x2="831" y2="106" />
+	<line stroke="black" stroke-opacity="1" x1="521" y1="114" x2="831" y2="114" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="525" y="125">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="539" y="125">Map&lt;AbstractValue, Integer&gt; getValues() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="525" y="143">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="539" y="143">void setValues(Map&lt;AbstractValue, Integer&gt; values) </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="525" y="161">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="539" y="161">String toString() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="525" y="179">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="539" y="179">int hashCode() </text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" x="525" y="197">+</text>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="539" y="197">boolean equals(Object obj) </text>
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="211" y="341" width="3" height="35" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="155" y="373" width="59" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="151" y="337" width="60" height="36" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="181" y="348">NatValue</text>
+	<line stroke="black" stroke-opacity="1" x1="151" y1="357" x2="211" y2="357" />
+	<line stroke="black" stroke-opacity="1" x1="151" y1="365" x2="211" y2="365" />
+</g>
+<g>
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="136" y="341" width="3" height="35" />
+	<rect fill="#808080" stroke="none" stroke-opacity="1" x="78" y="373" width="61" height="3" />
+	<rect fill="#ffffc0" stroke="black" stroke-width="1" stroke-opacity="1" x="74" y="337" width="62" height="36" />
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" font-weight="bold" text-anchor="middle" x="105" y="348">PosValue</text>
+	<line stroke="black" stroke-opacity="1" x1="74" y1="357" x2="136" y2="357" />
+	<line stroke="black" stroke-opacity="1" x1="74" y1="365" x2="136" y2="365" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="520" y1="148" x2="462" y2="148" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="402" y1="72" x2="406" y2="78" />
+	<line stroke="black" stroke-opacity="1" x1="402" y1="72" x2="408" y2="67" />
+	<line stroke="black" stroke-opacity="1" x1="520" y1="94" x2="402" y2="72" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="434" y="92">&lt;&lt;Map&gt;&gt;</text>
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="175" y1="336" x2="155" y2="286" />
+	<line stroke="black" stroke-opacity="1" x1="153" y1="281" x2="149" y2="288" />
+	<line stroke="black" stroke-opacity="1" x1="153" y1="281" x2="160" y2="284" />
+	<line stroke="black" stroke-opacity="1" x1="149" y1="288" x2="160" y2="284" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="109" y1="336" x2="116" y2="286" />
+	<line stroke="black" stroke-opacity="1" x1="117" y1="281" x2="110" y2="286" />
+	<line stroke="black" stroke-opacity="1" x1="117" y1="281" x2="122" y2="287" />
+	<line stroke="black" stroke-opacity="1" x1="110" y1="286" x2="122" y2="287" />
+</g>
+<g>
+	<line stroke="black" stroke-opacity="1" x1="462" y1="148" x2="399" y2="106" />
+	<line stroke="black" stroke-opacity="1" x1="394" y1="103" x2="395" y2="111" />
+	<line stroke="black" stroke-opacity="1" x1="394" y1="103" x2="402" y2="101" />
+	<line stroke="black" stroke-opacity="1" x1="395" y1="111" x2="402" y2="101" />
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="412" y="61">~values</text>
+</g>
+<g>
+	<text font-family="Helvetica" font-size="9" fill="#000000" xml:space="preserve" x="395" y="120">~components</text>
+</g>
+</svg>
