@@ -20,4 +20,3 @@ Export-Package: org.pnml.tools.epnk.applications.hlpng.contributors,
  visualsimulationconfig.impl,
  visualsimulationconfig.util
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-Activator: org.pnml.tools.epnk.applications.hlpng.utils.Activator
