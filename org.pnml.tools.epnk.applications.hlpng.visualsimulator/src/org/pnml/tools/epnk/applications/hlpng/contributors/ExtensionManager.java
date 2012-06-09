@@ -15,6 +15,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
@@ -65,5 +66,11 @@ public class ExtensionManager implements IUserExtensions
 			return null;
 		}
 	    return "(user defined) " + name;
+    }
+
+	@Override
+    public AbstractValue evaluate(Sort sort)
+    {
+	    return null;
     }
 }
