@@ -9,7 +9,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
 public class FiringMode
 {
-	// place ID <=> difference between runtime value and actual inscription value
+	// place ID <=> actual inscription value
 	private Map<String, MSValue> values = new HashMap<String, MSValue>();
 	// variable name <=> variable assignment
 	private Map<TermWrapper, AbstractValue> params = null;

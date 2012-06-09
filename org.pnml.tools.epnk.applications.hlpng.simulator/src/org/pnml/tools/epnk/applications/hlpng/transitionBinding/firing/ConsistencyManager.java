@@ -130,8 +130,7 @@ public class ConsistencyManager
 		                    if(ConsistencyManager.check(inscriptionValue, null) && 
 		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
 		                    {
-		                    	assignment.getValues().put(placeId, 
-										AbstractValueMath.subtract(runtimeValue, inscriptionValue));	
+		                    	assignment.getValues().put(placeId, inscriptionValue);	
 		                    }
 		                    else
 		                    {
