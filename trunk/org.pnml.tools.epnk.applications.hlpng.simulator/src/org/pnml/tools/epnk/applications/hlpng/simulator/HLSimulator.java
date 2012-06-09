@@ -248,7 +248,7 @@ public class HLSimulator extends Application
 	@Override
 	public void reset()
 	{
-		autoMode.setStopped(true);
+		stop();
 		init();
 	}
 	
@@ -301,7 +301,7 @@ public class HLSimulator extends Application
 	@Override
 	protected void shutDown() 
 	{
-		autoMode.setStopped(true);
+		stop();
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class HLSimulator extends Application
 		}
 		else
 		{
-			autoMode.setStopped(true);
+			stop();
 			/*MessageBox messageBox = new MessageBox(new Shell(Display.getCurrent()), SWT.ICON_INFORMATION);
 	        messageBox.setText("Information");
 	        messageBox.setMessage("There are no more enabled transitions anymore.\n" +
