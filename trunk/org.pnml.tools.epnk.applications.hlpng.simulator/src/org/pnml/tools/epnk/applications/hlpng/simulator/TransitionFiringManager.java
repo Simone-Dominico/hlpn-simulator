@@ -50,7 +50,9 @@ public class TransitionFiringManager
 		for(String placeId : firingMode.getValues().keySet())
 		{
 			oldPlaces.remove(placeId);
-			newValuesMap.put(placeId, firingMode.getValues().get(placeId));
+			newValuesMap.put(placeId, 
+					AbstractValueMath.subtract(oldValuesMap.get(placeId), 
+							firingMode.getValues().get(placeId)));
 		}
 		
 		// updates outgoing places
