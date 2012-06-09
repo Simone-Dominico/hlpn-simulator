@@ -29,16 +29,13 @@ import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.AllImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.UserOperatorImpl;
 
 import dk.dtu.imm.se2.group6.visual.Animator;
@@ -81,12 +78,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// init the evaluation manager
 			EvaluationManager evaluationManager = ResourceManager.
 					createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
-			DataTypeEvaluationManager dataTypeEvaluationManager =
-					ResourceManager.createDataTypeEvaluationManager(null);
-			MultisetsEval multisetsEval = 
-                    (MultisetsEval)evaluationManager.getHandler(AllImpl.class);
-            multisetsEval.setDataTypeEvaluationManager(dataTypeEvaluationManager);
-			
+
 			// init the reversible operation manager
 			ReversibleOperationManager reversibleOperationManager = 
 					ResourceManager.createReversibleOperationManager(evaluationManager);
