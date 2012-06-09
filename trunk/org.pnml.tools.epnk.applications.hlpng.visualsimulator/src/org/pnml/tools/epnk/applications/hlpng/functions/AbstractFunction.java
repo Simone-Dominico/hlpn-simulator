@@ -97,7 +97,7 @@ public abstract class AbstractFunction implements IEvaluator
     }
 	
 	@Override
-    public String validate(Term term)
+    public String validate(Object term)
     {
 	    return null;
     }
