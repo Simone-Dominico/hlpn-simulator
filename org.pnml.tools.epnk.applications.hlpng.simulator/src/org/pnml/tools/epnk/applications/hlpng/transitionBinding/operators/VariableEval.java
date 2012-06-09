@@ -31,4 +31,10 @@ public class VariableEval implements IEvaluator
 		
 		return value;
 	}
+
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
 }

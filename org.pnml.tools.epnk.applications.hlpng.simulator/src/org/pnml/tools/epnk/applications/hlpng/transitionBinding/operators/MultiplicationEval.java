@@ -74,4 +74,10 @@ public class MultiplicationEval extends AbstractIntegerOperation
 		
 		return result;
 	}
+
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
 }

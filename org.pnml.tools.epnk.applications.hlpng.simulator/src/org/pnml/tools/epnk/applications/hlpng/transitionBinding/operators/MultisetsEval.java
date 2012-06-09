@@ -98,4 +98,28 @@ public class MultisetsEval implements IEvaluator
     {
     	this.dataTypeEvaluationManager = dataTypeEvaluationManager;
     }
+
+	@Override
+    public String validate(Object term)
+    {
+		if(term instanceof NumberOf)
+		{
+			return null;
+		}
+		if(term instanceof Add)
+		{
+			return null;
+		}
+		if(term instanceof Subtract)
+		{
+			return null;
+		}
+		if(term instanceof All)
+		{
+			IDataTypeEvaluator eval = 
+					dataTypeEvaluationManager.getHandler(((All)term).getRefsort().getClass());
+			return eval.validate(((All)term).getRefsort());
+		}
+		return term.getClass().toString();
+    }
 }

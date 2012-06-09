@@ -67,4 +67,18 @@ public class StringsEval implements IEvaluator
 		}
 		return null;
 	}
+
+	@Override
+    public String validate(Object term)
+    {
+		if(term instanceof StringConstant)
+		{
+			return null;
+		}
+		if(term instanceof Concatenation)
+		{
+			return null;
+		}
+	    return term.getClass().toString();
+    }
 }

@@ -134,4 +134,30 @@ public class BooleansEval implements IEvaluator
 		}
 		return null;
 	}
+
+	@Override
+    public String validate(Object term)
+    {
+		if(term instanceof Or)
+		{
+			return null;
+		}
+		if(term instanceof And)
+		{
+			return null;
+		}
+		if(term instanceof Inequality)
+		{
+			return null;
+		}
+		if(term instanceof Equality)
+		{
+			return null;
+		}
+		if(term instanceof BooleanConstant)
+		{
+			return null;
+		}
+	    return term.getClass().toString();
+    }
 }

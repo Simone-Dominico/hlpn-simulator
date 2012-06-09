@@ -69,4 +69,10 @@ public class AdditionEval extends AbstractIntegerOperation
     {
 		return computeFirstArg(result, a);
     }
+
+	@Override
+    public String validate(Object obj)
+    {
+	    return null;
+    }
 }

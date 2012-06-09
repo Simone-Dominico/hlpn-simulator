@@ -109,4 +109,22 @@ public class IntegersEval implements IEvaluator
 		return null;
 	}
 
+	@Override
+    public String validate(Object term)
+    {
+		if(term instanceof NumberConstant)
+		{
+			return null;
+		}
+		if(term instanceof LessThan)
+		{
+			return null;
+		}
+		if(term instanceof GreaterThan)
+		{
+			return null;
+		}
+	    return term.getClass().toString();
+    }
+
 }
