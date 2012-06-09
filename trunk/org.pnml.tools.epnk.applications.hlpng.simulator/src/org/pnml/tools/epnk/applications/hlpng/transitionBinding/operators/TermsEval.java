@@ -40,4 +40,14 @@ public class TermsEval implements IEvaluator
 		}
 		return null;
     }
+
+	@Override
+    public String validate(Object term)
+    {
+		if(term instanceof Tuple)
+		{
+		    return null;
+		}
+		return term.getClass().toString();
+    }
 }

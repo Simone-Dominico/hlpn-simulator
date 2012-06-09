@@ -11,12 +11,11 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Reve
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TupleComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.UserOperatorComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IDataTypeEvaluator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultiplicationEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
@@ -41,27 +40,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
 public class ResourceManager
 {
-	public static DataTypeEvaluationManager createDataTypeEvaluationManager(String extensionId)
-	{
-		DataTypeEvaluationManager manager = new DataTypeEvaluationManager();
-		if(extensionId != null)
-		{
-			IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
-			for(IConfigurationElement e : config)
-			{
-				try
-				{
-					IDataTypeEvaluator allOperatorEval = (IDataTypeEvaluator) e.createExecutableExtension("class");
-					manager.register(UserSortImpl.class, allOperatorEval);
-				}
-				catch(CoreException e1)
-				{
-					e1.printStackTrace();
-				}
-			}	
-		}
-		return manager;
-	}
 	public static EvaluationManager createEvaluationManager(String extensionId)
 	{
 		EvaluationManager evaluationManager = new EvaluationManager();
@@ -94,8 +72,12 @@ public class ResourceManager
 			{
 				try
 				{
-					IEvaluator arbitraryOperatorEval = (IEvaluator) e.createExecutableExtension("class");
+					IUserExtensions arbitraryOperatorEval = (IUserExtensions) e.createExecutableExtension("class");
 					userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
+					
+					DataTypeEvaluationManager manager = new DataTypeEvaluationManager();
+					manager.register(UserSortImpl.class, arbitraryOperatorEval);
+					multisetsEval.setDataTypeEvaluationManager(manager);
 				}
 				catch(CoreException e1)
 				{

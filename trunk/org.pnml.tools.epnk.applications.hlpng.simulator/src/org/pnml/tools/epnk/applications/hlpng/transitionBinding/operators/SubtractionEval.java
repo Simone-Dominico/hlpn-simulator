@@ -79,4 +79,10 @@ public class SubtractionEval extends AbstractIntegerOperation
 		
 		return result;
 	}
+
+	@Override
+    public String validate(Object term)
+    {
+	    return null;
+    }
 }

@@ -59,4 +59,21 @@ public class UserOperatorEval implements IEvaluator
     {
     	this.arbitraryOperatorEvaluator = arbitraryOperatorEvaluator;
     }
+
+	@Override
+    public String validate(Object term)
+    {
+		UserOperator userOperator = (UserOperator)term;
+		
+		if(userOperator.getDeclaration() instanceof NamedOperator)
+		{
+			return null;
+		}
+		if(userOperator.getDeclaration() instanceof ArbitraryOperator)
+		{
+			return arbitraryOperatorEvaluator.validate(term);
+		}
+		
+		throw new RuntimeException("Unknown user operator: " + term);
+    }
 }

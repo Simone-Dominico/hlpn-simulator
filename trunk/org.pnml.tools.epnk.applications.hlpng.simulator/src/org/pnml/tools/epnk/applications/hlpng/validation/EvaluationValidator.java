@@ -10,7 +10,7 @@ import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IValidator;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
@@ -64,10 +64,10 @@ public class EvaluationValidator extends AbstractModelConstraint
 			if(place.getHlinitialMarking() != null && 
 					place.getHlinitialMarking().getStructure() != null)
 			{
-				Term term = check(place.getHlinitialMarking().getStructure(), evaluationManager);
-				if(term != null)
+				String err = check(place.getHlinitialMarking().getStructure(), evaluationManager);
+				if(err != null)
 				{
-					errorMessages.add(term.toString());	
+					errorMessages.add(err);	
 				}
 			}
 		}
@@ -78,10 +78,10 @@ public class EvaluationValidator extends AbstractModelConstraint
 			if(transition.getCondition() != null && 
 					transition.getCondition().getStructure() != null)
 			{
-				Term term = check(transition.getCondition().getStructure(), evaluationManager);
-				if(term != null)
+				String err = check(transition.getCondition().getStructure(), evaluationManager);
+				if(err != null)
 				{
-					errorMessages.add(term.toString());	
+					errorMessages.add(err);	
 				}
 			}
 		}
@@ -102,24 +102,31 @@ public class EvaluationValidator extends AbstractModelConstraint
 				if(arc.getHlinscription() != null && 
 						arc.getHlinscription().getStructuralFeature() != null)
 				{
-					Term term = check(arc.getHlinscription().getStructure(), evaluationManager);
-					if(term != null)
+					String err = check(arc.getHlinscription().getStructure(), evaluationManager);
+					if(err != null)
 					{
-						errorMessages.add(term.toString());	
+						errorMessages.add(err);	
 					}
 				}
 			}
 		}
-		
+
 		return errorMessages;
 	}
 	
-	private static Term check(Term term, EvaluationManager evaluationManager)
+	private static String check(Term term, EvaluationManager evaluationManager)
 	{
-		IEvaluator eval = evaluationManager.getHandler(term.getClass());
-		if(eval == null)
+		IValidator validator = evaluationManager.getHandler(term.getClass());
+
+		if(validator == null)
 		{
-			return term;
+			return "The term " + term.getClass().toString() + " is not supported!";
+		}
+		
+		String error = validator.validate(term);
+		if(error != null)
+		{
+			return error;
 		}
 		
 		if(term instanceof Operator)
@@ -128,10 +135,10 @@ public class EvaluationValidator extends AbstractModelConstraint
 			
 			for(Term subTerm : operator.getSubterm())
 			{
-				Term t = check(subTerm, evaluationManager);
-				if(t != null)
+				String err = check(subTerm, evaluationManager);
+				if(err != null)
 				{
-					return t;
+					return err;
 				}
 			}
 		}
