@@ -1,10 +1,60 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime.operations;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 
 public class AbstractValueMath
 {
+	public static ListValue concat(ListValue l1, ListValue l2)
+	{
+		ListValue listValue = new ListValue();
+		
+		listValue.getElements().addAll(l1.getElements());
+		listValue.getElements().addAll(l2.getElements());
+		listValue.setSort(l1.getSort());
+		
+		return listValue;
+	}
+	
+	public static ListValue append(ListValue l, AbstractValue v)
+	{
+		ListValue listValue = new ListValue();
+		
+		listValue.getElements().addAll(l.getElements());
+		listValue.getElements().add(v);
+		listValue.setSort(l.getSort());
+		
+		return listValue;
+	}
+	
+	public static NumberValue length(ListValue l)
+	{
+		NumberValue nv = new NumberValue();
+		nv.setN(l.getElements().size());
+		nv.setSort(IntegersFactory.eINSTANCE.createNatural());
+		
+		return nv;
+	}
+	
+	public static ListValue sublist(ListValue l, int start, int length)
+	{
+		ListValue listValue = new ListValue();
+		
+		listValue.setSort(l.getSort());
+		listValue.getElements().addAll(l.getElements().subList(start, 
+				start + length));
+		
+		return listValue;
+	}
+	
+	public static AbstractValue at(ListValue l, int index)
+	{
+		return l.getElements().get(index);
+	}
+	
     public static String toString(MSValue set)
     {
     	StringBuffer buffer = new StringBuffer();

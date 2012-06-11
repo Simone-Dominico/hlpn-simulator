@@ -5,6 +5,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ListComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberOfComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ReversibleOperationComparator;
@@ -17,6 +18,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Boolea
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ListsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultiplicationEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -30,6 +32,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.SubtractionImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.lists.impl.MakeListImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.impl.NumberOfImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.impl.StringConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.MultiSetOperatorImpl;
@@ -48,7 +51,9 @@ public class ResourceManager
 		// booleans package
 		evaluationManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
 		// strings package
-		evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());			
+		evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());	
+		// lists package
+		evaluationManager.register(MakeListImpl.class.getPackage(), new ListsEval());
 		// multisets package
 		MultisetsEval multisetsEval = new MultisetsEval();
 		evaluationManager.register(NumberOfImpl.class.getPackage(), multisetsEval);
@@ -113,6 +118,7 @@ public class ResourceManager
 		comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
 		comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
 		comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
+		comparisonManager.register(MakeListImpl.class, new ListComparator(comparisonManager));
 		
 		ReversibleOperationComparator binEval = 
 				new ReversibleOperationComparator(evaluationManager, reversibleOperationManager);

@@ -65,8 +65,15 @@ public class UserOperatorEval implements IEvaluator
     {
 		UserOperator userOperator = (UserOperator)term;
 		
+		// TODO: mla: need to analyze subterms. Maybe evaluator -> validate()
 		if(userOperator.getDeclaration() instanceof NamedOperator)
 		{
+			NamedOperator namedOperator = (NamedOperator) userOperator.getDeclaration();
+			
+			for(Term subterm : userOperator.getSubterm())
+			{
+
+			}	
 			return null;
 		}
 		if(userOperator.getDeclaration() instanceof ArbitraryOperator)
