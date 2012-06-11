@@ -16,6 +16,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUser
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ListsEval;
@@ -28,6 +29,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsE
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.dots.impl.DotConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
@@ -52,6 +54,8 @@ public class ResourceManager
 		evaluationManager.register(BooleanConstantImpl.class.getPackage(), new BooleansEval());
 		// strings package
 		evaluationManager.register(StringConstantImpl.class.getPackage(), new StringsEval());	
+		// dots
+		evaluationManager.register(DotConstantImpl.class.getPackage(), new DotsEval());
 		// lists package
 		evaluationManager.register(MakeListImpl.class.getPackage(), new ListsEval());
 		// multisets package
