@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.And;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleanConstant;
@@ -87,7 +86,7 @@ public class BooleansEval implements IEvaluator
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)values.get(0)).getN() != ((NumberValue)values.get(1)).getN())
+			if(!values.get(0).equals(values.get(1)))
 			{
 				result.setValue(true);
 			}
@@ -108,7 +107,7 @@ public class BooleansEval implements IEvaluator
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(((NumberValue)values.get(0)).getN() == ((NumberValue)values.get(1)).getN())
+			if(values.get(0).equals(values.get(1)))
 			{
 				result.setValue(true);
 			}
