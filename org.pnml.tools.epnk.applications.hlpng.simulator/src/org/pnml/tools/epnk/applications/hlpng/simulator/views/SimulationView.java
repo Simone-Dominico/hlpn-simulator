@@ -142,7 +142,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		};
 	}
 
-	private void clear()
+	public void clear()
 	{
 		viewer.getTable().removeAll();
 	}

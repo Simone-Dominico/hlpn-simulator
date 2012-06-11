@@ -249,6 +249,7 @@ public class HLSimulator extends Application
 	public void reset()
 	{
 		stop();
+		simulationViewController.clear();
 		init();
 	}
 	
@@ -302,6 +303,7 @@ public class HLSimulator extends Application
 	protected void shutDown() 
 	{
 		stop();
+		simulationViewController.clear();
 	}
 
 	@Override

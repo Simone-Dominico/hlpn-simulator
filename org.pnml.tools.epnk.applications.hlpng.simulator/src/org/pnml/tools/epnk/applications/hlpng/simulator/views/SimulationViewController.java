@@ -12,7 +12,7 @@ public class SimulationViewController
 	private ISimulator simulator = null;
 	private IViewPart view = null;
 	private Display display = null;
-	
+
 	public SimulationViewController(ISimulator simulator)
 	{
 		this.simulator = simulator;
@@ -32,6 +32,23 @@ public class SimulationViewController
 				public void run()
 				{
 					simulationView.record(text, index);
+				}
+			});
+		}
+	}
+	
+	public void clear()
+	{
+		if (getView() != null) 
+		{
+			final SimulationView simulationView = (SimulationView) getView();
+			simulationView.setController(this);
+
+			getDisplay().asyncExec(new Runnable()
+			{
+				public void run()
+				{
+					simulationView.clear();
 				}
 			});
 		}
