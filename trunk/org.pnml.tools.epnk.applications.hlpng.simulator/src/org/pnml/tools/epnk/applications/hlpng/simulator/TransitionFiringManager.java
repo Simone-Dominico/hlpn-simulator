@@ -13,6 +13,8 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
@@ -239,4 +241,43 @@ public class TransitionFiringManager
 		
 		return runtimeValues;
 	}
+	
+    /* ---------------------------------------------------------------------- */
+    public IRuntimeState createInitialState(EvaluationManager evalManager,
+            List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
+            TransitionManager transitionManager)
+    {
+        List<Pair<Place, MSValue>> initMarking = createInitialMarking(evalManager);
+        
+        RuntimeState runtimeState = new RuntimeState();
+        
+        for(Pair<Place, MSValue> p : initMarking)
+        {
+            runtimeState.addValue(p.getKey(), p.getValue());
+        }
+        
+        for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
+        {
+            Transition hlTransition = (Transition)transition;
+            List<FiringMode> assignments = null;
+            try
+            {
+            	// TODO
+                assignments = transitionManager.checkTransitionW(hlTransition, runtimeState.getValues());
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                if(assignments != null && assignments.size() > 0)
+                {
+                    runtimeState.addFiringModes(hlTransition, assignments);
+                }
+            }
+        }
+        
+        return runtimeState;
+    }
 }

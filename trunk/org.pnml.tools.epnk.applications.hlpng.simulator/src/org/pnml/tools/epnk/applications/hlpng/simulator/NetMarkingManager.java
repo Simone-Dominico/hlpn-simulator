@@ -9,8 +9,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -88,4 +90,38 @@ public class NetMarkingManager
 		
 		return transitionMarkings;
 	}
+	
+	/* --------------------------------------------------------------------- */
+    public NetMarking createNetMarking(IRuntimeState state)
+    {       
+        NetMarking netMarking = new NetMarking();
+        netMarking.setNet(petrinet);
+        
+        // creates a marking for place runtime marking
+        for(IDWrapper wrapper : state.getPlaces())
+        {
+            PlaceMarking marking  = new PlaceMarking();
+            marking.setPlace((Place)wrapper.getId());
+            marking.setMsValue((MSValue)state.getValue(wrapper));
+            marking.setObject((Place)wrapper.getId());
+            
+            netMarking.getMarkings().add(marking);
+            netMarking.getObjectAnnotations().add(marking);
+        }
+        
+        // creates a marking for enabled transitions
+        for(IDWrapper wrapper : state.getTransitions())
+        {
+            TransitionMarking marking = new TransitionMarking();
+            marking.getModes().addAll(state.getFiringModes(wrapper));   
+            
+            marking.setTransition((Transition)wrapper.getId());
+            marking.setObject((Transition)wrapper.getId());
+            
+            netMarking.getMarkings().add(marking);
+            netMarking.getObjectAnnotations().add(marking);
+        }
+
+        return netMarking;
+    }
 }
