@@ -12,6 +12,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssig
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class EvaluationManager
@@ -39,6 +40,38 @@ public class EvaluationManager
 	public void unregister(Object targetObject)
 	{
 		handlers.remove(targetObject);
+	}
+	
+	public String check(Term term)
+	{
+		IValidator validator = getHandler(term.getClass());
+
+		if(validator == null)
+		{
+			return "The term " + term.getClass().toString() + " is not supported!";
+		}
+		
+		String error = validator.validate(term);
+		if(error != null)
+		{
+			return error;
+		}
+		
+		if(term instanceof Operator)
+		{
+			Operator operator = (Operator)term;
+			
+			for(Term subTerm : operator.getSubterm())
+			{
+				String err = check(subTerm);
+				if(err != null)
+				{
+					return err;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	public AbstractValue evaluate(Term term, Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException

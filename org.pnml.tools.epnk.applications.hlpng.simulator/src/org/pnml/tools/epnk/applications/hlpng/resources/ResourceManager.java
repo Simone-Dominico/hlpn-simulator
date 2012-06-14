@@ -66,7 +66,7 @@ public class ResourceManager
 		// variables
 		evaluationManager.register(VariableImpl.class, new VariableEval());
 		// user operations
-		UserOperatorEval userOperatorEval = new UserOperatorEval();
+		UserOperatorEval userOperatorEval = new UserOperatorEval(evaluationManager);
 		evaluationManager.register(UserOperatorImpl.class, userOperatorEval);
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());

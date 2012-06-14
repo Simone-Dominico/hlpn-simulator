@@ -16,6 +16,12 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 public class UserOperatorEval implements IEvaluator
 {
 	private IEvaluator arbitraryOperatorEvaluator = null;
+	private EvaluationManager evaluationManager = null;
+	
+	public UserOperatorEval(EvaluationManager evaluationManager)
+	{
+		this.evaluationManager = evaluationManager;
+	}
 	
 	@Override
 	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
@@ -65,14 +71,15 @@ public class UserOperatorEval implements IEvaluator
     {
 		UserOperator userOperator = (UserOperator)term;
 		
-		// TODO: mla: need to analyze subterms. Maybe evaluator -> validate()
 		if(userOperator.getDeclaration() instanceof NamedOperator)
 		{
-			NamedOperator namedOperator = (NamedOperator) userOperator.getDeclaration();
-			
 			for(Term subterm : userOperator.getSubterm())
 			{
-
+				String err = evaluationManager.check(subterm);
+				if(err != null)
+				{
+					return err;
+				}
 			}	
 			return null;
 		}
