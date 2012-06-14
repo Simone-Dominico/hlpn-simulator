@@ -106,6 +106,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
 	public void reset()
     {
+		simulationViewController.clear();
 		animator.setReset(true);
     }
 	
