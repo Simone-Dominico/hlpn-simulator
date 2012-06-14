@@ -91,7 +91,6 @@ public class NetMarkingManager
 		return transitionMarkings;
 	}
 	
-	/* --------------------------------------------------------------------- */
     public NetMarking createNetMarking(IRuntimeState state)
     {       
         NetMarking netMarking = new NetMarking();
@@ -102,7 +101,7 @@ public class NetMarkingManager
         {
             PlaceMarking marking  = new PlaceMarking();
             marking.setPlace((Place)wrapper.getId());
-            marking.setMsValue((MSValue)state.getValue(wrapper));
+            marking.setMsValue(state.getValue(wrapper));
             marking.setObject((Place)wrapper.getId());
             
             netMarking.getMarkings().add(marking);

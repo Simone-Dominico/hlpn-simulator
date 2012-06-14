@@ -25,7 +25,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 public class TransitionManager
 {
 	// < transition ID, < place ID, outgoing arc inscription matcher > >
-	private Map<String, Map<String, ArcInscriptionHandler>> patternMatcherMap = null;
+	private Map<IDWrapper, Map<IDWrapper, ArcInscriptionHandler>> patternMatcherMap = null;
 	
 	private EvaluationManager evaluationManager = null;
 	private ReversibleOperationManager reversibleOperationManager = null;
@@ -36,11 +36,11 @@ public class TransitionManager
 		this.evaluationManager = evaluationManager;
 		this.reversibleOperationManager = reversibleOperationManager;
 		
-		this.patternMatcherMap = new HashMap<String, Map<String,ArcInscriptionHandler>>();
+		this.patternMatcherMap = new HashMap<IDWrapper, Map<IDWrapper,ArcInscriptionHandler>>();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
-			Map<String, ArcInscriptionHandler> map = new HashMap<String, ArcInscriptionHandler>();
+			Map<IDWrapper, ArcInscriptionHandler> map = new HashMap<IDWrapper, ArcInscriptionHandler>();
 			for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : transition.getIn())
 			{
 				Arc hlArc = (Arc) arc;
@@ -53,25 +53,25 @@ public class TransitionManager
 					
 					if(place != null)
 					{
-						map.put(place.getId(), new ArcInscriptionHandler(term, comparatorManager));	
+						map.put(new IDWrapper(place), new ArcInscriptionHandler(term, comparatorManager));	
 					}
 				}
 			}
-			this.patternMatcherMap.put(transition.getId(), map);
+			this.patternMatcherMap.put(new IDWrapper(transition), map);
 		}
 	}
 	
-	public List<FiringMode> checkTransition(Transition transition, Map<String, 
+	public List<FiringMode> checkTransition(Transition transition, Map<IDWrapper, 
 			MSValue> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
-		Map<String, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(transition.getId());
+		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
 		// each inscription variable/term assignments
 		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
 		// each inscription complete variable set + assignments
 		List<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>> varsAndMatches =
 				new ArrayList<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>>();
 		
-		for(String placeId : incomingArcs.keySet())
+		for(IDWrapper placeId : incomingArcs.keySet())
 		{
 			MSValue msValue = runtimeValues.get(placeId);
 			
@@ -184,84 +184,5 @@ public class TransitionManager
 			evaluations.add(evaluation);
 		}
 		return evaluations;
-	}
-	
-	/* ---------------------------------------------------------------------- */
-	public List<FiringMode> checkTransitionW(Transition transition, Map<IDWrapper, 
-			AbstractValue> runtimeValuesW) throws DependencyException, UnknownVariableException
-	{		
-		Map<String, MSValue> runtimeValues = new HashMap<String, MSValue>();
-		{
-			for(IDWrapper w : runtimeValuesW.keySet())
-			{
-				runtimeValues.put(w.getId().getId(), (MSValue)runtimeValuesW.get(w));
-			}
-		}
-		
-		Map<String, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(transition.getId());
-		// each inscription variable/term assignments
-		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
-		// each inscription complete variable set + assignments
-		List<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>> varsAndMatches =
-				new ArrayList<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>>();
-		
-		for(String placeId : incomingArcs.keySet())
-		{
-			MSValue msValue = runtimeValues.get(placeId);
-			
-			// each inscription term compared to all multiset terms
-			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
-			Map<TermWrapper, TermAssignment> assignments = matcher.match(msValue);
-			intersection(globalMap, assignments);
-			
-			Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>> pair =
-					new Pair<Set<TermWrapper>, Map<TermWrapper,TermAssignment>>();
-			pair.setKey(new HashSet<TermWrapper>(matcher.getVariables()));
-			pair.setValue(assignments);
-			
-			varsAndMatches.add(pair);
-		}
-
-		// resolving undefined variables
-		VariableResolver resolver = new VariableResolver(varsAndMatches, 
-				globalMap, reversibleOperationManager);
-		globalMap = resolver.solve();
-		
-		// filtering non consistent assignments
-		globalMap = ConsistencyManager.checkParams(globalMap);
-		
-		// there is only 1 variable
-		if(globalMap.keySet().size() == 1)
-		{
-			List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper,AbstractValue>>();
-			for(TermWrapper key : globalMap.keySet())
-			{
-				TermAssignment value = globalMap.get(key);
-				
-				for(AbstractValue av : value.getValues())
-				{
-					Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
-					map.put(key, av);
-					varSets.add(map);
-				}
-			}
-			return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
-		}
-		
-		// computing Cartesian product of variable assignments
-		List<List<Pair<TermAssignment, AbstractValue>>> pairList = pairVariablesToAssignments(globalMap);
-		CartesianProduct<Pair<TermAssignment, AbstractValue>> cartesianProd = 
-				new CartesianProduct<Pair<TermAssignment, AbstractValue>>();
-		List<List<Pair<TermAssignment, AbstractValue>>> product =
-				cartesianProd.product(pairList);
-		
-		List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper, AbstractValue>>();
-		for(List<Pair<TermAssignment, AbstractValue>> list : product)
-		{
-			varSets.add(pairToMap(list));
-		}
-		
-		// evaluate each arc inscription with the given parameter set
-		return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
 	}
 }
