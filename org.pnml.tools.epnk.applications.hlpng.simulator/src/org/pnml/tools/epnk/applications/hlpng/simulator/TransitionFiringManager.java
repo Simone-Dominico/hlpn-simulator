@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
@@ -31,25 +32,25 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 public class TransitionFiringManager
 {
-	private Map<String, Place> placeMap = new HashMap<String, Place>();
+	private Map<IDWrapper, Place> placeMap = new HashMap<IDWrapper, Place>();
 	private FlatAccess flatAccess = null;
 	public TransitionFiringManager(FlatAccess flatAccess)
 	{
 		this.flatAccess = flatAccess;
 		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
 		{
-			this.placeMap.put(place.getId(), (Place)place);
+			this.placeMap.put(new IDWrapper(place), (Place)place);
 		}
 	}
 	
-	public Pair<List<Pair<Place, MSValue>>, Map<String, MSValue>> createNextMarking(EvaluationManager evalManager,
-			Map<String, MSValue> oldValuesMap, FiringMode firingMode)
+	public Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> createNextMarking(EvaluationManager evalManager,
+			Map<IDWrapper, MSValue> oldValuesMap, FiringMode firingMode)
 	{
-		Set<String> oldPlaces = new HashSet<String>(oldValuesMap.keySet());
-		Map<String, MSValue> newValuesMap = new HashMap<String, MSValue>();
+		Set<IDWrapper> oldPlaces = new HashSet<IDWrapper>(oldValuesMap.keySet());
+		Map<IDWrapper, MSValue> newValuesMap = new HashMap<IDWrapper, MSValue>();
 		
 		// updating incoming places
-		for(String placeId : firingMode.getValues().keySet())
+		for(IDWrapper placeId : firingMode.getValues().keySet())
 		{
 			oldPlaces.remove(placeId);
 			newValuesMap.put(placeId, 
@@ -63,7 +64,7 @@ public class TransitionFiringManager
 			Place place = (Place)this.flatAccess.resolve((PlaceNode)arc.getTarget());
 			if(place != null)
 			{
-				String placeId = place.getId();
+				IDWrapper placeId = new IDWrapper(place);
 				
 				MSValue currentMarking = null;
 				
@@ -108,7 +109,7 @@ public class TransitionFiringManager
 		
 		List<Pair<Place, MSValue>> runtimeValues = new ArrayList<Pair<Place,MSValue>>();
 		
-		for(String key : oldValuesMap.keySet())
+		for(IDWrapper key : oldValuesMap.keySet())
 		{
 			if(!newValuesMap.containsKey(key))
 			{
@@ -116,7 +117,7 @@ public class TransitionFiringManager
 			}
 		}
 		
-		for(String key : newValuesMap.keySet())
+		for(IDWrapper key : newValuesMap.keySet())
 		{
 			Pair<Place, MSValue> p = new Pair<Place, MSValue>();
 			p.setKey(placeMap.get(key));
@@ -124,8 +125,8 @@ public class TransitionFiringManager
 			runtimeValues.add(p);
 		}
 		
-		Pair<List<Pair<Place, MSValue>>, Map<String, MSValue>> p = 
-				new Pair<List<Pair<Place,MSValue>>, Map<String,MSValue>>();
+		Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> p = 
+				new Pair<List<Pair<Place,MSValue>>, Map<IDWrapper,MSValue>>();
 		p.setKey(runtimeValues);
 		p.setValue(newValuesMap);
 		return p;
@@ -191,7 +192,7 @@ public class TransitionFiringManager
 	
 	public List<FiringMode> computeFiringModes(
 			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
-			Map<String, MSValue> runtimeValues, TransitionManager transitionManager)
+			Map<IDWrapper, MSValue> runtimeValues, TransitionManager transitionManager)
 	{
 		List<FiringMode> firingModes = new ArrayList<FiringMode>();
 		
@@ -229,14 +230,14 @@ public class TransitionFiringManager
 		return firingModes;
 	}
 	
-	public Map<String, MSValue> createRuntimeValueMap(List<Pair<Place, MSValue>> runtimeValuesList)
+	public Map<IDWrapper, MSValue> createRuntimeValueMap(List<Pair<Place, MSValue>> runtimeValuesList)
 	{
 		// puts place markings into a map for a better performance
-		Map<String, MSValue> runtimeValues = new HashMap<String, MSValue>();
+		Map<IDWrapper, MSValue> runtimeValues = new HashMap<IDWrapper, MSValue>();
 		
 		for(Pair<Place, MSValue> pair : runtimeValuesList)
 		{
-			runtimeValues.put(pair.getKey().getId(), pair.getValue());
+			runtimeValues.put(new IDWrapper(pair.getKey()), pair.getValue());
 		}
 		
 		return runtimeValues;
@@ -262,8 +263,7 @@ public class TransitionFiringManager
             List<FiringMode> assignments = null;
             try
             {
-            	// TODO
-                assignments = transitionManager.checkTransitionW(hlTransition, runtimeState.getValues());
+                assignments = transitionManager.checkTransition(hlTransition, runtimeState.getValues());
             }
             catch(Exception e)
             {

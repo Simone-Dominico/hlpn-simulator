@@ -10,7 +10,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 public class FiringMode
 {
 	// place ID <=> actual inscription value
-	private Map<String, MSValue> values = new HashMap<String, MSValue>();
+	private Map<IDWrapper, MSValue> values = new HashMap<IDWrapper, MSValue>();
 	// variable name <=> variable assignment
 	private Map<TermWrapper, AbstractValue> params = null;
 	
@@ -24,11 +24,11 @@ public class FiringMode
     {
     	this.params = params;
     }
-	public Map<String, MSValue> getValues()
+	public Map<IDWrapper, MSValue> getValues()
     {
     	return values;
     }
-	public void setValues(Map<String, MSValue> values)
+	public void setValues(Map<IDWrapper, MSValue> values)
     {
     	this.values = values;
     }

@@ -22,6 +22,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -51,7 +52,6 @@ public class HLSimulator extends Application
 	protected long simulationPause = 500;
 	protected boolean autoModeEnabled;
 	
-	protected List<FiringMode> initialFiringModes = null;
 	protected IFiringStrategy firingStrategy = new RandomFiringStrategy();
 	
 	protected IRuntimeStateContainer stateContainer = null; 
@@ -135,10 +135,10 @@ public class HLSimulator extends Application
 		// computing the following modes
 		List<Pair<Place, MSValue>> currentRuntimeValueList = 
 				this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
-		Map<String, MSValue> currentValuesMap = this.transitionFiringManager.
+		Map<IDWrapper, MSValue> currentValuesMap = this.transitionFiringManager.
 				createRuntimeValueMap(currentRuntimeValueList);
 		
-		Pair<List<Pair<Place, MSValue>>, Map<String, MSValue>> result =
+		Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> result =
 				this.transitionFiringManager.createNextMarking(evaluationManager, currentValuesMap, mode);
 		
 		List<FiringMode> firingModes =
@@ -161,7 +161,7 @@ public class HLSimulator extends Application
 		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
 		
 		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
-		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
+		Map<IDWrapper, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
 		List<FiringMode> firingModes =
 				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
 		
@@ -316,7 +316,7 @@ public class HLSimulator extends Application
     {
 		NetMarking currentMarking = (NetMarking)this.getNetAnnotations().getCurrent();
 		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(currentMarking);
-		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
+		Map<IDWrapper, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
 		List<FiringMode> firingModes =
 				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
 

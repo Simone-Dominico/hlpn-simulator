@@ -83,8 +83,8 @@ public class ConsistencyManager
 	}
 	
 	public static List<FiringMode> checkSolution(List<Map<TermWrapper, AbstractValue>> varSets,
-			Map<String, ArcInscriptionHandler> incomingArcs,
-			Map<String, MSValue> runtimeValues, Transition transition,
+			Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
+			Map<IDWrapper, MSValue> runtimeValues, Transition transition,
 			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
@@ -115,7 +115,7 @@ public class ConsistencyManager
 				assignment.setTransition(transition);
 				
 				boolean matched = true;
-				for(String placeId : incomingArcs.keySet())
+				for(IDWrapper placeId : incomingArcs.keySet())
 				{
 					if(matched)
 					{
