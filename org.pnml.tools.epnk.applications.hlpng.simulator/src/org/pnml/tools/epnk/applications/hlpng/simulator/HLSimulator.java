@@ -16,6 +16,9 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
@@ -49,7 +52,9 @@ public class HLSimulator extends Application
 	protected boolean autoModeEnabled;
 	
 	protected List<FiringMode> initialFiringModes = null;
-	private IFiringStrategy firingStrategy = new RandomFiringStrategy();
+	protected IFiringStrategy firingStrategy = new RandomFiringStrategy();
+	
+	protected IRuntimeStateContainer stateContainer = null; 
 	
 	private Action[] actions;
 	
@@ -75,6 +80,7 @@ public class HLSimulator extends Application
 	@Override
 	public void init()
 	{
+		this.stateContainer = new RuntimeStateList();
 		this.simulationViewController = new SimulationViewController(this);
 		this.flatAccess = new FlatAccess(this.petrinet);
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
@@ -87,13 +93,12 @@ public class HLSimulator extends Application
 		this.netMarkingManager= new NetMarkingManager(this.petrinet,  
 				comparisonManager, reversibleOperationManager);
 		
-		List<Pair<Place, MSValue>> runtimeValueList = 
-				this.transitionFiringManager.createInitialMarking(this.evaluationManager);
-		Map<String, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValueList);
-		this.initialFiringModes = this.transitionFiringManager.computeFiringModes(
-				this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
-		
-		NetMarking netMarking = netMarkingManager.createNetMarking(runtimeValueList, this.initialFiringModes);
+		// computing initial state
+		IRuntimeState initialState = this.transitionFiringManager.createInitialState(this.evaluationManager,
+                this.flatAccess.getTransitions(), this.transitionManager);
+		this.stateContainer.add(initialState);
+
+		NetMarking netMarking = netMarkingManager.createNetMarking(initialState);
 		NetAnnotations netAnnotations = getNetAnnotations();
 		netAnnotations.getNetAnnotations().add(netMarking);
 		netAnnotations.setCurrent(netMarking);
