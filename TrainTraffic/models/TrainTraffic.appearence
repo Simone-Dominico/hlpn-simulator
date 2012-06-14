@@ -3,7 +3,7 @@
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrainN.obj" id="slow"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_green_normals.obj" id="greenSignal1"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_red_normals.obj" id="redSignal1"/>
-  <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrainN.obj" id="fast"/>
+  <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrainB.obj" id="fast"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_green_normals.obj" id="greenSignal2"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_red_normals.obj" id="redSignal2"/>
   <appearence ObjectStringPath="platform:/resource/TrainTraffic/graphics/TrafficLight_green_normals.obj" id="greenSignal3"/>
