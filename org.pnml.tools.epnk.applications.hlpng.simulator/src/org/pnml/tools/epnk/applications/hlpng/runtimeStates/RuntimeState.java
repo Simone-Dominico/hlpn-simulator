@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.pnmlcoremodel.Place;
@@ -14,7 +14,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 public class RuntimeState implements IRuntimeState
 {
 	// place <=> runtime value
-	private Map<IDWrapper, AbstractValue> values = new HashMap<IDWrapper, AbstractValue>();
+	private Map<IDWrapper, MSValue> values = new HashMap<IDWrapper, MSValue>();
 	// transition <=> firing modes
 	private Map<IDWrapper, List<FiringMode>> modes = new HashMap<IDWrapper, List<FiringMode>>();
 	
@@ -78,19 +78,19 @@ public class RuntimeState implements IRuntimeState
     }
 
 	@Override
-    public void addValue(Place place, AbstractValue value)
+    public void addValue(Place place, MSValue value)
     {
 		values.put(new IDWrapper(place), value);
     }
 
 	@Override
-    public AbstractValue getValue(Place place)
+    public MSValue getValue(Place place)
     {
 	    return values.get(new IDWrapper(place));
     }
 	
 	@Override
-    public AbstractValue getValue(IDWrapper wrapper)
+    public MSValue getValue(IDWrapper wrapper)
     {
 	    return values.get(wrapper);
     }
@@ -119,7 +119,7 @@ public class RuntimeState implements IRuntimeState
 		return this.modes.keySet();
     }
 
-	public Map<IDWrapper, AbstractValue> getValues()
+	public Map<IDWrapper, MSValue> getValues()
     {
     	return values;
     }
