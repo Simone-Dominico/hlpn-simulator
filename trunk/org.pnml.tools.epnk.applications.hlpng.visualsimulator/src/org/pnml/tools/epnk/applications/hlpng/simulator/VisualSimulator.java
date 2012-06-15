@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.simulator;
 import geditor.GObject;
 import geditor.Geometry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,9 +19,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -40,11 +42,13 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	private Action[] actions = null;
 	
 	private IAnimator animator = null;
-	private Set<Integer> runningAnimations = new HashSet<Integer>();
 	private Map<String, Integer> staticItemMap = new HashMap<String, Integer>();
 	private Map<String, Integer> modelMap = new HashMap<String, Integer>();
 	private ExtensionManager extensionManager = null;
 
+	// each time a transition is fired an associated animation is registered here 
+	private Set<Integer> runningAnimations = new HashSet<Integer>();
+	
 	public VisualSimulator(PetriNet petrinet,
             EvaluationManager evaluationManager,
             ComparisonManager comparisonManager,
@@ -120,15 +124,19 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		if(runningAnimations.contains(ItemID))
 		{
 			runningAnimations.remove(ItemID);
-			List<FiringMode> modes = updateTransitionMarking();
 			
-			while(modes.size() > 0)
-			{
-				modes = fire(modes.get(0));
-			}
+			fireAll();
 		}
     }
-
+	
+	@Override
+    public void start(IAnimator animator)
+    {
+		animator.setUpdatePosition(true);
+		
+		fireAll();
+    }
+	
 	@Override
     public void reset(IAnimator animator)
     {
@@ -136,18 +144,17 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		go((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager, animator);
     }
 
-	@Override
-    public void start(IAnimator animator)
-    {
-		animator.setUpdatePosition(true);
-		
-		List<FiringMode> modes = updateTransitionMarking();
-		
-		while(modes.size() > 0)
+	private void fireAll()
+	{
+		IRuntimeState state = stateContainer.getCurrent();
+		updateTransitionBinding(state);
+		while(state.getTransitions().size() > 0)
 		{
-			modes = fire(modes.get(0));
+			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
+			fire(state.getFiringModes(transitions.get(0)).get(0));
+			state = stateContainer.getCurrent();
 		}
-    }
+	}
 	
 	@Override
     public void stop(IAnimator animator)
@@ -304,8 +311,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void shutDown()
     {
-	    super.shutDown();
 	    ((Animator)animator).getWindow().dispose();
+	    super.shutDown();
     }
 
 }
