@@ -1,35 +1,25 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
-import org.pnml.tools.epnk.annotations.netannotations.NetAnnotation;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 public class HLSimulator extends Application 
 	implements IApplicationWithPresentation, ISimulator, IWorker
@@ -98,80 +88,125 @@ public class HLSimulator extends Application
                 this.flatAccess.getTransitions(), this.transitionManager);
 		this.stateContainer.add(initialState);
 
-		NetMarking netMarking = netMarkingManager.createNetMarking(initialState);
-		NetAnnotations netAnnotations = getNetAnnotations();
-		netAnnotations.getNetAnnotations().add(netMarking);
-		netAnnotations.setCurrent(netMarking);
+		// creating an annotation layer
+		showAnnotations(initialState, netMarkingManager, this.getNetAnnotations());
 		
 		updateActionEnabledness();
 	}
 	
 	@Override
-    public List<FiringMode> fire(FiringMode mode)
+    public void fire(FiringMode mode)
     {
-		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
-		
-		// marking as fired
-		for(AbstractMarking m : prevMarking.getMarkings())
-		{
-			if(m instanceof TransitionMarking && 
-					((TransitionMarking)m).getTransition().getId().equals(mode.getTransition().getId()))
-			{
-				((TransitionMarking)m).setFired(true);
-			}
-		}
-		
+		// setting the selected firing mode for the state
+		stateContainer.getCurrent().setFiringMode(mode);
 		// recording
-		{
-			NetAnnotations netAnnotations = this.getNetAnnotations();
-			List<NetAnnotation> annotations = netAnnotations.getNetAnnotations();
-			int index = annotations.indexOf(prevMarking);
-			if(index >= 0 && index < annotations.size())
-			{
-				this.simulationViewController.record(mode, index);
-			}	
-		}
-		
-		// computing the following modes
-		List<Pair<Place, MSValue>> currentRuntimeValueList = 
-				this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
-		Map<IDWrapper, MSValue> currentValuesMap = this.transitionFiringManager.
-				createRuntimeValueMap(currentRuntimeValueList);
-		
-		Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> result =
-				this.transitionFiringManager.createNextMarking(evaluationManager, currentValuesMap, mode);
-		
-		List<FiringMode> firingModes =
-				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), 
-						result.getValue(), this.transitionManager);
-		
-		// creating next annotation layer
-		NetMarking netMarking = this.netMarkingManager.
-				createNetMarking(result.getKey(), firingModes);
-		NetAnnotations netAnnotations = this.getNetAnnotations();
-		netAnnotations.getNetAnnotations().add(netMarking);
-		netAnnotations.setCurrent(netMarking);
-		
-		return firingModes;
+		this.simulationViewController.record(mode, stateContainer.getCurrent());
+		// computing the next state
+		IRuntimeState runtimeState = this.transitionFiringManager.
+				createNextState(stateContainer.getCurrent(), evaluationManager, mode, transitionManager);
+		stateContainer.add(runtimeState);
+		// creating an annotation layer
+		showAnnotations(runtimeState, netMarkingManager, this.getNetAnnotations());
     }
 	
 	@Override
-    public List<FiringMode> updateTransitionMarking()
+    public void updateTransitionBinding(IRuntimeState state)
     {
-		NetMarking prevMarking = (NetMarking)this.getNetAnnotations().getCurrent();
-		
-		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(prevMarking);
-		Map<IDWrapper, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
-		List<FiringMode> firingModes =
-				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
-		
-		NetMarking netMarking = netMarkingManager.createNetMarking(runtimeValuesList, firingModes);
-		
-		NetAnnotations netAnnotations = this.getNetAnnotations();
-		netAnnotations.getNetAnnotations().add(netMarking);
-		netAnnotations.setCurrent(netMarking);
-		
-		return firingModes;
+		// updates state transition binding
+		this.transitionFiringManager.updateState(state, transitionManager);
+		// creating an annotation layer
+		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+    }
+	
+	@Override
+	public void reset()
+	{
+		// stops the simulation if any
+		stop();
+		// clears the view
+		simulationViewController.clear();
+		// initializes the application
+		init();
+	}
+	
+	@Override
+    public void show(IRuntimeState state)
+    {
+		stateContainer.setCurrent(state);
+		// creating an annotation layer
+		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+    }
+
+	@Override
+    public void next()
+    {
+		IRuntimeState state = stateContainer.next();
+		if(state != null)
+		{
+			// creating an annotation layer
+			showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+		}
+    }
+	
+	@Override
+    public void previous()
+    {
+		IRuntimeState state = stateContainer.previous();
+		if(state != null)
+		{
+			// creating an annotation layer
+			showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+		}
+    }
+	
+	@Override
+	public void auto()
+	{
+		if(autoMode.isStopped())
+		{
+			autoModeEnabled = true;
+			autoMode.setStopped(false);
+			autoMode.runInUIThread(null);
+		}
+	}
+	
+	@Override
+	public void stop()
+	{
+		autoMode.setStopped(true);
+		autoModeEnabled = false;
+	}
+	
+	@Override
+	protected void shutDown() 
+	{
+		stop();
+		simulationViewController.clear();
+	}
+
+	@Override
+    public void work()
+    {
+		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent().getModes());
+		if(mode != null)
+		{
+			this.fire(mode);	
+		}
+		else
+		{
+			stop();
+		}
+    }
+
+	@Override
+	public boolean isAutoModeEnabled()
+    {
+    	return autoModeEnabled;
+    }
+
+	public void setAutoModeEnabled(boolean autoModeEnabled)
+    {
+    	this.autoModeEnabled = autoModeEnabled;
     }
 	
 	public IPresentationManager getPresentationManager()
@@ -183,7 +218,7 @@ public class HLSimulator extends Application
     {
     	this.presentationManager = presentationManager;
     }
-
+	
 	@Override
     public Action[] getActions()
     {
@@ -249,100 +284,11 @@ public class HLSimulator extends Application
 	    }
 	    return actions;
     }
-
-	@Override
-	public void reset()
+	
+	protected void showAnnotations(IRuntimeState state, NetMarkingManager netManager,
+			NetAnnotations netAnnotations)
 	{
-		stop();
-		simulationViewController.clear();
-		init();
+		NetMarking netMarking = netManager.createNetMarking(state);
+		netAnnotations.setCurrent(netMarking);
 	}
-	
-	@Override
-    public void next()
-    {
-		super.nextAnnotation();
-    }
-	
-	@Override
-    public void show(int index)
-    {
-		NetAnnotations netAnnotations = this.getNetAnnotations();
-		
-		if(netAnnotations != null)
-		{
-			List<NetAnnotation> annotations = netAnnotations
-			        .getNetAnnotations();
-			if(index >= 0 && index < annotations.size())
-			{
-				netAnnotations.setCurrent(annotations.get(index));
-			}
-		}
-    }
-
-	@Override
-    public void previous()
-    {
-		super.previousAnnotation();
-    }
-	
-	@Override
-	public void auto()
-	{
-		if(autoMode.isStopped())
-		{
-			autoModeEnabled = true;
-			autoMode.setStopped(false);
-			autoMode.runInUIThread(null);
-		}
-	}
-	
-	@Override
-	public void stop()
-	{
-		autoMode.setStopped(true);
-		autoModeEnabled = false;
-	}
-	
-	@Override
-	protected void shutDown() 
-	{
-		stop();
-		simulationViewController.clear();
-	}
-
-	@Override
-    public void work()
-    {
-		NetMarking currentMarking = (NetMarking)this.getNetAnnotations().getCurrent();
-		List<Pair<Place, MSValue>> runtimeValuesList = this.transitionFiringManager.copyPrevPlaceMarking(currentMarking);
-		Map<IDWrapper, MSValue> runtimeValuesMap = this.transitionFiringManager.createRuntimeValueMap(runtimeValuesList);
-		List<FiringMode> firingModes =
-				this.transitionFiringManager.computeFiringModes(this.flatAccess.getTransitions(), runtimeValuesMap, this.transitionManager);
-
-		FiringMode mode = firingStrategy.fire(firingModes);
-		if(mode != null)
-		{
-			this.fire(mode);	
-		}
-		else
-		{
-			stop();
-			/*MessageBox messageBox = new MessageBox(new Shell(Display.getCurrent()), SWT.ICON_INFORMATION);
-	        messageBox.setText("Information");
-	        messageBox.setMessage("There are no more enabled transitions anymore.\n" +
-	        		"Turning auto mode off.");
-	        messageBox.open();*/
-		}
-    }
-
-	public boolean isAutoModeEnabled()
-    {
-    	return autoModeEnabled;
-    }
-
-	public void setAutoModeEnabled(boolean autoModeEnabled)
-    {
-    	this.autoModeEnabled = autoModeEnabled;
-    }
 }
