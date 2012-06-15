@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
@@ -13,6 +14,10 @@ public interface IRuntimeState
 {
 	public FiringMode getFiringMode();
 	public void setFiringMode(FiringMode firingMode);
+	
+	public Map<IDWrapper, MSValue> getValues();
+	public Map<IDWrapper, MSValue> getClonedValues();
+	public Map<IDWrapper, List<FiringMode>> getModes();
 	
 	public void addValue(Place place, MSValue value);
 	public MSValue getValue(Place place);

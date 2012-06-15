@@ -119,8 +119,28 @@ public class RuntimeState implements IRuntimeState
 		return this.modes.keySet();
     }
 
+	@Override
 	public Map<IDWrapper, MSValue> getValues()
     {
-    	return values;
+    	return this.values;
+    }
+	
+	@Override
+	public Map<IDWrapper, MSValue> getClonedValues()
+	{
+		Map<IDWrapper, MSValue> clone = new HashMap<IDWrapper, MSValue>();
+		
+		for(IDWrapper w : values.keySet())
+		{
+			clone.put(w, values.get(w));
+		}
+		
+		return clone;
+	}
+	
+	@Override
+	public Map<IDWrapper, List<FiringMode>> getModes()
+    {
+    	return modes;
     }
 }
