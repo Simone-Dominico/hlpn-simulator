@@ -17,6 +17,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.pnml.tools.epnk.applications.activator.Activator
 Export-Package: org.pnml.tools.epnk.applications.hlpng.resources,
  org.pnml.tools.epnk.applications.hlpng.runtime,
+ org.pnml.tools.epnk.applications.hlpng.runtimeStates,
  org.pnml.tools.epnk.applications.hlpng.selection,
  org.pnml.tools.epnk.applications.hlpng.simulator,
  org.pnml.tools.epnk.applications.hlpng.simulator.views,
