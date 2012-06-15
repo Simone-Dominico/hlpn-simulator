@@ -14,10 +14,8 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
@@ -141,7 +139,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     public void reset(IAnimator animator)
     {
 		runningAnimations = new HashSet<Integer>();		
-		go((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager, animator);
+		go(extensionManager, animator);
     }
 
 	private void fireAll()
@@ -165,57 +163,15 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void initCompleted(IAnimator animator)
     {
-		go((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager, animator);
+		go(extensionManager, animator);
     }
 
-	private void go(NetMarking netMarking, 
-			ExtensionManager extensionManager, IAnimator animator)
+	private void go(ExtensionManager extensionManager, IAnimator animator)
 	{
 		init();
-		init((NetMarking)this.getNetAnnotations().getCurrent(), extensionManager);
+		placeObjects(this.stateContainer.getCurrent(), extensionManager);
 	}
-	private static void init(NetMarking netMarking, ExtensionManager extensionManager)
-	{
-		for(AbstractMarking marking : netMarking.getMarkings())
-		{
-			if(marking instanceof PlaceMarking)
-			{
-				PlaceMarking placeMarking = (PlaceMarking) marking;
-				Place place = placeMarking.getPlace();
-				
-				if(place.getHlinitialMarking() != null && 
-						place.getHlinitialMarking().getStructure() != null)
-				{
-					Sort sort = place.getType().getStructure();
-					if(sort instanceof UserSort)
-					{
-						UserSort userSort = (UserSort)sort;
-						if(userSort.getName().equals("DYNAMIC_MODEL"))
-						{
-							IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR");
-							AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
-							
-							for(AbstractValue value : placeMarking.getMsValue().getValues().keySet())
-							{
-								appearFunction.execute(((ProductValue)value).getComponents());	
-							}
-						}
-						else if(userSort.getName().equals("STATIC_MODEL"))
-						{
-							IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR_POINT");
-							AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
 
-							for(AbstractValue value : placeMarking.getMsValue().getValues().keySet())
-							{
-								appearFunction.execute(((ProductValue)value).getComponents());
-							}
-						}
-					}	
-				}
-			}
-		}
-	}
-	
 	/*
 	 * Visual simulator methods start here
 	 */
@@ -264,6 +220,31 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	 * HLPNG methods start here
 	 */
 
+	@Override
+    public void show(IRuntimeState state)
+    {
+		stateContainer.setCurrent(state);
+		// creating an annotation layer
+		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+		
+		// completing the moving objects animation
+		List<Integer> dynamicObjs = new ArrayList<Integer>();
+		for(Integer runningId : runningAnimations)
+		{
+			if(!staticItemMap.values().contains(runningId))
+			{
+				dynamicObjs.add(runningId);
+			}
+		}
+		for(Integer id : dynamicObjs)
+		{
+			runningAnimations.remove(id);
+		}
+		
+		stop(animator);
+		placeObjects(state, extensionManager);
+    }
+	
 	@Override
     public Action[] getActions()
     {
@@ -315,4 +296,38 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	    super.shutDown();
     }
 
+	private static void placeObjects(IRuntimeState state, ExtensionManager extensionManager)
+	{
+		for(IDWrapper placeId : state.getPlaces())
+		{
+			Place place = (Place)placeId.getId();
+			MSValue msValue = state.getValue(placeId);
+			
+			Sort sort = place.getType().getStructure();
+			if(sort instanceof UserSort)
+			{
+				UserSort userSort = (UserSort)sort;
+				if(userSort.getName().equals("DYNAMIC_MODEL"))
+				{
+					IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR");
+					AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+					
+					for(AbstractValue value : msValue.getValues().keySet())
+					{
+						appearFunction.execute(((ProductValue)value).getComponents());	
+					}
+				}
+				else if(userSort.getName().equals("STATIC_MODEL"))
+				{
+					IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR_POINT");
+					AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+
+					for(AbstractValue value : msValue.getValues().keySet())
+					{
+						appearFunction.execute(((ProductValue)value).getComponents());
+					}
+				}
+			}
+		}
+	}
 }
