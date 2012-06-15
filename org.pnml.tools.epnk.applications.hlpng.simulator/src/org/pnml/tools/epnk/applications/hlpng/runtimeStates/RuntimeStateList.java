@@ -6,21 +6,23 @@ import java.util.List;
 public class RuntimeStateList implements IRuntimeStateContainer
 {
 	private List<IRuntimeState> stateList = new ArrayList<IRuntimeState>();
-	private int currentIndex = 0;
+	private IRuntimeState current = null;
 	
 	@Override
     public void add(IRuntimeState state)
     {
 	    this.stateList.add(state);
+	    this.current = state;
     }
 
 	@Override
     public IRuntimeState next()
     {
-	    if(currentIndex + 1 < stateList.size())
+		int index = this.stateList.indexOf(current) + 1;
+	    if(index >= 0 && index < stateList.size())
 	    {
-	    	currentIndex++;
-	    	return stateList.get(currentIndex);
+	    	current = stateList.get(index);
+	    	return getCurrent();
 	    }
 	    return null;
     }
@@ -28,10 +30,11 @@ public class RuntimeStateList implements IRuntimeStateContainer
 	@Override
     public IRuntimeState previous()
     {
-		if(currentIndex - 1 >= 0)
+		int index = this.stateList.indexOf(current) - 1;
+		if(index >= 0 && index < stateList.size())
 	    {
-	    	currentIndex--;
-	    	return stateList.get(currentIndex);
+	    	current = stateList.get(index);
+	    	return getCurrent();
 	    }
 	    return null;
     }
@@ -39,20 +42,12 @@ public class RuntimeStateList implements IRuntimeStateContainer
 	@Override
 	public IRuntimeState getCurrent()
     {
-		if(currentIndex < stateList.size())
-	    {
-	    	return stateList.get(currentIndex);
-	    }
-		return null;
+		return current;
     }
 
 	@Override
 	public void setCurrent(IRuntimeState current)
     {
-		int index = stateList.indexOf(current);
-		if(index >= 0 && index < stateList.size())
-		{
-			currentIndex = index;
-		}
+		this.current = current;
     }
 }
