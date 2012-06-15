@@ -1,27 +1,21 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.DependencyException;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PlaceNode;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
@@ -32,19 +26,126 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 public class TransitionFiringManager
 {
-	private Map<IDWrapper, Place> placeMap = new HashMap<IDWrapper, Place>();
 	private FlatAccess flatAccess = null;
 	public TransitionFiringManager(FlatAccess flatAccess)
 	{
 		this.flatAccess = flatAccess;
-		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
-		{
-			this.placeMap.put(new IDWrapper(place), (Place)place);
-		}
 	}
 	
-	public Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> createNextMarking(EvaluationManager evalManager,
-			Map<IDWrapper, MSValue> oldValuesMap, FiringMode firingMode)
+    public void updateState(IRuntimeState state, TransitionManager transitionManager)
+    {
+    	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(state.getValues(),
+    			flatAccess.getTransitions(), transitionManager);
+        
+        for(IDWrapper transition : firingModes.keySet())
+        {
+        	state.addFiringModes((Transition)transition.getId(), firingModes.get(transition));
+        }
+    }
+	
+    public IRuntimeState createNextState(IRuntimeState prevState, 
+    		EvaluationManager evaluationManager, FiringMode firingMode, 
+    		TransitionManager transitionManager)
+    {
+    	Map<IDWrapper, MSValue> currentValues = prevState.getClonedValues();
+    	
+    	Map<IDWrapper, MSValue> result = createNextMarking(evaluationManager, 
+    			currentValues, firingMode, flatAccess);
+    	
+    	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(result,
+    			flatAccess.getTransitions(), transitionManager);
+        
+    	IRuntimeState runtimeState = new RuntimeState();
+    	for(IDWrapper place : result.keySet())
+        {
+        	runtimeState.addValue((Place)place.getId(), result.get(place));
+        }
+        for(IDWrapper transition : firingModes.keySet())
+        {
+        	runtimeState.addFiringModes((Transition)transition.getId(), firingModes.get(transition));
+        }
+        
+        return runtimeState;
+    }
+    
+    public IRuntimeState createInitialState(EvaluationManager evalManager,
+            List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
+            TransitionManager transitionManager)
+    {        
+        RuntimeState runtimeState = new RuntimeState();
+        
+        for(org.pnml.tools.epnk.pnmlcoremodel.Place place : flatAccess.getPlaces())
+		{
+			Place hlPlace = (Place)place;
+			
+			MSValue msValue = null;
+			
+			if(hlPlace.getHlinitialMarking() != null &&
+					hlPlace.getHlinitialMarking().getStructure() != null)
+			{
+				Term term = hlPlace.getHlinitialMarking().getStructure();
+				
+                try
+                {
+                	msValue = (MSValue)evalManager.evaluate(term, null);
+                }
+                catch(UnknownVariableException e)
+                {
+	                e.printStackTrace();
+                }
+			}
+			
+			if(msValue == null)
+			{
+				msValue = new MSValue();
+                msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+			}
+			
+			runtimeState.addValue(hlPlace, msValue);
+		}
+        
+        Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(runtimeState.getValues(),
+    			flatAccess.getTransitions(), transitionManager);
+        
+        for(IDWrapper transition : firingModes.keySet())
+        {
+        	runtimeState.addFiringModes((Transition)transition.getId(), firingModes.get(transition));
+        }
+        return runtimeState;
+    }
+    
+	private static Map<IDWrapper, List<FiringMode>> computeFiringModes(Map<IDWrapper, MSValue> runtimeValues,
+			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
+			TransitionManager transitionManager)
+	{
+		Map<IDWrapper, List<FiringMode>> modes = new HashMap<IDWrapper, List<FiringMode>>();
+		
+		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
+		{
+			Transition hlTransition = (Transition)transition;
+			List<FiringMode> assignments = null;
+            try
+            {
+            	assignments = transitionManager.checkTransition(hlTransition, 
+            			runtimeValues);
+            }
+            catch(Exception e)
+            {
+	            e.printStackTrace();
+            }
+            finally
+            {
+            	if(assignments != null && assignments.size() > 0)
+            	{
+            		modes.put(new IDWrapper(hlTransition), assignments);
+            	}
+            }
+		}
+		return modes;
+	}
+	
+	private static Map<IDWrapper, MSValue> createNextMarking(EvaluationManager evalManager,
+			Map<IDWrapper, MSValue> oldValuesMap, FiringMode firingMode, FlatAccess flatAccess)
 	{
 		Set<IDWrapper> oldPlaces = new HashSet<IDWrapper>(oldValuesMap.keySet());
 		Map<IDWrapper, MSValue> newValuesMap = new HashMap<IDWrapper, MSValue>();
@@ -61,7 +162,7 @@ public class TransitionFiringManager
 		// updates outgoing places
 		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : firingMode.getTransition().getOut())
 		{
-			Place place = (Place)this.flatAccess.resolve((PlaceNode)arc.getTarget());
+			Place place = (Place)flatAccess.resolve((PlaceNode)arc.getTarget());
 			if(place != null)
 			{
 				IDWrapper placeId = new IDWrapper(place);
@@ -107,8 +208,6 @@ public class TransitionFiringManager
 			}
 		}
 		
-		List<Pair<Place, MSValue>> runtimeValues = new ArrayList<Pair<Place,MSValue>>();
-		
 		for(IDWrapper key : oldValuesMap.keySet())
 		{
 			if(!newValuesMap.containsKey(key))
@@ -117,167 +216,6 @@ public class TransitionFiringManager
 			}
 		}
 		
-		for(IDWrapper key : newValuesMap.keySet())
-		{
-			Pair<Place, MSValue> p = new Pair<Place, MSValue>();
-			p.setKey(placeMap.get(key));
-			p.setValue(newValuesMap.get(key));
-			runtimeValues.add(p);
-		}
-		
-		Pair<List<Pair<Place, MSValue>>, Map<IDWrapper, MSValue>> p = 
-				new Pair<List<Pair<Place,MSValue>>, Map<IDWrapper,MSValue>>();
-		p.setKey(runtimeValues);
-		p.setValue(newValuesMap);
-		return p;
+		return newValuesMap;
 	}
-	
-	public List<Pair<Place, MSValue>> createInitialMarking(EvaluationManager evalManager)
-	{
-		List<Pair<Place, MSValue>> runtimeValues = new ArrayList<Pair<Place,MSValue>>();
-		for(org.pnml.tools.epnk.pnmlcoremodel.Place place : this.flatAccess.getPlaces())
-		{
-			Place hlPlace = (Place)place;
-			
-			MSValue msValue = null;
-			
-			if(hlPlace.getHlinitialMarking() != null &&
-					hlPlace.getHlinitialMarking().getStructure() != null)
-			{
-				Term term = hlPlace.getHlinitialMarking().getStructure();
-				
-                try
-                {
-                	msValue = (MSValue)evalManager.evaluate(term, null);
-                }
-                catch(UnknownVariableException e)
-                {
-	                e.printStackTrace();
-                }
-			}
-			
-			if(msValue == null)
-			{
-				msValue = new MSValue();
-                msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
-			}
-			
-			Pair<Place, MSValue> pair = new Pair<Place, MSValue>();
-			pair.setKey(hlPlace);
-			pair.setValue(msValue);
-			
-			runtimeValues.add(pair);
-		}
-		return runtimeValues;
-	}
-	
-	public List<Pair<Place, MSValue>> copyPrevPlaceMarking(NetMarking prevMarking)
-	{
-		List<Pair<Place, MSValue>> runtimeValues = new ArrayList<Pair<Place,MSValue>>();
-		
-		for(AbstractMarking marking : prevMarking.getMarkings())
-		{
-			if(marking instanceof PlaceMarking)
-			{
-				Pair<Place, MSValue> pair = new Pair<Place, MSValue>();
-				pair.setKey(((PlaceMarking) marking).getPlace());
-				pair.setValue(((PlaceMarking) marking).getMsValue());
-				
-				runtimeValues.add(pair);
-			}
-		}
-
-		return runtimeValues;
-	}
-	
-	public List<FiringMode> computeFiringModes(
-			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
-			Map<IDWrapper, MSValue> runtimeValues, TransitionManager transitionManager)
-	{
-		List<FiringMode> firingModes = new ArrayList<FiringMode>();
-		
-		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
-		{
-			Transition hlTransition = (Transition)transition;
-			List<FiringMode> assignments = null;
-            try
-            {
-            	assignments = transitionManager.checkTransition(hlTransition, runtimeValues);
-            }
-            catch(DependencyException e)
-            {
-	            e.printStackTrace();
-            }
-            catch(UnknownVariableException e)
-            {
-	            e.printStackTrace();
-            }
-            finally
-            {
-            	if(assignments != null && assignments.size() > 0)
-            	{
-            		for(FiringMode mode : assignments)
-            		{
-            			if(mode != null && mode.getParams().size() > 0)
-            			{
-            				firingModes.add(mode);
-            			}
-            		}
-            	}
-            }
-		}
-		
-		return firingModes;
-	}
-	
-	public Map<IDWrapper, MSValue> createRuntimeValueMap(List<Pair<Place, MSValue>> runtimeValuesList)
-	{
-		// puts place markings into a map for a better performance
-		Map<IDWrapper, MSValue> runtimeValues = new HashMap<IDWrapper, MSValue>();
-		
-		for(Pair<Place, MSValue> pair : runtimeValuesList)
-		{
-			runtimeValues.put(new IDWrapper(pair.getKey()), pair.getValue());
-		}
-		
-		return runtimeValues;
-	}
-	
-    /* ---------------------------------------------------------------------- */
-    public IRuntimeState createInitialState(EvaluationManager evalManager,
-            List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
-            TransitionManager transitionManager)
-    {
-        List<Pair<Place, MSValue>> initMarking = createInitialMarking(evalManager);
-        
-        RuntimeState runtimeState = new RuntimeState();
-        
-        for(Pair<Place, MSValue> p : initMarking)
-        {
-            runtimeState.addValue(p.getKey(), p.getValue());
-        }
-        
-        for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
-        {
-            Transition hlTransition = (Transition)transition;
-            List<FiringMode> assignments = null;
-            try
-            {
-                assignments = transitionManager.checkTransition(hlTransition, runtimeState.getValues());
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-            finally
-            {
-                if(assignments != null && assignments.size() > 0)
-                {
-                    runtimeState.addFiringModes(hlTransition, assignments);
-                }
-            }
-        }
-        
-        return runtimeState;
-    }
 }
