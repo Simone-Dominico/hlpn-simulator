@@ -4,6 +4,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
@@ -18,7 +19,7 @@ public class SimulationViewController
 		this.simulator = simulator;
 	}
 
-	public void record(FiringMode firingMode, final int index)
+	public void record(FiringMode firingMode, final IRuntimeState runtimeState)
 	{
 		if (getView() != null) 
 		{
@@ -31,7 +32,7 @@ public class SimulationViewController
 			{
 				public void run()
 				{
-					simulationView.record(text, index);
+					simulationView.record(text, runtimeState);
 				}
 			});
 		}
@@ -56,7 +57,7 @@ public class SimulationViewController
 	
 	public void itemSelected(Object data)
 	{
-		simulator.show((Integer)data);
+		simulator.show((IRuntimeState)data);
 	}
 
 	public IViewPart getView()
