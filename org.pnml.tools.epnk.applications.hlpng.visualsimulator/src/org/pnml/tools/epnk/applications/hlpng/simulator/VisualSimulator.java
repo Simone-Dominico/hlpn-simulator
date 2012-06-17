@@ -18,6 +18,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
@@ -45,8 +46,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	private ExtensionManager extensionManager = null;
 
 	// each time a transition is fired an associated animation is registered here 
-	private Set<Integer> runningAnimations = new HashSet<Integer>();
-	
+	private Set<Integer> runningAnimations = null;
+
 	public VisualSimulator(PetriNet petrinet,
             EvaluationManager evaluationManager,
             ComparisonManager comparisonManager,
@@ -98,6 +99,13 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			function.setVisualSimulator(this);
 		}
 		
+		// nothing can run after start up
+		this.runningAnimations = new HashSet<Integer>();
+		for(String key : modelMap.keySet())
+		{
+			runningAnimations.add(modelMap.get(key));
+		}
+		
 		// make animator visible
 		this.animator.setWindow(new Window(animator));
 		this.animator.setSimulator(this);
@@ -123,7 +131,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		{
 			runningAnimations.remove(ItemID);
 			
-			fireAll();
+			fireAll(stateContainer, this);
 		}
     }
 	
@@ -132,27 +140,15 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     {
 		animator.setUpdatePosition(true);
 		
-		fireAll();
+		fireAll(stateContainer, this);
     }
 	
 	@Override
     public void reset(IAnimator animator)
     {
 		runningAnimations = new HashSet<Integer>();		
-		go(extensionManager, animator);
+		go(this);
     }
-
-	private void fireAll()
-	{
-		IRuntimeState state = stateContainer.getCurrent();
-		updateTransitionBinding(state);
-		while(state.getTransitions().size() > 0)
-		{
-			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
-			fire(state.getFiringModes(transitions.get(0)).get(0));
-			state = stateContainer.getCurrent();
-		}
-	}
 	
 	@Override
     public void stop(IAnimator animator)
@@ -163,14 +159,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void initCompleted(IAnimator animator)
     {
-		go(extensionManager, animator);
+		go(this);
     }
-
-	private void go(ExtensionManager extensionManager, IAnimator animator)
-	{
-		init();
-		placeObjects(this.stateContainer.getCurrent(), extensionManager);
-	}
 
 	/*
 	 * Visual simulator methods start here
@@ -228,21 +218,10 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
 		
 		// completing the moving objects animation
-		List<Integer> dynamicObjs = new ArrayList<Integer>();
-		for(Integer runningId : runningAnimations)
-		{
-			if(!staticItemMap.values().contains(runningId))
-			{
-				dynamicObjs.add(runningId);
-			}
-		}
-		for(Integer id : dynamicObjs)
-		{
-			runningAnimations.remove(id);
-		}
-		
+		this.runningAnimations = new HashSet<Integer>();
+
 		stop(animator);
-		placeObjects(state, extensionManager);
+		placeObjects(state, extensionManager, this);
     }
 	
 	@Override
@@ -296,7 +275,11 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	    super.shutDown();
     }
 
-	private static void placeObjects(IRuntimeState state, ExtensionManager extensionManager)
+	/*
+	 * private static functions start here
+	 */
+	private static void placeObjects(IRuntimeState state, 
+			ExtensionManager extensionManager, VisualSimulator simulator)
 	{
 		for(IDWrapper placeId : state.getPlaces())
 		{
@@ -321,13 +304,36 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 				{
 					IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR_POINT");
 					AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+					
+					IEvaluator triggerEvaluator = extensionManager.getHandlers().get("TRIGGER");
+					AbstractFunction triggerFunction = (AbstractFunction) triggerEvaluator;
 
 					for(AbstractValue value : msValue.getValues().keySet())
 					{
 						appearFunction.execute(((ProductValue)value).getComponents());
+						triggerFunction.execute(((ProductValue)value).getComponents());
 					}
 				}
 			}
 		}
+		simulator.updateTransitionBinding(state);
+	}
+	
+	private static void fireAll(IRuntimeStateContainer stateContainer, VisualSimulator simulator)
+	{
+		IRuntimeState state = stateContainer.getCurrent();
+		simulator.updateTransitionBinding(state);
+		while(state.getTransitions().size() > 0)
+		{
+			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
+			simulator.fire(state.getFiringModes(transitions.get(0)).get(0));
+			state = stateContainer.getCurrent();
+		}
+	}
+	
+	private static void go(VisualSimulator simulator)
+	{
+		simulator.init();
+		simulator.show(simulator.stateContainer.getCurrent());
 	}
 }
