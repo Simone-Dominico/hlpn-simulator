@@ -18,7 +18,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
-import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
@@ -73,10 +72,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 						int id = animator.createStaticItem(g, null, globalAppearancepath);
 						registerStaticItem(g.getId(), id);
 					}
-					catch(Exception e)
-					{
-						System.err.println("WRN: failed to create static item: " + e);
-					}
+					catch(Exception e){}
 				}
 			}
 		}
@@ -97,13 +93,6 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			function.setGeometryMap(geometryMap);
 			function.setShapeMap(shapeMap);
 			function.setVisualSimulator(this);
-		}
-		
-		// nothing can run after start up
-		this.runningAnimations = new HashSet<Integer>();
-		for(String key : modelMap.keySet())
-		{
-			runningAnimations.add(modelMap.get(key));
 		}
 		
 		// make animator visible
@@ -131,7 +120,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		{
 			runningAnimations.remove(ItemID);
 			
-			fireAll(stateContainer, this);
+			fireAll(this);
 		}
     }
 	
@@ -140,7 +129,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     {
 		animator.setUpdatePosition(true);
 		
-		fireAll(stateContainer, this);
+		fireAll(this);
     }
 	
 	@Override
@@ -214,14 +203,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     public void show(IRuntimeState state)
     {
 		stateContainer.setCurrent(state);
-		// creating an annotation layer
-		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
-		
 		// completing the moving objects animation
 		this.runningAnimations = new HashSet<Integer>();
-
 		stop(animator);
-		placeObjects(state, extensionManager, this);
+		placeObjects(state, extensionManager);
+		// update transition bindings
+		updateTransitionBinding(state);
+		// creating an annotation layer
+		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
     }
 	
 	@Override
@@ -279,7 +268,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	 * private static functions start here
 	 */
 	private static void placeObjects(IRuntimeState state, 
-			ExtensionManager extensionManager, VisualSimulator simulator)
+			ExtensionManager extensionManager)
 	{
 		for(IDWrapper placeId : state.getPlaces())
 		{
@@ -316,23 +305,29 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 				}
 			}
 		}
-		simulator.updateTransitionBinding(state);
 	}
 	
-	private static void fireAll(IRuntimeStateContainer stateContainer, VisualSimulator simulator)
+	private static void fireAll(VisualSimulator simulator)
 	{
-		IRuntimeState state = stateContainer.getCurrent();
+		IRuntimeState state = simulator.stateContainer.getCurrent();
 		simulator.updateTransitionBinding(state);
 		while(state.getTransitions().size() > 0)
 		{
 			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
 			simulator.fire(state.getFiringModes(transitions.get(0)).get(0));
-			state = stateContainer.getCurrent();
+			
+			state = simulator.stateContainer.getCurrent();
 		}
 	}
 	
 	private static void go(VisualSimulator simulator)
 	{
+		// nothing can run after start up
+		simulator.runningAnimations = new HashSet<Integer>();
+		for(String key : simulator.modelMap.keySet())
+		{
+			simulator.runningAnimations.add(simulator.modelMap.get(key));
+		}
 		simulator.init();
 		simulator.show(simulator.stateContainer.getCurrent());
 	}
