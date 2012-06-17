@@ -62,7 +62,9 @@ public class SimulationViewController
 
 	public IViewPart getView()
     {
-		if(view == null)
+		if(view == null && PlatformUI.getWorkbench() != null && 
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
 		{
 			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			view = activePage.findView(SimulationView.ID);
