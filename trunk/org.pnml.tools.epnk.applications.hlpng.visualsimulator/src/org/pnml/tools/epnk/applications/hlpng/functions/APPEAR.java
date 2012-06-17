@@ -26,7 +26,9 @@ public class APPEAR extends AbstractFunction
 		int modelId = visualSimulator.getModelId(shape.getId());
 		int staticItemId = visualSimulator.getStaticItemId(gObj.getId());
 
-		animator.appear(modelId, staticItemId, true);
+		animator.appearEnd(modelId, staticItemId, true);
+		
+		visualSimulator.animationFinished(modelId, animator);
 		
 		return null;
 	}
