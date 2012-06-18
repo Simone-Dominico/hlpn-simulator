@@ -61,6 +61,9 @@ public class HLSimulator extends Application
 	    
 	    this.font = font;
 		
+	    this.simulationViewController = new SimulationViewController(this);
+	    this.flatAccess = new FlatAccess(this.petrinet);
+	    
 	    if(init)
 	    {
 	    	init();	
@@ -71,8 +74,6 @@ public class HLSimulator extends Application
 	public void init()
 	{
 		this.stateContainer = new RuntimeStateList();
-		this.simulationViewController = new SimulationViewController(this);
-		this.flatAccess = new FlatAccess(this.petrinet);
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
 	    		"Auto transition firing", this, this.simulationPause);
@@ -114,8 +115,6 @@ public class HLSimulator extends Application
     {
 		// updates state transition binding
 		this.transitionFiringManager.updateState(state, transitionManager);
-		// creating an annotation layer
-		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
     }
 	
 	@Override
