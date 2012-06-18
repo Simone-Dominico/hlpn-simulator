@@ -17,6 +17,9 @@ public class SimulationViewController
 	public SimulationViewController(ISimulator simulator)
 	{
 		this.simulator = simulator;
+		// init
+		getView();
+		getDisplay();
 	}
 
 	public void record(FiringMode firingMode, final IRuntimeState runtimeState)
