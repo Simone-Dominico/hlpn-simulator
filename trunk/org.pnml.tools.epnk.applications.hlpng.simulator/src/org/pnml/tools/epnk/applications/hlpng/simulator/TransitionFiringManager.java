@@ -34,6 +34,8 @@ public class TransitionFiringManager
 	
     public void updateState(IRuntimeState state, TransitionManager transitionManager)
     {
+    	state.getModes().clear();
+    	
     	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(state.getValues(),
     			flatAccess.getTransitions(), transitionManager);
         
