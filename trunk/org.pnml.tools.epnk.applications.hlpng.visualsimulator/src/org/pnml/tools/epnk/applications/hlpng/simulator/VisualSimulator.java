@@ -94,7 +94,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			function.setShapeMap(shapeMap);
 			function.setVisualSimulator(this);
 		}
-		
+
 		// make animator visible
 		this.animator.setWindow(new Window(animator));
 		this.animator.setSimulator(this);
@@ -134,8 +134,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	
 	@Override
     public void reset(IAnimator animator)
-    {
-		runningAnimations = new HashSet<Integer>();		
+    {	
 		go(this);
     }
 	
@@ -203,12 +202,16 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     public void show(IRuntimeState state)
     {
 		stateContainer.setCurrent(state);
-		// completing the moving objects animation
-		this.runningAnimations = new HashSet<Integer>();
+		runningAnimations = new HashSet<Integer>();
+		for(String key : modelMap.keySet())
+		{
+			runningAnimations.add(modelMap.get(key));
+		}
 		stop(animator);
-		placeObjects(state, extensionManager);
 		// update transition bindings
 		updateTransitionBinding(state);
+		// nothing can run after start up
+		placeObjects(state, extensionManager);
 		// creating an annotation layer
 		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
     }
@@ -281,12 +284,12 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 				UserSort userSort = (UserSort)sort;
 				if(userSort.getName().equals("DYNAMIC_MODEL"))
 				{
-					IEvaluator appearEvaluator = extensionManager.getHandlers().get("APPEAR");
-					AbstractFunction appearFunction = (AbstractFunction) appearEvaluator;
+					IEvaluator moveEvaluator = extensionManager.getHandlers().get("MOVE");
+					AbstractFunction moveFunction = (AbstractFunction) moveEvaluator;
 					
 					for(AbstractValue value : msValue.getValues().keySet())
 					{
-						appearFunction.execute(((ProductValue)value).getComponents());	
+						moveFunction.execute(((ProductValue)value).getComponents());	
 					}
 				}
 				else if(userSort.getName().equals("STATIC_MODEL"))
