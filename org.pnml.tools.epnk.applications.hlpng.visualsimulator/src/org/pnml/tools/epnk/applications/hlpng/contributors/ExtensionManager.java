@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR;
 import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
 import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
 import org.pnml.tools.epnk.applications.hlpng.functions.READY;
@@ -25,7 +24,6 @@ public class ExtensionManager implements IUserExtensions
 	
 	public ExtensionManager()
 	{
-		register("APPEAR", new APPEAR());
 		register("APPEAR_POINT", new APPEAR_POINT());
 		register("MOVE", new MOVE());
 		register("READY", new READY());
