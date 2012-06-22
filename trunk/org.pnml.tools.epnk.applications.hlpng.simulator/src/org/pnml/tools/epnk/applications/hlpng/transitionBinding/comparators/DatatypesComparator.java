@@ -2,7 +2,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.DotValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
@@ -19,7 +19,7 @@ public class DatatypesComparator implements IComparable
 {
 
 	@Override
-	public boolean compare(Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, IValue testValue,
 	        Map<TermWrapper, TermAssignment> assignments)
 	{
 		if(refValue instanceof BooleanConstant && testValue instanceof BooleanValue &&

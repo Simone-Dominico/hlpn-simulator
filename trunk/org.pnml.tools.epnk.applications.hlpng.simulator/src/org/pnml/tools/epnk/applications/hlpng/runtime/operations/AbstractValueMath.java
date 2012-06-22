@@ -2,8 +2,8 @@ package org.pnml.tools.epnk.applications.hlpng.runtime.operations;
 
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
@@ -22,7 +22,7 @@ public class AbstractValueMath
 		return listValue;
 	}
 	
-	public static ListValue append(ListValue l, AbstractValue v)
+	public static ListValue append(ListValue l, IValue v)
 	{
 		ListValue listValue = new ListValue();
 		
@@ -53,12 +53,12 @@ public class AbstractValueMath
 		return listValue;
 	}
 	
-	public static AbstractValue at(ListValue l, int index)
+	public static IValue at(ListValue l, int index)
 	{
 		return l.getElements().get(index);
 	}
 	
-    public static MSValue add(MSValue msSet, AbstractValue value, Integer multiplicity)
+    public static MSValue add(MSValue msSet, IValue value, Integer multiplicity)
     {
     	MSValue mainSet = lightCopy(msSet);
     	
@@ -75,7 +75,7 @@ public class AbstractValueMath
     	return mainSet;
     }
     
-    public static MSValue subtract(MSValue msSet, AbstractValue value, int multiplicity)
+    public static MSValue subtract(MSValue msSet, IValue value, int multiplicity)
     {
     	MSValue newMsSet = add(msSet, value, multiplicity * -1);
     	
@@ -92,7 +92,7 @@ public class AbstractValueMath
     public static MSValue subtract(MSValue msSet1, IMSValue msSet2)
     {
     	MSValue newMsSet = lightCopy(msSet1);
-    	for(Entry<AbstractValue, Integer> entry : msSet2.entrySet())
+    	for(Entry<IValue, Integer> entry : msSet2.entrySet())
     	{
     		newMsSet = subtract(newMsSet, entry.getKey(), entry.getValue());
     	}
@@ -104,12 +104,12 @@ public class AbstractValueMath
     	MSValue msSet = new MSValue();
     	msSet.setSort(msSet1.getSort());
     	
-        for(Entry<AbstractValue, Integer> entry : msSet1.entrySet())
+        for(Entry<IValue, Integer> entry : msSet1.entrySet())
         {
         	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
         }
         
-        for(Entry<AbstractValue, Integer> entry : msSet2.entrySet())
+        for(Entry<IValue, Integer> entry : msSet2.entrySet())
         {
         	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
         }
@@ -130,9 +130,9 @@ public class AbstractValueMath
     // msSet1 <= msSet2
     public static boolean lessEqual(IMSValue msSet1, IMSValue msSet2)
     {    	
-        for(Entry<AbstractValue, Integer> entry1 : msSet1.entrySet())
+        for(Entry<IValue, Integer> entry1 : msSet1.entrySet())
         {
-        	AbstractValue key = entry1.getKey();
+        	IValue key = entry1.getKey();
         	Integer value = entry1.getValue();
         	
         	if(!msSet2.contains(key) || value > msSet2.get(key))

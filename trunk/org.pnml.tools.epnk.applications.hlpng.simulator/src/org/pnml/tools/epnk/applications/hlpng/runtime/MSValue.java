@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 
 public class MSValue extends AbstractValue implements IMSValue
 {
-	private Map<AbstractValue, Integer> values = new HashMap<AbstractValue, Integer>();
+	private Map<IValue, Integer> values = new HashMap<IValue, Integer>();
 
 	@Override
-    public Collection<Entry<AbstractValue, Integer>> entrySet()
+    public Collection<Entry<IValue, Integer>> entrySet()
     {
 	    return values.entrySet();
     }
@@ -22,33 +22,33 @@ public class MSValue extends AbstractValue implements IMSValue
     }
 	
 	@Override
-    public boolean contains(AbstractValue value)
+    public boolean contains(IValue value)
     {
 	    return values.containsKey(value);
     }
 	
 	@Override
-    public Integer get(AbstractValue value)
+    public Integer get(IValue value)
     {
 	    return values.get(value);
     }
 	
 	@Override
-    public void put(AbstractValue value, Integer multiplicity)
+    public void put(IValue value, Integer multiplicity)
     {
 	    values.put(value, multiplicity);
     }
 	
 	@Override
-    public void remove(AbstractValue value)
+    public void remove(IValue value)
     {
 	    values.remove(value);
     }
 	
 	@Override
-    public void putAll(Collection<Entry<AbstractValue, Integer>> entrySet)
+    public void putAll(Collection<Entry<IValue, Integer>> entrySet)
     {
-	    for(Entry<AbstractValue, Integer> entry : entrySet)
+	    for(Entry<IValue, Integer> entry : entrySet)
 	    {
 	    	values.put(entry.getKey(), entry.getValue());
 	    }
@@ -65,7 +65,7 @@ public class MSValue extends AbstractValue implements IMSValue
     {
     	StringBuffer buffer = new StringBuffer();
     	
-    	for(AbstractValue value : values.keySet())
+    	for(IValue value : values.keySet())
     	{
     		buffer.append(values.get(value));
     		buffer.append("`");

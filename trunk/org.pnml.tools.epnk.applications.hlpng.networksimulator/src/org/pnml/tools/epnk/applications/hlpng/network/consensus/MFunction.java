@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
@@ -20,19 +20,19 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
 public class MFunction implements IEvaluator
 {
-    private List<AbstractValue> messages = null;
+    private List<IValue> messages = null;
     private List<NodeWrapper> nodes = null;
     
     @Override
-    public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-            Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+    public IValue evaluate(Term term, EvaluationManager evaluationManager,
+            Map<TermWrapper, IValue> assignments) throws UnknownVariableException
     {
         Operator operator = (Operator) term;
-        List<AbstractValue> values = new ArrayList<AbstractValue>();
+        List<IValue> values = new ArrayList<IValue>();
         for(Term subterm : operator.getSubterm())
         {
             IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-            AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+            IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
             values.add(value);
         }
             
@@ -41,7 +41,7 @@ public class MFunction implements IEvaluator
         MSValue msValue = new MSValue();
         msValue.setSort(uOp.getOutputSort());
         
-        for(AbstractValue value : getMessages())
+        for(IValue value : getMessages())
         {
             msValue.put(value, 1);
         }
@@ -49,11 +49,11 @@ public class MFunction implements IEvaluator
         return msValue;
     }
     
-    public List<AbstractValue> getMessages()
+    public List<IValue> getMessages()
     {
         if(messages == null)
         {
-            messages = new ArrayList<AbstractValue>();
+            messages = new ArrayList<IValue>();
             for(NodeWrapper i : nodes)
             {
                 for(NodeWrapper j : nodes)
@@ -94,7 +94,7 @@ public class MFunction implements IEvaluator
     	this.nodes = nodes;
     }
 
-	public void setMessages(List<AbstractValue> messages)
+	public void setMessages(List<IValue> messages)
     {
     	this.messages = messages;
     }

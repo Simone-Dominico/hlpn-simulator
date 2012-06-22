@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 
 import Appearence.Shape;
@@ -22,7 +22,7 @@ public class APPEAR_POINT extends AbstractFunction
     }
 
 	@Override
-	public AbstractValue execute(List<AbstractValue> values)
+	public IValue execute(List<IValue> values)
 	{
 		// model object comes first
 		StringValue modelStr = (StringValue)values.get(0);

@@ -11,7 +11,7 @@ import org.pnml.tools.epnk.applications.hlpng.network.consensus.RFFunction;
 import org.pnml.tools.epnk.applications.hlpng.network.echo.M1Function;
 import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -66,8 +66,8 @@ public class NetworkExtensionManager implements IUserExtensions
 	}
 	
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		String name = ((UserOperator)term).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
@@ -115,7 +115,7 @@ public class NetworkExtensionManager implements IUserExtensions
     }
 
 	@Override
-    public AbstractValue evaluate(Sort sort)
+    public IValue evaluate(Sort sort)
     {
 	    if(sort instanceof UserSort && 
 	    		((UserSort)sort).getDeclaration() instanceof ArbitrarySort &&

@@ -2,7 +2,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
@@ -19,7 +19,7 @@ public class TupleComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, IValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		// FIXME: mla: errors in home made sort comparison
@@ -39,7 +39,7 @@ public class TupleComparator implements IComparable
     	for(int i = 0; i < v1.getSubterm().size(); i++)
     	{
     		Term c1 = v1.getSubterm().get(i);
-    		AbstractValue c2 = v2.getComponents().get(i);
+    		IValue c2 = v2.getComponents().get(i);
     		
     		if(!comparisonManager.getComparator(c1.getClass()).compare(c1, c2, assignments))
     		{

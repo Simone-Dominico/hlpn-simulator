@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
@@ -18,18 +18,18 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
 public class RFFunction implements IEvaluator
 {
-    private List<AbstractValue> messages = null;
+    private List<IValue> messages = null;
 
     @Override
-    public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-            Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+    public IValue evaluate(Term term, EvaluationManager evaluationManager,
+            Map<TermWrapper, IValue> assignments) throws UnknownVariableException
     {
         Operator operator = (Operator) term;
-        List<AbstractValue> values = new ArrayList<AbstractValue>();
+        List<IValue> values = new ArrayList<IValue>();
         for(Term subterm : operator.getSubterm())
         {
             IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-            AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+            IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
             values.add(value);
         }
             
@@ -38,8 +38,8 @@ public class RFFunction implements IEvaluator
         MSValue msValue = new MSValue();
         msValue.setSort(uOp.getOutputSort());
         
-        List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-        for(AbstractValue value : getMessagesBySender(list.get(0), messages))
+        List<IValue> list = new ArrayList<IValue>(values);
+        for(IValue value : getMessagesBySender(list.get(0), messages))
         {
             msValue.put(value, 1);
         }
@@ -47,11 +47,11 @@ public class RFFunction implements IEvaluator
         return msValue;
     }
     
-    private static List<AbstractValue> getMessagesBySender(AbstractValue sender, List<AbstractValue> allMessages)
+    private static List<IValue> getMessagesBySender(IValue sender, List<IValue> allMessages)
     {
-        List<AbstractValue> messages = new ArrayList<AbstractValue>();
+        List<IValue> messages = new ArrayList<IValue>();
         
-        for(AbstractValue pValue : allMessages)
+        for(IValue pValue : allMessages)
         {
             StringValue s = (StringValue)((ProductValue)pValue).getComponents().get(0);
             if(s.getData().equals(((StringValue)sender).getData()))
@@ -68,12 +68,12 @@ public class RFFunction implements IEvaluator
 	    return null;
     }
 
-	public List<AbstractValue> getMessages()
+	public List<IValue> getMessages()
     {
     	return messages;
     }
 
-	public void setMessages(List<AbstractValue> messages)
+	public void setMessages(List<IValue> messages)
     {
     	this.messages = messages;
     }

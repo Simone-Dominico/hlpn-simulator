@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.arbitrarydeclarations.ArbitraryOperator;
@@ -24,19 +24,19 @@ public class UserOperatorEval implements IEvaluator
 	}
 	
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{		
 		UserOperator userOperator = (UserOperator)term;
 		if(userOperator.getDeclaration() instanceof NamedOperator)
 		{
 			NamedOperator namedOperator = (NamedOperator) userOperator.getDeclaration();
 			
-			Map<TermWrapper, AbstractValue> newAssignments = new HashMap<TermWrapper, AbstractValue>();
+			Map<TermWrapper, IValue> newAssignments = new HashMap<TermWrapper, IValue>();
 			for(int i = 0; i < userOperator.getSubterm().size(); i++)
 			{
 				Term subterm = userOperator.getSubterm().get(i);
-				AbstractValue value = evaluationManager.evaluate(subterm, assignments);
+				IValue value = evaluationManager.evaluate(subterm, assignments);
 				
 				VariableWrapper varWrapper = new VariableWrapper();
 				Variable var = TermsFactory.eINSTANCE.createVariable();

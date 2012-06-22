@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
 public class DataTypeEvaluationManager
@@ -15,7 +16,7 @@ public class DataTypeEvaluationManager
 		handlers.put(targetObject, operator);
 	}
 	
-	public IDataTypeEvaluator getHandler(Class targetClass)
+	public IDataTypeEvaluator getHandler(Class<? extends Sort> targetClass)
 	{
 		if(handlers.containsKey(targetClass))
 		{
@@ -33,7 +34,7 @@ public class DataTypeEvaluationManager
 		handlers.remove(targetObject);
 	}
 	
-	public AbstractValue evaluate(Sort sort)
+	public IValue evaluate(Sort sort)
 	{
 		IDataTypeEvaluator evaluator = getHandler(sort.getClass());
 		

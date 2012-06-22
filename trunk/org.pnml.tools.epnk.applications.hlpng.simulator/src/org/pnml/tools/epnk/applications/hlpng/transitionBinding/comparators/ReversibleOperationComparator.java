@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
@@ -25,13 +25,13 @@ public class ReversibleOperationComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, AbstractValue testValue,
+	public boolean compare(Term refValue, IValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		boolean cannotEval = false;
 		try
         {
-            Set<AbstractValue> evals = evaluationManager.evaluateAll(refValue, assignments);
+            Set<IValue> evals = evaluationManager.evaluateAll(refValue, assignments);
             return evals.contains(testValue);
         }
         catch(UnknownVariableException e)

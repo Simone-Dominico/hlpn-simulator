@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
@@ -19,25 +19,25 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 public class ReversibleOperationManager
 {
 	private EvaluationManager evaluationManager = null;
-	private Map<Class, IReversibleOperation> handlers = null;
+	private Map<Class<? extends Term>, IReversibleOperation> handlers = null;
 	
 	public ReversibleOperationManager(EvaluationManager evaluationManager)
 	{
 		this.evaluationManager = evaluationManager;
-		this.handlers = new HashMap<Class, IReversibleOperation>();
+		this.handlers = new HashMap<Class<? extends Term>, IReversibleOperation>();
 	}
 	
-	public void register(Class targetClass, IReversibleOperation operator)
+	public void register(Class<? extends Term> targetClass, IReversibleOperation operator)
 	{
 		handlers.put(targetClass, operator);
 	}
 	
-	public void unregister(Class targetClass)
+	public void unregister(Class<? extends Term> targetClass)
 	{
 		handlers.remove(targetClass);
 	}
 
-	public AbstractReversibleOperation createHandler(Class c)
+	public AbstractReversibleOperation createHandler(Class<? extends Term> c)
 	{
 		try
         {
@@ -52,19 +52,19 @@ public class ReversibleOperationManager
 		return null;
 	}
 	
-	public boolean resolve(AbstractValue result, IReversibleOperation operation,
+	public boolean resolve(IValue result, IReversibleOperation operation,
 			Map<TermWrapper, TermAssignment> knownVariables)
 	{
 		Term unknownTerm = null;
 		int numberOfUnknowns = 0;
 		List<Boolean> termEval = new ArrayList<Boolean>();
-		List<Set<AbstractValue>> known = new ArrayList<Set<AbstractValue>>();
+		List<Set<IValue>> known = new ArrayList<Set<IValue>>();
 		
 		for(Term arg : ((Operator)operation.getRootTerm()).getSubterm())
 		{
 			try
             {
-				Set<AbstractValue> value = evaluationManager.evaluateAll(arg, knownVariables);
+				Set<IValue> value = evaluationManager.evaluateAll(arg, knownVariables);
 				known.add(value);
 				termEval.add(true);
             }
@@ -86,20 +86,20 @@ public class ReversibleOperationManager
 		}
 		
 		// only 1 unknown argument
-		List<List<AbstractValue>> setsOfResults = null;
+		List<List<IValue>> setsOfResults = null;
 		{
-			List<List<AbstractValue>> list = new ArrayList<List<AbstractValue>>();
-			for(Set<AbstractValue> set : known)
+			List<List<IValue>> list = new ArrayList<List<IValue>>();
+			for(Set<IValue> set : known)
 			{
-				list.add(new ArrayList<AbstractValue>(set));
+				list.add(new ArrayList<IValue>(set));
 			}
-			CartesianProduct<AbstractValue> product = new CartesianProduct<AbstractValue>();
+			CartesianProduct<IValue> product = new CartesianProduct<IValue>();
 			setsOfResults = product.product(list);
 		}
 		
 		if(unknownTerm instanceof Variable)
 		{
-			for(List<AbstractValue> args : setsOfResults)
+			for(List<IValue> args : setsOfResults)
 			{
 				Variable var = (Variable)unknownTerm;
 				
@@ -107,7 +107,7 @@ public class ReversibleOperationManager
 				rv.setRootTerm(var);
 				rv.setVariable(var);
 				
-				AbstractValue value = operation.reverseAll(result, args, termEval.get(0));
+				IValue value = operation.reverseAll(result, args, termEval.get(0));
 				if(knownVariables.containsKey(rv))
 				{
 					knownVariables.get(rv).getValues().add(value);
@@ -127,19 +127,19 @@ public class ReversibleOperationManager
 		IReversibleOperation op = createHandler(unknownTerm.getClass());
 		op.setRootTerm(unknownTerm);
 		
-		List<AbstractValue> resultList = new ArrayList<AbstractValue>();
-		for(List<AbstractValue> args : setsOfResults)
+		List<IValue> resultList = new ArrayList<IValue>();
+		for(List<IValue> args : setsOfResults)
 		{
 			resultList.add(operation.reverseAll(result, args, termEval.get(0)));
 		}
 		return resolveAll(resultList, op, knownVariables);
 	}
 	
-	public boolean resolveAll(Collection<AbstractValue> result, IReversibleOperation operation,
+	public boolean resolveAll(Collection<IValue> result, IReversibleOperation operation,
 			Map<TermWrapper, TermAssignment> knownVariables)
 	{
 		List<Map<TermWrapper, TermAssignment>> copies = new ArrayList<Map<TermWrapper,TermAssignment>>();
-		for(AbstractValue value : result)
+		for(IValue value : result)
 		{
 			Map<TermWrapper, TermAssignment> copy = copyMap(knownVariables);
 			copies.add(copy);

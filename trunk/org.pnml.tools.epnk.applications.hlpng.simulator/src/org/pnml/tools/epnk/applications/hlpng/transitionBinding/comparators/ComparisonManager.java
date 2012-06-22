@@ -3,6 +3,8 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
+
 public class ComparisonManager
 {
 	private Map<Object, IComparable> handlers = new HashMap<Object, IComparable>();
@@ -12,7 +14,7 @@ public class ComparisonManager
 		handlers.put(targetObject, comparator);
 	}
 	
-	public IComparable getComparator(Class targetClass)
+	public IComparable getComparator(Class<? extends Term> targetClass)
 	{
 		if(handlers.containsKey(targetClass))
 		{

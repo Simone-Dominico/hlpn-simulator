@@ -5,14 +5,14 @@ import java.util.List;
 
 public class ListValue extends AbstractValue
 {
-	private List<AbstractValue> elements = new ArrayList<AbstractValue>();
+	private List<IValue> elements = new ArrayList<IValue>();
 
-	public List<AbstractValue> getElements()
+	public List<IValue> getElements()
     {
     	return elements;
     }
 
-	public void setElements(List<AbstractValue> elements)
+	public void setElements(List<IValue> elements)
     {
     	this.elements = elements;
     }
@@ -66,7 +66,7 @@ public class ListValue extends AbstractValue
 			buffer.append(elements.get(0).toString());
 			for(int i = 1; i < elements.size(); i++)
 			{
-				AbstractValue el = elements.get(i);
+				IValue el = elements.get(i);
 				buffer.append("," + el.toString());
 			}	
 		}

@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
@@ -12,15 +12,15 @@ public class FiringMode
 	// place ID <=> actual inscription value
 	private Map<IDWrapper, MSValue> values = new HashMap<IDWrapper, MSValue>();
 	// variable name <=> variable assignment
-	private Map<TermWrapper, AbstractValue> params = null;
+	private Map<TermWrapper, IValue> params = null;
 	
 	private Transition transition = null;
 
-	public Map<TermWrapper, AbstractValue> getParams()
+	public Map<TermWrapper, IValue> getParams()
     {
     	return params;
     }
-	public void setParams(Map<TermWrapper, AbstractValue> params)
+	public void setParams(Map<TermWrapper, IValue> params)
     {
     	this.params = params;
     }

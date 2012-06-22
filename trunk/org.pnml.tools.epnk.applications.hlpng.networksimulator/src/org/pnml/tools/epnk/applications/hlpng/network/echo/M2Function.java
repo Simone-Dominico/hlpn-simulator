@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
@@ -25,15 +25,15 @@ public class M2Function implements IEvaluator
     private Map<Integer, NodeWrapper> nodeIdMap = null;
 
     @Override
-    public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-            Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+    public IValue evaluate(Term term, EvaluationManager evaluationManager,
+            Map<TermWrapper, IValue> assignments) throws UnknownVariableException
     {
         Operator operator = (Operator) term;
-        List<AbstractValue> values = new ArrayList<AbstractValue>();
+        List<IValue> values = new ArrayList<IValue>();
         for(Term subterm : operator.getSubterm())
         {
             IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-            AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+            IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
             values.add(value);
         }
             
@@ -42,8 +42,8 @@ public class M2Function implements IEvaluator
         MSValue msValue = new MSValue();
         msValue.setSort(uOp.getOutputSort());
         
-        List<AbstractValue> list = new ArrayList<AbstractValue>(values);
-        for(AbstractValue value : getM2(graph, nodeMap, nodeIdMap, list.get(0)))
+        List<IValue> list = new ArrayList<IValue>(values);
+        for(IValue value : getM2(graph, nodeMap, nodeIdMap, list.get(0)))
         {
             msValue.put(value, 1);
         }
@@ -51,10 +51,10 @@ public class M2Function implements IEvaluator
         return msValue;
     }
     
-    private static List<AbstractValue> getM2(Integer[][] graph, Map<String, NodeWrapper> nodeMap,
-            Map<Integer, NodeWrapper> nodeIdMap, AbstractValue receiver)
+    private static List<IValue> getM2(Integer[][] graph, Map<String, NodeWrapper> nodeMap,
+            Map<Integer, NodeWrapper> nodeIdMap, IValue receiver)
     {
-        List<AbstractValue> messages = new ArrayList<AbstractValue>();
+        List<IValue> messages = new ArrayList<IValue>();
         
         int receiverIndex = nodeMap.get(((StringValue)receiver).getData()).getId();
         

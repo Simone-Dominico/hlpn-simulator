@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -15,19 +15,19 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public class AdditionEval extends AbstractIntegerOperation
 {
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		Operator operator = (Operator) term;
-		List<AbstractValue> values = new ArrayList<AbstractValue>();
+		List<IValue> values = new ArrayList<IValue>();
 		for(Term subterm : operator.getSubterm())
 		{
 			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
 			
-		AbstractValue result = null;
+		IValue result = null;
 		{
 			NumberValue number = (NumberValue)values.get(0);
 			
@@ -39,7 +39,7 @@ public class AdditionEval extends AbstractIntegerOperation
 			result = res;
 		}
 		
-		for(AbstractValue value : values)
+		for(IValue value : values)
 		{
 			result = evaluate(result, value, (Operator)rootTerm);
 		}
