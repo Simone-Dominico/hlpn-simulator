@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
 public class FiringMode
 {
 	// place ID <=> actual inscription value
-	private Map<IDWrapper, MSValue> values = new HashMap<IDWrapper, MSValue>();
+	private Map<IDWrapper, IMSValue> values = new HashMap<IDWrapper, IMSValue>();
 	// variable name <=> variable assignment
 	private Map<TermWrapper, IValue> params = null;
 	
@@ -24,11 +24,11 @@ public class FiringMode
     {
     	this.params = params;
     }
-	public Map<IDWrapper, MSValue> getValues()
+	public Map<IDWrapper, IMSValue> getValues()
     {
     	return values;
     }
-	public void setValues(Map<IDWrapper, MSValue> values)
+	public void setValues(Map<IDWrapper, IMSValue> values)
     {
     	this.values = values;
     }

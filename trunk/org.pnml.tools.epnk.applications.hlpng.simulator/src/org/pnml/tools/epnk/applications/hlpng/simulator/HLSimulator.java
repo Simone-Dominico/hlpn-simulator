@@ -9,6 +9,7 @@ import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
@@ -35,6 +36,7 @@ public class HLSimulator extends Application
 	
 	protected TransitionManager transitionManager = null;
 	protected TransitionFiringManager transitionFiringManager = null;
+	protected RuntimeValueFactory runtimeValueFactory = null;
 	
 	protected AutoModeJob autoMode = null;
 	protected SimulationViewController simulationViewController = null;
@@ -51,13 +53,14 @@ public class HLSimulator extends Application
 	public HLSimulator(PetriNet petrinet, EvaluationManager evaluationManager, 
 			ComparisonManager comparisonManager, 
 			ReversibleOperationManager reversibleOperationManager, Font font,
-			boolean init)
+			RuntimeValueFactory runtimeValueFactory, boolean init)
     {
 	    super(petrinet);
 	    
 	    this.evaluationManager = evaluationManager;
 	    this.comparisonManager = comparisonManager;
 	    this.reversibleOperationManager = reversibleOperationManager;
+	    this.runtimeValueFactory = runtimeValueFactory;
 	    
 	    this.font = font;
 		
@@ -74,7 +77,8 @@ public class HLSimulator extends Application
 	public void init()
 	{
 		this.stateContainer = new RuntimeStateList();
-	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess);
+	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess,
+	    		this.runtimeValueFactory);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
 	    		"Auto transition firing", this, this.simulationPause);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,

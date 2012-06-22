@@ -5,8 +5,8 @@ import java.util.Map.Entry;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 
 public class AbstractValueMath
@@ -58,9 +58,10 @@ public class AbstractValueMath
 		return l.getElements().get(index);
 	}
 	
-    public static MSValue add(MSValue msSet, IValue value, Integer multiplicity)
+    public static IMSValue add(IMSValue msSet, IValue value, Integer multiplicity,
+    		RuntimeValueFactory factory)
     {
-    	MSValue mainSet = lightCopy(msSet);
+    	IMSValue mainSet = lightCopy(msSet, factory);
     	
     	if(mainSet.contains(value))
         {
@@ -75,9 +76,10 @@ public class AbstractValueMath
     	return mainSet;
     }
     
-    public static MSValue subtract(MSValue msSet, IValue value, int multiplicity)
+    public static IMSValue subtract(IMSValue msSet, IValue value, int multiplicity,
+    		RuntimeValueFactory factory)
     {
-    	MSValue newMsSet = add(msSet, value, multiplicity * -1);
+    	IMSValue newMsSet = add(msSet, value, multiplicity * -1, factory);
     	
     	Integer count = newMsSet.get(value);
     	
@@ -89,37 +91,37 @@ public class AbstractValueMath
     	return newMsSet;
     }
     
-    public static MSValue subtract(MSValue msSet1, IMSValue msSet2)
+    public static IMSValue subtract(IMSValue msSet1, IMSValue msSet2, RuntimeValueFactory factory)
     {
-    	MSValue newMsSet = lightCopy(msSet1);
+    	IMSValue newMsSet = lightCopy(msSet1, factory);
     	for(Entry<IValue, Integer> entry : msSet2.entrySet())
     	{
-    		newMsSet = subtract(newMsSet, entry.getKey(), entry.getValue());
+    		newMsSet = subtract(newMsSet, entry.getKey(), entry.getValue(), factory);
     	}
     	return newMsSet;
     }
     
-    public static MSValue append(MSValue msSet1, IMSValue msSet2)
+    public static IMSValue append(IMSValue msSet1, IMSValue msSet2, RuntimeValueFactory factory)
     {    	
-    	MSValue msSet = new MSValue();
+    	IMSValue msSet = factory.createMSValue();
     	msSet.setSort(msSet1.getSort());
     	
         for(Entry<IValue, Integer> entry : msSet1.entrySet())
         {
-        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
+        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue(), factory);
         }
         
         for(Entry<IValue, Integer> entry : msSet2.entrySet())
         {
-        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
+        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue(), factory);
         }
         
         return msSet;
     }
     
-    public static MSValue lightCopy(MSValue initial)
+    public static IMSValue lightCopy(IMSValue initial, RuntimeValueFactory factory)
     {
-    	MSValue msSet = new MSValue();
+    	IMSValue msSet = factory.createMSValue();
     	msSet.setSort(initial.getSort());
 
     	msSet.putAll(initial.entrySet());

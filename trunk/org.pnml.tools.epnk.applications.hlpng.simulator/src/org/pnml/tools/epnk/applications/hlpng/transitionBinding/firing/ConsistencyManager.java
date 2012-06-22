@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -86,7 +85,7 @@ public class ConsistencyManager
 	
 	public static List<FiringMode> checkSolution(List<Map<TermWrapper, IValue>> varSets,
 			Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
-			Map<IDWrapper, MSValue> runtimeValues, Transition transition,
+			Map<IDWrapper, IMSValue> runtimeValues, Transition transition,
 			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
@@ -123,10 +122,10 @@ public class ConsistencyManager
 					{
 						IMSValue runtimeValue = runtimeValues.get(placeId);
 						// it may be not possible to initialize some of the variables
-						MSValue inscriptionValue = null;
+						IMSValue inscriptionValue = null;
 	                    try
 	                    {
-		                    inscriptionValue = (MSValue)evaluationManager
+		                    inscriptionValue = (IMSValue)evaluationManager
 		                    		.evaluate(incomingArcs.get(placeId).getOperator(), params);
 		                    
 		                    if(ConsistencyManager.check(inscriptionValue, null) && 

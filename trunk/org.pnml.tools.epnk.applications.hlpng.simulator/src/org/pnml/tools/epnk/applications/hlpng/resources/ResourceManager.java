@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.resources;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ListComparator;
@@ -45,7 +46,8 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
 public class ResourceManager
 {
-	public static EvaluationManager createEvaluationManager(String extensionId)
+	public static EvaluationManager createEvaluationManager(RuntimeValueFactory factory,
+			String extensionId)
 	{
 		EvaluationManager evaluationManager = new EvaluationManager();
 		// integers package
@@ -59,7 +61,7 @@ public class ResourceManager
 		// lists package
 		evaluationManager.register(MakeListImpl.class.getPackage(), new ListsEval());
 		// multisets package
-		MultisetsEval multisetsEval = new MultisetsEval();
+		MultisetsEval multisetsEval = new MultisetsEval(factory);
 		evaluationManager.register(NumberOfImpl.class.getPackage(), multisetsEval);
 		// terms package
 		evaluationManager.register(TupleImpl.class.getPackage(), new TermsEval());

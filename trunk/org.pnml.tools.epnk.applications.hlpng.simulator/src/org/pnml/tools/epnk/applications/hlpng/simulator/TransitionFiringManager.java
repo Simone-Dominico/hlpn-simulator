@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
@@ -27,9 +28,11 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 public class TransitionFiringManager
 {
 	private FlatAccess flatAccess = null;
-	public TransitionFiringManager(FlatAccess flatAccess)
+	private RuntimeValueFactory runtimeValueFactory = null;
+	public TransitionFiringManager(FlatAccess flatAccess, RuntimeValueFactory runtimeValueFactory)
 	{
 		this.flatAccess = flatAccess;
+		this.runtimeValueFactory = runtimeValueFactory;
 	}
 	
     public void updateState(IRuntimeState state, TransitionManager transitionManager)
@@ -49,10 +52,10 @@ public class TransitionFiringManager
     		EvaluationManager evaluationManager, FiringMode firingMode, 
     		TransitionManager transitionManager)
     {
-    	Map<IDWrapper, MSValue> currentValues = prevState.getClonedValues();
+    	Map<IDWrapper, IMSValue> currentValues = prevState.getClonedValues();
     	
-    	Map<IDWrapper, MSValue> result = createNextMarking(evaluationManager, 
-    			currentValues, firingMode, flatAccess);
+    	Map<IDWrapper, IMSValue> result = createNextMarking(evaluationManager, 
+    			currentValues, firingMode, flatAccess, runtimeValueFactory);
     	
     	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(result,
     			flatAccess.getTransitions(), transitionManager);
@@ -80,7 +83,7 @@ public class TransitionFiringManager
 		{
 			Place hlPlace = (Place)place;
 			
-			MSValue msValue = null;
+			IMSValue msValue = null;
 			
 			if(hlPlace.getHlinitialMarking() != null &&
 					hlPlace.getHlinitialMarking().getStructure() != null)
@@ -89,7 +92,7 @@ public class TransitionFiringManager
 				
                 try
                 {
-                	msValue = (MSValue)evalManager.evaluate(term, null);
+                	msValue = (IMSValue)evalManager.evaluate(term, null);
                 }
                 catch(UnknownVariableException e)
                 {
@@ -99,7 +102,7 @@ public class TransitionFiringManager
 			
 			if(msValue == null)
 			{
-				msValue = new MSValue();
+				msValue = runtimeValueFactory.createMSValue();
                 msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 			}
 			
@@ -116,7 +119,7 @@ public class TransitionFiringManager
         return runtimeState;
     }
     
-	private static Map<IDWrapper, List<FiringMode>> computeFiringModes(Map<IDWrapper, MSValue> runtimeValues,
+	private static Map<IDWrapper, List<FiringMode>> computeFiringModes(Map<IDWrapper, IMSValue> runtimeValues,
 			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
 			TransitionManager transitionManager)
 	{
@@ -146,11 +149,12 @@ public class TransitionFiringManager
 		return modes;
 	}
 	
-	private static Map<IDWrapper, MSValue> createNextMarking(EvaluationManager evalManager,
-			Map<IDWrapper, MSValue> oldValuesMap, FiringMode firingMode, FlatAccess flatAccess)
+	private static Map<IDWrapper, IMSValue> createNextMarking(EvaluationManager evalManager,
+			Map<IDWrapper, IMSValue> oldValuesMap, FiringMode firingMode, FlatAccess flatAccess,
+			RuntimeValueFactory runtimeValueFactory)
 	{
 		Set<IDWrapper> oldPlaces = new HashSet<IDWrapper>(oldValuesMap.keySet());
-		Map<IDWrapper, MSValue> newValuesMap = new HashMap<IDWrapper, MSValue>();
+		Map<IDWrapper, IMSValue> newValuesMap = new HashMap<IDWrapper, IMSValue>();
 		
 		// updating incoming places
 		for(IDWrapper placeId : firingMode.getValues().keySet())
@@ -158,7 +162,7 @@ public class TransitionFiringManager
 			oldPlaces.remove(placeId);
 			newValuesMap.put(placeId, 
 					AbstractValueMath.subtract(oldValuesMap.get(placeId), 
-							firingMode.getValues().get(placeId)));
+							firingMode.getValues().get(placeId), runtimeValueFactory));
 		}
 		
 		// updates outgoing places
@@ -169,7 +173,7 @@ public class TransitionFiringManager
 			{
 				IDWrapper placeId = new IDWrapper(place);
 				
-				MSValue currentMarking = null;
+				IMSValue currentMarking = null;
 				
 				// handles cyclic behavior when the same place is a source and a destination
 				if(oldPlaces.contains(placeId))
@@ -183,7 +187,7 @@ public class TransitionFiringManager
 					newValuesMap.remove(placeId);
 				}
 
-				MSValue newMarking = null;
+				IMSValue newMarking = null;
 				
 				// one of the outgoing arc has no inscription
 				Arc hlArc = (Arc)arc;
@@ -194,8 +198,8 @@ public class TransitionFiringManager
 		                IValue inscriptionValue = evalManager.
 		                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 		                
-		                newMarking = AbstractValueMath.append((MSValue)inscriptionValue,
-		                		currentMarking);
+		                newMarking = AbstractValueMath.append((IMSValue)inscriptionValue,
+		                		currentMarking, runtimeValueFactory);
 	                }
 	                catch(UnknownVariableException e)
 	                {
@@ -204,7 +208,7 @@ public class TransitionFiringManager
 				}
 				else
 				{
-					newMarking = AbstractValueMath.lightCopy(currentMarking);
+					newMarking = AbstractValueMath.lightCopy(currentMarking, runtimeValueFactory);
 				}
 				newValuesMap.put(placeId, newMarking);	
 			}
