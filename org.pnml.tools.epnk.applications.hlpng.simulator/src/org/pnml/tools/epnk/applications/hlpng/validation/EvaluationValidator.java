@@ -9,6 +9,7 @@ import org.eclipse.emf.validation.AbstractModelConstraint;
 import org.eclipse.emf.validation.EMFEventType;
 import org.eclipse.emf.validation.IValidationContext;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -23,7 +24,8 @@ public class EvaluationValidator extends AbstractModelConstraint
 	public EvaluationValidator()
 	{
 		this.evaluationManager = 
-				ResourceManager.createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+				ResourceManager.createEvaluationManager(new RuntimeValueFactory(),
+						"org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 	}
 	public IStatus validate(IValidationContext ctx)
 	{

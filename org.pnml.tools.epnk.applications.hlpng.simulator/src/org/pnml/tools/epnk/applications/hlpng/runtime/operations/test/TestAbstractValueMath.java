@@ -9,35 +9,37 @@ import java.util.Map.Entry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 public class TestAbstractValueMath extends AbstractValueMath
 {
+	private RuntimeValueFactory factory = new RuntimeValueFactory();
+	
 	@Test
 	public void testLightCopy()
     {
 		IValue key = null;
-		MSValue initial = null;
+		IMSValue initial = null;
 		Integer multiplicity = 7;
 		
 		{
-			initial = new MSValue();
+			initial = factory.createMSValue();
 			initial.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 			
-			key = new MSValue();
+			key = factory.createMSValue();
 
 			initial.put(key, multiplicity);
 		}
 		
-    	MSValue testSet = AbstractValueMath.lightCopy(initial);
+    	IMSValue testSet = AbstractValueMath.lightCopy(initial, factory);
     	
     	assertEquals(testSet.getSort(), initial.getSort());
     	assertEquals(initial.size(), 1);
@@ -62,12 +64,12 @@ public class TestAbstractValueMath extends AbstractValueMath
 	
 	
 
-	private MSValue mainMs = null;
+	private IMSValue mainMs = null;
 	
 	private PosValue multiplicity = null;
 	private IntValue intValue9 = null;
 	
-	private MSValue msAppend = null;
+	private IMSValue msAppend = null;
 	private IntValue intAppend9 = null;
 	private IntValue intAppend19 = null;
 	
@@ -76,7 +78,7 @@ public class TestAbstractValueMath extends AbstractValueMath
 	@Before
 	public void setUp() throws Exception
 	{
-		mainMs = new MSValue();
+		mainMs = factory.createMSValue();
         {
         	multiplicity = new PosValue();
     		multiplicity.setN(8);
@@ -86,21 +88,21 @@ public class TestAbstractValueMath extends AbstractValueMath
             intValue9.setN(9);
             intValue9.setSort(IntegersFactory.eINSTANCE.createInteger());
             
-            mainMs = AbstractValueMath.add(mainMs, intValue9, multiplicity.getN());
+            mainMs = AbstractValueMath.add(mainMs, intValue9, multiplicity.getN(), factory);
         }
         
-        msAppend = new MSValue();
+        msAppend = factory.createMSValue();
         {
         	intAppend9 = new IntValue();
         	intAppend9.setN(9);
         	intAppend9.setSort(IntegersFactory.eINSTANCE.createInteger());
-        	msAppend = AbstractValueMath.add(msAppend, intAppend9, 1);
+        	msAppend = AbstractValueMath.add(msAppend, intAppend9, 1, factory);
         	
         	intAppend19 = new IntValue();
         	intAppend19.setN(19);
         	intAppend19.setSort(IntegersFactory.eINSTANCE.createInteger());
         	
-        	msAppend = AbstractValueMath.add(msAppend, intAppend19, 1);
+        	msAppend = AbstractValueMath.add(msAppend, intAppend19, 1, factory);
         }
         {
         	tmpValue10 = new IntValue();
@@ -136,13 +138,13 @@ public class TestAbstractValueMath extends AbstractValueMath
     {
     	// simple number
     	{
-    		IMSValue test = AbstractValueMath.add(mainMs, tmpValue10, 1);
+    		IMSValue test = AbstractValueMath.add(mainMs, tmpValue10, 1, factory);
     		
             assertEquals(1, getMultiplicity(test, tmpValue10));
     	}
     	// products
     	{
-    		MSValue msValue = new MSValue();
+    		IMSValue IMSValue = factory.createMSValue();
     		ProductValue p1 = createProductValue(5, 6);
     		ProductValue p2 = createProductValue(5, 6);
     		ProductValue p3 = createProductValue(7, 8);
@@ -150,90 +152,90 @@ public class TestAbstractValueMath extends AbstractValueMath
     		ProductValue pTest1 = createProductValue(5, 6);
     		ProductValue pTest2 = createProductValue(7, 8);
     		
-    		msValue = AbstractValueMath.add(msValue, p1, 1);
-    		msValue = AbstractValueMath.add(msValue, p2, 2);
-    		msValue = AbstractValueMath.add(msValue, p3, 1);
+    		IMSValue = AbstractValueMath.add(IMSValue, p1, 1, factory);
+    		IMSValue = AbstractValueMath.add(IMSValue, p2, 2, factory);
+    		IMSValue = AbstractValueMath.add(IMSValue, p3, 1, factory);
     		
 
-    		assertNotNull(getMultiplicity(msValue, pTest1));
-    		assertEquals(3, getMultiplicity(msValue, pTest1));
-    		assertEquals(1, getMultiplicity(msValue, pTest2));
+    		assertNotNull(getMultiplicity(IMSValue, pTest1));
+    		assertEquals(3, getMultiplicity(IMSValue, pTest1));
+    		assertEquals(1, getMultiplicity(IMSValue, pTest2));
     	}
     	// multisets of products
     	{
-    		MSValue msValue = new MSValue();
+    		IMSValue IMSValue = factory.createMSValue();
     		{
-        		MSValue v1 = createMSValue(6, 5);
-        		msValue = AbstractValueMath.add(msValue, v1, 1);
-        		MSValue v2 = createMSValue(6, 5);
-        		msValue = AbstractValueMath.add(msValue, v2, 2);
-        		MSValue v22 = createMSValue(5, 6);
-        		msValue = AbstractValueMath.add(msValue, v22, 1);
+        		IMSValue v1 = createIMSValue(6, 5, factory);
+        		IMSValue = AbstractValueMath.add(IMSValue, v1, 1, factory);
+        		IMSValue v2 = createIMSValue(6, 5, factory);
+        		IMSValue = AbstractValueMath.add(IMSValue, v2, 2, factory);
+        		IMSValue v22 = createIMSValue(5, 6, factory);
+        		IMSValue = AbstractValueMath.add(IMSValue, v22, 1, factory);
         		
-        		MSValue test1 = createMSValue(6, 5);
-        		assertNotNull(getMultiplicity(msValue, test1));
-        		assertEquals(4, getMultiplicity(msValue, test1));
+        		IMSValue test1 = createIMSValue(6, 5, factory);
+        		assertNotNull(getMultiplicity(IMSValue, test1));
+        		assertEquals(4, getMultiplicity(IMSValue, test1));
     		}
     		{
-        		MSValue v3 = createMSValue(10, 15);
-        		msValue = AbstractValueMath.add(msValue, v3, 5);
+        		IMSValue v3 = createIMSValue(10, 15, factory);
+        		IMSValue = AbstractValueMath.add(IMSValue, v3, 5, factory);
         		
-        		MSValue test2 = createMSValue(10, 15);
+        		IMSValue test2 = createIMSValue(10, 15, factory);
 
-        		assertEquals(5, getMultiplicity(msValue, test2));	
+        		assertEquals(5, getMultiplicity(IMSValue, test2));	
     		}
     	}
     	// products of multisets of products
     	{
-    		MSValue msValue = new MSValue();
+    		IMSValue msValue = factory.createMSValue();
     		{
     			ProductValue pValue = new ProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
-    			pValue.getComponents().add(createMSValue(4, 5));
-    			msValue = AbstractValueMath.add(msValue, pValue, 1);
+    			pValue.getComponents().add(createIMSValue(4, 5, factory));
+    			msValue = AbstractValueMath.add(msValue, pValue, 1, factory);
     			
     		}
     		{
     			ProductValue pValue = new ProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
-    			pValue.getComponents().add(createMSValue(4, 5));
-    			msValue = AbstractValueMath.add(msValue, pValue, 2);
+    			pValue.getComponents().add(createIMSValue(4, 5, factory));
+    			msValue = AbstractValueMath.add(msValue, pValue, 2, factory);
     		}
     		{
     			ProductValue pValue = new ProductValue();
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
-    			pValue.getComponents().add(createMSValue(5, 4));
+    			pValue.getComponents().add(createIMSValue(5, 4, factory));
     			
     			assertEquals(3, getMultiplicity(msValue, pValue));
     		}
     	}
     }
 	@Test
-    public void testAppend__MSValue()
+    public void testAppend__IMSValue()
     {
-		MSValue mainMs = new MSValue();
+		IMSValue mainMs = factory.createMSValue();
 		{
     		IntValue intValue9 = new IntValue();
             intValue9.setN(9);
             intValue9.setSort(IntegersFactory.eINSTANCE.createInteger());
             
-            mainMs = AbstractValueMath.add(mainMs, intValue9, 8);
+            mainMs = AbstractValueMath.add(mainMs, intValue9, 8, factory);
 		}
 		
-		MSValue msAppend = new MSValue();
+		IMSValue msAppend = factory.createMSValue();
         {
         	IntValue intAppend9 = new IntValue();
         	intAppend9.setN(9);
         	intAppend9.setSort(IntegersFactory.eINSTANCE.createInteger());
-        	msAppend = AbstractValueMath.add(msAppend, intAppend9, 1);
+        	msAppend = AbstractValueMath.add(msAppend, intAppend9, 1, factory);
         	
         	IntValue intAppend19 = new IntValue();
         	intAppend19.setN(19);
         	intAppend19.setSort(IntegersFactory.eINSTANCE.createInteger());
-        	msAppend = AbstractValueMath.add(msAppend, intAppend19, 1);
+        	msAppend = AbstractValueMath.add(msAppend, intAppend19, 1, factory);
         }
 		
-    	IMSValue test = AbstractValueMath.append(mainMs, msAppend);
+    	IMSValue test = AbstractValueMath.append(mainMs, msAppend, factory);
   
     	{
     		IntValue intAppend9 = new IntValue();
@@ -249,14 +251,14 @@ public class TestAbstractValueMath extends AbstractValueMath
 		return set.get(value);
 	}
 	
-    private static MSValue createMSValue(int a, int b)
+    private static IMSValue createIMSValue(int a, int b, RuntimeValueFactory factory)
     {
-    	MSValue msValue = new MSValue();
-    	//msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
-    	msValue = AbstractValueMath.add(msValue, createProductValue(a, b), 1);
-    	msValue = AbstractValueMath.add(msValue, createProductValue(b, a), 1);
+    	IMSValue IMSValue = factory.createMSValue();
+    	//IMSValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+    	IMSValue = AbstractValueMath.add(IMSValue, createProductValue(a, b), 1, factory);
+    	IMSValue = AbstractValueMath.add(IMSValue, createProductValue(b, a), 1, factory);
 
-		return msValue;
+		return IMSValue;
     }
     
     private static ProductValue createProductValue(int a, int b)

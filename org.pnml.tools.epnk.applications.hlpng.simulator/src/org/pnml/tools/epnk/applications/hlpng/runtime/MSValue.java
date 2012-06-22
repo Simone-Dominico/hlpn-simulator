@@ -8,6 +8,8 @@ import java.util.Map.Entry;
 public class MSValue extends AbstractValue implements IMSValue
 {
 	private Map<IValue, Integer> values = new HashMap<IValue, Integer>();
+	
+	MSValue(){}
 
 	@Override
     public Collection<Entry<IValue, Integer>> entrySet()

@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.pnmlcoremodel.Place;
@@ -15,7 +14,7 @@ import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 public class RuntimeState implements IRuntimeState
 {
 	// place <=> runtime value
-	private Map<IDWrapper, MSValue> values = new HashMap<IDWrapper, MSValue>();
+	private Map<IDWrapper, IMSValue> values = new HashMap<IDWrapper, IMSValue>();
 	// transition <=> firing modes
 	private Map<IDWrapper, List<FiringMode>> modes = new HashMap<IDWrapper, List<FiringMode>>();
 	
@@ -79,7 +78,7 @@ public class RuntimeState implements IRuntimeState
     }
 
 	@Override
-    public void addValue(Place place, MSValue value)
+    public void addValue(Place place, IMSValue value)
     {
 		values.put(new IDWrapper(place), value);
     }
@@ -121,15 +120,15 @@ public class RuntimeState implements IRuntimeState
     }
 
 	@Override
-	public Map<IDWrapper, MSValue> getValues()
+	public Map<IDWrapper, IMSValue> getValues()
     {
     	return this.values;
     }
 	
 	@Override
-	public Map<IDWrapper, MSValue> getClonedValues()
+	public Map<IDWrapper, IMSValue> getClonedValues()
 	{
-		Map<IDWrapper, MSValue> clone = new HashMap<IDWrapper, MSValue>();
+		Map<IDWrapper, IMSValue> clone = new HashMap<IDWrapper, IMSValue>();
 		
 		for(IDWrapper w : values.keySet())
 		{

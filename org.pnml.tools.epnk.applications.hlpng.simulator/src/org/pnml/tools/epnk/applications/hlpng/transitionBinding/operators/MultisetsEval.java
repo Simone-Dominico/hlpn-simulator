@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
@@ -21,6 +21,12 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public class MultisetsEval implements IEvaluator
 {
 	private DataTypeEvaluationManager dataTypeEvaluationManager = null;
+	private RuntimeValueFactory factory = null;
+	
+	public MultisetsEval(RuntimeValueFactory factory)
+	{
+		this.factory = factory; 
+	}
 	
 	@Override
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
@@ -36,7 +42,7 @@ public class MultisetsEval implements IEvaluator
 		}
 		if(operator instanceof NumberOf)
 		{
-			MSValue set = new MSValue();
+			IMSValue set = this.factory.createMSValue();
 			set.setSort(operator.getSort());
 
 			int multiplicity = ((NumberValue)values.get(0)).getN();
@@ -44,40 +50,40 @@ public class MultisetsEval implements IEvaluator
 			{
 				for(Entry<IValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
 				{
-					MSValue msValue = new MSValue();
+					IMSValue msValue = this.factory.createMSValue();
 					msValue.setSort(value.getKey().getSort());
 					msValue.put(value.getKey(), value.getValue());
 					
-					set = AbstractValueMath.add(set, msValue, multiplicity);
+					set = AbstractValueMath.add(set, msValue, multiplicity, this.factory);
 				}
 			}
 			else
 			{
-				set = AbstractValueMath.add(set, values.get(1), multiplicity);	
+				set = AbstractValueMath.add(set, values.get(1), multiplicity, this.factory);	
 			}
 
 		    return set;
 		}
 		if(operator instanceof Add)
 		{
-			MSValue set = new MSValue();
+			IMSValue set = this.factory.createMSValue();
 			set.setSort(operator.getSort());
 			
 			for(IValue value : values)
 			{
 				IMSValue ms = (IMSValue) value;
-				set = AbstractValueMath.append(set, ms);
+				set = AbstractValueMath.append(set, ms, this.factory);
 			}
 			return set;
 		}
 		if(operator instanceof Subtract)
 		{
-			MSValue set = (MSValue) values.get(0);
+			IMSValue set = (IMSValue) values.get(0);
 			
 			for(int i = 1; i < values.size(); i++)
 			{
 				IMSValue ms = (IMSValue) values.get(i);
-				set = AbstractValueMath.subtract(set, ms);
+				set = AbstractValueMath.subtract(set, ms, this.factory);
 			}
 			return set;
 		}

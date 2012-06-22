@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -63,7 +62,7 @@ public class TransitionManager
 	}
 	
 	public List<FiringMode> checkTransition(Transition transition, Map<IDWrapper, 
-			MSValue> runtimeValues) throws DependencyException, UnknownVariableException
+			IMSValue> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
 		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
 		// each inscription variable/term assignments

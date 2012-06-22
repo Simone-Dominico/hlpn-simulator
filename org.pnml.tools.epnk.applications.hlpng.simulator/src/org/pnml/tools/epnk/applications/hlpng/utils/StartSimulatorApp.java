@@ -13,6 +13,7 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -29,9 +30,12 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	@Override
 	public void run(IAction action)
 	{
+		// runtime value factory
+		RuntimeValueFactory runtimeValueFactory = new RuntimeValueFactory();
 		// init the evaluation manager
 		EvaluationManager evaluationManager = 
-				ResourceManager.createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+				ResourceManager.createEvaluationManager(runtimeValueFactory,
+						"org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 		
 		// init the reversible operation manager
 		ReversibleOperationManager reversibleOperationManager = ResourceManager.createReversibleOperationManager(evaluationManager);
@@ -56,7 +60,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// creates a simulator
 			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
 					comparisonManager, reversibleOperationManager,
-					Display.getDefault().getSystemFont(), true);
+					Display.getDefault().getSystemFont(), runtimeValueFactory, true);
 			// registers the simulator
 			Activator activator = Activator.getInstance();
 			ApplicationRegistry registry = activator.getApplicationRegistry();
