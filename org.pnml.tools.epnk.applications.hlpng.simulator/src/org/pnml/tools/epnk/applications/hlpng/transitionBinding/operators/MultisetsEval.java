@@ -42,11 +42,11 @@ public class MultisetsEval implements IEvaluator
 			int multiplicity = ((NumberValue)values.get(0)).getN();
 			if(values.get(1) instanceof IMSValue)
 			{
-				for(Entry<AbstractValue, Integer> value : ((IMSValue)values.get(1)).getValues().entrySet())
+				for(Entry<AbstractValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
 				{
 					MSValue msValue = new MSValue();
 					msValue.setSort(value.getKey().getSort());
-					msValue.getValues().put(value.getKey(), value.getValue());
+					msValue.put(value.getKey(), value.getValue());
 					
 					set = AbstractValueMath.add(set, msValue, multiplicity);
 				}

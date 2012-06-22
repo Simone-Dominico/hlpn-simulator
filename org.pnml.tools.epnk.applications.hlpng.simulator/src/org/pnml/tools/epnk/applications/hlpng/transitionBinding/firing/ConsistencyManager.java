@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
@@ -41,13 +42,13 @@ public class ConsistencyManager
 		
 		if(value instanceof IMSValue)
 		{
-			for(AbstractValue key : ((IMSValue)value).getValues().keySet())
+			for(Entry<AbstractValue, Integer> entry : ((IMSValue)value).entrySet())
 			{
-				Integer n = ((IMSValue)value).getValues().get(key);
+				Integer n = entry.getValue();
 				if(n == null || n < 0)
 				{
 					return false;
-				}
+				}	
 			}
 			return true;
 		}

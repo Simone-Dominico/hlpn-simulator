@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
@@ -33,9 +34,9 @@ public class NumberOfComparator implements IComparable
 		IMSValue v2 = (IMSValue)testValue;
 		
 		boolean wasMatch = false;
-    	for(AbstractValue value : v2.getValues().keySet())
+    	for(Entry<AbstractValue, Integer> entry : v2.entrySet())
     	{    		
-    		Integer m = v2.getValues().get(value);
+    		Integer m = entry.getValue();
     		PosValue multiplicity = new PosValue();
     		multiplicity.setN(m);
     		multiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());
@@ -43,7 +44,7 @@ public class NumberOfComparator implements IComparable
     		if(comparisonManager.getComparator(nof.getSubterm().get(0).getClass()).compare( 
     				nof.getSubterm().get(0), multiplicity, assignments) &&
     				comparisonManager.getComparator(nof.getSubterm().get(1).getClass()).compare( 
-    	    				nof.getSubterm().get(1), value, assignments))
+    	    				nof.getSubterm().get(1), entry.getKey(), assignments))
     		{
     			wasMatch = true;
     		}

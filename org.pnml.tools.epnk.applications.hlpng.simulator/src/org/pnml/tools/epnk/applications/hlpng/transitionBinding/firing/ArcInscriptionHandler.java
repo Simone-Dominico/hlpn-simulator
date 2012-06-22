@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
@@ -65,13 +66,15 @@ public class ArcInscriptionHandler
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		for(AbstractValue testValue : multiset.getValues().keySet())
+		for(Entry<AbstractValue, Integer> entry : multiset.entrySet())
 		{
+			AbstractValue testValue = entry.getKey();
+			
 			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
 
 			if(valueEvaluator.compare(refValue, testValue, assignments))
 			{
-				Integer multiplicity = multiset.getValues().get(testValue);
+				Integer multiplicity = entry.getValue();
 				
 				// if it is not simple number-to-number comparison
 				// e.g. assigning values to a variable

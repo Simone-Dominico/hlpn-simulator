@@ -3,8 +3,8 @@ package org.pnml.tools.epnk.applications.hlpng.runtime.operations.test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,29 +34,29 @@ public class TestAbstractValueMath extends AbstractValueMath
 			
 			key = new MSValue();
 
-			initial.getValues().put(key, multiplicity);
+			initial.put(key, multiplicity);
 		}
 		
     	MSValue testSet = AbstractValueMath.lightCopy(initial);
     	
     	assertEquals(testSet.getSort(), initial.getSort());
-    	assertEquals(initial.getValues().size(), 1);
-    	assertEquals(testSet.getValues().size(), 1);
+    	assertEquals(initial.size(), 1);
+    	assertEquals(testSet.size(), 1);
   
     	{
-    		Collection<Integer> initValues = initial.getValues().values();
-        	List<Integer> initListValues = new ArrayList<Integer>(initValues);
-        	
-        	Collection<Integer> testValues = testSet.getValues().values();
-        	List<Integer> testListValues = new ArrayList<Integer>(testValues);
+        	List<Entry<AbstractValue, Integer>> initListValues = 
+        			new ArrayList<Entry<AbstractValue, Integer>>(initial.entrySet());
+
+        	List<Entry<AbstractValue, Integer>> testListValues = 
+        			new ArrayList<Entry<AbstractValue, Integer>>(testSet.entrySet());
         	
         	assertEquals(initListValues.get(0), testListValues.get(0));
     	}
     	{
-    		initial.getValues().clear();
-        	assertEquals(initial.getValues().size(), 0);
+    		initial.clear();
+        	assertEquals(initial.size(), 0);
         	
-        	assertEquals(testSet.getValues().size(), 1);
+        	assertEquals(testSet.size(), 1);
     	}
     }
 	
@@ -128,8 +128,7 @@ public class TestAbstractValueMath extends AbstractValueMath
 	@Test
 	public void testGetMultiplicity()
     {
-        assertEquals(multiplicity.getN(), 
-        		(int)AbstractValueMath.getMultiplicity(mainMs, intValue9));
+        assertEquals(multiplicity.getN(), getMultiplicity(mainMs, intValue9));
     }
 	
 	@Test
@@ -139,7 +138,7 @@ public class TestAbstractValueMath extends AbstractValueMath
     	{
     		IMSValue test = AbstractValueMath.add(mainMs, tmpValue10, 1);
     		
-            assertEquals(1, (int)AbstractValueMath.getMultiplicity(test, tmpValue10));
+            assertEquals(1, getMultiplicity(test, tmpValue10));
     	}
     	// products
     	{
@@ -156,9 +155,9 @@ public class TestAbstractValueMath extends AbstractValueMath
     		msValue = AbstractValueMath.add(msValue, p3, 1);
     		
 
-    		assertNotNull(AbstractValueMath.getMultiplicity(msValue, pTest1));
-    		assertEquals(3, (int)AbstractValueMath.getMultiplicity(msValue, pTest1));
-    		assertEquals(1, (int)AbstractValueMath.getMultiplicity(msValue, pTest2));
+    		assertNotNull(getMultiplicity(msValue, pTest1));
+    		assertEquals(3, getMultiplicity(msValue, pTest1));
+    		assertEquals(1, getMultiplicity(msValue, pTest2));
     	}
     	// multisets of products
     	{
@@ -172,8 +171,8 @@ public class TestAbstractValueMath extends AbstractValueMath
         		msValue = AbstractValueMath.add(msValue, v22, 1);
         		
         		MSValue test1 = createMSValue(6, 5);
-        		assertNotNull(AbstractValueMath.getMultiplicity(msValue, test1));
-        		assertEquals(4, (int)AbstractValueMath.getMultiplicity(msValue, test1));
+        		assertNotNull(getMultiplicity(msValue, test1));
+        		assertEquals(4, getMultiplicity(msValue, test1));
     		}
     		{
         		MSValue v3 = createMSValue(10, 15);
@@ -181,7 +180,7 @@ public class TestAbstractValueMath extends AbstractValueMath
         		
         		MSValue test2 = createMSValue(10, 15);
 
-        		assertEquals(5, (int)AbstractValueMath.getMultiplicity(msValue, test2));	
+        		assertEquals(5, getMultiplicity(msValue, test2));	
     		}
     	}
     	// products of multisets of products
@@ -205,7 +204,7 @@ public class TestAbstractValueMath extends AbstractValueMath
     			pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
     			pValue.getComponents().add(createMSValue(5, 4));
     			
-    			assertEquals(3, (int)AbstractValueMath.getMultiplicity(msValue, pValue));
+    			assertEquals(3, getMultiplicity(msValue, pValue));
     		}
     	}
     }
@@ -240,11 +239,16 @@ public class TestAbstractValueMath extends AbstractValueMath
     		IntValue intAppend9 = new IntValue();
         	intAppend9.setN(9);
         	intAppend9.setSort(IntegersFactory.eINSTANCE.createInteger());
-        	assertTrue(9 == (int)AbstractValueMath.getMultiplicity(test, intAppend9));
+        	assertTrue(9 == getMultiplicity(test, intAppend9));
     	}
     	
     }
     
+	private static int getMultiplicity(IMSValue set, AbstractValue value)
+	{
+		return set.get(value);
+	}
+	
     private static MSValue createMSValue(int a, int b)
     {
     	MSValue msValue = new MSValue();

@@ -43,7 +43,7 @@ public class MFunction implements IEvaluator
         
         for(AbstractValue value : getMessages())
         {
-            msValue.getValues().put(value, 1);
+            msValue.put(value, 1);
         }
         
         return msValue;

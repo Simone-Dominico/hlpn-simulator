@@ -45,7 +45,7 @@ public class M2Function implements IEvaluator
         List<AbstractValue> list = new ArrayList<AbstractValue>(values);
         for(AbstractValue value : getM2(graph, nodeMap, nodeIdMap, list.get(0)))
         {
-            msValue.getValues().put(value, 1);
+            msValue.put(value, 1);
         }
         
         return msValue;
