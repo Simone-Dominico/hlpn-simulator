@@ -41,7 +41,7 @@ public class RFFunction implements IEvaluator
         List<AbstractValue> list = new ArrayList<AbstractValue>(values);
         for(AbstractValue value : getMessagesBySender(list.get(0), messages))
         {
-            msValue.getValues().put(value, 1);
+            msValue.put(value, 1);
         }
         
         return msValue;

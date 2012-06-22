@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.jface.action.Action;
@@ -287,8 +288,9 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 					IEvaluator moveEvaluator = extensionManager.getHandlers().get("MOVE");
 					AbstractFunction moveFunction = (AbstractFunction) moveEvaluator;
 					
-					for(AbstractValue value : msValue.getValues().keySet())
+					for(Entry<AbstractValue, Integer> entry : msValue.entrySet())
 					{
+						AbstractValue value = entry.getKey();
 						moveFunction.execute(((ProductValue)value).getComponents());	
 					}
 				}
@@ -300,8 +302,9 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 					IEvaluator triggerEvaluator = extensionManager.getHandlers().get("TRIGGER");
 					AbstractFunction triggerFunction = (AbstractFunction) triggerEvaluator;
 
-					for(AbstractValue value : msValue.getValues().keySet())
+					for(Entry<AbstractValue, Integer> entry : msValue.entrySet())
 					{
+						AbstractValue value = entry.getKey();
 						appearFunction.execute(((ProductValue)value).getComponents());
 						triggerFunction.execute(((ProductValue)value).getComponents());
 					}

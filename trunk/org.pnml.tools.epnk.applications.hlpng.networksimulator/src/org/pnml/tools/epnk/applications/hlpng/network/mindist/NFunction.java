@@ -59,7 +59,7 @@ public class NFunction implements IEvaluator
 				}
 				pValue.getComponents().add(values.get(1));	
 				
-				msValue.getValues().put(pValue, 1);
+				msValue.put(pValue, 1);
 			}
 		}
 		

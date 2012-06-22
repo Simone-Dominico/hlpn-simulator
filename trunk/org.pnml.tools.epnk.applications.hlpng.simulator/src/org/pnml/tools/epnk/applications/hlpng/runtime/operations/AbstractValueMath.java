@@ -1,5 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime.operations;
 
+import java.util.Map.Entry;
+
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
@@ -60,21 +62,14 @@ public class AbstractValueMath
     {
     	StringBuffer buffer = new StringBuffer();
     	
-    	for(AbstractValue value : set.getValues().keySet())
+    	for(Entry<AbstractValue, Integer> entry : set.entrySet())
     	{
-    		Integer n = getMultiplicity(set, value);
+    		AbstractValue value = entry.getKey();
+    		Integer n = entry.getValue();
     		
-    		if(n != null)
-    		{
-    			buffer.append(n);
-        		
-    		}
-    		else
-    		{
-    			buffer.append(set.getValues().get(value));
-    		}
-    		
-    		buffer.append("`");
+    		buffer.append(String.valueOf(n));
+        	
+			buffer.append("`");
     		
     		if(value instanceof IMSValue)
     		{
@@ -91,23 +86,18 @@ public class AbstractValueMath
 	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
     }
 	
-	public static Integer getMultiplicity(IMSValue msSet, AbstractValue value)
-	{
-		return msSet.getValues().get(value);
-	}
-	
     public static MSValue add(MSValue msSet, AbstractValue value, Integer multiplicity)
     {
     	MSValue mainSet = lightCopy(msSet);
     	
-    	if(mainSet.getValues().containsKey(value))
+    	if(mainSet.contains(value))
         {
-    		Integer newMultiplicity = mainSet.getValues().get(value) + multiplicity;
-    		mainSet.getValues().put(value, newMultiplicity);
+    		Integer newMultiplicity = mainSet.get(value) + multiplicity;
+    		mainSet.put(value, newMultiplicity);
         }
     	else
     	{
-    		mainSet.getValues().put(value, multiplicity);
+    		mainSet.put(value, multiplicity);
     	}
     	
     	return mainSet;
@@ -117,11 +107,11 @@ public class AbstractValueMath
     {
     	MSValue newMsSet = add(msSet, value, multiplicity * -1);
     	
-    	Integer count = getMultiplicity(newMsSet, value);
+    	Integer count = newMsSet.get(value);
     	
     	if(count == null || count == 0)
     	{
-    		newMsSet.getValues().remove(value);
+    		newMsSet.remove(value);
     	}
     	
     	return newMsSet;
@@ -130,10 +120,9 @@ public class AbstractValueMath
     public static MSValue subtract(MSValue msSet1, IMSValue msSet2)
     {
     	MSValue newMsSet = lightCopy(msSet1);
-    	for(AbstractValue key : msSet2.getValues().keySet())
+    	for(Entry<AbstractValue, Integer> entry : msSet2.entrySet())
     	{
-    		Integer value = msSet2.getValues().get(key);
-    		newMsSet = subtract(newMsSet, key, value);
+    		newMsSet = subtract(newMsSet, entry.getKey(), entry.getValue());
     	}
     	return newMsSet;
     }
@@ -143,14 +132,14 @@ public class AbstractValueMath
     	MSValue msSet = new MSValue();
     	msSet.setSort(msSet1.getSort());
     	
-        for(AbstractValue key : msSet1.getValues().keySet())
+        for(Entry<AbstractValue, Integer> entry : msSet1.entrySet())
         {
-        	msSet = AbstractValueMath.add(msSet, key, msSet1.getValues().get(key));
+        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
         }
         
-        for(AbstractValue key : msSet2.getValues().keySet())
+        for(Entry<AbstractValue, Integer> entry : msSet2.entrySet())
         {
-        	msSet = AbstractValueMath.add(msSet, key, msSet2.getValues().get(key));
+        	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue());
         }
         
         return msSet;
@@ -161,7 +150,7 @@ public class AbstractValueMath
     	MSValue msSet = new MSValue();
     	msSet.setSort(initial.getSort());
 
-    	msSet.getValues().putAll(initial.getValues());
+    	msSet.putAll(initial.entrySet());
     	
     	return msSet;
     }
@@ -169,11 +158,12 @@ public class AbstractValueMath
     // msSet1 <= msSet2
     public static boolean lessEqual(IMSValue msSet1, IMSValue msSet2)
     {    	
-        for(AbstractValue key : msSet1.getValues().keySet())
+        for(Entry<AbstractValue, Integer> entry1 : msSet1.entrySet())
         {
-        	Integer value = msSet1.getValues().get(key);
+        	AbstractValue key = entry1.getKey();
+        	Integer value = entry1.getValue();
         	
-        	if(!msSet2.getValues().containsKey(key) || value > msSet2.getValues().get(key))
+        	if(!msSet2.contains(key) || value > msSet2.get(key))
         	{
         		return false;
         	}

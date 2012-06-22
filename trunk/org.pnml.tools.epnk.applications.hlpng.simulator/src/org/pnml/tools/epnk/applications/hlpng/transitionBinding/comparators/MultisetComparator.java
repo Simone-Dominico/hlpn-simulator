@@ -3,6 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
@@ -37,19 +38,20 @@ public class MultisetComparator implements IComparable
 		MultiSetOperator v1 = (MultiSetOperator)refValue;
 		IMSValue v2 = (IMSValue)testValue;
 		
-		if(v1.getSubterm().size() != v2.getValues().keySet().size())
+		if(v1.getSubterm().size() != v2.size())
 		{
 			return false;
 		}
 
-		List<AbstractValue> keys = new ArrayList<AbstractValue>(v2.getValues().keySet());
+		List<Entry<AbstractValue, Integer>> entries = 
+				new ArrayList<Entry<AbstractValue, Integer>>(v2.entrySet());
 		
     	for(int i = 0; i < v1.getSubterm().size(); i++)
     	{    		
     		NumberOf nof = (NumberOf)v1.getSubterm().get(i);
     		
-    		AbstractValue value = keys.get(i);
-    		Integer m = v2.getValues().get(value);
+    		AbstractValue value = entries.get(i).getKey();
+    		Integer m = entries.get(i).getValue();
     		PosValue multiplicity = new PosValue();
     		multiplicity.setN(m);
     		multiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());

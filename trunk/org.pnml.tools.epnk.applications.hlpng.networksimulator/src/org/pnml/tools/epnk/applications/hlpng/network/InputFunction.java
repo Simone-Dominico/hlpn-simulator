@@ -53,7 +53,7 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 			sValue.setData(n.getLabel());
 			sValue.setSort(TermsFactory.eINSTANCE.createUserSort());
 			
-			msValue.getValues().put(sValue, 1);
+			msValue.put(sValue, 1);
 		}
 		return msValue;
     }
@@ -99,7 +99,7 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 			sValue.setData(n.getLabel());
 			sValue.setSort(TermsFactory.eINSTANCE.createUserSort());
 			
-			msValue.getValues().put(sValue, 1);
+			msValue.put(sValue, 1);
 		}
 	    return msValue;
     }
