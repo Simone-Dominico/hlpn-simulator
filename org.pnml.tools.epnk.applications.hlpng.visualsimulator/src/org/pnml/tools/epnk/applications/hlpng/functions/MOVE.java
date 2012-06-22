@@ -4,7 +4,7 @@ import geditor.GObject;
 
 import java.util.List;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 
@@ -13,7 +13,7 @@ import Appearence.Shape;
 public class MOVE extends AbstractFunction
 {
 	@Override
-	public synchronized AbstractValue execute(List<AbstractValue> values)
+	public synchronized IValue execute(List<IValue> values)
 	{
 		// model object comes first
 		StringValue modelStr = (StringValue)values.get(0);

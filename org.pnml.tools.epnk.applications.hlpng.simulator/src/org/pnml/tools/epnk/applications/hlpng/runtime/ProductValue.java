@@ -5,14 +5,14 @@ import java.util.List;
 
 public class ProductValue extends AbstractValue
 {
-	List<AbstractValue> components = new ArrayList<AbstractValue>();
+	List<IValue> components = new ArrayList<IValue>();
 
-	public List<AbstractValue> getComponents()
+	public List<IValue> getComponents()
     {
     	return components;
     }
 
-	public void setComponents(List<AbstractValue> components)
+	public void setComponents(List<IValue> components)
     {
     	this.components = components;
     }
@@ -21,7 +21,7 @@ public class ProductValue extends AbstractValue
     public String toString()
     {
 		StringBuffer buffer = new StringBuffer("(");
-		for(AbstractValue value : components)
+		for(IValue value : components)
 		{
 			buffer.append(value.toString() + ",");
 		}

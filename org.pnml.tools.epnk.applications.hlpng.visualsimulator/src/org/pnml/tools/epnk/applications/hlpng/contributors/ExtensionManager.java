@@ -8,7 +8,7 @@ import org.pnml.tools.epnk.applications.hlpng.functions.APPEAR_POINT;
 import org.pnml.tools.epnk.applications.hlpng.functions.MOVE;
 import org.pnml.tools.epnk.applications.hlpng.functions.READY;
 import org.pnml.tools.epnk.applications.hlpng.functions.TRIGGER;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -41,8 +41,8 @@ public class ExtensionManager implements IUserExtensions
 	}
 	
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		String name = ((UserOperator)term).getDeclaration().getName();
 		IEvaluator eval = this.handlers.get(name);
@@ -67,7 +67,7 @@ public class ExtensionManager implements IUserExtensions
     }
 
 	@Override
-    public AbstractValue evaluate(Sort sort)
+    public IValue evaluate(Sort sort)
     {
 	    return null;
     }

@@ -5,12 +5,12 @@ import java.util.Map.Entry;
 
 public interface IMSValue extends IValue
 {
-	public Collection<Entry<AbstractValue, Integer>> entrySet();
+	public Collection<Entry<IValue, Integer>> entrySet();
 	public int size();
-	public boolean contains(AbstractValue value);
-	public Integer get(AbstractValue value);
-	public void put(AbstractValue value, Integer multiplicity);
-	public void remove(AbstractValue value);
-	public void putAll(Collection<Entry<AbstractValue, Integer>> entrySet);
+	public boolean contains(IValue value);
+	public Integer get(IValue value);
+	public void put(IValue value, Integer multiplicity);
+	public void remove(IValue value);
+	public void putAll(Collection<Entry<IValue, Integer>> entrySet);
 	public void clear();
 }

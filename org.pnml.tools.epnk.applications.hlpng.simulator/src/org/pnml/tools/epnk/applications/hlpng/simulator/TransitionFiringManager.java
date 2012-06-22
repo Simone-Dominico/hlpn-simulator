@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
@@ -191,7 +191,7 @@ public class TransitionFiringManager
 				{
 					try
 	                {
-		                AbstractValue inscriptionValue = evalManager.
+		                IValue inscriptionValue = evalManager.
 		                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 		                
 		                newMarking = AbstractValueMath.append((MSValue)inscriptionValue,

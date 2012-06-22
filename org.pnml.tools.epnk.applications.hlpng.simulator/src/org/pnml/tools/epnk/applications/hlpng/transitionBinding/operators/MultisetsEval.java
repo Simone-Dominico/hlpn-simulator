@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
@@ -23,15 +23,15 @@ public class MultisetsEval implements IEvaluator
 	private DataTypeEvaluationManager dataTypeEvaluationManager = null;
 	
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		Operator operator = (Operator) term;
-		List<AbstractValue> values = new ArrayList<AbstractValue>();
+		List<IValue> values = new ArrayList<IValue>();
 		for(Term subterm : operator.getSubterm())
 		{
 			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
 		if(operator instanceof NumberOf)
@@ -42,7 +42,7 @@ public class MultisetsEval implements IEvaluator
 			int multiplicity = ((NumberValue)values.get(0)).getN();
 			if(values.get(1) instanceof IMSValue)
 			{
-				for(Entry<AbstractValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
+				for(Entry<IValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
 				{
 					MSValue msValue = new MSValue();
 					msValue.setSort(value.getKey().getSort());
@@ -63,7 +63,7 @@ public class MultisetsEval implements IEvaluator
 			MSValue set = new MSValue();
 			set.setSort(operator.getSort());
 			
-			for(AbstractValue value : values)
+			for(IValue value : values)
 			{
 				IMSValue ms = (IMSValue) value;
 				set = AbstractValueMath.append(set, ms);

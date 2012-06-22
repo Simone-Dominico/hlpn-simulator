@@ -3,12 +3,12 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 
 public class TermAssignment
 {
 	private TermWrapper termWrapper = null;
-	private Set<AbstractValue> values = null;
+	private Set<IValue> values = null;
 	
 	public TermWrapper getTermWrapper()
     {
@@ -18,15 +18,15 @@ public class TermAssignment
     {
     	this.termWrapper = variable;
     }
-	public Set<AbstractValue> getValues()
+	public Set<IValue> getValues()
     {
 		if(values == null)
 		{
-			values = new HashSet<AbstractValue>();
+			values = new HashSet<IValue>();
 		}
     	return values;
     }
-	public void setValues(Set<AbstractValue> values)
+	public void setValues(Set<IValue> values)
     {
     	this.values = values;
     }
@@ -34,7 +34,7 @@ public class TermAssignment
     public String toString()
     {
 		StringBuffer buffer = new StringBuffer("[");
-		for(AbstractValue value : values)
+		for(IValue value : values)
 		{
 			buffer.append(value + ";");
 		}

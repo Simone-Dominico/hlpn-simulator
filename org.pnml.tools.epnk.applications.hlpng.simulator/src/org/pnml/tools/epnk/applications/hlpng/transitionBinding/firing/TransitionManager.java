@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -100,14 +100,14 @@ public class TransitionManager
 		// there is only 1 variable
 		if(globalMap.keySet().size() == 1)
 		{
-			List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper,AbstractValue>>();
+			List<Map<TermWrapper, IValue>> varSets = new ArrayList<Map<TermWrapper,IValue>>();
 			for(TermWrapper key : globalMap.keySet())
 			{
 				TermAssignment value = globalMap.get(key);
 				
-				for(AbstractValue av : value.getValues())
+				for(IValue av : value.getValues())
 				{
-					Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
+					Map<TermWrapper, IValue> map = new HashMap<TermWrapper, IValue>();
 					map.put(key, av);
 					varSets.add(map);
 				}
@@ -116,14 +116,14 @@ public class TransitionManager
 		}
 		
 		// computing Cartesian product of variable assignments
-		List<List<Pair<TermAssignment, AbstractValue>>> pairList = pairVariablesToAssignments(globalMap);
-		CartesianProduct<Pair<TermAssignment, AbstractValue>> cartesianProd = 
-				new CartesianProduct<Pair<TermAssignment, AbstractValue>>();
-		List<List<Pair<TermAssignment, AbstractValue>>> product =
+		List<List<Pair<TermAssignment, IValue>>> pairList = pairVariablesToAssignments(globalMap);
+		CartesianProduct<Pair<TermAssignment, IValue>> cartesianProd = 
+				new CartesianProduct<Pair<TermAssignment, IValue>>();
+		List<List<Pair<TermAssignment, IValue>>> product =
 				cartesianProd.product(pairList);
 		
-		List<Map<TermWrapper, AbstractValue>> varSets = new ArrayList<Map<TermWrapper, AbstractValue>>();
-		for(List<Pair<TermAssignment, AbstractValue>> list : product)
+		List<Map<TermWrapper, IValue>> varSets = new ArrayList<Map<TermWrapper, IValue>>();
+		for(List<Pair<TermAssignment, IValue>> list : product)
 		{
 			varSets.add(pairToMap(list));
 		}
@@ -143,8 +143,8 @@ public class TransitionManager
 			if(globalMap.containsKey(wrapper))
 			{
 				// intersection
-				Set<AbstractValue> intersection = 
-						new HashSet<AbstractValue>(assignment.get(wrapper).getValues());
+				Set<IValue> intersection = 
+						new HashSet<IValue>(assignment.get(wrapper).getValues());
 				intersection.retainAll(globalMap.get(wrapper).getValues());
 				ve.setValues(intersection);
 			}
@@ -156,31 +156,31 @@ public class TransitionManager
 		}
 	}
 	
-	private static Map<TermWrapper, AbstractValue> pairToMap(List<Pair<TermAssignment, AbstractValue>> list)
+	private static Map<TermWrapper, IValue> pairToMap(List<Pair<TermAssignment, IValue>> list)
 	{
-		Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
+		Map<TermWrapper, IValue> map = new HashMap<TermWrapper, IValue>();
 		
-		for(Pair<TermAssignment, AbstractValue> p : list)
+		for(Pair<TermAssignment, IValue> p : list)
 		{
 			map.put(p.getKey().getTermWrapper(), p.getValue());
 		}
 		return map;
 	}
 	
-	private static List<List<Pair<TermAssignment, AbstractValue>>> pairVariablesToAssignments(Map<TermWrapper, TermAssignment> globalMap)
+	private static List<List<Pair<TermAssignment, IValue>>> pairVariablesToAssignments(Map<TermWrapper, TermAssignment> globalMap)
 	{
-		List<List<Pair<TermAssignment, AbstractValue>>> evaluations = 
-				new ArrayList<List<Pair<TermAssignment, AbstractValue>>>();
+		List<List<Pair<TermAssignment, IValue>>> evaluations = 
+				new ArrayList<List<Pair<TermAssignment, IValue>>>();
 		
 		for(TermWrapper wrapper : globalMap.keySet())
 		{
-			List<Pair<TermAssignment, AbstractValue>> evaluation = new ArrayList<Pair<TermAssignment, AbstractValue>>();
+			List<Pair<TermAssignment, IValue>> evaluation = new ArrayList<Pair<TermAssignment, IValue>>();
 			
 			TermAssignment ve = globalMap.get(wrapper);
-			List<AbstractValue> values = new ArrayList<AbstractValue>(ve.getValues());
-			for(AbstractValue entry : values)
+			List<IValue> values = new ArrayList<IValue>(ve.getValues());
+			for(IValue entry : values)
 			{
-				evaluation.add(new Pair<TermAssignment, AbstractValue>(ve, entry));
+				evaluation.add(new Pair<TermAssignment, IValue>(ve, entry));
 			}
 			evaluations.add(evaluation);
 		}

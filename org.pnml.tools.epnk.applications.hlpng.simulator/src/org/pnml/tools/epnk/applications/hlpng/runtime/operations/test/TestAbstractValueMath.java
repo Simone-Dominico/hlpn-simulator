@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
@@ -24,7 +24,7 @@ public class TestAbstractValueMath extends AbstractValueMath
 	@Test
 	public void testLightCopy()
     {
-		AbstractValue key = null;
+		IValue key = null;
 		MSValue initial = null;
 		Integer multiplicity = 7;
 		
@@ -44,11 +44,11 @@ public class TestAbstractValueMath extends AbstractValueMath
     	assertEquals(testSet.size(), 1);
   
     	{
-        	List<Entry<AbstractValue, Integer>> initListValues = 
-        			new ArrayList<Entry<AbstractValue, Integer>>(initial.entrySet());
+        	List<Entry<IValue, Integer>> initListValues = 
+        			new ArrayList<Entry<IValue, Integer>>(initial.entrySet());
 
-        	List<Entry<AbstractValue, Integer>> testListValues = 
-        			new ArrayList<Entry<AbstractValue, Integer>>(testSet.entrySet());
+        	List<Entry<IValue, Integer>> testListValues = 
+        			new ArrayList<Entry<IValue, Integer>>(testSet.entrySet());
         	
         	assertEquals(initListValues.get(0), testListValues.get(0));
     	}
@@ -244,7 +244,7 @@ public class TestAbstractValueMath extends AbstractValueMath
     	
     }
     
-	private static int getMultiplicity(IMSValue set, AbstractValue value)
+	private static int getMultiplicity(IMSValue set, IValue value)
 	{
 		return set.get(value);
 	}

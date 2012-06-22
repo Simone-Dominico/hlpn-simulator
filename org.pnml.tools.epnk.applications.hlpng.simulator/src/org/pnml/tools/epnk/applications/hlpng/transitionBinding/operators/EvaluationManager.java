@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
@@ -24,7 +24,7 @@ public class EvaluationManager
 		handlers.put(targetObject, operator);
 	}
 	
-	public IEvaluator getHandler(Class targetClass)
+	public IEvaluator getHandler(Class<? extends Term> targetClass)
 	{
 		if(handlers.containsKey(targetClass))
 		{
@@ -74,33 +74,33 @@ public class EvaluationManager
 		return null;
 	}
 	
-	public AbstractValue evaluate(Term term, Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		IEvaluator evaluator = getHandler(term.getClass());
 		
 		return evaluator.evaluate(term, this, assignments);
 	}
 	
-	public Set<AbstractValue> evaluateAll(Term term, Map<TermWrapper, TermAssignment> assignments) throws UnknownVariableException
+	public Set<IValue> evaluateAll(Term term, Map<TermWrapper, TermAssignment> assignments) throws UnknownVariableException
 	{
 		if(assignments == null || assignments.size() == 0)
 		{
-			Set<AbstractValue> result = new HashSet<AbstractValue>();
-			AbstractValue value = evaluate(term, null);
+			Set<IValue> result = new HashSet<IValue>();
+			IValue value = evaluate(term, null);
 			result.add(value);
 			return result;
 		}
 		// only one variable
 		if(assignments.size() == 1)
 		{
-			Set<AbstractValue> result = new HashSet<AbstractValue>();
+			Set<IValue> result = new HashSet<IValue>();
 			
 			for(TermAssignment ve : assignments.values())
 			{
-				for(AbstractValue value : ve.getValues())
+				for(IValue value : ve.getValues())
 				{
 					// evaluate with each possible result
-					Map<TermWrapper, AbstractValue> map = new HashMap<TermWrapper, AbstractValue>();
+					Map<TermWrapper, IValue> map = new HashMap<TermWrapper, IValue>();
 					map.put(ve.getTermWrapper(), value);
 					
 					result.add(evaluate(term, map));
@@ -109,14 +109,14 @@ public class EvaluationManager
 			return result;
 		}
 		
-		List<List<Pair<TermWrapper, AbstractValue>>> mainList = new ArrayList<List<Pair<TermWrapper,AbstractValue>>>();
+		List<List<Pair<TermWrapper, IValue>>> mainList = new ArrayList<List<Pair<TermWrapper,IValue>>>();
 		
 		for(TermWrapper wrapper : assignments.keySet())
 		{
-			List<Pair<TermWrapper, AbstractValue>> subList = new ArrayList<Pair<TermWrapper,AbstractValue>>();
-			for(AbstractValue value : assignments.get(wrapper).getValues())
+			List<Pair<TermWrapper, IValue>> subList = new ArrayList<Pair<TermWrapper,IValue>>();
+			for(IValue value : assignments.get(wrapper).getValues())
 			{
-				Pair<TermWrapper, AbstractValue> p = new Pair<TermWrapper, AbstractValue>();
+				Pair<TermWrapper, IValue> p = new Pair<TermWrapper, IValue>();
 				p.setKey(wrapper);
 				p.setValue(value);
 				
@@ -125,18 +125,18 @@ public class EvaluationManager
 			mainList.add(subList);
 		}
 		
-		CartesianProduct<Pair<TermWrapper, AbstractValue>> product = new CartesianProduct<Pair<TermWrapper,AbstractValue>>();
-		List<List<Pair<TermWrapper, AbstractValue>>> prodList = product.product(mainList);
+		CartesianProduct<Pair<TermWrapper, IValue>> product = new CartesianProduct<Pair<TermWrapper,IValue>>();
+		List<List<Pair<TermWrapper, IValue>>> prodList = product.product(mainList);
 		
-		Set<AbstractValue> result = new HashSet<AbstractValue>();
-		for(List<Pair<TermWrapper, AbstractValue>> subSet : prodList)
+		Set<IValue> result = new HashSet<IValue>();
+		for(List<Pair<TermWrapper, IValue>> subSet : prodList)
 		{
-			Map<TermWrapper, AbstractValue> assignmentSet = new HashMap<TermWrapper, AbstractValue>();
-			for(Pair<TermWrapper, AbstractValue> p : subSet)
+			Map<TermWrapper, IValue> assignmentSet = new HashMap<TermWrapper, IValue>();
+			for(Pair<TermWrapper, IValue> p : subSet)
 			{
 				assignmentSet.put(p.getKey(), p.getValue());
 			}
-			AbstractValue value = evaluate(term, assignmentSet);
+			IValue value = evaluate(term, assignmentSet);
 			result.add(value);
 		}
 		return result;

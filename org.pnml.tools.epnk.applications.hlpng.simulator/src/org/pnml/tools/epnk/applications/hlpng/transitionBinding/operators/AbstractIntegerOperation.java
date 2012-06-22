@@ -2,7 +2,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
 import java.util.List;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
@@ -19,8 +19,8 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 	protected abstract int computeSecondArg(int result, int[] a);
 
 	@Override
-	public AbstractValue reverseAll(AbstractValue result, 
-			List<AbstractValue> args, Boolean firstArgumentIsKnown)
+	public IValue reverseAll(IValue result, 
+			List<IValue> args, Boolean firstArgumentIsKnown)
 	{
 		NumberValue value = createResultObject(result.getSort());
 		value.setSort(result.getSort());
@@ -43,7 +43,7 @@ public abstract class AbstractIntegerOperation extends AbstractReversibleOperati
 		return value;
 	}
 
-    public AbstractValue evaluate(AbstractValue arg1, AbstractValue arg2,
+    public IValue evaluate(IValue arg1, IValue arg2,
             Operator operator)
     {
 		Sort sort = arg1.getSort();

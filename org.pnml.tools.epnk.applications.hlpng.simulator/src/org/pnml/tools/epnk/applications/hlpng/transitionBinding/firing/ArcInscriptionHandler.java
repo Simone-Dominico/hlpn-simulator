@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IComparable;
@@ -66,9 +66,9 @@ public class ArcInscriptionHandler
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		for(Entry<AbstractValue, Integer> entry : multiset.entrySet())
+		for(Entry<IValue, Integer> entry : multiset.entrySet())
 		{
-			AbstractValue testValue = entry.getKey();
+			IValue testValue = entry.getKey();
 			
 			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
 

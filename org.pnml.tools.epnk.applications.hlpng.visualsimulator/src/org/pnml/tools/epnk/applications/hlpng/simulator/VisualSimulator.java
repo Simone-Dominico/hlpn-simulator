@@ -15,7 +15,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
@@ -288,9 +288,9 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 					IEvaluator moveEvaluator = extensionManager.getHandlers().get("MOVE");
 					AbstractFunction moveFunction = (AbstractFunction) moveEvaluator;
 					
-					for(Entry<AbstractValue, Integer> entry : msValue.entrySet())
+					for(Entry<IValue, Integer> entry : msValue.entrySet())
 					{
-						AbstractValue value = entry.getKey();
+						IValue value = entry.getKey();
 						moveFunction.execute(((ProductValue)value).getComponents());	
 					}
 				}
@@ -302,9 +302,9 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 					IEvaluator triggerEvaluator = extensionManager.getHandlers().get("TRIGGER");
 					AbstractFunction triggerFunction = (AbstractFunction) triggerEvaluator;
 
-					for(Entry<AbstractValue, Integer> entry : msValue.entrySet())
+					for(Entry<IValue, Integer> entry : msValue.entrySet())
 					{
-						AbstractValue value = entry.getKey();
+						IValue value = entry.getKey();
 						appearFunction.execute(((ProductValue)value).getComponents());
 						triggerFunction.execute(((ProductValue)value).getComponents());
 					}

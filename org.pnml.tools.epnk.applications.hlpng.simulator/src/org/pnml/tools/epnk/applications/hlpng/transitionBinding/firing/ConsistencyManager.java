@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
@@ -23,7 +23,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
 public class ConsistencyManager
 {
-	public static boolean check(AbstractValue value, Sort sort)
+	public static boolean check(IValue value, Sort sort)
 	{
 		if(sort instanceof org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)
 		{
@@ -42,7 +42,7 @@ public class ConsistencyManager
 		
 		if(value instanceof IMSValue)
 		{
-			for(Entry<AbstractValue, Integer> entry : ((IMSValue)value).entrySet())
+			for(Entry<IValue, Integer> entry : ((IMSValue)value).entrySet())
 			{
 				Integer n = entry.getValue();
 				if(n == null || n < 0)
@@ -63,8 +63,8 @@ public class ConsistencyManager
 		{
 			TermAssignment oldVe = globalMap.get(key);
 
-			Set<AbstractValue> newValues = new HashSet<AbstractValue>();
-			for(AbstractValue value : oldVe.getValues())
+			Set<IValue> newValues = new HashSet<IValue>();
+			for(IValue value : oldVe.getValues())
 			{
 				if(check(value, key.getRootTerm().getSort()))
 				{
@@ -84,13 +84,13 @@ public class ConsistencyManager
 		return filtered;
 	}
 	
-	public static List<FiringMode> checkSolution(List<Map<TermWrapper, AbstractValue>> varSets,
+	public static List<FiringMode> checkSolution(List<Map<TermWrapper, IValue>> varSets,
 			Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
 			Map<IDWrapper, MSValue> runtimeValues, Transition transition,
 			EvaluationManager evaluationManager) throws UnknownVariableException
 	{
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
-		for(Map<TermWrapper, AbstractValue> params : varSets)
+		for(Map<TermWrapper, IValue> params : varSets)
 		{
 			boolean conditionSatisfied = true;
 			
@@ -99,7 +99,7 @@ public class ConsistencyManager
 			{
 				try
                 {
-	                AbstractValue conditionValue = 
+	                IValue conditionValue = 
 	                		evaluationManager.evaluate(
 	                				transition.getCondition().getStructure(), params);
 	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();

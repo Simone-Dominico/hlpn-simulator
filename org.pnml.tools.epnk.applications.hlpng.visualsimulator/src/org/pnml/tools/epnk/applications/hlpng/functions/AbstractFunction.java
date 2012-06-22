@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.simulator.IVisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
@@ -30,22 +30,22 @@ public abstract class AbstractFunction implements IEvaluator
 	protected IVisualSimulator visualSimulator = null;
 	
 	@Override
-	public AbstractValue evaluate(Term term, EvaluationManager evaluationManager,
-			Map<TermWrapper, AbstractValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		Operator operator = (Operator) term;
-		List<AbstractValue> values = new ArrayList<AbstractValue>();
+		List<IValue> values = new ArrayList<IValue>();
 		for(Term subterm : operator.getSubterm())
 		{
 			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			AbstractValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
 			
 		MSValue ms = new MSValue();
 		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 		
-		AbstractValue value = execute(values);
+		IValue value = execute(values);
 		if(value != null)
 		{
 			return value;
@@ -54,7 +54,7 @@ public abstract class AbstractFunction implements IEvaluator
 		return ms;
 	}
 	
-	public abstract AbstractValue execute(List<AbstractValue> values);
+	public abstract IValue execute(List<IValue> values);
 
 	public Map<String, GObject> getGeometryMap()
     {
