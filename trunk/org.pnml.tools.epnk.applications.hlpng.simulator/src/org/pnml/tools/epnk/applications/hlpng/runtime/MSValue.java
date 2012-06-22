@@ -11,11 +11,6 @@ public class MSValue extends AbstractValue
     {
     	return values;
     }
-
-	public void setValues(Map<AbstractValue, Integer> values)
-    {
-    	this.values = values;
-    }
 	
 	@Override
     public String toString()
