@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IComparable;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -46,7 +46,7 @@ public class ArcInscriptionHandler
 		}
 	}
 	
-	public Map<TermWrapper, TermAssignment> match(MSValue value)
+	public Map<TermWrapper, TermAssignment> match(IMSValue value)
 	{
 		// each inscription term compared to all multiset terms
 		Map<TermWrapper, TermAssignment> assignments = new HashMap<TermWrapper, TermAssignment>();
@@ -58,7 +58,7 @@ public class ArcInscriptionHandler
 		return assignments;
 	}
 
-	private static void contains(MSValue multiset, 
+	private static void contains(IMSValue multiset, 
 			ComparisonManager resolutionManager, NumberOf numberOf, 
 			Map<TermWrapper, TermAssignment> assignments)
 	{

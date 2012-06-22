@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
@@ -84,13 +85,13 @@ public class RuntimeState implements IRuntimeState
     }
 
 	@Override
-    public MSValue getValue(Place place)
+    public IMSValue getValue(Place place)
     {
 	    return values.get(new IDWrapper(place));
     }
 	
 	@Override
-    public MSValue getValue(IDWrapper wrapper)
+    public IMSValue getValue(IDWrapper wrapper)
     {
 	    return values.get(wrapper);
     }

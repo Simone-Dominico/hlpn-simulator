@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
@@ -27,7 +27,7 @@ public class MultisetComparator implements IComparable
     public boolean compare(Term refValue, AbstractValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
-		if(!(refValue instanceof MultiSetOperator || testValue instanceof MSValue) ||
+		if(!(refValue instanceof MultiSetOperator || testValue instanceof IMSValue) ||
 	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||
 	    				refValue.getSort().equals(testValue.getSort())))
 	    {
@@ -35,7 +35,7 @@ public class MultisetComparator implements IComparable
 	    }
 	    
 		MultiSetOperator v1 = (MultiSetOperator)refValue;
-		MSValue v2 = (MSValue)testValue;
+		IMSValue v2 = (IMSValue)testValue;
 		
 		if(v1.getSubterm().size() != v2.getValues().keySet().size())
 		{
