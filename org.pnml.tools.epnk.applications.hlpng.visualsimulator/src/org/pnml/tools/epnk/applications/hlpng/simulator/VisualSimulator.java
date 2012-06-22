@@ -15,7 +15,7 @@ import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
@@ -276,7 +276,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		for(IDWrapper placeId : state.getPlaces())
 		{
 			Place place = (Place)placeId.getId();
-			MSValue msValue = state.getValue(placeId);
+			IMSValue msValue = state.getValue(placeId);
 			
 			Sort sort = place.getType().getStructure();
 			if(sort instanceof UserSort)

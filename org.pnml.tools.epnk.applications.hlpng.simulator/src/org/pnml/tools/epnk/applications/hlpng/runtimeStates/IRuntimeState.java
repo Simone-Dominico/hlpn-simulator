@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
@@ -20,8 +21,8 @@ public interface IRuntimeState
 	public Map<IDWrapper, List<FiringMode>> getModes();
 	
 	public void addValue(Place place, MSValue value);
-	public MSValue getValue(Place place);
-	public MSValue getValue(IDWrapper place);
+	public IMSValue getValue(Place place);
+	public IMSValue getValue(IDWrapper place);
 	public Set<IDWrapper> getPlaces();
 	
 	public void addFiringModes(Transition transition, List<FiringMode> modes);

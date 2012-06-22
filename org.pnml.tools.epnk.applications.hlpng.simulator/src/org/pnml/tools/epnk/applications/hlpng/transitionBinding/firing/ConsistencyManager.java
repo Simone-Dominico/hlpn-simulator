@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
@@ -38,11 +39,11 @@ public class ConsistencyManager
 			return true;
 		}
 		
-		if(value instanceof MSValue)
+		if(value instanceof IMSValue)
 		{
-			for(AbstractValue key : ((MSValue)value).getValues().keySet())
+			for(AbstractValue key : ((IMSValue)value).getValues().keySet())
 			{
-				Integer n = ((MSValue)value).getValues().get(key);
+				Integer n = ((IMSValue)value).getValues().get(key);
 				if(n == null || n < 0)
 				{
 					return false;
@@ -119,7 +120,7 @@ public class ConsistencyManager
 				{
 					if(matched)
 					{
-						MSValue runtimeValue = runtimeValues.get(placeId);
+						IMSValue runtimeValue = runtimeValues.get(placeId);
 						// it may be not possible to initialize some of the variables
 						MSValue inscriptionValue = null;
 	                    try

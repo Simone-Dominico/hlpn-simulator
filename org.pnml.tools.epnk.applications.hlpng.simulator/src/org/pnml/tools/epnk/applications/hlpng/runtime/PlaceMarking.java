@@ -4,7 +4,7 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 public class PlaceMarking extends AbstractMarking
 {
-	private MSValue msValue = null;
+	private IMSValue msValue = null;
 	private Place place = null;
 
 	public Place getPlace()
@@ -17,12 +17,12 @@ public class PlaceMarking extends AbstractMarking
     	this.place = place;
     }
 
-	public MSValue getMsValue()
+	public IMSValue getMsValue()
     {
     	return msValue;
     }
 
-	public void setMsValue(MSValue msValue)
+	public void setMsValue(IMSValue msValue)
     {
     	this.msValue = msValue;
     }

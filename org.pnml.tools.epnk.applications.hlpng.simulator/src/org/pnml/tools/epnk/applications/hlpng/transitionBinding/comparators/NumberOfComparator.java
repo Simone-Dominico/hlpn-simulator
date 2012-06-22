@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
@@ -24,13 +24,13 @@ public class NumberOfComparator implements IComparable
     public boolean compare(Term refValue, AbstractValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
-		if(!(refValue instanceof NumberOf || testValue instanceof MSValue))
+		if(!(refValue instanceof NumberOf || testValue instanceof IMSValue))
 	    {
 	    	return false;
 	    }
 	    
 		NumberOf nof = (NumberOf)refValue;
-		MSValue v2 = (MSValue)testValue;
+		IMSValue v2 = (IMSValue)testValue;
 		
 		boolean wasMatch = false;
     	for(AbstractValue value : v2.getValues().keySet())

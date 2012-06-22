@@ -3,11 +3,12 @@ package org.pnml.tools.epnk.applications.hlpng.runtime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MSValue extends AbstractValue
+public class MSValue extends AbstractValue implements IMSValue
 {
 	Map<AbstractValue, Integer> values = new HashMap<AbstractValue, Integer>();
 
-	public Map<AbstractValue, Integer> getValues()
+	@Override
+    public Map<AbstractValue, Integer> getValues()
     {
     	return values;
     }
@@ -22,7 +23,7 @@ public class MSValue extends AbstractValue
     		buffer.append(values.get(value));
     		buffer.append("`");
     		
-    		if(value instanceof MSValue)
+    		if(value instanceof IMSValue)
     		{
     			buffer.append("(" + value.toString() + ")");
     		}
@@ -57,7 +58,7 @@ public class MSValue extends AbstractValue
 	    {
 		    return false;
 	    }
-	    if(!(obj instanceof MSValue))
+	    if(!(obj instanceof IMSValue))
 	    {
 		    return false;
 	    }

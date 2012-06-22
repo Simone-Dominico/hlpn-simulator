@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
@@ -39,9 +40,9 @@ public class MultisetsEval implements IEvaluator
 			set.setSort(operator.getSort());
 
 			int multiplicity = ((NumberValue)values.get(0)).getN();
-			if(values.get(1) instanceof MSValue)
+			if(values.get(1) instanceof IMSValue)
 			{
-				for(Entry<AbstractValue, Integer> value : ((MSValue)values.get(1)).getValues().entrySet())
+				for(Entry<AbstractValue, Integer> value : ((IMSValue)values.get(1)).getValues().entrySet())
 				{
 					MSValue msValue = new MSValue();
 					msValue.setSort(value.getKey().getSort());
@@ -64,7 +65,7 @@ public class MultisetsEval implements IEvaluator
 			
 			for(AbstractValue value : values)
 			{
-				MSValue ms = (MSValue) value;
+				IMSValue ms = (IMSValue) value;
 				set = AbstractValueMath.append(set, ms);
 			}
 			return set;
@@ -75,7 +76,7 @@ public class MultisetsEval implements IEvaluator
 			
 			for(int i = 1; i < values.size(); i++)
 			{
-				MSValue ms = (MSValue) values.get(i);
+				IMSValue ms = (IMSValue) values.get(i);
 				set = AbstractValueMath.subtract(set, ms);
 			}
 			return set;

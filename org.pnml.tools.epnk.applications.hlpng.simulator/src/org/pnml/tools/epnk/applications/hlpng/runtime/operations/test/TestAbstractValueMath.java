@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
@@ -136,7 +137,7 @@ public class TestAbstractValueMath extends AbstractValueMath
     {
     	// simple number
     	{
-    		MSValue test = AbstractValueMath.add(mainMs, tmpValue10, 1);
+    		IMSValue test = AbstractValueMath.add(mainMs, tmpValue10, 1);
     		
             assertEquals(1, (int)AbstractValueMath.getMultiplicity(test, tmpValue10));
     	}
@@ -233,7 +234,7 @@ public class TestAbstractValueMath extends AbstractValueMath
         	msAppend = AbstractValueMath.add(msAppend, intAppend19, 1);
         }
 		
-    	MSValue test = AbstractValueMath.append(mainMs, msAppend);
+    	IMSValue test = AbstractValueMath.append(mainMs, msAppend);
   
     	{
     		IntValue intAppend9 = new IntValue();

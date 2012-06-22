@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime.operations;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
@@ -55,7 +56,7 @@ public class AbstractValueMath
 		return l.getElements().get(index);
 	}
 	
-    public static String toString(MSValue set)
+    public static String toString(IMSValue set)
     {
     	StringBuffer buffer = new StringBuffer();
     	
@@ -75,9 +76,9 @@ public class AbstractValueMath
     		
     		buffer.append("`");
     		
-    		if(value instanceof MSValue)
+    		if(value instanceof IMSValue)
     		{
-    			buffer.append("(" + toString((MSValue)value) + ")");
+    			buffer.append("(" + toString((IMSValue)value) + ")");
     		}
     		else
     		{
@@ -90,7 +91,7 @@ public class AbstractValueMath
 	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
     }
 	
-	public static Integer getMultiplicity(MSValue msSet, AbstractValue value)
+	public static Integer getMultiplicity(IMSValue msSet, AbstractValue value)
 	{
 		return msSet.getValues().get(value);
 	}
@@ -126,7 +127,7 @@ public class AbstractValueMath
     	return newMsSet;
     }
     
-    public static MSValue subtract(MSValue msSet1, MSValue msSet2)
+    public static MSValue subtract(MSValue msSet1, IMSValue msSet2)
     {
     	MSValue newMsSet = lightCopy(msSet1);
     	for(AbstractValue key : msSet2.getValues().keySet())
@@ -137,7 +138,7 @@ public class AbstractValueMath
     	return newMsSet;
     }
     
-    public static MSValue append(MSValue msSet1, MSValue msSet2)
+    public static MSValue append(MSValue msSet1, IMSValue msSet2)
     {    	
     	MSValue msSet = new MSValue();
     	msSet.setSort(msSet1.getSort());
@@ -166,7 +167,7 @@ public class AbstractValueMath
     }
     
     // msSet1 <= msSet2
-    public static boolean lessEqual(MSValue msSet1, MSValue msSet2)
+    public static boolean lessEqual(IMSValue msSet1, IMSValue msSet2)
     {    	
         for(AbstractValue key : msSet1.getValues().keySet())
         {

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.AbstractValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -73,7 +74,7 @@ public class TransitionManager
 		
 		for(IDWrapper placeId : incomingArcs.keySet())
 		{
-			MSValue msValue = runtimeValues.get(placeId);
+			IMSValue msValue = runtimeValues.get(placeId);
 			
 			// each inscription term compared to all multiset terms
 			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
