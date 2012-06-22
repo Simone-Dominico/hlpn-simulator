@@ -3,7 +3,7 @@ package org.pnml.tools.epnk.applications.hlpng.runtime;
 import java.util.Collection;
 import java.util.Map.Entry;
 
-public interface IMSValue
+public interface IMSValue extends IValue
 {
 	public Collection<Entry<AbstractValue, Integer>> entrySet();
 	public int size();
