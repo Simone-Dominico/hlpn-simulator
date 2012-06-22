@@ -58,34 +58,6 @@ public class AbstractValueMath
 		return l.getElements().get(index);
 	}
 	
-    public static String toString(IMSValue set)
-    {
-    	StringBuffer buffer = new StringBuffer();
-    	
-    	for(Entry<AbstractValue, Integer> entry : set.entrySet())
-    	{
-    		AbstractValue value = entry.getKey();
-    		Integer n = entry.getValue();
-    		
-    		buffer.append(String.valueOf(n));
-        	
-			buffer.append("`");
-    		
-    		if(value instanceof IMSValue)
-    		{
-    			buffer.append("(" + toString((IMSValue)value) + ")");
-    		}
-    		else
-    		{
-    			buffer.append(value.toString());    			
-    		}
-
-    		buffer.append("++");
-    	}
-    	
-	    return buffer.toString().replaceAll("(.*)\\s*\\+\\+\\s*$", "$1");
-    }
-	
     public static MSValue add(MSValue msSet, AbstractValue value, Integer multiplicity)
     {
     	MSValue mainSet = lightCopy(msSet);
