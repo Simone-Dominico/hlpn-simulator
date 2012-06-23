@@ -198,8 +198,8 @@ public class TransitionFiringManager
 		                IValue inscriptionValue = evalManager.
 		                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
 		                
-		                newMarking = AbstractValueMath.append((IMSValue)inscriptionValue,
-		                		currentMarking, runtimeValueFactory);
+		                newMarking = AbstractValueMath.append(currentMarking,
+		                		(IMSValue)inscriptionValue, runtimeValueFactory);
 	                }
 	                catch(UnknownVariableException e)
 	                {
