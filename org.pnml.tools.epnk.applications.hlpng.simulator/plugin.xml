@@ -2,6 +2,7 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions" name="UserExtensions" schema="schema/org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.exsd"/>
+   <extension-point id="org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy" name="FiringStrategy" schema="schema/org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy.exsd"/>
 
    <extension
          point="org.eclipse.ui.popupMenus">

@@ -4,6 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.simulator.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ListComparator;
@@ -141,5 +142,25 @@ public class ResourceManager
 		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());
 		
 		return comparisonManager;
+	}
+	
+	public static IFiringStrategy getFiringStrategy(String id)
+	{
+		IConfigurationElement[] config = Platform.getExtensionRegistry().
+				getConfigurationElementsFor(id);
+		IFiringStrategy strategy = null;
+		for(IConfigurationElement e : config)
+		{
+			try
+			{
+				strategy = (IFiringStrategy) e.createExecutableExtension("class");
+			}
+			catch(CoreException e1)
+			{
+				System.err.println("WRN: failed to load the firing strateg: "
+						+ e1.getMessage());
+			}
+		}
+		return strategy;
 	}
 }

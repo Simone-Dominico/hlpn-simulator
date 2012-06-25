@@ -66,7 +66,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
             RuntimeValueFactory factory)
     {
 	    super(petrinet, evaluationManager, comparisonManager,
-	            reversibleOperationManager, font, factory, false);
+	            reversibleOperationManager, font, factory, null, false);
 	    
 	    this.animator = animator;
 	    this.extensionManager = extensionManager;

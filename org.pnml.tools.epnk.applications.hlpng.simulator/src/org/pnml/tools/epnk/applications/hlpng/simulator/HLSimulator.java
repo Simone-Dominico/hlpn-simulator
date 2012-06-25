@@ -44,7 +44,7 @@ public class HLSimulator extends Application
 	protected long simulationPause = 500;
 	protected boolean autoModeEnabled;
 	
-	protected IFiringStrategy firingStrategy = new RandomFiringStrategy();
+	protected IFiringStrategy firingStrategy = null;
 	
 	protected IRuntimeStateContainer stateContainer = null; 
 	
@@ -53,7 +53,8 @@ public class HLSimulator extends Application
 	public HLSimulator(PetriNet petrinet, EvaluationManager evaluationManager, 
 			ComparisonManager comparisonManager, 
 			ReversibleOperationManager reversibleOperationManager, Font font,
-			RuntimeValueFactory runtimeValueFactory, boolean init)
+			RuntimeValueFactory runtimeValueFactory, 
+			IFiringStrategy firingStrategy, boolean init)
     {
 	    super(petrinet);
 	    
@@ -61,6 +62,7 @@ public class HLSimulator extends Application
 	    this.comparisonManager = comparisonManager;
 	    this.reversibleOperationManager = reversibleOperationManager;
 	    this.runtimeValueFactory = runtimeValueFactory;
+	    this.firingStrategy = firingStrategy;
 	    
 	    this.font = font;
 		
@@ -135,9 +137,12 @@ public class HLSimulator extends Application
 	@Override
     public void show(IRuntimeState state)
     {
-		stateContainer.setCurrent(state);
-		// creating an annotation layer
-		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+		if(!autoModeEnabled)
+		{
+			stateContainer.setCurrent(state);
+			// creating an annotation layer
+			showAnnotations(state, netMarkingManager, this.getNetAnnotations());	
+		}
     }
 
 	@Override
