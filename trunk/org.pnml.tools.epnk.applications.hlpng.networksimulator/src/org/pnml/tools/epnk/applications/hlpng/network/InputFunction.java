@@ -7,14 +7,15 @@ import java.util.Map;
 import networkmodel.Category;
 import networkmodel.Node;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IDataTypeEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
@@ -22,7 +23,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class InputFunction implements IEvaluator, IDataTypeEvaluator
+public class InputFunction extends AbstractFunction implements IEvaluator, IDataTypeEvaluator
 {
 	protected List<Category> categories = null;
 	private List<NodeWrapper> nodes = null;
@@ -42,7 +43,7 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 			
 		UserOperator uOp = (UserOperator) operator;
 		
-		MSValue msValue = new MSValue();
+		IMSValue msValue = runtimeValueFactory.createMSValue();
 		msValue.setSort(uOp.getOutputSort());
 		
 		List<Node> nodesInCategory = getNodes(uOp.getName(), categories);
@@ -85,7 +86,7 @@ public class InputFunction implements IEvaluator, IDataTypeEvaluator
 	@Override
     public IValue evaluate(Sort sort)
     {
-		MSValue msValue = new MSValue();
+		IMSValue msValue = runtimeValueFactory.createMSValue();
 		msValue.setSort(sort);
 		
 		List<Node> nodesInCategory = new ArrayList<Node>();
