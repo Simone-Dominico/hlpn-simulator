@@ -13,7 +13,7 @@ import Appearence.Shape;
 public class MOVE extends AbstractFunction
 {
 	@Override
-	public synchronized IValue execute(List<IValue> values)
+	public IValue execute(List<IValue> values)
 	{
 		// model object comes first
 		StringValue modelStr = (StringValue)values.get(0);

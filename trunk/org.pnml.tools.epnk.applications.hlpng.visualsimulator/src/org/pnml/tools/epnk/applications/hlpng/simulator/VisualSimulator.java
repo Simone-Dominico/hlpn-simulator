@@ -17,7 +17,10 @@ import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -44,6 +47,12 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	private Map<String, Integer> staticItemMap = new HashMap<String, Integer>();
 	private Map<String, Integer> modelMap = new HashMap<String, Integer>();
 	private ExtensionManager extensionManager = null;
+	
+	private Map<String, GObject> geometryMap = null;
+	private Map<String, Shape> shapeMap = null;
+	
+	private boolean reset = false;
+	private boolean resetInProgress = false;
 
 	// each time a transition is fired an associated animation is registered here 
 	private Set<Integer> runningAnimations = null;
@@ -53,15 +62,16 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
             ComparisonManager comparisonManager,
             ReversibleOperationManager reversibleOperationManager, Font font,
             Animator animator, String globalAppearancepath, Geometry geometry,
-            Shapes appearance, ExtensionManager extensionManager)
+            Shapes appearance, ExtensionManager extensionManager,
+            RuntimeValueFactory factory)
     {
 	    super(petrinet, evaluationManager, comparisonManager,
-	            reversibleOperationManager, font, false);
+	            reversibleOperationManager, font, factory, false);
 	    
 	    this.animator = animator;
 	    this.extensionManager = extensionManager;
 	    
-		Map<String, GObject> geometryMap = new HashMap<String, GObject>();
+		geometryMap = new HashMap<String, GObject>();
 		{
 			for(GObject g : geometry.getGeometryObjects())
 			{
@@ -78,7 +88,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			}
 		}
 		
-		Map<String, Shape> shapeMap = new HashMap<String, Shape>();
+		shapeMap = new HashMap<String, Shape>();
 		{
 			for(Shape s : appearance.getAppearence())
 			{
@@ -94,12 +104,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			function.setGeometryMap(geometryMap);
 			function.setShapeMap(shapeMap);
 			function.setVisualSimulator(this);
+			function.setFactory(factory);
 		}
 
 		// make animator visible
 		this.animator.setWindow(new Window(animator));
 		this.animator.setSimulator(this);
 		this.animator.setVisible(true);
+		this.reset = true;
 		this.animator.initRequested();
     }
 
@@ -107,6 +119,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	public void reset()
     {
 		simulationViewController.clear();
+		reset = true;
 		animator.setReset(true);
     }
 	
@@ -136,6 +149,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void reset(IAnimator animator)
     {	
+		resetInProgress = false;
 		go(this);
     }
 	
@@ -203,18 +217,12 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
     public void show(IRuntimeState state)
     {
 		stateContainer.setCurrent(state);
-		runningAnimations = new HashSet<Integer>();
-		for(String key : modelMap.keySet())
+		
+		if(!resetInProgress)
 		{
-			runningAnimations.add(modelMap.get(key));
+			resetInProgress = true;
+			animator.setReset(true);
 		}
-		stop(animator);
-		// update transition bindings
-		updateTransitionBinding(state);
-		// nothing can run after start up
-		placeObjects(state, extensionManager);
-		// creating an annotation layer
-		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
     }
 	
 	@Override
@@ -272,7 +280,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	 * private static functions start here
 	 */
 	private static void placeObjects(IRuntimeState state, 
-			ExtensionManager extensionManager)
+			ExtensionManager extensionManager, VisualSimulator simulator)
 	{
 		for(IDWrapper placeId : state.getPlaces())
 		{
@@ -285,13 +293,11 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 				UserSort userSort = (UserSort)sort;
 				if(userSort.getName().equals("DYNAMIC_MODEL"))
 				{
-					IEvaluator moveEvaluator = extensionManager.getHandlers().get("MOVE");
-					AbstractFunction moveFunction = (AbstractFunction) moveEvaluator;
-					
 					for(Entry<IValue, Integer> entry : msValue.entrySet())
 					{
-						IValue value = entry.getKey();
-						moveFunction.execute(((ProductValue)value).getComponents());	
+						appear(((ProductValue)entry.getKey()).getComponents(), 
+								simulator.geometryMap, simulator.shapeMap, 
+								simulator.animator, simulator);
 					}
 				}
 				else if(userSort.getName().equals("STATIC_MODEL"))
@@ -328,13 +334,52 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	
 	private static void go(VisualSimulator simulator)
 	{
-		// nothing can run after start up
+		if(simulator.reset)
+		{
+			simulator.init();
+			simulator.reset = false;
+		}
+		
+		display(simulator, simulator.stateContainer.getCurrent());
+	}
+	
+	private static void appear(List<IValue> values, Map<String, GObject> geometryMap,
+			Map<String, Shape> shapeMap, IAnimator animator, VisualSimulator simulator)
+	{
+		// model object comes first
+		StringValue modelStr = (StringValue)values.get(0);
+		
+		// geometry object comes second
+		StringValue geoStr = (StringValue)values.get(1);
+		
+		// speed comes third
+		NumberValue speed = (NumberValue)values.get(2);
+		
+		Shape shape = shapeMap.get(modelStr.getData());
+		GObject gObj = geometryMap.get(geoStr.getData());
+		
+		animator.appear(simulator.getModelId(shape.getId()), 
+				simulator.getStaticItemId(gObj.getId()), speed.getN());
+		
+		simulator.registerAnimation(simulator.getModelId(shape.getId()));
+	}
+	
+	private static void display(VisualSimulator simulator, IRuntimeState state)
+	{
+		simulator.stateContainer.setCurrent(state);
+		
 		simulator.runningAnimations = new HashSet<Integer>();
 		for(String key : simulator.modelMap.keySet())
 		{
 			simulator.runningAnimations.add(simulator.modelMap.get(key));
 		}
-		simulator.init();
-		simulator.show(simulator.stateContainer.getCurrent());
+		simulator.stop(simulator.animator);
+		// update transition bindings
+		simulator.updateTransitionBinding(state);
+		// nothing can run after start up
+		placeObjects(state, simulator.extensionManager, simulator);
+		// creating an annotation layer
+		simulator.showAnnotations(state, simulator.netMarkingManager, simulator.getNetAnnotations());
 	}
+	
 }
