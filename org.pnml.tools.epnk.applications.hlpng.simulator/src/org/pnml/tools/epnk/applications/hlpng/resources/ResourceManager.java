@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUser
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DivisionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
@@ -32,6 +33,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Variab
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.dots.impl.DotConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.DivisionImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.MultiplicationImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.NumberConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.SubtractionImpl;
@@ -74,6 +76,7 @@ public class ResourceManager
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
 		evaluationManager.register(SubtractionImpl.class, new SubtractionEval());
+		evaluationManager.register(DivisionImpl.class, new DivisionEval());
 		
 		// user extensions
 		if(extensionId != null)
@@ -107,6 +110,7 @@ public class ResourceManager
 		reversibleOperationManager.register(AdditionImpl.class, new AdditionEval());
 		reversibleOperationManager.register(MultiplicationImpl.class, new MultiplicationEval());
 		reversibleOperationManager.register(SubtractionImpl.class, new SubtractionEval());
+		reversibleOperationManager.register(DivisionImpl.class, new DivisionEval());
 		
 		return reversibleOperationManager;
 	}
@@ -131,6 +135,7 @@ public class ResourceManager
 		comparisonManager.register(AdditionImpl.class, binEval);
 		comparisonManager.register(MultiplicationImpl.class, binEval);
 		comparisonManager.register(SubtractionImpl.class, binEval);
+		comparisonManager.register(DivisionImpl.class, binEval);
 		
 		comparisonManager.register(VariableImpl.class, new VariableComparator());
 		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());

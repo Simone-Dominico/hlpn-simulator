@@ -24,6 +24,10 @@ public class ConsistencyManager
 {
 	public static boolean check(IValue value, Sort sort)
 	{
+		if(value == null)
+		{
+			return false;
+		}
 		if(sort instanceof org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Number)
 		{
 			NumberValue nValue = (NumberValue)value;

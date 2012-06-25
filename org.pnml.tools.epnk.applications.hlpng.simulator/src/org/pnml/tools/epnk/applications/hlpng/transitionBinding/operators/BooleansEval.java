@@ -107,7 +107,8 @@ public class BooleansEval implements IEvaluator
 			BooleanValue result = new BooleanValue();
 			result.setSort(BooleansFactory.eINSTANCE.createBool());
 			
-			if(values.get(0).equals(values.get(1)))
+			if(values.get(0) != null && values.get(1) != null && 
+					values.get(0).equals(values.get(1)))
 			{
 				result.setValue(true);
 			}
