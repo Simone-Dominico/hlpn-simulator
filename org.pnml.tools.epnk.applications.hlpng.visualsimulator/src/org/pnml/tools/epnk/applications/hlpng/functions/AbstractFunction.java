@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.IVisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -29,6 +30,8 @@ public abstract class AbstractFunction implements IEvaluator
 	protected IAnimator animator = null;
 	protected IVisualSimulator visualSimulator = null;
 	
+	protected RuntimeValueFactory factory = null;
+	
 	@Override
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
@@ -42,7 +45,7 @@ public abstract class AbstractFunction implements IEvaluator
 			values.add(value);
 		}
 			
-		MSValue ms = new MSValue();
+		IMSValue ms = factory.createMSValue();
 		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 		
 		IValue value = execute(values);
@@ -100,5 +103,15 @@ public abstract class AbstractFunction implements IEvaluator
     public String validate(Object term)
     {
 	    return null;
+    }
+
+	public RuntimeValueFactory getFactory()
+    {
+    	return factory;
+    }
+
+	public void setFactory(RuntimeValueFactory factory)
+    {
+    	this.factory = factory;
     }
 }

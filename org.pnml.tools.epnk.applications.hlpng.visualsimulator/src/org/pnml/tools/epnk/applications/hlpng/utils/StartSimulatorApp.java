@@ -27,6 +27,7 @@ import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
+import org.pnml.tools.epnk.applications.hlpng.simulator.MSListFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -75,9 +76,12 @@ public class StartSimulatorApp implements IObjectActionDelegate
 
 		if(resource != null && resource.getContents().size() > 0)
 		{
+			// runtime value factory
+			MSListFactory factory = new MSListFactory();
 			// init the evaluation manager
 			EvaluationManager evaluationManager = ResourceManager.
-					createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+					createEvaluationManager(factory,
+							"org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 
 			// init the reversible operation manager
 			ReversibleOperationManager reversibleOperationManager = 
@@ -122,7 +126,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
     					comparisonManager, reversibleOperationManager,
     					Display.getCurrent().getSystemFont(), animator, 
     					config.getGeometry().getGlobalAppearancePath(), 
-    					config.getGeometry(), config.getShapes(), extensionManager);
+    					config.getGeometry(), config.getShapes(), extensionManager,
+    					factory);
     
     //			 registers the simulator
     			Activator activator = Activator.getInstance();
