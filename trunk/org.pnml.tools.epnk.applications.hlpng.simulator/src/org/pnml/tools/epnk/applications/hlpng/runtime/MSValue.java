@@ -67,11 +67,12 @@ public class MSValue extends AbstractValue implements IMSValue
     {
     	StringBuffer buffer = new StringBuffer();
     	
-    	for(IValue value : values.keySet())
+    	for(Entry<IValue, Integer> entry : entrySet())
     	{
-    		buffer.append(values.get(value));
+    		buffer.append(entry.getValue());
     		buffer.append("`");
     		
+    		IValue value = entry.getKey();
     		if(value instanceof IMSValue)
     		{
     			buffer.append("(" + value.toString() + ")");
