@@ -551,13 +551,13 @@
                   <subterm>
                     <tuple>
                       <subterm>
-                        <stringconstant value="slow"/>
+                        <stringconstant value="fast"/>
                       </subterm>
                       <subterm>
                         <stringconstant value="track5"/>
                       </subterm>
                       <subterm>
-                        <numberconstant value="30">
+                        <numberconstant value="60">
                           <positive/>
                         </numberconstant>
                       </subterm>
@@ -575,13 +575,13 @@
                   <subterm>
                     <tuple>
                       <subterm>
-                        <stringconstant value="fast"/>
+                        <stringconstant value="slow"/>
                       </subterm>
                       <subterm>
                         <stringconstant value="track5"/>
                       </subterm>
                       <subterm>
-                        <numberconstant value="60">
+                        <numberconstant value="20">
                           <positive/>
                         </numberconstant>
                       </subterm>
@@ -591,8 +591,8 @@
               </subterm>
             </add>
           </structure>
-          <text>1`(&quot;slow&quot;, &quot;track5&quot;, 30)++
-1`(&quot;fast&quot;, &quot;track5&quot;, 60)</text>
+          <text>1`(&quot;fast&quot;, &quot;track5&quot;, 60)++
+1`(&quot;slow&quot;, &quot;track5&quot;, 20)</text>
         </hlinitialMarking>
       </place>
       <transition id="t1">
