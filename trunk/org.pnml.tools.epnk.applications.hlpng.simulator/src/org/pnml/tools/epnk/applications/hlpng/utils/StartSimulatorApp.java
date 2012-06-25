@@ -15,6 +15,8 @@ import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
+import org.pnml.tools.epnk.applications.hlpng.simulator.IFiringStrategy;
+import org.pnml.tools.epnk.applications.hlpng.simulator.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -42,6 +44,15 @@ public class StartSimulatorApp implements IObjectActionDelegate
 				
 		// init the comparison manager
 		ComparisonManager comparisonManager = ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
+		
+		// firing strategy
+		IFiringStrategy strategy = ResourceManager.
+				getFiringStrategy("org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy");
+		if(strategy == null)
+		{
+			System.err.println("INFO: loading default firing strategy");
+			strategy = new RandomFiringStrategy();
+		}
 
 		// perform validation
 		ValidationDelegateClientSelector.running = true;
@@ -60,7 +71,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// creates a simulator
 			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
 					comparisonManager, reversibleOperationManager,
-					Display.getDefault().getSystemFont(), runtimeValueFactory, true);
+					Display.getDefault().getSystemFont(), runtimeValueFactory, 
+					strategy, true);
 			// registers the simulator
 			Activator activator = Activator.getInstance();
 			ApplicationRegistry registry = activator.getApplicationRegistry();
