@@ -5,13 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 
 public class RandomFiringStrategy implements IFiringStrategy
 {
 	@Override
-	public FiringMode fire(Map<IDWrapper, List<FiringMode>> modes)
+	public FiringMode fire(Map<IDWrapper, List<FiringMode>> modes, 
+			IRuntimeState currentMarking)
 	{
 		List<IDWrapper> transitions = new ArrayList<IDWrapper>(modes.keySet());
 		int tIndex = getIndex(transitions.size());

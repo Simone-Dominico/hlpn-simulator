@@ -107,7 +107,16 @@ public class ReversibleOperationManager
 				rv.setRootTerm(var);
 				rv.setVariable(var);
 				
-				IValue value = operation.reverseAll(result, args, termEval.get(0));
+				IValue value = null;
+				try
+                {
+	                value = operation.reverseAll(result, args, termEval.get(0));
+                }
+                catch(Exception e)
+                {
+	                System.err.println("WRN: " + e.getMessage());
+                }
+			
 				if(knownVariables.containsKey(rv))
 				{
 					knownVariables.get(rv).getValues().add(value);

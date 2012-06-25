@@ -190,7 +190,8 @@ public class HLSimulator extends Application
 	@Override
     public void work()
     {
-		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent().getModes());
+		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent().getModes(),
+				stateContainer.getCurrent());
 		if(mode != null)
 		{
 			this.fire(mode);	

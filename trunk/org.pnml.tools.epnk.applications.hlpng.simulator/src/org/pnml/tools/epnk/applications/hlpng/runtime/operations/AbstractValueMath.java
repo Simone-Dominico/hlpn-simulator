@@ -55,7 +55,11 @@ public class AbstractValueMath
 	
 	public static IValue at(ListValue l, int index)
 	{
-		return l.getElements().get(index);
+		if(l.getElements().size() > index)
+		{
+			return l.getElements().get(index);
+		}
+		return null;
 	}
 	
     public static IMSValue add(IMSValue msSet, IValue value, Integer multiplicity,
