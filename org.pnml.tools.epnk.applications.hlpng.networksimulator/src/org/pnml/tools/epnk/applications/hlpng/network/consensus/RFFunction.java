@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class RFFunction implements IEvaluator
+public class RFFunction extends AbstractFunction implements IEvaluator
 {
     private List<IValue> messages = null;
 
@@ -35,7 +36,7 @@ public class RFFunction implements IEvaluator
             
         UserOperator uOp = (UserOperator) operator;
         
-        MSValue msValue = new MSValue();
+        IMSValue msValue = runtimeValueFactory.createMSValue();
         msValue.setSort(uOp.getOutputSort());
         
         List<IValue> list = new ArrayList<IValue>(values);

@@ -43,6 +43,9 @@ import org.pnml.tools.epnk.applications.hlpng.network.echo.M1Function;
 import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
+import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.simulator.IFiringStrategy;
+import org.pnml.tools.epnk.applications.hlpng.simulator.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
@@ -87,9 +90,13 @@ public class StartSimulatorApp implements IObjectActionDelegate
 
         if(resource != null && resource.getContents().size() > 0)
         {
+        	// runtime value factory
+    		RuntimeValueFactory runtimeValueFactory = new RuntimeValueFactory();
+    		
             // init the evaluation manager
             EvaluationManager evaluationManager = ResourceManager.
-            		createEvaluationManager("org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
+            		createEvaluationManager(runtimeValueFactory, 
+            				"org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 
             // init extension manager
             List<NodeWrapper> nodes = new ArrayList<NodeWrapper>();
@@ -121,6 +128,15 @@ public class StartSimulatorApp implements IObjectActionDelegate
             ComparisonManager comparisonManager = 
                     ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
             
+            // firing strategy
+    		IFiringStrategy strategy = ResourceManager.
+    				getFiringStrategy("org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy");
+    		if(strategy == null)
+    		{
+    			System.err.println("INFO: loading default firing strategy");
+    			strategy = new RandomFiringStrategy();
+    		}
+    		
             // perform validation
     		ValidationDelegateClientSelector.running = true;
     		IBatchValidator validator = (IBatchValidator) ModelValidationService
@@ -138,7 +154,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
                 // init HLPNG simualtor
                 NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
                         comparisonManager, reversibleOperationManager,
-                        Display.getCurrent().getSystemFont());
+                        Display.getCurrent().getSystemFont(), runtimeValueFactory,
+                        extensionManager, strategy);
 
                 // registers the simulator
                 Activator activator = Activator.getInstance();

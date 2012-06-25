@@ -5,21 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class NFunction implements IEvaluator
+public class NFunction extends AbstractFunction implements IEvaluator
 {
 	private Integer[][] graph = null;
 	private Map<String, NodeWrapper> nodeMap = null;
@@ -41,7 +42,7 @@ public class NFunction implements IEvaluator
 		int nodeId = nodeMap.get(((StringValue)values.get(0)).getData()).getId();
 		UserOperator uOp = (UserOperator) operator;
 		
-		MSValue msValue = new MSValue();
+		IMSValue msValue = runtimeValueFactory.createMSValue();
 		msValue.setSort(uOp.getOutputSort());
 		
 		for(int i = 0; i < graph.length; i++)
