@@ -1,5 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator.views;
 
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -23,7 +25,6 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	private static final int[] columnAlignment = new int[] { SWT.LEFT, SWT.LEFT };
 
 	private TableViewer viewer;
-	private SimulationViewController controller = null;
 	
 	private Action clear;
 	private Action doubleClickAction;
@@ -42,7 +43,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		viewer.setInput(getViewSite());
 		
 		viewer.addSelectionChangedListener(this);
-
+		
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
@@ -121,7 +122,11 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		{
 			public void run()
 			{
-				clear();
+				if(currentController != null)
+				{
+					viewer.getTable().removeAll();
+					currentController.clearFromView();
+				}
 			}
 		};
 		clear.setText("Clear all");
@@ -133,18 +138,9 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		{
 			public void run()
 			{
-				Object data = currentData(viewer);
-				if(data != null)
-				{
-					controller.itemSelected(data);
-				}
+				callback();
 			}
 		};
-	}
-
-	public void clear()
-	{
-		viewer.getTable().removeAll();
 	}
 
 	/**
@@ -161,11 +157,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	@Override
     public void selectionChanged(SelectionChangedEvent event)
     {
-		Object data = currentData(viewer);
-		if(data != null)
-		{
-			controller.itemSelected(data);
-		}
+		callback();
     }
 	
 	private static Object currentData(TableViewer viewer)
@@ -179,20 +171,61 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		return null;
 	}
 	
-	public void record(String[] text, Object data)
+	/*
+	 * Communication with the Controller
+	 */
+	private SimulationViewController currentController = null;
+	
+	public void record(SimulationViewController controller, TableRecord record)
 	{
-		TableItem item = new TableItem(viewer.getTable(), SWT.NONE);
-        item.setText(text);
-        item.setData(data);
+		if(currentController == controller)
+		{
+			TableItem item = new TableItem(viewer.getTable(), SWT.NONE);
+	        item.setText(record.getText());
+	        item.setData(record.getData());	
+		}
+	}
+	
+	public void resetRecords(SimulationViewController controller, List<TableRecord> records)
+	{
+		if(currentController == controller)
+		{
+			viewer.getTable().removeAll();
+			
+			for(TableRecord record : records)
+			{
+				TableItem item = new TableItem(viewer.getTable(), SWT.NONE);
+		        item.setText(record.getText());
+		        item.setData(record.getData());		
+			}
+		}
+	}
+	
+	public void clear(SimulationViewController controller)
+	{
+		if(currentController == controller)
+		{
+			viewer.getTable().removeAll();
+		}
 	}
 
-	public SimulationViewController getController()
+	private void callback()
+	{
+		Object data = currentData(viewer);
+		if(data != null && currentController != null)
+		{
+			currentController.itemSelected(data);
+		}
+	}
+	
+	public SimulationViewController getCurrentController()
     {
-    	return controller;
+    	return currentController;
     }
 
-	public void setController(SimulationViewController controller)
+	public void setCurrentController(SimulationViewController currentController)
     {
-    	this.controller = controller;
+    	this.currentController = currentController;
     }
+
 }

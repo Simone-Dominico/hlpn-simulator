@@ -1,5 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -10,49 +13,58 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMod
 
 public class SimulationViewController
 {
+	private final SimulationViewController me = this;
+	
 	private ISimulator simulator = null;
-	private IViewPart view = null;
+	private SimulationView simulationView = null;
 	private Display display = null;
+	
+	private List<TableRecord> records = new ArrayList<TableRecord>();
 
 	public SimulationViewController(ISimulator simulator)
 	{
 		this.simulator = simulator;
-		// init
-		getView();
-		getDisplay();
+		init();
 	}
 
 	public void record(FiringMode firingMode, final IRuntimeState runtimeState)
 	{
-		if (getView() != null) 
+		if(simulationView != null) 
 		{
-			final SimulationView simulationView = (SimulationView) getView();
-			simulationView.setController(this);
-			
 			final String[] text = new String[] {firingMode.getTransition().getId(), firingMode.toString()};
 
-			getDisplay().asyncExec(new Runnable()
+			final TableRecord record = new TableRecord();
+			record.setData(runtimeState);
+			record.setText(text);
+			
+			// registers the record
+			this.records.add(record);
+			display.asyncExec(new Runnable()
 			{
 				public void run()
 				{
-					simulationView.record(text, runtimeState);
+					simulationView.record(me, record);
 				}
 			});
 		}
 	}
 	
+	public void clearFromView()
+	{
+		this.records.clear();
+	}
+	
 	public void clear()
 	{
-		if (getView() != null) 
+		if(simulationView != null) 
 		{
-			final SimulationView simulationView = (SimulationView) getView();
-			simulationView.setController(this);
-
-			getDisplay().asyncExec(new Runnable()
+			// clears the records
+			this.records.clear();
+			display.asyncExec(new Runnable()
 			{
 				public void run()
 				{
-					simulationView.clear();
+					simulationView.clear(me);
 				}
 			});
 		}
@@ -63,24 +75,39 @@ public class SimulationViewController
 		simulator.show((IRuntimeState)data);
 	}
 
-	public IViewPart getView()
+	public void setCurrent()
+	{
+		if(simulationView != null) 
+		{
+			simulationView.setCurrentController(me);
+			
+			display.asyncExec(new Runnable()
+			{
+				public void run()
+				{
+					simulationView.resetRecords(me, records);
+				}
+			});
+		}
+	}
+	
+	private void init()
     {
-		if(view == null && PlatformUI.getWorkbench() != null && 
+		if(PlatformUI.getWorkbench() != null && 
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
 		{
 			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			view = activePage.findView(SimulationView.ID);
+			IViewPart view = activePage.findView(SimulationView.ID);
+			
+			if(view instanceof SimulationView)
+			{
+				simulationView = (SimulationView) view;	
+			}
 		}
-    	return view;
-    }
-
-	public Display getDisplay()
-    {
-		if(display == null)
 		{
 			display = Display.getCurrent();
 		}
-    	return display;
     }
+
 }
