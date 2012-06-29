@@ -3,13 +3,10 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.applications.hlpng.presentation.InputDialog;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;

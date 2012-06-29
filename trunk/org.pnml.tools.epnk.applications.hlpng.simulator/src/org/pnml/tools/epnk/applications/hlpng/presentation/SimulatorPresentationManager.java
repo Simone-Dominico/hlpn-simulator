@@ -67,6 +67,12 @@ public class SimulatorPresentationManager implements IPresentationManager
 		}
 		return figure;
 	}
+
+	@Override
+    public void notifyOwner()
+    {
+	    simulator.setActive();
+    }
 }
 
 

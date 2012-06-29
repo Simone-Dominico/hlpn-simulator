@@ -300,4 +300,10 @@ public class HLSimulator extends Application
 		NetMarking netMarking = netManager.createNetMarking(state);
 		netAnnotations.setCurrent(netMarking);
 	}
+
+	@Override
+    public void setActive()
+    {
+	    this.simulationViewController.setCurrent();
+    }
 }
