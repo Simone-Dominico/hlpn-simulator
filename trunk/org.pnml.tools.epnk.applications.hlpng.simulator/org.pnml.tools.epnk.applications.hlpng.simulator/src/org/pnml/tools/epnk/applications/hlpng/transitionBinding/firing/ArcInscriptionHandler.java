@@ -2,11 +2,9 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
@@ -21,7 +19,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class ArcInscriptionHandler
 {
@@ -29,7 +26,6 @@ public class ArcInscriptionHandler
 	private ComparisonManager comparisonManager = null;
 	
 	private List<NumberOf> allNumberOf = new ArrayList<NumberOf>();
-	private Set<TermWrapper> variables = new HashSet<TermWrapper>();
 	
 	public ArcInscriptionHandler(Operator operator, ComparisonManager comparisonManager)
 	{
@@ -39,11 +35,6 @@ public class ArcInscriptionHandler
 		if(operator instanceof MultiSetOperator)
 		{
 			findAllNumberOf((MultiSetOperator)operator, allNumberOf);
-			
-			for(NumberOf nof : allNumberOf)
-			{
-				allVars(nof, variables);
-			}
 		}
 	}
 	
@@ -98,31 +89,6 @@ public class ArcInscriptionHandler
     {
     	return operator;
     }
-	
-	public Set<TermWrapper> getVariables()
-    {
-    	return variables;
-    }
-	
-	private static void allVars(Term term, Set<TermWrapper> vars)
-	{
-		if(term instanceof Variable)
-		{
-			VariableWrapper wrapper = new VariableWrapper();
-			wrapper.setRootTerm(term);
-			wrapper.setVariable((Variable)term);
-			
-			vars.add(wrapper);
-		}
-		else if(term instanceof Operator)
-		{
-			Operator operator = (Operator) term;
-			for(Term subterm : operator.getSubterm())
-			{
-				allVars(subterm, vars);
-			}
-		}
-	}
 	
 	private static void findAllNumberOf(MultiSetOperator operator, List<NumberOf> allNumberOf)
 	{
