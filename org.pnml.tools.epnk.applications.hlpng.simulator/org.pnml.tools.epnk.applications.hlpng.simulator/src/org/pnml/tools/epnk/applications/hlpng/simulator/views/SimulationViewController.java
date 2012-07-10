@@ -8,10 +8,12 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
-public class SimulationViewController
+public class SimulationViewController implements ISumulationViewController,
+        ISumulationViewCallbackHandler
 {
 	private final SimulationViewController me = this;
 	
@@ -27,11 +29,63 @@ public class SimulationViewController
 		init();
 	}
 
-	public void record(FiringMode firingMode, final IRuntimeState runtimeState)
+	/* (non-Javadoc)
+     * @see org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController#resetRecords(org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer)
+     */
+	@Override
+    public void resetRecords(final IRuntimeStateContainer runtimeStates)
 	{
 		if(simulationView != null) 
 		{
-			final String[] text = new String[] {firingMode.getTransition().getId(), firingMode.toString()};
+			this.records = new ArrayList<TableRecord>();
+			
+			for(IRuntimeState runtimeState : runtimeStates)
+			{
+				FiringMode firingMode = runtimeState.getFiringMode();
+				
+				// the last state does not have a firing mode assigned
+				if(firingMode != null)
+				{
+					final String[] text = new String[] 
+							{
+								firingMode.getTransition().getId(), 
+								firingMode.toString()
+							};
+
+					final TableRecord record = new TableRecord();
+					record.setData(runtimeState);
+					record.setText(text);
+					
+					// registers the record
+					this.records.add(record);	
+				}
+			}
+			
+			display.asyncExec(new Runnable()
+			{
+				public void run()
+				{
+					simulationView.resetRecords(me, records);
+				}
+			});
+		}
+	}
+	
+	/* (non-Javadoc)
+     * @see org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController#record(org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState)
+     */
+	@Override
+    public void record(final IRuntimeState runtimeState)
+	{
+		if(simulationView != null) 
+		{
+			FiringMode firingMode = runtimeState.getFiringMode();
+			
+			final String[] text = new String[] 
+					{
+						firingMode.getTransition().getId(), 
+						firingMode.toString()
+					};
 
 			final TableRecord record = new TableRecord();
 			record.setData(runtimeState);
@@ -49,12 +103,14 @@ public class SimulationViewController
 		}
 	}
 	
-	public void clearFromView()
+	@Override
+    public void clearFromView()
 	{
 		this.records.clear();
 	}
 	
-	public void clear()
+	@Override
+    public void clear()
 	{
 		if(simulationView != null) 
 		{
@@ -70,12 +126,14 @@ public class SimulationViewController
 		}
 	}
 	
-	public void itemSelected(Object data)
+	@Override
+    public void itemSelected(Object data)
 	{
 		simulator.show((IRuntimeState)data);
 	}
 
-	public void setCurrent()
+	@Override
+    public void setCurrent()
 	{
 		if(simulationView != null) 
 		{

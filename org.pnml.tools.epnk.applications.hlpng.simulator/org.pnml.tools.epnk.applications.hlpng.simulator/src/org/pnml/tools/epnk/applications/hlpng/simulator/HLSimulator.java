@@ -13,6 +13,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
@@ -39,7 +40,7 @@ public class HLSimulator extends Application
 	protected RuntimeValueFactory runtimeValueFactory = null;
 	
 	protected AutoModeJob autoMode = null;
-	protected SimulationViewController simulationViewController = null;
+	protected ISumulationViewController simulationViewController = null;
 	
 	protected long simulationPause = 500;
 	protected boolean autoModeEnabled;
@@ -107,11 +108,16 @@ public class HLSimulator extends Application
 		// setting the selected firing mode for the state
 		stateContainer.getCurrent().setFiringMode(mode);
 		// recording
-		this.simulationViewController.record(mode, stateContainer.getCurrent());
+		this.simulationViewController.record(stateContainer.getCurrent());
 		// computing the next state
 		IRuntimeState runtimeState = this.transitionFiringManager.
 				createNextState(stateContainer.getCurrent(), evaluationManager, mode, transitionManager);
-		stateContainer.add(runtimeState);
+		boolean needToClean = stateContainer.add(runtimeState);
+		if(needToClean)
+		{
+			this.simulationViewController.resetRecords(stateContainer);
+		}
+		
 		// creating an annotation layer
 		showAnnotations(runtimeState, netMarkingManager, this.getNetAnnotations());
     }
