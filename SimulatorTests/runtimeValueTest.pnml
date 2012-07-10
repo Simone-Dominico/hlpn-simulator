@@ -138,125 +138,34 @@
                     </numberconstant>
                   </subterm>
                   <subterm>
-                    <add>
+                    <numberof>
                       <subterm>
-                        <numberof>
+                        <numberconstant value="5">
+                          <positive/>
+                        </numberconstant>
+                      </subterm>
+                      <subterm>
+                        <tuple>
                           <subterm>
-                            <numberconstant value="5">
+                            <numberconstant value="8">
                               <positive/>
                             </numberconstant>
                           </subterm>
                           <subterm>
-                            <tuple>
-                              <subterm>
-                                <subtraction>
-                                  <subterm>
-                                    <mult>
-                                      <subterm>
-                                        <numberconstant value="3">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                      <subterm>
-                                        <numberconstant value="3">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                    </mult>
-                                  </subterm>
-                                  <subterm>
-                                    <numberconstant value="1">
-                                      <positive/>
-                                    </numberconstant>
-                                  </subterm>
-                                </subtraction>
-                              </subterm>
-                              <subterm>
-                                <subtraction>
-                                  <subterm>
-                                    <numberconstant value="8">
-                                      <positive/>
-                                    </numberconstant>
-                                  </subterm>
-                                  <subterm>
-                                    <mult>
-                                      <subterm>
-                                        <numberconstant value="2">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                      <subterm>
-                                        <numberconstant value="3">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                    </mult>
-                                  </subterm>
-                                </subtraction>
-                              </subterm>
-                            </tuple>
-                          </subterm>
-                        </numberof>
-                      </subterm>
-                      <subterm>
-                        <numberof>
-                          <subterm>
-                            <numberconstant value="7">
+                            <numberconstant value="2">
                               <positive/>
                             </numberconstant>
                           </subterm>
-                          <subterm>
-                            <tuple>
-                              <subterm>
-                                <mult>
-                                  <subterm>
-                                    <numberconstant value="2">
-                                      <positive/>
-                                    </numberconstant>
-                                  </subterm>
-                                  <subterm>
-                                    <numberconstant value="5">
-                                      <positive/>
-                                    </numberconstant>
-                                  </subterm>
-                                </mult>
-                              </subterm>
-                              <subterm>
-                                <addition>
-                                  <subterm>
-                                    <mult>
-                                      <subterm>
-                                        <numberconstant value="2">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                      <subterm>
-                                        <numberconstant value="1">
-                                          <positive/>
-                                        </numberconstant>
-                                      </subterm>
-                                    </mult>
-                                  </subterm>
-                                  <subterm>
-                                    <numberconstant value="1">
-                                      <positive/>
-                                    </numberconstant>
-                                  </subterm>
-                                </addition>
-                              </subterm>
-                            </tuple>
-                          </subterm>
-                        </numberof>
+                        </tuple>
                       </subterm>
-                    </add>
+                    </numberof>
                   </subterm>
                 </numberof>
               </subterm>
             </add>
           </structure>
           <text>2`(5`(8,2)++7`(10,3))
-++2`(5`(3*3- 1,8- 2*3)++
-7`(2*5,2*1+1))</text>
+++2`(5`(8,2))</text>
         </hlinitialMarking>
       </place>
       <declaration>
