@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class RuntimeStateList implements IRuntimeStateContainer
@@ -9,10 +10,29 @@ public class RuntimeStateList implements IRuntimeStateContainer
 	private IRuntimeState current = null;
 	
 	@Override
-    public void add(IRuntimeState state)
+    public boolean add(IRuntimeState state)
     {
+		boolean needToClean = false;
+		
+		// the current state does not match the last one in the list
+	    if(stateList.contains(this.current) &&
+	    		!this.current.equals(stateList.get(stateList.size() - 1)))
+	    {
+	    	int index = stateList.indexOf(this.current);
+	    	int size = stateList.size();
+	    	
+	    	for(int i = index + 1; i < size; size--)
+	    	{
+	    		stateList.remove(i);
+	    	}
+	    	
+	    	needToClean = true;
+	    }
+	    	
 	    this.stateList.add(state);
 	    this.current = state;
+	    
+	    return needToClean;
     }
 
 	@Override
@@ -49,5 +69,11 @@ public class RuntimeStateList implements IRuntimeStateContainer
 	public void setCurrent(IRuntimeState current)
     {
 		this.current = current;
+    }
+
+	@Override
+    public Iterator<IRuntimeState> iterator()
+    {
+	    return stateList.iterator();
     }
 }
