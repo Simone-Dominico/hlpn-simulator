@@ -1,8 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
-public interface IRuntimeStateContainer
+public interface IRuntimeStateContainer extends Iterable<IRuntimeState>
 {
-	public void add(IRuntimeState state);
+	public boolean add(IRuntimeState state);
 	public IRuntimeState next();
 	public IRuntimeState previous();
 	public IRuntimeState getCurrent();
