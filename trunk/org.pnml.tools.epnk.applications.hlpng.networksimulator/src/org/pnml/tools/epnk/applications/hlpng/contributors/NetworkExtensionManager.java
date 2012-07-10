@@ -91,7 +91,7 @@ public class NetworkExtensionManager implements IUserExtensions
 			{
 				return null;
 			}
-			return "(user defined) " + name;
+			return "User defined\n" + name;
 		}
 		if(obj instanceof UserSort)
 		{
@@ -103,7 +103,7 @@ public class NetworkExtensionManager implements IUserExtensions
 			}
 			else
 			{
-				return "(user defined sort) " + userSort.getDeclaration().getName();
+				return "User defined sort\n" + userSort.getDeclaration().getName();
 			}
 		}
 		return null;
