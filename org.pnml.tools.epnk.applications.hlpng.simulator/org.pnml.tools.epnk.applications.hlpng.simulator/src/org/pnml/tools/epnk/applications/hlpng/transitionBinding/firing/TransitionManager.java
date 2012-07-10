@@ -67,10 +67,7 @@ public class TransitionManager
 		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
 		// each inscription variable/term assignments
 		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
-		// each inscription complete variable set + assignments
-		List<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>> varsAndMatches =
-				new ArrayList<Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>>>();
-		
+
 		for(IDWrapper placeId : incomingArcs.keySet())
 		{
 			IMSValue msValue = runtimeValues.get(placeId);
@@ -79,18 +76,10 @@ public class TransitionManager
 			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
 			Map<TermWrapper, TermAssignment> assignments = matcher.match(msValue);
 			intersection(globalMap, assignments);
-			
-			Pair<Set<TermWrapper>, Map<TermWrapper, TermAssignment>> pair =
-					new Pair<Set<TermWrapper>, Map<TermWrapper,TermAssignment>>();
-			pair.setKey(new HashSet<TermWrapper>(matcher.getVariables()));
-			pair.setValue(assignments);
-			
-			varsAndMatches.add(pair);
 		}
 
 		// resolving undefined variables
-		VariableResolver resolver = new VariableResolver(varsAndMatches, 
-				globalMap, reversibleOperationManager);
+		VariableResolver resolver = new VariableResolver(globalMap, reversibleOperationManager);
 		globalMap = resolver.solve();
 		
 		// filtering non consistent assignments
