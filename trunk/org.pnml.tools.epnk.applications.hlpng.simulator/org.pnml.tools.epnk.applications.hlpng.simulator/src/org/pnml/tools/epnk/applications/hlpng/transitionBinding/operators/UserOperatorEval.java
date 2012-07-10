@@ -85,6 +85,12 @@ public class UserOperatorEval implements IEvaluator
 		}
 		if(userOperator.getDeclaration() instanceof ArbitraryOperator)
 		{
+			if(arbitraryOperatorEvaluator == null)
+			{
+				ArbitraryOperator op = (ArbitraryOperator) userOperator.getDeclaration();
+				
+				return "The arbitrary operator\n" + op.getName();
+			}
 			return arbitraryOperatorEvaluator.validate(term);
 		}
 		

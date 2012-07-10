@@ -48,7 +48,7 @@
                   This constraint ensures that all data types and operations defined in the Petri net are known by the Simulator.
                </description>
                <message>
-                  The operation {0} is not supported by the Simulator.
+                  {0} is not supported by the Simulator.
                </message>
                <target class="PetriNet:http://org.pnml.tools/epnk/pnmlcoremodel"/>
             </constraint>
