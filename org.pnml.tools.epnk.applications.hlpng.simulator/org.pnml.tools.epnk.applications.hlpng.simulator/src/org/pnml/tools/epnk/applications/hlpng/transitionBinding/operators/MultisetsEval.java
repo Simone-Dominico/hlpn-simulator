@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
 
 public class MultisetsEval implements IEvaluator
 {
@@ -123,9 +124,25 @@ public class MultisetsEval implements IEvaluator
 		}
 		if(term instanceof All)
 		{
+			All all = (All)term;
+			if(dataTypeEvaluationManager == null)
+			{
+				if(all.getRefsort() instanceof UserSort)
+				{
+					String name = ((UserSort)all.getRefsort()).
+							getDeclaration().getName();
+					return "User defined sort\n" + name;
+				}
+				return "all:" + all.getRefsort().getClass().getName();
+			}
 			IDataTypeEvaluator eval = 
-					dataTypeEvaluationManager.getHandler(((All)term).getRefsort().getClass());
-			return eval.validate(((All)term).getRefsort());
+					dataTypeEvaluationManager.getHandler(all.getRefsort().getClass());
+			
+			if(eval == null)
+			{
+				return "all:" + all.getRefsort().getClass().getName();
+			}
+			return eval.validate(all.getRefsort());
 		}
 		return term.getClass().toString();
     }
