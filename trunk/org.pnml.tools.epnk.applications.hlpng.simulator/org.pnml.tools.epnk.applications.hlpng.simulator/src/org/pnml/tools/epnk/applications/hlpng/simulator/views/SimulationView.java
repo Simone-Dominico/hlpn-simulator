@@ -174,9 +174,9 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	/*
 	 * Communication with the Controller
 	 */
-	private SimulationViewController currentController = null;
+	private ISumulationViewCallbackHandler currentController = null;
 	
-	public void record(SimulationViewController controller, TableRecord record)
+	public void record(ISumulationViewController controller, TableRecord record)
 	{
 		if(currentController == controller)
 		{
@@ -186,7 +186,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public void resetRecords(SimulationViewController controller, List<TableRecord> records)
+	public void resetRecords(ISumulationViewController controller, List<TableRecord> records)
 	{
 		if(currentController == controller)
 		{
@@ -201,7 +201,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public void clear(SimulationViewController controller)
+	public void clear(ISumulationViewController controller)
 	{
 		if(currentController == controller)
 		{
@@ -218,12 +218,12 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public SimulationViewController getCurrentController()
+	public ISumulationViewCallbackHandler getCurrentController()
     {
     	return currentController;
     }
 
-	public void setCurrentController(SimulationViewController currentController)
+	public void setCurrentController(ISumulationViewCallbackHandler currentController)
     {
     	this.currentController = currentController;
     }
