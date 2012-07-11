@@ -151,20 +151,29 @@ public class SimulationViewController implements ISimulationViewController,
 	
 	private void init()
     {
-		if(PlatformUI.getWorkbench() != null && 
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
+		try
 		{
-			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			IViewPart view = activePage.findView(SimulationView.ID);
-			
-			if(view instanceof SimulationView)
-			{
-				simulationView = (SimulationView) view;	
-			}
+    		if(PlatformUI.getWorkbench() != null && 
+    				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
+    				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null &&
+    				simulationView == null)
+    		{
+    			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    			IViewPart view = activePage.findView(SimulationView.ID);
+    			
+    			if(view instanceof SimulationView)
+    			{
+    				simulationView = (SimulationView) view;	
+    			}
+    		}
+    		if(display == null)
+    		{
+    			display = Display.getCurrent();
+    		}
 		}
+		catch(Exception e)
 		{
-			display = Display.getCurrent();
+			System.err.println(e.getMessage());
 		}
     }
 
