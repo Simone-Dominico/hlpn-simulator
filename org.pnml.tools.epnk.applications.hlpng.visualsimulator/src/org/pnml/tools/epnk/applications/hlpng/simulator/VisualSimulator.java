@@ -326,7 +326,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		while(state.getTransitions().size() > 0)
 		{
 			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
-			simulator.fire(state.getFiringModes(transitions.get(0)).get(0));
+			simulator.fire(state.getFiringModes(transitions.get(0)).get(0), true);
 			
 			state = simulator.stateContainer.getCurrent();
 		}

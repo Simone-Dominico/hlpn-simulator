@@ -28,6 +28,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	
 	private Action clear;
 	private Action doubleClickAction;
+	private DropDownAction speed;
 
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
@@ -35,8 +36,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	 */
 	public void createPartControl(Composite parent)
 	{
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
-		        | SWT.V_SCROLL);
+		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setLabelProvider(new SimulationViewLabelProvider());
@@ -45,6 +45,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		viewer.addSelectionChangedListener(this);
 		
 		Table table = viewer.getTable();
+		table.setSize(parent.getClientArea().width, parent.getClientArea().height);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
@@ -100,12 +101,14 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 
 	private void fillLocalPullDown(IMenuManager manager)
 	{
+		manager.add(speed);
 		manager.add(clear);
 		manager.add(new Separator());
 	}
 
 	private void fillContextMenu(IMenuManager manager)
 	{
+		manager.add(speed);
 		manager.add(clear);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
@@ -113,12 +116,13 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 
 	private void fillLocalToolBar(IToolBarManager manager)
 	{
+		manager.add(speed);
 		manager.add(clear);
 	}
 
 	private void makeActions()
 	{
-		clear = new Action()
+		clear = new Action("Clear all")
 		{
 			public void run()
 			{
@@ -129,10 +133,18 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 				}
 			}
 		};
-		clear.setText("Clear all");
 		clear.setToolTipText("Clear all");
 		clear.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
 		        .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+		
+		speed = new DropDownAction()
+		{
+			
+		};
+
+		speed.setToolTipText("Animation speed");
+		speed.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+		        .getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
 
 		doubleClickAction = new Action()
 		{
@@ -174,9 +186,9 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	/*
 	 * Communication with the Controller
 	 */
-	private ISumulationViewCallbackHandler currentController = null;
+	private ISimulationViewCallbackHandler currentController = null;
 	
-	public void record(ISumulationViewController controller, TableRecord record)
+	public void record(ISimulationViewController controller, TableRecord record)
 	{
 		if(currentController == controller)
 		{
@@ -186,7 +198,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public void resetRecords(ISumulationViewController controller, List<TableRecord> records)
+	public void resetRecords(ISimulationViewController controller, List<TableRecord> records)
 	{
 		if(currentController == controller)
 		{
@@ -201,7 +213,7 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public void clear(ISumulationViewController controller)
+	public void clear(ISimulationViewController controller)
 	{
 		if(currentController == controller)
 		{
@@ -218,14 +230,15 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		}
 	}
 	
-	public ISumulationViewCallbackHandler getCurrentController()
+	public ISimulationViewCallbackHandler getCurrentController()
     {
     	return currentController;
     }
 
-	public void setCurrentController(ISumulationViewCallbackHandler currentController)
+	public void setCurrentController(ISimulationViewCallbackHandler currentController)
     {
     	this.currentController = currentController;
+    	this.speed.setCallbackHandler(currentController);
     }
 
 }

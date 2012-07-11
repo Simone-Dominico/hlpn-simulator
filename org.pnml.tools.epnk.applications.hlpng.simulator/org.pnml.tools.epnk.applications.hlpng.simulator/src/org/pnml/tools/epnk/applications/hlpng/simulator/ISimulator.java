@@ -13,8 +13,9 @@ public interface ISimulator extends IApplicationWithPresentation
 	public void reset();
 	public void previous();
 	public void show(IRuntimeState state);
-	public void fire(FiringMode mode);
+	public void fire(FiringMode mode, boolean updateAnnotations);
 	public void updateTransitionBinding(IRuntimeState state);
 	public boolean isAutoModeEnabled();
 	public void setActive();
+	public void setSimulationPause(long simulationPause);
 }
