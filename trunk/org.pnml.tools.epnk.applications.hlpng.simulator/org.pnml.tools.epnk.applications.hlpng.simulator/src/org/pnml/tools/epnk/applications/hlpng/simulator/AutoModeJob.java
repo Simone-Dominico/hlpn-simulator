@@ -10,14 +10,12 @@ public class AutoModeJob extends UIJob
 {
 	private IWorker worker = null;
 	private boolean stopped = true;
-	private long pause = 0;
 	
-	public AutoModeJob(Display jobDisplay, String name, IWorker worker, long pause)
+	public AutoModeJob(Display jobDisplay, String name, IWorker worker)
     {
 	    super(jobDisplay, name);
 	    
 	    this.worker = worker;
-	    this.pause = pause;
     }
 
 	public boolean isStopped()
@@ -36,10 +34,9 @@ public class AutoModeJob extends UIJob
 	    if(!stopped)
 	    {
 	    	worker.work();
-	    	schedule(pause);	
+	    	schedule(worker.getSimulationPause());	
 	    }
 	    
 	    return Status.OK_STATUS;
     }
-
 }

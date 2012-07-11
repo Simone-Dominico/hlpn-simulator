@@ -94,7 +94,7 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     {
 		if(action instanceof PopupMenuItem)
 		{
-			simulator.fire(((PopupMenuItem)action).getMode());	
+			simulator.fire(((PopupMenuItem)action).getMode(), true);	
 		}
     }
 	

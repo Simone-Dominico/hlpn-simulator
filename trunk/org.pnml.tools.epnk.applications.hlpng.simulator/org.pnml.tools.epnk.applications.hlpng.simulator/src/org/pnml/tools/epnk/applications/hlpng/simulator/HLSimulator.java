@@ -13,7 +13,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
-import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
@@ -40,7 +40,7 @@ public class HLSimulator extends Application
 	protected RuntimeValueFactory runtimeValueFactory = null;
 	
 	protected AutoModeJob autoMode = null;
-	protected ISumulationViewController simulationViewController = null;
+	protected ISimulationViewController simulationViewController = null;
 	
 	protected long simulationPause = 500;
 	protected boolean autoModeEnabled;
@@ -83,7 +83,7 @@ public class HLSimulator extends Application
 	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess,
 	    		this.runtimeValueFactory);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
-	    		"Auto transition firing", this, this.simulationPause);
+	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
 				evaluationManager, reversibleOperationManager);
 	    
@@ -103,7 +103,7 @@ public class HLSimulator extends Application
 	}
 	
 	@Override
-    public void fire(FiringMode mode)
+    public void fire(FiringMode mode, boolean updateAnnotations)
     {
 		// setting the selected firing mode for the state
 		stateContainer.getCurrent().setFiringMode(mode);
@@ -119,7 +119,10 @@ public class HLSimulator extends Application
 		}
 		
 		// creating an annotation layer
-		showAnnotations(runtimeState, netMarkingManager, this.getNetAnnotations());
+		if(updateAnnotations)
+		{
+			showAnnotations(runtimeState, netMarkingManager, this.getNetAnnotations());	
+		}
     }
 	
 	@Override
@@ -203,13 +206,20 @@ public class HLSimulator extends Application
     {
 		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent().getModes(),
 				stateContainer.getCurrent());
+		boolean updateAnnotations = !autoModeEnabled || simulationPause > 0;
+		
 		if(mode != null)
 		{
-			this.fire(mode);	
+			this.fire(mode, updateAnnotations);	
 		}
 		else
 		{
 			stop();
+			if(!updateAnnotations)
+			{
+				showAnnotations(stateContainer.getCurrent(), netMarkingManager, 
+						this.getNetAnnotations());
+			}
 		}
     }
 
@@ -311,5 +321,17 @@ public class HLSimulator extends Application
     public void setActive()
     {
 	    this.simulationViewController.setCurrent();
+    }
+
+	@Override
+	public long getSimulationPause()
+    {
+    	return simulationPause;
+    }
+
+	@Override
+	public void setSimulationPause(long simulationPause)
+    {
+    	this.simulationPause = simulationPause;
     }
 }

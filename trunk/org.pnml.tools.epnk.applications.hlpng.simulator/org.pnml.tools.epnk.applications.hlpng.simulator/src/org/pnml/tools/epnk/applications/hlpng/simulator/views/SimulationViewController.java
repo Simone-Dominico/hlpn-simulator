@@ -12,8 +12,8 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContain
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
-public class SimulationViewController implements ISumulationViewController,
-        ISumulationViewCallbackHandler
+public class SimulationViewController implements ISimulationViewController,
+        ISimulationViewCallbackHandler
 {
 	private final SimulationViewController me = this;
 	
@@ -166,6 +166,12 @@ public class SimulationViewController implements ISumulationViewController,
 		{
 			display = Display.getCurrent();
 		}
+    }
+
+	@Override
+    public void speedChanged(int speed)
+    {
+	    this.simulator.setSimulationPause(speed);
     }
 
 }
