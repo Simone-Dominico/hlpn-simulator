@@ -217,7 +217,11 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	{
 		if(currentController == controller)
 		{
-			viewer.getTable().removeAll();
+			try
+            {
+	            viewer.getTable().removeAll();
+            }
+            catch(Exception e){}
 		}
 	}
 
