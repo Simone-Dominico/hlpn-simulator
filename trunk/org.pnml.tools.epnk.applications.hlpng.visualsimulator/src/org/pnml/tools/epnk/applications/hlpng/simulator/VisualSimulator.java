@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
@@ -66,7 +67,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
             RuntimeValueFactory factory)
     {
 	    super(petrinet, evaluationManager, comparisonManager,
-	            reversibleOperationManager, font, factory, null, false);
+	            reversibleOperationManager, font, factory, null, false, 
+	            Display.getCurrent());
 	    
 	    this.animator = animator;
 	    this.extensionManager = extensionManager;

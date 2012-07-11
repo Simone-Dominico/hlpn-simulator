@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.applications.hlpng.contributors.NetworkExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
@@ -21,7 +22,8 @@ public class NetworkSimulator extends HLSimulator
             IFiringStrategy strategy)
     {
 	    super(petrinet, evaluationManager, comparisonManager,
-	            reversibleOperationManager, font, factory, strategy, false);
+	            reversibleOperationManager, font, factory, strategy, false,
+	            Display.getCurrent());
 	    
 	    for(IEvaluator evaluator : extensionManager.getEvaluators())
 		{

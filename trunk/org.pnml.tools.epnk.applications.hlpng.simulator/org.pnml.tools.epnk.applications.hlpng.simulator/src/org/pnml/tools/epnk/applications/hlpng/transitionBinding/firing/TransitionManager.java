@@ -7,6 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -22,21 +29,29 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Arc;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 
+import parserrules.Rules;
+
 public class TransitionManager
 {
 	// < transition ID, < place ID, outgoing arc inscription matcher > >
 	private Map<IDWrapper, Map<IDWrapper, ArcInscriptionHandler>> patternMatcherMap = null;
 	
-	private EvaluationManager evaluationManager = null;
-	private ReversibleOperationManager reversibleOperationManager = null;
+	private final EvaluationManager evaluationManager;
+	private final ReversibleOperationManager reversibleOperationManager;
+	private final Rules rules;
+	private final Display display;
 		
 	public TransitionManager(FlatAccess flatAccess, ComparisonManager comparatorManager,
-			EvaluationManager evaluationManager, ReversibleOperationManager reversibleOperationManager)
+			EvaluationManager evaluationManager, 
+			ReversibleOperationManager reversibleOperationManager, Display display)
 	{
+		this.display = display;
 		this.evaluationManager = evaluationManager;
 		this.reversibleOperationManager = reversibleOperationManager;
 		
 		this.patternMatcherMap = new HashMap<IDWrapper, Map<IDWrapper,ArcInscriptionHandler>>();
+		
+		this.rules = loadRules();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
@@ -61,6 +76,24 @@ public class TransitionManager
 		}
 	}
 	
+	private static Rules loadRules() {
+		
+		ResourceSet resourceSet = new ResourceSetImpl();
+		URI uri = URI.createURI("platform:/plugin/org.pnml.tools.epnk.helpers.unparse/model/HLPNG-Rules.xmi");
+		Resource resource = resourceSet.getResource(uri, true);
+		EObject rulesObj = resource.getContents().get(0);
+		
+		if (rulesObj == null || !(rulesObj instanceof Rules)) {
+			MessageDialog.openInformation(
+					null,
+					"ePNK: Serialise HLPNG labels",
+					"Serialisation rules could not be loaded!"
+			);	
+			return null;
+		} 
+	    return (Rules) rulesObj;
+	}
+	
 	public List<FiringMode> checkTransition(Transition transition, Map<IDWrapper, 
 			IMSValue> runtimeValues) throws DependencyException, UnknownVariableException
 	{		
@@ -79,7 +112,8 @@ public class TransitionManager
 		}
 
 		// resolving undefined variables
-		VariableResolver resolver = new VariableResolver(globalMap, reversibleOperationManager);
+		VariableResolver resolver = new VariableResolver(globalMap, 
+				reversibleOperationManager, evaluationManager, rules, display);
 		globalMap = resolver.solve();
 		
 		// filtering non consistent assignments
