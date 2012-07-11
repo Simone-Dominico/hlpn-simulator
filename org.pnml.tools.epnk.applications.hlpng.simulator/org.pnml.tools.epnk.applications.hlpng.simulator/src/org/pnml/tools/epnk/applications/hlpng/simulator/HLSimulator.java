@@ -51,14 +51,17 @@ public class HLSimulator extends Application
 	
 	private Action[] actions;
 	
+	protected final Display display;
+	
 	public HLSimulator(PetriNet petrinet, EvaluationManager evaluationManager, 
 			ComparisonManager comparisonManager, 
 			ReversibleOperationManager reversibleOperationManager, Font font,
 			RuntimeValueFactory runtimeValueFactory, 
-			IFiringStrategy firingStrategy, boolean init)
+			IFiringStrategy firingStrategy, boolean init, Display display)
     {
 	    super(petrinet);
 	    
+	    this.display = display;
 	    this.evaluationManager = evaluationManager;
 	    this.comparisonManager = comparisonManager;
 	    this.reversibleOperationManager = reversibleOperationManager;
@@ -85,7 +88,7 @@ public class HLSimulator extends Application
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
-				evaluationManager, reversibleOperationManager);
+				evaluationManager, reversibleOperationManager, display);
 	    
 		this.presentationManager = new SimulatorPresentationManager(this, font);
 		this.netMarkingManager= new NetMarkingManager(this.petrinet,  

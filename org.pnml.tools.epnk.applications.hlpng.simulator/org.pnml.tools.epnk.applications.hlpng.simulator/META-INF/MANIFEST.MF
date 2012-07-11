@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.pnml.tools.epnk.pntypes.hlpngs.datatypes;bundle-version="0.9.2",
  org.pnml.tools.epnk.pntypes.hlpng.pntd;bundle-version="0.9.3",
  org.eclipse.emf.validation;bundle-version="1.4.0",
- org.pnml.tools.epnk.pntypes.hlpngs.datatypes.concretesyntax;bundle-version="0.9.3"
+ org.pnml.tools.epnk.pntypes.hlpngs.datatypes.concretesyntax;bundle-version="0.9.3",
+ org.pnml.tools.epnk.helpers.unparse;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.pnml.tools.epnk.applications.activator.Activator
 Export-Package: org.pnml.tools.epnk.applications.hlpng.resources,

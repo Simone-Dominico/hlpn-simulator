@@ -50,7 +50,6 @@ public class StartSimulatorApp implements IObjectActionDelegate
 				getFiringStrategy("org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy");
 		if(strategy == null)
 		{
-			System.err.println("INFO: loading default firing strategy");
 			strategy = new RandomFiringStrategy();
 		}
 
@@ -72,7 +71,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
 					comparisonManager, reversibleOperationManager,
 					Display.getDefault().getSystemFont(), runtimeValueFactory, 
-					strategy, true);
+					strategy, true, Display.getCurrent());
 			// registers the simulator
 			Activator activator = Activator.getInstance();
 			ApplicationRegistry registry = activator.getApplicationRegistry();
