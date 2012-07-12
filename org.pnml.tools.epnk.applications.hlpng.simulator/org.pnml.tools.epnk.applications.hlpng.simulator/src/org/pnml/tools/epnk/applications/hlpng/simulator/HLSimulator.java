@@ -13,6 +13,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -37,7 +38,7 @@ public class HLSimulator extends Application
 	protected ReversibleOperationManager reversibleOperationManager = null;
 	
 	protected TransitionManager transitionManager = null;
-	protected TransitionFiringManager transitionFiringManager = null;
+	protected RuntimeStateManager transitionFiringManager = null;
 	protected RuntimeValueFactory runtimeValueFactory = null;
 	
 	protected AutoModeJob autoMode = null;
@@ -84,7 +85,7 @@ public class HLSimulator extends Application
 	public void init()
 	{
 		this.stateContainer = new RuntimeStateList();
-	    this.transitionFiringManager = new TransitionFiringManager(this.flatAccess,
+	    this.transitionFiringManager = new RuntimeStateManager(this.flatAccess,
 	    		this.runtimeValueFactory);
 	    this.autoMode = new AutoModeJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
