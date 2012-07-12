@@ -12,10 +12,12 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.applications.hlpng.contributors.ExtensionManager;
 import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
+import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
@@ -242,8 +244,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[0].setId("start");
 			actions[0].setText("Start");
 			actions[0].setToolTipText("Start the simulation");
-//			actions[0].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_UP));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/play.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[0].setImageDescriptor(desc);	
+				}	
+			}
 			
 			actions[1] = new Action() {
 				public void run() {
@@ -253,8 +261,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[1].setId("stop");
 			actions[1].setText("Stop");
 			actions[1].setToolTipText("Stop the simulation");
-//			actions[1].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/stop.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[1].setImageDescriptor(desc);	
+				}	
+			}
 			
 			
 			actions[2] = new Action() {
@@ -265,8 +279,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[2].setId("reset");
 			actions[2].setText("Reset");
 			actions[2].setToolTipText("Reset the simulation");
-//			actions[2].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[2].setImageDescriptor(desc);	
+				}	
+			}
 	    }
 	    return actions;
     }
