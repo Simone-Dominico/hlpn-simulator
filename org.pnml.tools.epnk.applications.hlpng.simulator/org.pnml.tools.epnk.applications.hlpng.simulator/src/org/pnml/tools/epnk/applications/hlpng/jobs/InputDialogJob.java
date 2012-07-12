@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.applications.hlpng.presentation.InputDialog;
+import org.pnml.tools.epnk.applications.hlpng.dialogs.InputDialog;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 
 public class InputDialogJob implements Runnable

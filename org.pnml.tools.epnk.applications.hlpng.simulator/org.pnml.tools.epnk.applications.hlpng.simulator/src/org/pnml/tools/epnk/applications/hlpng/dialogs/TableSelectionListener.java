@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.presentation;
+package org.pnml.tools.epnk.applications.hlpng.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
