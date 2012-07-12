@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.selection;
+package org.pnml.tools.epnk.applications.hlpng.presentation.selection;
 
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 
 public class SelectionHandler implements SelectionListener, MouseListener

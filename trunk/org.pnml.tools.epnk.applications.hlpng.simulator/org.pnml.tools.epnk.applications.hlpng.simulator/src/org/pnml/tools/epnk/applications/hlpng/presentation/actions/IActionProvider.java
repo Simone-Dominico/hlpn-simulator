@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.actions;
+package org.pnml.tools.epnk.applications.hlpng.presentation.actions;
 
 import java.util.List;
 

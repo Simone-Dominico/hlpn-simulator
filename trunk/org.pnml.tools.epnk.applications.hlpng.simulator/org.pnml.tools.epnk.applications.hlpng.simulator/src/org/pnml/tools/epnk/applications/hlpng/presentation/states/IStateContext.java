@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.states;
+package org.pnml.tools.epnk.applications.hlpng.presentation.states;
 
 
 public interface IStateContext

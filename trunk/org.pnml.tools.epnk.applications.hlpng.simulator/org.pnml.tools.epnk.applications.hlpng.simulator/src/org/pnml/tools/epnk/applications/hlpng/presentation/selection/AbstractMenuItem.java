@@ -1,6 +1,6 @@
-package org.pnml.tools.epnk.applications.hlpng.selection;
+package org.pnml.tools.epnk.applications.hlpng.presentation.selection;
 
-import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 
 public class AbstractMenuItem implements IAction
 {
