@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,8 +10,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
-import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
@@ -25,11 +23,11 @@ import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
-public class TransitionFiringManager
+public class RuntimeStateManager
 {
 	private FlatAccess flatAccess = null;
 	private RuntimeValueFactory runtimeValueFactory = null;
-	public TransitionFiringManager(FlatAccess flatAccess, RuntimeValueFactory runtimeValueFactory)
+	public RuntimeStateManager(FlatAccess flatAccess, RuntimeValueFactory runtimeValueFactory)
 	{
 		this.flatAccess = flatAccess;
 		this.runtimeValueFactory = runtimeValueFactory;
