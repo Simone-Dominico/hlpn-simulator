@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.selection;
+package org.pnml.tools.epnk.applications.hlpng.presentation.selection;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.pnml.tools.epnk.applications.hlpng.actions.IAction;
-import org.pnml.tools.epnk.applications.hlpng.actions.IActionProvider;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 
 public class PopupMenu
 {

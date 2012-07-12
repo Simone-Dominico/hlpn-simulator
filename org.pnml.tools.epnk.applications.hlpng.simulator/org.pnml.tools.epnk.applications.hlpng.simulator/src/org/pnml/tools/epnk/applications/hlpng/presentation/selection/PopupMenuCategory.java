@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.selection;
+package org.pnml.tools.epnk.applications.hlpng.presentation.selection;
 
 import java.util.ArrayList;
 
