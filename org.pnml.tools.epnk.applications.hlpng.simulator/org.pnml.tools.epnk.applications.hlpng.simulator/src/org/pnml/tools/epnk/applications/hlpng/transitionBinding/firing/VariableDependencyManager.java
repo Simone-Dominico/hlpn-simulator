@@ -109,7 +109,7 @@ public class VariableDependencyManager
 				if(entry.getValue().size() == 1 &&
 						entry.getKey().getTermWrapper() instanceof AbstractReversibleOperation)
 				{
-					return e.getKey();
+					return entry.getKey();
 				}
 				size = entry.getValue().size();
 				e = entry;

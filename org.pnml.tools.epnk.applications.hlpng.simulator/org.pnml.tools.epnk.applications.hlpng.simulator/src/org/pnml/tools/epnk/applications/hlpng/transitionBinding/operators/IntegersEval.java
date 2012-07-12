@@ -14,6 +14,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapp
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleansFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.GreaterThan;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.LessThan;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Modulo;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Natural;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Positive;
@@ -105,6 +106,32 @@ public class IntegersEval implements IEvaluator
 			
 			return result;
 		}
+		if(operator instanceof Modulo)
+		{
+			if(values.size() != 2)
+			{
+				throw new RuntimeException("Wrong number of arguments!");
+			}
+			
+			NumberValue v = null;
+			if(operator.getOutputSort() instanceof Positive)
+			{
+				v = new PosValue();
+			}
+			else if(operator.getOutputSort() instanceof Natural)
+			{
+				v = new NatValue();
+			}
+			else
+			{
+				v = new IntValue();
+			}
+
+			v.setSort(operator.getOutputSort());
+			v.setN(((NumberValue)values.get(0)).getN() % ((NumberValue)values.get(1)).getN());
+			
+			return v;
+		}
 		
 		return null;
 	}
@@ -121,6 +148,10 @@ public class IntegersEval implements IEvaluator
 			return null;
 		}
 		if(term instanceof GreaterThan)
+		{
+			return null;
+		}
+		if(term instanceof Modulo)
 		{
 			return null;
 		}
