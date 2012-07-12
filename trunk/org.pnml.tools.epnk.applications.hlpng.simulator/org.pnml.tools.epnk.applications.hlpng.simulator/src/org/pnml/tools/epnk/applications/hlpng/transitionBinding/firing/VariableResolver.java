@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.applications.hlpng.presentation.InputDialogThread;
+import org.pnml.tools.epnk.applications.hlpng.jobs.InputDialogJob;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -146,8 +146,8 @@ public class VariableResolver
 	            					termMap.get(var).getValues().toString());
 	            		}
 	            	}
-	            	final InputDialogThread inputThread = 
-	            			new InputDialogThread(display, knownValues, 
+	            	final InputDialogJob inputThread = 
+	            			new InputDialogJob(display, knownValues, 
 	            					"The Simulator cannot solve the following equation:\n"
 	            	                        + termTxt + "=" + ve.getValues() + "\n"
 	            	                        + "Please, provide a sufficient part of the solution!",
