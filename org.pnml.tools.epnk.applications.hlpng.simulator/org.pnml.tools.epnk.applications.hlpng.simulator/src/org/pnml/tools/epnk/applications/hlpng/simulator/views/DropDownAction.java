@@ -71,13 +71,13 @@ public class DropDownAction extends Action implements IMenuCreator
 			addActionToMenu(fMenu, action);
 		}
 		{
-			Action action = new Action("1500 ms")
+			Action action = new Action("1000 ms")
 			{
 				public void run()
 				{
 					if(callbackHandler != null)
 					{
-						callbackHandler.speedChanged(1500);
+						callbackHandler.speedChanged(1000);
 					}
 				}
 			};
