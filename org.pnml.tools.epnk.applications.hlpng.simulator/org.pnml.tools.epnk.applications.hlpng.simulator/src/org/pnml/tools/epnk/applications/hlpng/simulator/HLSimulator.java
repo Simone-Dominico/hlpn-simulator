@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
@@ -9,6 +10,7 @@ import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.jobs.PeriodicalWorkerJob;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
+import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
@@ -265,9 +267,14 @@ public class HLSimulator extends Application
 			actions[0].setId("previous");
 			actions[0].setText("Previous");
 			actions[0].setToolTipText("Show previous");
-//			actions[0].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor("/home/mindaugas/Dropbox/DTU/master-project/workspace/org.pnml.tools.epnk.applications.hlpng.simulator/resources/back.png"));//ISharedImages.IMG_TOOL_BACK));
-			
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/back.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[0].setImageDescriptor(desc);	
+				}				
+			}			
 			actions[1] = new Action() {
 				public void run() {
 					auto();
@@ -276,8 +283,14 @@ public class HLSimulator extends Application
 			actions[1].setId("auto");
 			actions[1].setText("Run");
 			actions[1].setToolTipText("Automatic mode");
-//			actions[1].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_UP));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/play.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[1].setImageDescriptor(desc);	
+				}
+			}
 			
 			actions[2] = new Action() {
 				public void run() {
@@ -287,9 +300,14 @@ public class HLSimulator extends Application
 			actions[2].setId("stop");
 			actions[2].setText("Stop");
 			actions[2].setToolTipText("Stop current execution");
-//			actions[2].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
-			
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/stop.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[2].setImageDescriptor(desc);	
+				}
+			}			
 			
 			actions[3] = new Action() {
 				public void run() {
@@ -299,8 +317,14 @@ public class HLSimulator extends Application
 			actions[3].setId("next");
 			actions[3].setText("Next");
 			actions[3].setToolTipText("Show next");
-//			actions[3].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/next.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[3].setImageDescriptor(desc);	
+				}
+			}
 			
 			actions[4] = new Action() {
 				public void run() {
@@ -310,8 +334,14 @@ public class HLSimulator extends Application
 			actions[4].setId("reset");
 			actions[4].setText("Reset");
 			actions[4].setToolTipText("Show reset");
-//			actions[4].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-//				getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+			{
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+						ResourceManager.SIMULATOR_PLUGIN_ID);
+				if(desc != null)
+				{
+					actions[4].setImageDescriptor(desc);	
+				}
+			}
 	    }
 	    return actions;
     }

@@ -1,8 +1,14 @@
 package org.pnml.tools.epnk.applications.hlpng.resources;
 
+import java.net.URL;
+
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
@@ -49,6 +55,8 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.impl.VariableImpl;
 
 public class ResourceManager
 {
+	public static final String SIMULATOR_PLUGIN_ID = "org.pnml.tools.epnk.applications.hlpng.simulator"; 
+	
 	public static EvaluationManager createEvaluationManager(RuntimeValueFactory factory,
 			String extensionId)
 	{
@@ -162,5 +170,22 @@ public class ResourceManager
 			}
 		}
 		return strategy;
+	}
+	
+	public static ImageDescriptor getImageDescriptor(String relativePath,
+			String pluginID) 
+	{
+		try
+		{
+			URL fileURL = Platform.getBundle(pluginID).getEntry(relativePath);
+			final URL fullPath = FileLocator.resolve(fileURL);
+			final Image i = new Image(Display.getDefault(), fullPath.getPath());
+			return ImageDescriptor.createFromImage(i);
+		}
+		catch(Exception e)
+		{
+			System.err.println("WRN: Failed to load image: " + relativePath);
+		}
+		return null;
 	}
 }
