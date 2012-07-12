@@ -104,7 +104,11 @@ public class TransitionManager
 		for(IDWrapper placeId : incomingArcs.keySet())
 		{
 			IMSValue msValue = runtimeValues.get(placeId);
-			
+			// multiset is empty -> arc inscription match will fail!
+			if(msValue.size() == 0)
+			{
+				return null;
+			}
 			// each inscription term compared to all multiset terms
 			ArcInscriptionHandler matcher = incomingArcs.get(placeId);
 			Map<TermWrapper, TermAssignment> assignments = matcher.match(msValue);
