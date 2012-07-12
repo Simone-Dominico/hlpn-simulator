@@ -7,6 +7,7 @@ import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
+import org.pnml.tools.epnk.applications.hlpng.jobs.PeriodicalWorkerJob;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
@@ -41,7 +42,7 @@ public class HLSimulator extends Application
 	protected RuntimeStateManager transitionFiringManager = null;
 	protected RuntimeValueFactory runtimeValueFactory = null;
 	
-	protected AutoModeJob autoMode = null;
+	protected PeriodicalWorkerJob autoMode = null;
 	protected ISimulationViewController simulationViewController = null;
 	
 	protected long simulationPause = 500;
@@ -87,7 +88,7 @@ public class HLSimulator extends Application
 		this.stateContainer = new RuntimeStateList();
 	    this.transitionFiringManager = new RuntimeStateManager(this.flatAccess,
 	    		this.runtimeValueFactory);
-	    this.autoMode = new AutoModeJob(Display.getDefault(), 
+	    this.autoMode = new PeriodicalWorkerJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
 				evaluationManager, reversibleOperationManager, display);

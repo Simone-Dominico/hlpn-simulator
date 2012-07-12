@@ -1,17 +1,18 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.jobs;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
+import org.pnml.tools.epnk.applications.hlpng.simulator.IWorker;
 
-public class AutoModeJob extends UIJob
+public class PeriodicalWorkerJob extends UIJob
 {
 	private IWorker worker = null;
 	private boolean stopped = true;
 	
-	public AutoModeJob(Display jobDisplay, String name, IWorker worker)
+	public PeriodicalWorkerJob(Display jobDisplay, String name, IWorker worker)
     {
 	    super(jobDisplay, name);
 	    

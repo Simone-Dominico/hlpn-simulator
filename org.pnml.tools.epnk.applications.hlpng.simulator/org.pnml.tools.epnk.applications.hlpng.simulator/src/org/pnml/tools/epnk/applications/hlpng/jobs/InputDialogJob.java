@@ -1,12 +1,13 @@
-package org.pnml.tools.epnk.applications.hlpng.presentation;
+package org.pnml.tools.epnk.applications.hlpng.jobs;
 
 import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.swt.widgets.Display;
+import org.pnml.tools.epnk.applications.hlpng.presentation.InputDialog;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 
-public class InputDialogThread implements Runnable
+public class InputDialogJob implements Runnable
 {
 	private InputDialog dialog = null;
 	
@@ -16,7 +17,7 @@ public class InputDialogThread implements Runnable
 	private final String textData;
 	private final Set<TermWrapper> varSet;
 	
-	public InputDialogThread(final Display display, final Map<String, String> knownValues,
+	public InputDialogJob(final Display display, final Map<String, String> knownValues,
 			final String text, final String textData, final Set<TermWrapper> varSet)
 	{
 		this.display = display;
