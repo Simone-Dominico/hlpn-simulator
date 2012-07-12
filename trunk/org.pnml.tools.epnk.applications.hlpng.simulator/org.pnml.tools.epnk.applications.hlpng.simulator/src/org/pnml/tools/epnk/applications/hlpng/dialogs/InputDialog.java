@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.presentation;
+package org.pnml.tools.epnk.applications.hlpng.dialogs;
 
 import java.util.HashMap;
 import java.util.Map;
