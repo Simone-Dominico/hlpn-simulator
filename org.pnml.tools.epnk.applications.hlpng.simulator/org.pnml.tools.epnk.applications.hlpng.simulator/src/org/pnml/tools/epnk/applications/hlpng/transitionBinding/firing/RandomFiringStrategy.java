@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Random;
 
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 
 public class RandomFiringStrategy implements IFiringStrategy
 {

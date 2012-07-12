@@ -44,9 +44,9 @@ import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
-import org.pnml.tools.epnk.applications.hlpng.simulator.IFiringStrategy;
-import org.pnml.tools.epnk.applications.hlpng.simulator.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
@@ -133,7 +133,6 @@ public class StartSimulatorApp implements IObjectActionDelegate
     				getFiringStrategy("org.pnml.tools.epnk.applications.hlpng.simulator.firingStrategy");
     		if(strategy == null)
     		{
-    			System.err.println("INFO: loading default firing strategy");
     			strategy = new RandomFiringStrategy();
     		}
     		
