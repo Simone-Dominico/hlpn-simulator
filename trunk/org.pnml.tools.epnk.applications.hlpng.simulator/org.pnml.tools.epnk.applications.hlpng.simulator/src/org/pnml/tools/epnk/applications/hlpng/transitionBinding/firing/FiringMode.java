@@ -1,6 +1,10 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
@@ -40,8 +44,19 @@ public class FiringMode
 		{
 			return null;
 		}
+		
+		List<TermWrapper> keys = new ArrayList<TermWrapper>(params.keySet());
+		Collections.sort(keys, new Comparator<TermWrapper>()
+		{
+			@Override
+			public int compare(TermWrapper o1, TermWrapper o2) 
+			{
+		        return o1.getName().compareTo(o2.getName());
+		    }
+		});
+		
 		StringBuffer buffer = new StringBuffer("[");
-		for(TermWrapper key : params.keySet())
+		for(TermWrapper key : keys)
 		{
 			buffer.append(key.getName() + "=" + params.get(key) + ";");
 		}
