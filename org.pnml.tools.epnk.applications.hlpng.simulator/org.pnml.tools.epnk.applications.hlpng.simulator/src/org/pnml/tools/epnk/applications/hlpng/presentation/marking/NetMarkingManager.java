@@ -1,8 +1,5 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.presentation.marking;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.NetMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PlaceMarking;
-import org.pnml.tools.epnk.applications.hlpng.runtime.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
