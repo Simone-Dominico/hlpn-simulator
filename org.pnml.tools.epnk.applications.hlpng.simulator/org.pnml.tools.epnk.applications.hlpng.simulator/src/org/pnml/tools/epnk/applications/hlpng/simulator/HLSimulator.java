@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Display;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
-import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.jobs.IWorker;
 import org.pnml.tools.epnk.applications.hlpng.jobs.PeriodicalWorkerJob;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
@@ -30,8 +29,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Revers
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
-public class HLSimulator extends Application 
-	implements IApplicationWithPresentation, ISimulator, IWorker
+public class HLSimulator extends Application implements ISimulator, IWorker
 {
 	protected IPresentationManager presentationManager = null;
 	protected NetMarkingManager netMarkingManager = null;
