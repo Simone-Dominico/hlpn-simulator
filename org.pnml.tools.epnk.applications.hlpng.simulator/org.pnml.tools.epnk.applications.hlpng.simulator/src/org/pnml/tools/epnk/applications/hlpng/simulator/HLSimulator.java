@@ -232,9 +232,9 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     }
 
 	@Override
-	public boolean isAutoModeEnabled()
+	public boolean showPopUpMenu()
     {
-    	return autoModeEnabled;
+    	return !autoModeEnabled;
     }
 
 	public void setAutoModeEnabled(boolean autoModeEnabled)
@@ -354,7 +354,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	}
 
 	@Override
-    public void setActive()
+    public void activate()
     {
 	    this.simulationViewController.setCurrent();
     }

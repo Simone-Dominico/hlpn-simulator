@@ -9,16 +9,16 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
-import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 
 public class SelectionHandler implements SelectionListener, MouseListener
 {	
-	protected ISimulator simulator = null;
+	protected IApplicationWithPresentation application = null;
 	
-	public SelectionHandler(ISimulator simulator)
+	public SelectionHandler(IApplicationWithPresentation simulator)
 	{
-		this.simulator = simulator;
+		this.application = simulator;
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class SelectionHandler implements SelectionListener, MouseListener
 		// left-click
 		if(e.button == 1)
 		{
-			if(e.getSource() instanceof IActionProvider && !simulator.isAutoModeEnabled())
+			if(e.getSource() instanceof IActionProvider && application.showPopUpMenu())
 			{
 				final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow(); 
 				final Shell shell = window.getShell();

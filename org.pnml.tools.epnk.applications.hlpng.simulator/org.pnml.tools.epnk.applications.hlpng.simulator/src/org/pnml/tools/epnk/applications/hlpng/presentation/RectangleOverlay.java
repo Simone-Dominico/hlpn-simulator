@@ -7,6 +7,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
@@ -26,9 +27,9 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
 	protected IState currentState = null;
 	final protected Transition transition;
 	final protected TransitionMarking marking;
-	final protected ISimulator simulator;
+	final protected IApplicationWithPresentation simulator;
 
-	public RectangleOverlay(final ISimulator simulator, final IFigure figure, 
+	public RectangleOverlay(final IApplicationWithPresentation simulator, final IFigure figure, 
 			final Transition transition, final TransitionMarking marking)
 	{
 		super();
@@ -94,7 +95,7 @@ public class RectangleOverlay extends RectangleFigure implements IStateContext,
     {
 		if(action instanceof PopupMenuItem)
 		{
-			simulator.fire(((PopupMenuItem)action).getMode(), true);	
+			((ISimulator)simulator).fire(((PopupMenuItem)action).getMode(), true);	
 		}
     }
 	

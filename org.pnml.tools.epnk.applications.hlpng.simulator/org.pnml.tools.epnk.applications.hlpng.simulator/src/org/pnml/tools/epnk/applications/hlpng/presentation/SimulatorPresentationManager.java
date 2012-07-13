@@ -6,20 +6,20 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
+import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.selection.SelectionHandler;
-import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class SimulatorPresentationManager implements IPresentationManager
 {
 	protected SelectionHandler selectionHandler = null;
-	protected ISimulator simulator = null;
+	protected IApplicationWithPresentation simulator = null;
 	protected Font font = null;
 	
-	public SimulatorPresentationManager(ISimulator simulator, Font font)
+	public SimulatorPresentationManager(IApplicationWithPresentation simulator, Font font)
 	{
 		this.simulator = simulator;
 		
@@ -71,7 +71,7 @@ public class SimulatorPresentationManager implements IPresentationManager
 	@Override
     public void notifyOwner()
     {
-	    simulator.setActive();
+	    simulator.activate();
     }
 }
 
