@@ -7,11 +7,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.part.*;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.action.*;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 
 public class SimulationView extends ViewPart implements ISelectionListener, ISelectionChangedListener
 {
@@ -137,14 +139,17 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		clear.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
 		        .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 		
-		speed = new DropDownAction()
-		{
-			
-		};
+		speed = new DropDownAction();
 
 		speed.setToolTipText("Animation speed");
-		speed.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-		        .getImageDescriptor(ISharedImages.IMG_TOOL_FORWARD));
+		{
+			ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/speed.png",
+					ResourceManager.SIMULATOR_PLUGIN_ID);
+			if(desc != null)
+			{
+				speed.setImageDescriptor(desc);	
+			}
+		}
 
 		doubleClickAction = new Action()
 		{
