@@ -43,7 +43,7 @@ public class VariableResolver
         this.reversibleOperationManager = reversibleOperationManager;
         this.evaluationManager = evaluationManager;
         
-        this.dependencyManager = new VariableDependencyManager(tm);
+        this.dependencyManager = new VariableDependencyManager(tm, reversibleOperationManager);
     }
     
     public Map<TermWrapper, TermAssignment> solve()
@@ -60,7 +60,7 @@ public class VariableResolver
             
             while(showDialog)
             {
-                if(termAssignment.getTermWrapper() instanceof AbstractReversibleOperation)
+                if(dependencyManager.isReversible(termAssignment.getTermWrapper()))
                 {
                     AbstractReversibleOperation op = ((AbstractReversibleOperation) termAssignment
                             .getTermWrapper());
