@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,39 +7,37 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 
-public class SubtractionEval extends AbstractIntegerOperation
+public class MultiplicationEval extends AbstractIntegerOperation
 {
 	@Override
     protected int computeTotal(int a, int b)
     {
-	    return a - b;
+	    return a * b;
     }
 
 	@Override
     protected int computeFirstArg(int result, int[] a)
     {
-		int sum = 0;
+		int mul = 1;
 		for(int i : a)
 		{
-			sum += i;
+			mul *= i;
 		}
-	    return result + sum;
+	    return result / mul;
     }
 
 	@Override
     protected int computeSecondArg(int result, int[] a)
     {
-		int sum = 0;
-		for(int i = 1; i < a.length; i++)
-		{
-			sum += a[i];
-		}
-		return a[0] - result - sum;
+		return computeFirstArg(result, a);
     }
 
 	@Override
@@ -54,27 +52,27 @@ public class SubtractionEval extends AbstractIntegerOperation
 			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
+		
 		if(values.size() < 1)
 		{
 			throw new RuntimeException("Not enough arguments!");
 		}
 			
-		int sum = 0;
-		for(int i = 1; i < values.size(); i++)
-		{
-			sum += ((NumberValue)values.get(i)).getN();
-		}
-		
 		IValue result = null;
 		{
 			NumberValue number = (NumberValue)values.get(0);
 			
 			Sort sort = number.getSort();
-			NumberValue res =  createResultObject(sort);
+			NumberValue res=  createResultObject(sort);
 			res.setSort(sort);
-			res.setN(number.getN() - sum);
+			res.setN(1);
 			
 			result = res;
+		}
+		
+		for(IValue value : values)
+		{
+			result = evaluate(result, value, (Operator)rootTerm);
 		}
 		
 		return result;

@@ -48,8 +48,8 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Comp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
 import org.pnml.tools.epnk.applications.registry.ApplicationRegistry;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;

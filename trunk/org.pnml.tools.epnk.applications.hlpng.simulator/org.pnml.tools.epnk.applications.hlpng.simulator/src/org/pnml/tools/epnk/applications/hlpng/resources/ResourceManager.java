@@ -21,7 +21,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.User
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DivisionEval;
@@ -29,14 +28,15 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEv
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ListsEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultiplicationEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.MultisetsEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SubtractionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AdditionEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.MultiplicationEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.SubtractionEval;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.impl.BooleanConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.dots.impl.DotConstantImpl;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.impl.AdditionImpl;
