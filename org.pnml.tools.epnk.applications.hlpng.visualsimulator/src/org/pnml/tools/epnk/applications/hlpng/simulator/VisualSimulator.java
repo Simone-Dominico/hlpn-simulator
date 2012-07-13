@@ -30,7 +30,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Comp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;

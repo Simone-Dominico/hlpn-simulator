@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible;
 
 import java.util.List;
 

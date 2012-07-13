@@ -27,4 +27,5 @@ Export-Package: org.pnml.tools.epnk.applications.hlpng.presentation.selection,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing,
  org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators,
+ org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible,
  org.pnml.tools.epnk.applications.hlpng.validation

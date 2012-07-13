@@ -6,10 +6,10 @@ import java.util.Set;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AbstractReversibleOperation;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ReversibleOperationComparator implements IComparable

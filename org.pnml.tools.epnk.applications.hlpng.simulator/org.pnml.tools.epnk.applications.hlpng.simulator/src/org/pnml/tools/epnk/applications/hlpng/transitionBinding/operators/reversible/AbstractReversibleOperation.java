@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
+package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible;
 
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 
