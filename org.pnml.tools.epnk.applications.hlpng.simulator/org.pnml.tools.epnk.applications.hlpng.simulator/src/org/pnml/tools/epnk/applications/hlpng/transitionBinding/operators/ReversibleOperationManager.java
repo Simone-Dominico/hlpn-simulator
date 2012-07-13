@@ -37,6 +37,11 @@ public class ReversibleOperationManager
 		handlers.remove(targetClass);
 	}
 
+	public boolean contains(Class<? extends Term> targetClass)
+	{
+		return handlers.containsKey(targetClass);
+	}
+	
 	public AbstractReversibleOperation createHandler(Class<? extends Term> c)
 	{
 		try
