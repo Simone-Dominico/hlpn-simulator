@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.runtime;
+package org.pnml.tools.epnk.applications.hlpng.presentation.marking;
 
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
 import org.pnml.tools.epnk.annotations.netannotations.impl.ObjectAnnotationImpl;

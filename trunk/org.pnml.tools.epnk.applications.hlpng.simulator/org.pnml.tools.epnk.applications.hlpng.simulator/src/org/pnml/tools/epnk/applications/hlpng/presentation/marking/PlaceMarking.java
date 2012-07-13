@@ -1,5 +1,6 @@
-package org.pnml.tools.epnk.applications.hlpng.runtime;
+package org.pnml.tools.epnk.applications.hlpng.presentation.marking;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 
 public class PlaceMarking extends AbstractMarking

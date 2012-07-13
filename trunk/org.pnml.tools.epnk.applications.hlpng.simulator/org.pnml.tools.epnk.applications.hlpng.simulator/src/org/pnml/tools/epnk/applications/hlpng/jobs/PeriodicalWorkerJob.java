@@ -5,7 +5,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
-import org.pnml.tools.epnk.applications.hlpng.simulator.IWorker;
 
 public class PeriodicalWorkerJob extends UIJob
 {

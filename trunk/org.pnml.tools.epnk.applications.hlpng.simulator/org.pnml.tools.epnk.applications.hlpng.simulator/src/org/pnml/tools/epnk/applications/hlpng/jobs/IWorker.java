@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator;
+package org.pnml.tools.epnk.applications.hlpng.jobs;
 
 public interface IWorker
 {
