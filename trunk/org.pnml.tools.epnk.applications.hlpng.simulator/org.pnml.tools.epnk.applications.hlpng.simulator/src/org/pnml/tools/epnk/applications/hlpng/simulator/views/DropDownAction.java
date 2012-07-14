@@ -14,10 +14,11 @@ import org.eclipse.jface.action.IMenuCreator;
 public class DropDownAction extends Action implements IMenuCreator
 {
 	private Menu fMenu;
-	private ISimulationViewCallbackHandler callbackHandler = null;
+	private final SimulationViewController controller;
 	
-	public DropDownAction()
+	public DropDownAction(final SimulationViewController controller)
 	{
+		this.controller = controller;
 		setMenuCreator(this);
 	}
 
@@ -48,10 +49,7 @@ public class DropDownAction extends Action implements IMenuCreator
 			{
 				public void run()
 				{
-					if(callbackHandler != null)
-					{
-						callbackHandler.speedChanged(0);
-					}
+					controller.pauseChanged(0);
 				}
 			};
 			addActionToMenu(fMenu, action);
@@ -61,10 +59,7 @@ public class DropDownAction extends Action implements IMenuCreator
 			{
 				public void run()
 				{
-					if(callbackHandler != null)
-					{
-						callbackHandler.speedChanged(500);
-					}
+					controller.pauseChanged(500);
 				}
 			};
 
@@ -75,10 +70,7 @@ public class DropDownAction extends Action implements IMenuCreator
 			{
 				public void run()
 				{
-					if(callbackHandler != null)
-					{
-						callbackHandler.speedChanged(1000);
-					}
+					controller.pauseChanged(1000);
 				}
 			};
 
@@ -89,10 +81,7 @@ public class DropDownAction extends Action implements IMenuCreator
 			{
 				public void run()
 				{
-					if(callbackHandler != null)
-					{
-						callbackHandler.speedChanged(2000);
-					}
+					controller.pauseChanged(2000);
 				}
 			};
 
@@ -113,14 +102,4 @@ public class DropDownAction extends Action implements IMenuCreator
 	{
 		dispose();
 	}
-
-	public ISimulationViewCallbackHandler getCallbackHandler()
-    {
-    	return callbackHandler;
-    }
-
-	public void setCallbackHandler(ISimulationViewCallbackHandler callbackHandler)
-    {
-    	this.callbackHandler = callbackHandler;
-    }
 }

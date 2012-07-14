@@ -88,12 +88,12 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	public void init()
 	{
 		this.stateContainer = new RuntimeStateList();
-	    this.runtimeStateManager = new RuntimeStateManager(this.flatAccess,
-	    		this.runtimeValueFactory, this.transitionManager, this.evaluationManager);
 	    this.autoMode = new PeriodicalWorkerJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
 				evaluationManager, reversibleOperationManager, display);
+	    this.runtimeStateManager = new RuntimeStateManager(this.flatAccess,
+	    		this.runtimeValueFactory, this.transitionManager, this.evaluationManager);
 	    
 		this.presentationManager = new SimulatorPresentationManager(this, font);
 		this.netMarkingManager= new NetMarkingManager(this.petrinet,  

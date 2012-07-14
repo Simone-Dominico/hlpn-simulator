@@ -7,15 +7,12 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.part.*;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.action.*;
 import org.eclipse.ui.*;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
-import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 
-public class SimulationView extends ViewPart implements ISelectionListener, ISelectionChangedListener
+public class SimulationView extends ViewPart
 {
 	/**
 	 * The ID of the view as specified by the extension.
@@ -27,10 +24,6 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	private static final int[] columnAlignment = new int[] { SWT.LEFT, SWT.LEFT };
 
 	private TableViewer viewer;
-	
-	private Action clear;
-	private Action doubleClickAction;
-	private DropDownAction speed;
 
 	/**
 	 * This is a callback that will allow us to create the viewer and initialize
@@ -43,8 +36,6 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 		viewer.setContentProvider(new ArrayContentProvider());
 		viewer.setLabelProvider(new SimulationViewLabelProvider());
 		viewer.setInput(getViewSite());
-		
-		viewer.addSelectionChangedListener(this);
 		
 		Table table = viewer.getTable();
 		table.setSize(parent.getClientArea().width, parent.getClientArea().height);
@@ -59,105 +50,22 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 			columns[i].setText(columnHead[i]);
 			columns[i].setWidth(columnWidth[i]);
 		}
-
-		// Create the help context id for the viewer's control
-		PlatformUI
-		        .getWorkbench()
-		        .getHelpSystem()
-		        .setHelp(viewer.getControl(),
-		                "org.pnml.tools.epnk.applications.hlpng.simulator.viewer");
-		makeActions();
-		hookContextMenu();
-		viewer.addDoubleClickListener(new IDoubleClickListener()
-		{
-			public void doubleClick(DoubleClickEvent event)
-			{
-				doubleClickAction.run();
-			}
-		});
-		contributeToActionBars();
 	}
 
-	private void hookContextMenu()
+	private static void contributeToActionBars(IViewSite viewSite,
+			ISimulationViewController controller)
 	{
-		MenuManager menuMgr = new MenuManager("#PopupMenu");
-		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener()
-		{
-			public void menuAboutToShow(IMenuManager manager)
-			{
-				SimulationView.this.fillContextMenu(manager);
-			}
-		});
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
-		viewer.getControl().setMenu(menu);
-		getSite().registerContextMenu(menuMgr, viewer);
-	}
-
-	private void contributeToActionBars()
-	{
-		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
-	}
-
-	private void fillLocalPullDown(IMenuManager manager)
-	{
-		manager.add(speed);
-		manager.add(clear);
-		manager.add(new Separator());
-	}
-
-	private void fillContextMenu(IMenuManager manager)
-	{
-		manager.add(speed);
-		manager.add(clear);
-		// Other plug-ins can contribute there actions here
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-	}
-
-	private void fillLocalToolBar(IToolBarManager manager)
-	{
-		manager.add(speed);
-		manager.add(clear);
-	}
-
-	private void makeActions()
-	{
-		clear = new Action("Clear all")
-		{
-			public void run()
-			{
-				if(currentController != null)
-				{
-					viewer.getTable().removeAll();
-					currentController.clearFromView();
-				}
-			}
-		};
-		clear.setToolTipText("Clear all");
-		clear.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-		        .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
+		IActionBars bars = viewSite.getActionBars();
 		
-		speed = new DropDownAction();
-
-		speed.setToolTipText("Animation speed");
+		IToolBarManager manager = bars.getToolBarManager();
+		manager.removeAll();
+		
+		for(Action action : controller.getActions())
 		{
-			ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/speed.png",
-					ResourceManager.SIMULATOR_PLUGIN_ID);
-			if(desc != null)
-			{
-				speed.setImageDescriptor(desc);	
-			}
+			manager.add(action);
 		}
-
-		doubleClickAction = new Action()
-		{
-			public void run()
-			{
-				callback();
-			}
-		};
+		
+		bars.updateActionBars();
 	}
 
 	/**
@@ -167,31 +75,11 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
 	{
 		viewer.getControl().setFocus();
 	}
-
-	@Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection){}
-
-	@Override
-    public void selectionChanged(SelectionChangedEvent event)
-    {
-		callback();
-    }
-	
-	private static Object currentData(TableViewer viewer)
-	{
-		TableItem[] items = viewer.getTable().getSelection();
-		if(items != null && items.length > 0)
-		{
-			return items[0].getData();
-		}
-		
-		return null;
-	}
 	
 	/*
 	 * Communication with the Controller
 	 */
-	private ISimulationViewCallbackHandler currentController = null;
+	private ISimulationViewController currentController = null;
 	
 	public void record(ISimulationViewController controller, TableRecord record)
 	{
@@ -229,25 +117,25 @@ public class SimulationView extends ViewPart implements ISelectionListener, ISel
             catch(Exception e){}
 		}
 	}
-
-	private void callback()
-	{
-		Object data = currentData(viewer);
-		if(data != null && currentController != null)
-		{
-			currentController.itemSelected(data);
-		}
-	}
 	
-	public ISimulationViewCallbackHandler getCurrentController()
+	public void setCurrentController(ISimulationViewController controller)
     {
-    	return currentController;
+		// removing old one
+		if(currentController != null)
+		{
+			viewer.removeSelectionChangedListener(currentController);
+		}
+    	// registering new one
+    	viewer.addSelectionChangedListener(controller);
+    	// updating current controller
+    	this.currentController = controller;
+    	// update actions
+    	contributeToActionBars(getViewSite(), this.currentController);
     }
 
-	public void setCurrentController(ISimulationViewCallbackHandler currentController)
+	public TableViewer getViewer()
     {
-    	this.currentController = currentController;
-    	this.speed.setCallbackHandler(currentController);
+    	return viewer;
     }
 
 }
