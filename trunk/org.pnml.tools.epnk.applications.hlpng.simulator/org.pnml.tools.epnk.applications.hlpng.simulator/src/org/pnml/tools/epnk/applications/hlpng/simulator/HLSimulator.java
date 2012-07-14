@@ -212,8 +212,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void work()
     {
-		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent().getModes(),
-				stateContainer.getCurrent());
+		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent());
 		boolean updateAnnotations = !autoModeEnabled || simulationPause > 0;
 		
 		if(mode != null)
