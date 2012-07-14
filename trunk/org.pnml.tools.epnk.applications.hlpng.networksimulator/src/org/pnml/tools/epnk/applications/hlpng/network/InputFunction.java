@@ -12,7 +12,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IDataTypeEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ISortEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
@@ -23,7 +23,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class InputFunction extends AbstractFunction implements IEvaluator, IDataTypeEvaluator
+public class InputFunction extends AbstractFunction implements IEvaluator, ISortEvaluator
 {
 	protected List<Category> categories = null;
 	private List<NodeWrapper> nodes = null;
