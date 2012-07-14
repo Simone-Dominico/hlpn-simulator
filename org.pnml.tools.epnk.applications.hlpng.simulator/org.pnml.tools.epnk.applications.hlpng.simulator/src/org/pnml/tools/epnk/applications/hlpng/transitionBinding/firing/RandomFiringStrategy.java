@@ -10,9 +10,10 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 public class RandomFiringStrategy implements IFiringStrategy
 {
 	@Override
-	public FiringMode fire(Map<IDWrapper, List<FiringMode>> modes, 
-			IRuntimeState currentMarking)
+	public FiringMode fire(IRuntimeState currentMarking)
 	{
+		Map<IDWrapper, List<FiringMode>> modes = currentMarking.getModes();
+		
 		List<IDWrapper> transitions = new ArrayList<IDWrapper>(modes.keySet());
 		int tIndex = getIndex(transitions.size());
 		
