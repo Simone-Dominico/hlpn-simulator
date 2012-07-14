@@ -94,8 +94,9 @@ public class TransitionManager
 	    return (Rules) rulesObj;
 	}
 	
-	public List<FiringMode> checkTransition(Transition transition, Map<IDWrapper, 
-			IMSValue> runtimeValues) throws DependencyException, UnknownVariableException
+	public List<FiringMode> checkTransition(Transition transition, 
+			Map<IDWrapper, IMSValue> runtimeValues) 
+					throws DependencyException, UnknownVariableException
 	{		
 		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
 		// each inscription variable/term assignments
