@@ -41,7 +41,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	protected ReversibleOperationManager reversibleOperationManager = null;
 	
 	protected TransitionManager transitionManager = null;
-	protected RuntimeStateManager transitionFiringManager = null;
+	protected RuntimeStateManager runtimeStateManager = null;
 	protected RuntimeValueFactory runtimeValueFactory = null;
 	
 	protected PeriodicalWorkerJob autoMode = null;
@@ -88,8 +88,8 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	public void init()
 	{
 		this.stateContainer = new RuntimeStateList();
-	    this.transitionFiringManager = new RuntimeStateManager(this.flatAccess,
-	    		this.runtimeValueFactory);
+	    this.runtimeStateManager = new RuntimeStateManager(this.flatAccess,
+	    		this.runtimeValueFactory, this.transitionManager, this.evaluationManager);
 	    this.autoMode = new PeriodicalWorkerJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
@@ -100,8 +100,8 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 				comparisonManager, reversibleOperationManager);
 		
 		// computing initial state
-		IRuntimeState initialState = this.transitionFiringManager.createInitialState(this.evaluationManager,
-                this.flatAccess.getTransitions(), this.transitionManager);
+		IRuntimeState initialState = this.runtimeStateManager.
+				createInitialState(this.flatAccess.getTransitions());
 		this.stateContainer.add(initialState);
 
 		// creating an annotation layer
@@ -118,8 +118,8 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 		// recording
 		this.simulationViewController.record(stateContainer.getCurrent());
 		// computing the next state
-		IRuntimeState runtimeState = this.transitionFiringManager.
-				createNextState(stateContainer.getCurrent(), evaluationManager, mode, transitionManager);
+		IRuntimeState runtimeState = this.runtimeStateManager.
+				createNextState(stateContainer.getCurrent(), mode);
 		boolean needToClean = stateContainer.add(runtimeState);
 		if(needToClean)
 		{
@@ -137,7 +137,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     public void updateTransitionBinding(IRuntimeState state)
     {
 		// updates state transition binding
-		this.transitionFiringManager.updateState(state, transitionManager);
+		this.runtimeStateManager.updateState(state);
     }
 	
 	@Override

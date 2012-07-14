@@ -25,15 +25,23 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 public class RuntimeStateManager
 {
-	private FlatAccess flatAccess = null;
-	private RuntimeValueFactory runtimeValueFactory = null;
-	public RuntimeStateManager(FlatAccess flatAccess, RuntimeValueFactory runtimeValueFactory)
+	private final FlatAccess flatAccess;
+	private final RuntimeValueFactory runtimeValueFactory;
+	private final TransitionManager transitionManager;
+	private final EvaluationManager evaluationManager;
+	
+	public RuntimeStateManager(final FlatAccess flatAccess, 
+			final RuntimeValueFactory runtimeValueFactory,
+			final TransitionManager transitionManager,
+			final EvaluationManager evaluationManager)
 	{
 		this.flatAccess = flatAccess;
 		this.runtimeValueFactory = runtimeValueFactory;
+		this.transitionManager = transitionManager;
+		this.evaluationManager = evaluationManager;
 	}
 	
-    public void updateState(IRuntimeState state, TransitionManager transitionManager)
+    public void updateState(IRuntimeState state)
     {
     	state.getModes().clear();
     	
@@ -46,9 +54,7 @@ public class RuntimeStateManager
         }
     }
 	
-    public IRuntimeState createNextState(IRuntimeState prevState, 
-    		EvaluationManager evaluationManager, FiringMode firingMode, 
-    		TransitionManager transitionManager)
+    public IRuntimeState createNextState(IRuntimeState prevState, FiringMode firingMode)
     {
     	Map<IDWrapper, IMSValue> currentValues = prevState.getClonedValues();
     	
@@ -71,9 +77,8 @@ public class RuntimeStateManager
         return runtimeState;
     }
     
-    public IRuntimeState createInitialState(EvaluationManager evalManager,
-            List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
-            TransitionManager transitionManager)
+    public IRuntimeState createInitialState(
+            List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions)
     {        
         RuntimeState runtimeState = new RuntimeState();
         
@@ -90,7 +95,7 @@ public class RuntimeStateManager
 				
                 try
                 {
-                	msValue = (IMSValue)evalManager.evaluate(term, null);
+                	msValue = (IMSValue)evaluationManager.evaluate(term, null);
                 }
                 catch(UnknownVariableException e)
                 {
