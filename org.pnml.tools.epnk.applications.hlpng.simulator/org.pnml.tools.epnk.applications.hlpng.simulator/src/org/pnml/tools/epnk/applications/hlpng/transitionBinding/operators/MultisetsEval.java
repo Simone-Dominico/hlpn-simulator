@@ -21,7 +21,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
 
 public class MultisetsEval implements IEvaluator
 {
-	private DataTypeEvaluationManager dataTypeEvaluationManager = null;
+	private SortEvaluationManager sortEvaluationManager = null;
 	private RuntimeValueFactory factory = null;
 	
 	public MultisetsEval(RuntimeValueFactory factory)
@@ -91,20 +91,20 @@ public class MultisetsEval implements IEvaluator
 		if(operator instanceof All)
 		{
 			All allOp = (All) operator;
-			return dataTypeEvaluationManager.evaluate(allOp.getRefsort());
+			return sortEvaluationManager.evaluate(allOp.getRefsort());
 		}
 		return null;
 	}
 
-	public DataTypeEvaluationManager getDataTypeEvaluationManager()
+	public SortEvaluationManager getSortEvaluationManager()
     {
-    	return dataTypeEvaluationManager;
+    	return sortEvaluationManager;
     }
 
-	public void setDataTypeEvaluationManager(
-            DataTypeEvaluationManager dataTypeEvaluationManager)
+	public void setSortEvaluationManager(
+            SortEvaluationManager dataTypeEvaluationManager)
     {
-    	this.dataTypeEvaluationManager = dataTypeEvaluationManager;
+    	this.sortEvaluationManager = dataTypeEvaluationManager;
     }
 
 	@Override
@@ -125,7 +125,7 @@ public class MultisetsEval implements IEvaluator
 		if(term instanceof All)
 		{
 			All all = (All)term;
-			if(dataTypeEvaluationManager == null)
+			if(sortEvaluationManager == null)
 			{
 				if(all.getRefsort() instanceof UserSort)
 				{
@@ -135,8 +135,8 @@ public class MultisetsEval implements IEvaluator
 				}
 				return "all:" + all.getRefsort().getClass().getName();
 			}
-			IDataTypeEvaluator eval = 
-					dataTypeEvaluationManager.getHandler(all.getRefsort().getClass());
+			ISortEvaluator eval = 
+					sortEvaluationManager.getHandler(all.getRefsort().getClass());
 			
 			if(eval == null)
 			{

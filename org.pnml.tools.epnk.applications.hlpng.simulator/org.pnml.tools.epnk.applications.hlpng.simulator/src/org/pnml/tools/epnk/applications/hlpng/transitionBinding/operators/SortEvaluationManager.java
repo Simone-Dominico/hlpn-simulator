@@ -6,16 +6,16 @@ import java.util.Map;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
-public class DataTypeEvaluationManager
+public class SortEvaluationManager
 {
-	private Map<Object, IDataTypeEvaluator> handlers = new HashMap<Object, IDataTypeEvaluator>();
+	private Map<Object, ISortEvaluator> handlers = new HashMap<Object, ISortEvaluator>();
 	
-	public void register(Object targetObject, IDataTypeEvaluator operator)
+	public void register(Object targetObject, ISortEvaluator operator)
 	{
 		handlers.put(targetObject, operator);
 	}
 	
-	public IDataTypeEvaluator getHandler(Class<? extends Sort> targetClass)
+	public ISortEvaluator getHandler(Class<? extends Sort> targetClass)
 	{
 		if(handlers.containsKey(targetClass))
 		{
@@ -35,7 +35,7 @@ public class DataTypeEvaluationManager
 	
 	public IValue evaluate(Sort sort)
 	{
-		IDataTypeEvaluator evaluator = getHandler(sort.getClass());
+		ISortEvaluator evaluator = getHandler(sort.getClass());
 		
 		return evaluator.evaluate(sort);
 	}

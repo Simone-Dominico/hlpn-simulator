@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ProductValue extends AbstractValue
 {
-	List<IValue> components = new ArrayList<IValue>();
+	private List<IValue> components = new ArrayList<IValue>();
 
 	public List<IValue> getComponents()
     {

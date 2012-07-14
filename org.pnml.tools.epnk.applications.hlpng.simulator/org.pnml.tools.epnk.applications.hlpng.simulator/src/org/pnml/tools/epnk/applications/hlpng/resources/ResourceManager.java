@@ -22,7 +22,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Vari
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DataTypeEvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SortEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IntegersEval;
@@ -98,9 +98,9 @@ public class ResourceManager
 					IUserExtensions arbitraryOperatorEval = (IUserExtensions) e.createExecutableExtension("class");
 					userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
 					
-					DataTypeEvaluationManager manager = new DataTypeEvaluationManager();
+					SortEvaluationManager manager = new SortEvaluationManager();
 					manager.register(UserSortImpl.class, arbitraryOperatorEval);
-					multisetsEval.setDataTypeEvaluationManager(manager);
+					multisetsEval.setSortEvaluationManager(manager);
 				}
 				catch(CoreException e1)
 				{
