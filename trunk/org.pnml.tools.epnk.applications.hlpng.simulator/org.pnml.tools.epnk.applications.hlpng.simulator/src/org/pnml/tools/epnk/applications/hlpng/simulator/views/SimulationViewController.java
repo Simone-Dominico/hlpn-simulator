@@ -23,23 +23,18 @@ public class SimulationViewController implements ISimulationViewController
 {
 	private final SimulationViewController me = this;
 	
-	private ISimulator simulator = null;
-	private SimulationView simulationView = null;
-	private Display display = null;
+	protected ISimulator simulator = null;
+	protected SimulationView simulationView = null;
+	protected Display display = null;
+	protected List<TableRecord> records = new ArrayList<TableRecord>();
 	
 	private Action[] actions = null;
-	
-	private List<TableRecord> records = new ArrayList<TableRecord>();
 
-	public SimulationViewController(ISimulator simulator)
+	public SimulationViewController()
 	{
-		this.simulator = simulator;
 		init();
 	}
 
-	/* (non-Javadoc)
-     * @see org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController#resetRecords(org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer)
-     */
 	@Override
     public void resetRecords(final IRuntimeStateContainer runtimeStates)
 	{
@@ -79,9 +74,6 @@ public class SimulationViewController implements ISimulationViewController
 		}
 	}
 	
-	/* (non-Javadoc)
-     * @see org.pnml.tools.epnk.applications.hlpng.simulator.views.ISumulationViewController#record(org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState)
-     */
 	@Override
     public void record(final IRuntimeState runtimeState)
 	{
@@ -118,7 +110,7 @@ public class SimulationViewController implements ISimulationViewController
 		{
 			// clears the records
 			this.records.clear();
-			display.asyncExec(new Runnable()
+			display.syncExec(new Runnable()
 			{
 				public void run()
 				{
@@ -175,7 +167,10 @@ public class SimulationViewController implements ISimulationViewController
 
     public void pauseChanged(long pause)
     {
-	    this.simulator.setSimulationPause(pause);
+    	if(simulator != null)
+    	{
+    		this.simulator.setSimulationPause(pause);	
+    	}
     }
 	
 	@Override
@@ -189,7 +184,7 @@ public class SimulationViewController implements ISimulationViewController
 		if(simulationView != null)
 		{
 			Object data = currentData(simulationView.getViewer());
-			if(data != null)
+			if(data != null && simulator != null)
 			{
 				simulator.show((IRuntimeState)data);
 			}	
@@ -245,5 +240,21 @@ public class SimulationViewController implements ISimulationViewController
 			}
 		}
 		return actions;
+	}
+
+	@Override
+	public void setSimulator(ISimulator simulator)
+    {
+    	this.simulator = simulator;
+    }
+	
+	@Override
+	public void shutDown()
+	{
+		clear();
+		if(simulationView != null) 
+		{
+			simulationView.setCurrentController(null);
+		}
 	}
 }

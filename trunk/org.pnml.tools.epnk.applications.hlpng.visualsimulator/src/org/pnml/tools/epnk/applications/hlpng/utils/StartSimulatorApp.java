@@ -29,6 +29,7 @@ import org.pnml.tools.epnk.applications.hlpng.functions.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.MSListFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
@@ -128,8 +129,13 @@ public class StartSimulatorApp implements IObjectActionDelegate
     					config.getGeometry().getGlobalAppearancePath(), 
     					config.getGeometry(), config.getShapes(), extensionManager,
     					factory);
-    
-    //			 registers the simulator
+    			
+    			// creates simulation view controller
+    			ISimulationViewController controller = new VisualSimulationViewController();
+    			controller.setSimulator(simulator);
+    			simulator.setSimulationViewController(controller);
+    			
+    			// registers the simulator
     			Activator activator = Activator.getInstance();
     			ApplicationRegistry registry = activator.getApplicationRegistry();
     			registry.addApplication(simulator);

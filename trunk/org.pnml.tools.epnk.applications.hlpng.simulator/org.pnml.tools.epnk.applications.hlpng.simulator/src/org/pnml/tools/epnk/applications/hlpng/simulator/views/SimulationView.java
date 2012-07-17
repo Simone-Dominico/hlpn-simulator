@@ -60,9 +60,12 @@ public class SimulationView extends ViewPart
 		IToolBarManager manager = bars.getToolBarManager();
 		manager.removeAll();
 		
-		for(Action action : controller.getActions())
+		if(controller != null)
 		{
-			manager.add(action);
+			for(Action action : controller.getActions())
+			{
+				manager.add(action);
+			}	
 		}
 		
 		bars.updateActionBars();
@@ -125,10 +128,13 @@ public class SimulationView extends ViewPart
 		{
 			viewer.removeSelectionChangedListener(currentController);
 		}
-    	// registering new one
-    	viewer.addSelectionChangedListener(controller);
-    	// updating current controller
+		// updating current controller
     	this.currentController = controller;
+    	// registering new one
+    	if(this.currentController != null)
+    	{
+    		viewer.addSelectionChangedListener(this.currentController);
+    	}
     	// update actions
     	contributeToActionBars(getViewSite(), this.currentController);
     }

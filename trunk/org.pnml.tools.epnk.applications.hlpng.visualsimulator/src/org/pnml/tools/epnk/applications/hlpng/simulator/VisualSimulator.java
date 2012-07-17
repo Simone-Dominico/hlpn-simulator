@@ -294,8 +294,8 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void shutDown()
     {
+		super.shutDown();
 	    ((Animator)animator).getWindow().dispose();
-	    super.shutDown();
     }
 
 	/*
