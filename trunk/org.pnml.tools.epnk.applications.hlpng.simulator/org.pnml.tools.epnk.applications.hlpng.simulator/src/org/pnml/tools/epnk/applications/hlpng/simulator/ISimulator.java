@@ -1,9 +1,9 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import org.pnml.tools.epnk.applications.IApplicationWithPresentation;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
 
 public interface ISimulator extends IApplicationWithPresentation
 {
