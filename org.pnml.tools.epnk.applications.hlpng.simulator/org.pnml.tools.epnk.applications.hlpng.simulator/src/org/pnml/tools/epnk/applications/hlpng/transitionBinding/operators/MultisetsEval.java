@@ -21,7 +21,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
 
 public class MultisetsEval implements IEvaluator
 {
-	private SortEvaluationManager sortEvaluationManager = null;
+	private ISortEvaluator sortEvaluator = null;
 	private RuntimeValueFactory factory = null;
 	
 	public MultisetsEval(RuntimeValueFactory factory)
@@ -90,20 +90,15 @@ public class MultisetsEval implements IEvaluator
 		if(operator instanceof All)
 		{
 			All allOp = (All) operator;
-			return sortEvaluationManager.evaluate(allOp.getRefsort());
+			return sortEvaluator.evaluate(allOp.getRefsort());
 		}
 		return null;
 	}
 
-	public SortEvaluationManager getSortEvaluationManager()
+	public void setSortEvaluator(
+            ISortEvaluator dataTypeEvaluationManager)
     {
-    	return sortEvaluationManager;
-    }
-
-	public void setSortEvaluationManager(
-            SortEvaluationManager dataTypeEvaluationManager)
-    {
-    	this.sortEvaluationManager = dataTypeEvaluationManager;
+    	this.sortEvaluator = dataTypeEvaluationManager;
     }
 
 	@Override
@@ -124,7 +119,7 @@ public class MultisetsEval implements IEvaluator
 		if(term instanceof All)
 		{
 			All all = (All)term;
-			if(sortEvaluationManager == null)
+			if(sortEvaluator == null)
 			{
 				if(all.getRefsort() instanceof UserSort)
 				{
@@ -135,7 +130,7 @@ public class MultisetsEval implements IEvaluator
 				return "all:" + all.getRefsort().getClass().getName();
 			}
 			
-			return sortEvaluationManager.validate(all);
+			return sortEvaluator.validate(all);
 		}
 		return term.getClass().toString();
     }
