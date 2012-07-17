@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.applications.hlpng.jobs.InputDialogJob;
+import org.pnml.tools.epnk.applications.hlpng.dialogs.InputDialogJob;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AbstractReversibleOperation;
