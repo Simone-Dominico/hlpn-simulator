@@ -75,7 +75,7 @@ public class UserOperatorEval implements IEvaluator
 		{
 			for(Term subterm : userOperator.getSubterm())
 			{
-				String err = evaluationManager.check(subterm);
+				String err = evaluationManager.validate(subterm);
 				if(err != null)
 				{
 					return err;

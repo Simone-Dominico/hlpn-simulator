@@ -8,7 +8,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
@@ -52,9 +51,8 @@ public class DivisionEval extends AbstractIntegerOperation
 		Operator operator = (Operator) term;
 		List<IValue> values = new ArrayList<IValue>();
 		for(Term subterm : operator.getSubterm())
-		{
-			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+		{ 
+			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
 		if(values.size() < 1)

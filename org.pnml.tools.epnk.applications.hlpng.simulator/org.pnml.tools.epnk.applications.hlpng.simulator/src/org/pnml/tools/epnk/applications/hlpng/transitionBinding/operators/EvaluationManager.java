@@ -15,7 +15,7 @@ import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class EvaluationManager
+public class EvaluationManager implements IEvaluator
 {
 	private Map<Object, IEvaluator> handlers = new HashMap<Object, IEvaluator>();
 	
@@ -24,54 +24,9 @@ public class EvaluationManager
 		handlers.put(targetObject, operator);
 	}
 	
-	public IEvaluator getHandler(Class<? extends Term> targetClass)
-	{
-		if(handlers.containsKey(targetClass))
-		{
-			return handlers.get(targetClass);
-		}
-		if(handlers.containsKey(targetClass.getPackage()))
-		{
-			return handlers.get(targetClass.getPackage());
-		}
-		return null;
-	}
-	
 	public void unregister(Object targetObject)
 	{
 		handlers.remove(targetObject);
-	}
-	
-	public String check(Term term)
-	{
-		IValidator validator = getHandler(term.getClass());
-
-		if(validator == null)
-		{
-			return "The term " + term.getClass().toString() + " is not supported!";
-		}
-		
-		String error = validator.validate(term);
-		if(error != null)
-		{
-			return error;
-		}
-		
-		if(term instanceof Operator)
-		{
-			Operator operator = (Operator)term;
-			
-			for(Term subTerm : operator.getSubterm())
-			{
-				String err = check(subTerm);
-				if(err != null)
-				{
-					return err;
-				}
-			}
-		}
-		
-		return null;
 	}
 	
 	public IValue evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
@@ -141,4 +96,67 @@ public class EvaluationManager
 		}
 		return result;
 	}
+	
+	public IEvaluator getHandler(Class<? extends Term> targetClass)
+	{
+		if(handlers.containsKey(targetClass))
+		{
+			return handlers.get(targetClass);
+		}
+		if(handlers.containsKey(targetClass.getPackage()))
+		{
+			return handlers.get(targetClass.getPackage());
+		}
+		return null;
+	}
+	
+	@Override
+    public String validate(Object obj)
+    {
+		if(obj instanceof Term)
+		{
+			Term term = (Term) obj;
+			IValidator validator = getHandler(term.getClass());
+
+			if(validator == null)
+			{
+				return "The term " + term.getClass().toString() + " is not supported!";
+			}
+			
+			String error = validator.validate(term);
+			if(error != null)
+			{
+				return error;
+			}
+			
+			if(term instanceof Operator)
+			{
+				Operator operator = (Operator)term;
+				
+				for(Term subTerm : operator.getSubterm())
+				{
+					String err = validate(subTerm);
+					if(err != null)
+					{
+						return err;
+					}
+				}
+			}	
+		}
+		
+		return null;
+    }
+
+	@Override
+    public IValue evaluate(Term term, EvaluationManager evaluationManager,
+            Map<TermWrapper, IValue> assignments)
+            throws UnknownVariableException
+    {
+		IEvaluator evaluator = getHandler(term.getClass());
+		if(evaluator != null)
+		{
+			return evaluator.evaluate(term, evaluationManager, assignments);
+		}
+	    throw new RuntimeException("Do not know how to evaluate: " + term.getClass());
+    }
 }
