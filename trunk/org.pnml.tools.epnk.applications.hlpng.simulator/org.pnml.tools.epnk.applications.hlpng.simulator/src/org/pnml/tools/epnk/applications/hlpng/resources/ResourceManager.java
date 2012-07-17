@@ -100,7 +100,7 @@ public class ResourceManager
 					
 					SortEvaluationManager manager = new SortEvaluationManager();
 					manager.register(UserSortImpl.class, arbitraryOperatorEval);
-					multisetsEval.setSortEvaluationManager(manager);
+					multisetsEval.setSortEvaluator(manager);
 				}
 				catch(CoreException e1)
 				{
