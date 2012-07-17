@@ -44,6 +44,8 @@ import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RandomFiringStrategy;
@@ -155,6 +157,11 @@ public class StartSimulatorApp implements IObjectActionDelegate
                         comparisonManager, reversibleOperationManager,
                         Display.getCurrent().getSystemFont(), runtimeValueFactory,
                         extensionManager, strategy);
+                
+    			// creates simulation view controller
+    			ISimulationViewController controller = new SimulationViewController();
+    			controller.setSimulator(simulator);
+    			simulator.setSimulationViewController(controller);
 
                 // registers the simulator
                 Activator activator = Activator.getInstance();

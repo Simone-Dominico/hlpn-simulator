@@ -19,7 +19,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContain
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
-import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
@@ -75,7 +74,6 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	    
 	    this.font = font;
 		
-	    this.simulationViewController = new SimulationViewController(this);
 	    this.flatAccess = new FlatAccess(this.petrinet);
 	    
 	    if(init)
@@ -116,12 +114,15 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 		// setting the selected firing mode for the state
 		stateContainer.getCurrent().setFiringMode(mode);
 		// recording
-		this.simulationViewController.record(stateContainer.getCurrent());
+		if(simulationViewController != null)
+		{
+			this.simulationViewController.record(stateContainer.getCurrent());	
+		}
 		// computing the next state
 		IRuntimeState runtimeState = this.runtimeStateManager.
 				createNextState(stateContainer.getCurrent(), mode);
 		boolean needToClean = stateContainer.add(runtimeState);
-		if(needToClean)
+		if(needToClean && simulationViewController != null)
 		{
 			this.simulationViewController.resetRecords(stateContainer);
 		}
@@ -146,7 +147,10 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 		// stops the simulation if any
 		stop();
 		// clears the view
-		simulationViewController.clear();
+		if(simulationViewController != null)
+		{
+			simulationViewController.clear();	
+		}
 		// initializes the application
 		init();
 	}
@@ -206,7 +210,10 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	protected void shutDown() 
 	{
 		stop();
-		simulationViewController.clear();
+		if(simulationViewController != null)
+		{
+			simulationViewController.shutDown();
+		}
 	}
 
 	@Override
@@ -355,7 +362,10 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void activate()
     {
-	    this.simulationViewController.setCurrent();
+		if(simulationViewController != null)
+		{
+			this.simulationViewController.setCurrent();
+		}
     }
 
 	@Override
@@ -368,5 +378,11 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	public void setSimulationPause(long simulationPause)
     {
     	this.simulationPause = simulationPause;
+    }
+
+	@Override
+	public void setSimulationViewController(ISimulationViewController simulationViewController)
+    {
+    	this.simulationViewController = simulationViewController;
     }
 }
