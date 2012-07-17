@@ -134,14 +134,8 @@ public class MultisetsEval implements IEvaluator
 				}
 				return "all:" + all.getRefsort().getClass().getName();
 			}
-			ISortEvaluator eval = 
-					sortEvaluationManager.getHandler(all.getRefsort().getClass());
 			
-			if(eval == null)
-			{
-				return "all:" + all.getRefsort().getClass().getName();
-			}
-			return eval.validate(all.getRefsort());
+			return sortEvaluationManager.validate(all);
 		}
 		return term.getClass().toString();
     }
