@@ -37,8 +37,7 @@ public class MultisetsEval implements IEvaluator
 		List<IValue> values = new ArrayList<IValue>();
 		for(Term subterm : operator.getSubterm())
 		{
-			IEvaluator evaluator = evaluationManager.getHandler(subterm.getClass()); 
-			IValue value = evaluator.evaluate(subterm, evaluationManager, assignments);
+			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
 		if(operator instanceof NumberOf)

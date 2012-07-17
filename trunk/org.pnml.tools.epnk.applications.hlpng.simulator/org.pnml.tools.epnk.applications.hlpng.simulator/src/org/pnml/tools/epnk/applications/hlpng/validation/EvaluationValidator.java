@@ -63,7 +63,7 @@ public class EvaluationValidator extends AbstractModelConstraint
 			if(place.getHlinitialMarking() != null && 
 					place.getHlinitialMarking().getStructure() != null)
 			{
-				String err = evaluationManager.check(place.getHlinitialMarking().getStructure());
+				String err = evaluationManager.validate(place.getHlinitialMarking().getStructure());
 				if(err != null)
 				{
 					errorMessages.add(err);	
@@ -77,7 +77,7 @@ public class EvaluationValidator extends AbstractModelConstraint
 			if(transition.getCondition() != null && 
 					transition.getCondition().getStructure() != null)
 			{
-				String err = evaluationManager.check(transition.getCondition().getStructure());
+				String err = evaluationManager.validate(transition.getCondition().getStructure());
 				if(err != null)
 				{
 					errorMessages.add(err);	
@@ -101,7 +101,7 @@ public class EvaluationValidator extends AbstractModelConstraint
 				if(arc.getHlinscription() != null && 
 						arc.getHlinscription().getStructuralFeature() != null)
 				{
-					String err = evaluationManager.check(arc.getHlinscription().getStructure());
+					String err = evaluationManager.validate(arc.getHlinscription().getStructure());
 					if(err != null)
 					{
 						errorMessages.add(err);	
