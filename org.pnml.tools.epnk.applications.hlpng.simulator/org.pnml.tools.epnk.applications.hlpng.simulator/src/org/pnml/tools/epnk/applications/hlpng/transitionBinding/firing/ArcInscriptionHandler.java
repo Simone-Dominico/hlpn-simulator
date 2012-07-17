@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.IComparable;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
@@ -51,7 +50,7 @@ public class ArcInscriptionHandler
 	}
 
 	private static void contains(IMSValue multiset, 
-			ComparisonManager resolutionManager, NumberOf numberOf, 
+			ComparisonManager comparisonManager, NumberOf numberOf, 
 			Map<TermWrapper, TermAssignment> assignments)
 	{
 		Term refMul = numberOf.getSubterm().get(0);
@@ -61,9 +60,7 @@ public class ArcInscriptionHandler
 		{
 			IValue testValue = entry.getKey();
 			
-			IComparable valueEvaluator = resolutionManager.getComparator(refValue.getClass());
-
-			if(valueEvaluator.compare(refValue, testValue, assignments))
+			if(comparisonManager.compare(refValue, testValue, assignments))
 			{
 				Integer multiplicity = entry.getValue();
 				
@@ -71,14 +68,13 @@ public class ArcInscriptionHandler
 				// e.g. assigning values to a variable
 				if(!(refMul instanceof NumberConstant))
 				{
-					IComparable mulEvaluator = resolutionManager.getComparator(refMul.getClass());
 					for(int i = 0; i <= multiplicity; i++)
 					{
 						PosValue testMul = new PosValue();
 						testMul.setN(i);
 						testMul.setSort(IntegersFactory.eINSTANCE.createPositive());
 						
-						mulEvaluator.compare(refMul, testMul, assignments);
+						comparisonManager.compare(refMul, testMul, assignments);
 					}
 				}
 			}

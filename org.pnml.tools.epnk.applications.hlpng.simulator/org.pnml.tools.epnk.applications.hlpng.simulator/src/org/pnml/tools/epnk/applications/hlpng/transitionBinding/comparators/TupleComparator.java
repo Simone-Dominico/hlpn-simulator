@@ -11,9 +11,9 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Tuple;
 
 public class TupleComparator implements IComparable
 {
-	private ComparisonManager comparisonManager = null;
+	private IComparable comparisonManager = null;
 	
-	public TupleComparator(ComparisonManager comparisonManager)
+	public TupleComparator(IComparable comparisonManager)
 	{
 		this.comparisonManager = comparisonManager;
 	}
@@ -41,7 +41,7 @@ public class TupleComparator implements IComparable
     		Term c1 = v1.getSubterm().get(i);
     		IValue c2 = v2.getComponents().get(i);
     		
-    		if(!comparisonManager.getComparator(c1.getClass()).compare(c1, c2, assignments))
+    		if(!comparisonManager.compare(c1, c2, assignments))
     		{
     			return false;
     		}

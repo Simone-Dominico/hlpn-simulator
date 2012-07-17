@@ -11,9 +11,9 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ListComparator implements IComparable
 {
-	private ComparisonManager comparisonManager = null;
+	private IComparable comparisonManager = null;
 	
-	public ListComparator(ComparisonManager comparisonManager)
+	public ListComparator(IComparable comparisonManager)
 	{
 		this.comparisonManager = comparisonManager;
 	}
@@ -38,7 +38,7 @@ public class ListComparator implements IComparable
     		Term c1 = v1.getSubterm().get(i);
     		IValue c2 = v2.getElements().get(i);
     		
-    		if(!comparisonManager.getComparator(c1.getClass()).compare(c1, c2, assignments))
+    		if(!comparisonManager.compare(c1, c2, assignments))
     		{
     			return false;
     		}
