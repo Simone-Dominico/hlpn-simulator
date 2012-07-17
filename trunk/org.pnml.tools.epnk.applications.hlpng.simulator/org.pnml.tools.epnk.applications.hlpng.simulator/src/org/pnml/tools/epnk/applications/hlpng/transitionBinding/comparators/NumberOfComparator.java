@@ -14,9 +14,9 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class NumberOfComparator implements IComparable
 {
-	private ComparisonManager comparisonManager = null;
+	private IComparable comparisonManager = null;
 	
-	public NumberOfComparator(ComparisonManager comparisonManager)
+	public NumberOfComparator(IComparable comparisonManager)
 	{
 		this.comparisonManager = comparisonManager;
 	}
@@ -41,9 +41,9 @@ public class NumberOfComparator implements IComparable
     		multiplicity.setN(m);
     		multiplicity.setSort(IntegersFactory.eINSTANCE.createPositive());
     		
-    		if(comparisonManager.getComparator(nof.getSubterm().get(0).getClass()).compare( 
+    		if(comparisonManager.compare( 
     				nof.getSubterm().get(0), multiplicity, assignments) &&
-    				comparisonManager.getComparator(nof.getSubterm().get(1).getClass()).compare( 
+    				comparisonManager.compare( 
     	    				nof.getSubterm().get(1), entry.getKey(), assignments))
     		{
     			wasMatch = true;
