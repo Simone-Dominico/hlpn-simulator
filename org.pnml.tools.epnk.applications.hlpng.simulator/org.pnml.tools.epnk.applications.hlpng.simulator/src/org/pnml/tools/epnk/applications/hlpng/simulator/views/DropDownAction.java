@@ -1,5 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 
@@ -14,12 +17,78 @@ import org.eclipse.jface.action.IMenuCreator;
 public class DropDownAction extends Action implements IMenuCreator
 {
 	private Menu fMenu;
-	private final SimulationViewController controller;
+	private final List<Action> actions = new ArrayList<Action>();
 	
 	public DropDownAction(final SimulationViewController controller)
 	{
-		this.controller = controller;
 		setMenuCreator(this);
+		
+		// create actions
+		{
+			Action action = new Action("0 ms", Action.AS_CHECK_BOX)
+			{
+				public void run()
+				{
+					for(Action action : actions)
+					{
+						action.setChecked(false);
+					}
+					this.setChecked(true);
+					
+					controller.pauseChanged(0);
+				}
+			};
+			actions.add(action);
+		}
+		{
+			Action action = new Action("500 ms", Action.AS_CHECK_BOX)
+			{
+				public void run()
+				{
+					for(Action action : actions)
+					{
+						action.setChecked(false);
+					}
+					this.setChecked(true);
+					
+					controller.pauseChanged(500);
+				}
+			};
+			actions.add(action);
+			action.setChecked(true);
+		}
+		{
+			Action action = new Action("1000 ms", Action.AS_CHECK_BOX)
+			{
+				public void run()
+				{
+					for(Action action : actions)
+					{
+						action.setChecked(false);
+					}
+					this.setChecked(true);
+					
+					controller.pauseChanged(1000);
+				}
+			};
+			actions.add(action);
+		}
+		{
+			Action action = new Action("2000 ms", Action.AS_CHECK_BOX)
+			{
+				public void run()
+				{
+					for(Action action : actions)
+					{
+						action.setChecked(false);
+					}
+					this.setChecked(true);
+					
+					controller.pauseChanged(2000);
+				}
+			};
+			actions.add(action);
+		}
 	}
 
 	@Override
@@ -42,50 +111,12 @@ public class DropDownAction extends Action implements IMenuCreator
 	public Menu getMenu(Control parent)
 	{
 		if(fMenu != null) fMenu.dispose();
-
+		
 		fMenu = new Menu(parent);
+		
+		for(Action a : actions)
 		{
-			Action action = new Action("0 ms")
-			{
-				public void run()
-				{
-					controller.pauseChanged(0);
-				}
-			};
-			addActionToMenu(fMenu, action);
-		}
-		{
-			Action action = new Action("500 ms")
-			{
-				public void run()
-				{
-					controller.pauseChanged(500);
-				}
-			};
-
-			addActionToMenu(fMenu, action);
-		}
-		{
-			Action action = new Action("1000 ms")
-			{
-				public void run()
-				{
-					controller.pauseChanged(1000);
-				}
-			};
-
-			addActionToMenu(fMenu, action);
-		}
-		{
-			Action action = new Action("2000 ms")
-			{
-				public void run()
-				{
-					controller.pauseChanged(2000);
-				}
-			};
-
-			addActionToMenu(fMenu, action);
+			addActionToMenu(fMenu, a);
 		}
 
 		return fMenu;
