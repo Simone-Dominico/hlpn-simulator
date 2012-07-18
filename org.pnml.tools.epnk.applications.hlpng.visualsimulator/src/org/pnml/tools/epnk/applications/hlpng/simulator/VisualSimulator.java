@@ -220,7 +220,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	@Override
     public void show(IRuntimeState state)
     {
-		stateContainer.setCurrent(state);
+		runtimeStateManager.setCurrentState(state);
 		
 		if(!resetInProgress)
 		{
@@ -343,14 +343,14 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	
 	private static void fireAll(VisualSimulator simulator)
 	{
-		IRuntimeState state = simulator.stateContainer.getCurrent();
+		IRuntimeState state = simulator.runtimeStateManager.getCurrentState();
 		simulator.updateTransitionBinding(state);
 		while(state.getTransitions().size() > 0)
 		{
 			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
 			simulator.fire(state.getFiringModes(transitions.get(0)).get(0), true);
 			
-			state = simulator.stateContainer.getCurrent();
+			state = simulator.runtimeStateManager.getCurrentState();
 		}
 	}
 	
@@ -362,7 +362,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			simulator.reset = false;
 		}
 		
-		display(simulator, simulator.stateContainer.getCurrent());
+		display(simulator, simulator.runtimeStateManager.getCurrentState());
 	}
 	
 	private static void appear(List<IValue> values, Map<String, GObject> geometryMap,
@@ -388,7 +388,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 	
 	private static void display(VisualSimulator simulator, IRuntimeState state)
 	{
-		simulator.stateContainer.setCurrent(state);
+		simulator.runtimeStateManager.setCurrentState(state);
 		
 		simulator.runningAnimations = new HashSet<Integer>();
 		for(String key : simulator.modelMap.keySet())

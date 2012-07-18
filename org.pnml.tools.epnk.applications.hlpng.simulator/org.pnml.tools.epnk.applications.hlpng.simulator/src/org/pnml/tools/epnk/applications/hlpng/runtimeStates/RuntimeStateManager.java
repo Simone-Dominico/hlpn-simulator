@@ -30,6 +30,8 @@ public class RuntimeStateManager
 	private final TransitionManager transitionManager;
 	private final EvaluationManager evaluationManager;
 	
+	private final IRuntimeStateContainer stateContainer;
+	
 	public RuntimeStateManager(final FlatAccess flatAccess, 
 			final RuntimeValueFactory runtimeValueFactory,
 			final TransitionManager transitionManager,
@@ -39,6 +41,8 @@ public class RuntimeStateManager
 		this.runtimeValueFactory = runtimeValueFactory;
 		this.transitionManager = transitionManager;
 		this.evaluationManager = evaluationManager;
+		
+		this.stateContainer = new RuntimeStateList();
 	}
 	
     public void updateState(IRuntimeState state)
@@ -120,6 +124,26 @@ public class RuntimeStateManager
         	runtimeState.addFiringModes((Transition)transition.getId(), firingModes.get(transition));
         }
         return runtimeState;
+    }
+    
+    public IRuntimeState getCurrentState()
+    {
+    	return this.stateContainer.getCurrent();
+    }
+    
+    public boolean addState(IRuntimeState state)
+    {
+    	return this.stateContainer.add(state);
+    }
+    
+    public void setCurrentState(IRuntimeState state)
+    {
+    	this.stateContainer.setCurrent(state);
+    }
+    
+	public IRuntimeStateContainer getStateContainer()
+    {
+    	return stateContainer;
     }
     
 	private static Map<IDWrapper, List<FiringMode>> computeFiringModes(Map<IDWrapper, IMSValue> runtimeValues,
