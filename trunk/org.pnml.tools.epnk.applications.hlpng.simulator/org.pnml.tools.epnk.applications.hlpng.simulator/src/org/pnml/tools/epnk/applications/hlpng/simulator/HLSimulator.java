@@ -13,8 +13,6 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.marking.NetMarkingMan
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
-import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
-import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateList;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -50,9 +48,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	protected boolean autoModeEnabled;
 	
 	protected IFiringStrategy firingStrategy = null;
-	
-	protected IRuntimeStateContainer stateContainer = null; 
-	
+
 	private Action[] actions;
 	
 	protected final Display display;
@@ -85,7 +81,6 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
 	public void init()
 	{
-		this.stateContainer = new RuntimeStateList();
 	    this.autoMode = new PeriodicalWorkerJob(Display.getDefault(), 
 	    		"Auto transition firing", this);
 	    this.transitionManager = new TransitionManager(flatAccess, comparisonManager,
@@ -100,7 +95,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 		// computing initial state
 		IRuntimeState initialState = this.runtimeStateManager.
 				createInitialState(this.flatAccess.getTransitions());
-		this.stateContainer.add(initialState);
+		this.runtimeStateManager.addState(initialState);
 
 		// creating an annotation layer
 		showAnnotations(initialState, netMarkingManager, this.getNetAnnotations());
@@ -112,19 +107,19 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     public void fire(FiringMode mode, boolean updateAnnotations)
     {
 		// setting the selected firing mode for the state
-		stateContainer.getCurrent().setFiringMode(mode);
+		runtimeStateManager.getCurrentState().setFiringMode(mode);
 		// recording
 		if(simulationViewController != null)
 		{
-			this.simulationViewController.record(stateContainer.getCurrent());	
+			this.simulationViewController.record(runtimeStateManager.getCurrentState());	
 		}
 		// computing the next state
 		IRuntimeState runtimeState = this.runtimeStateManager.
-				createNextState(stateContainer.getCurrent(), mode);
-		boolean needToClean = stateContainer.add(runtimeState);
+				createNextState(runtimeStateManager.getCurrentState(), mode);
+		boolean needToClean = runtimeStateManager.addState(runtimeState);
 		if(needToClean && simulationViewController != null)
 		{
-			this.simulationViewController.resetRecords(stateContainer);
+			this.simulationViewController.resetRecords(runtimeStateManager.getStateContainer());
 		}
 		
 		// creating an annotation layer
@@ -160,7 +155,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     {
 		if(!autoModeEnabled)
 		{
-			stateContainer.setCurrent(state);
+			runtimeStateManager.setCurrentState(state);
 			// creating an annotation layer
 			showAnnotations(state, netMarkingManager, this.getNetAnnotations());	
 		}
@@ -169,7 +164,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void next()
     {
-		IRuntimeState state = stateContainer.next();
+		IRuntimeState state = runtimeStateManager.getStateContainer().next();
 		if(state != null)
 		{
 			// creating an annotation layer
@@ -180,7 +175,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void previous()
     {
-		IRuntimeState state = stateContainer.previous();
+		IRuntimeState state = runtimeStateManager.getStateContainer().previous();
 		if(state != null)
 		{
 			// creating an annotation layer
@@ -219,7 +214,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void work()
     {
-		FiringMode mode = firingStrategy.fire(stateContainer.getCurrent());
+		FiringMode mode = firingStrategy.fire(runtimeStateManager.getCurrentState());
 		boolean updateAnnotations = !autoModeEnabled || simulationPause > 0;
 		
 		if(mode != null)
@@ -231,7 +226,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			stop();
 			if(!updateAnnotations)
 			{
-				showAnnotations(stateContainer.getCurrent(), netMarkingManager, 
+				showAnnotations(runtimeStateManager.getCurrentState(), netMarkingManager, 
 						this.getNetAnnotations());
 			}
 		}
