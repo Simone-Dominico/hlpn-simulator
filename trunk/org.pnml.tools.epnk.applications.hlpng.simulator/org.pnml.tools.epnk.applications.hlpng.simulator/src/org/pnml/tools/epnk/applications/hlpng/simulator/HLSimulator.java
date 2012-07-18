@@ -276,7 +276,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 					actions[0].setImageDescriptor(desc);	
 				}				
 			}			
-			actions[1] = new Action() {
+			actions[1] = new DropDownAction(this) {
 				public void run() {
 					auto();
 				}
