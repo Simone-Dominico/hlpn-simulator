@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.simulator.views;
+package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class DropDownAction extends Action implements IMenuCreator
 	private Menu fMenu;
 	private final List<Action> actions = new ArrayList<Action>();
 	
-	public DropDownAction(final SimulationViewController controller)
+	public DropDownAction(final HLSimulator simulator)
 	{
 		setMenuCreator(this);
 		
@@ -35,7 +35,7 @@ public class DropDownAction extends Action implements IMenuCreator
 					}
 					this.setChecked(true);
 					
-					controller.pauseChanged(0);
+					simulator.setSimulationPause(0);
 				}
 			};
 			actions.add(action);
@@ -51,7 +51,7 @@ public class DropDownAction extends Action implements IMenuCreator
 					}
 					this.setChecked(true);
 					
-					controller.pauseChanged(500);
+					simulator.setSimulationPause(500);
 				}
 			};
 			actions.add(action);
@@ -68,7 +68,7 @@ public class DropDownAction extends Action implements IMenuCreator
 					}
 					this.setChecked(true);
 					
-					controller.pauseChanged(1000);
+					simulator.setSimulationPause(1000);
 				}
 			};
 			actions.add(action);
@@ -84,7 +84,7 @@ public class DropDownAction extends Action implements IMenuCreator
 					}
 					this.setChecked(true);
 					
-					controller.pauseChanged(2000);
+					simulator.setSimulationPause(2000);
 				}
 			};
 			actions.add(action);

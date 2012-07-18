@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Display;
@@ -13,7 +12,6 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
@@ -165,14 +163,6 @@ public class SimulationViewController implements ISimulationViewController
 		}
     }
 
-    public void pauseChanged(long pause)
-    {
-    	if(simulator != null)
-    	{
-    		this.simulator.setSimulationPause(pause);	
-    	}
-    }
-	
 	@Override
     public void selectionChanged(SelectionChangedEvent event)
     {
@@ -207,23 +197,11 @@ public class SimulationViewController implements ISimulationViewController
 	{
 		if(actions == null)
 		{
-			actions = new Action[2];
+			actions = new Action[1];
 			
-			// speed management action
-			{
-				actions[0] = new DropDownAction(this);
-				actions[0].setToolTipText("Animation speed");
-				
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/speed.png",
-						ResourceManager.SIMULATOR_PLUGIN_ID);
-				if(desc != null)
-				{
-					actions[0].setImageDescriptor(desc);	
-				}
-			}
 			// clear
 			{
-				actions[1] = new Action("Clear all")
+				actions[0] = new Action("Clear all")
 				{
 					public void run()
 					{
@@ -234,8 +212,8 @@ public class SimulationViewController implements ISimulationViewController
 						}
 					}
 				};
-				actions[1].setToolTipText("Clear all");
-				actions[1].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+				actions[0].setToolTipText("Clear all");
+				actions[0].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
 				        .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));	
 			}
 		}
