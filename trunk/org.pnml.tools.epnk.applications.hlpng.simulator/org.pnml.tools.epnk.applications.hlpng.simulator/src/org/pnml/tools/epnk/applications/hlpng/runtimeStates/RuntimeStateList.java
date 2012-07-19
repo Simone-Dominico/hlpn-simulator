@@ -68,16 +68,20 @@ public class RuntimeStateList implements IRuntimeStateContainer,
     }
 
 	@Override
-	public void setCurrent(IRuntimeState current)
+	public void setCurrent(final IRuntimeState current)
     {
-		RuntimeState rs = (RuntimeState)current;
-		if(rs.getPrevious() == null && rs.getNext() == null)
+		final RuntimeState rs = (RuntimeState)current;
+		
+		// the place is already in the list
+		if(rs.getPrevious() != null || rs.getNext() != null)
+		{
+			this.current = rs;
+		}
+		else if(this.current != null && !this.current.equals(rs))
 		{
 			throw new RuntimeException("The state currently is not in the state list." +
 					" First you need to add() it!");
 		}
-		
-		this.current = (RuntimeState)current;
     }
 
 	/*
