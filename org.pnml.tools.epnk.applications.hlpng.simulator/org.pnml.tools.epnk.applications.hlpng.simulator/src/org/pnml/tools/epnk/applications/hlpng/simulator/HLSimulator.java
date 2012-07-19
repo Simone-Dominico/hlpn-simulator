@@ -164,7 +164,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void next()
     {
-		IRuntimeState state = runtimeStateManager.getStateContainer().next();
+		IRuntimeState state = runtimeStateManager.getStateContainer().relativeNext();
 		if(state != null)
 		{
 			// creating an annotation layer
@@ -175,7 +175,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
     public void previous()
     {
-		IRuntimeState state = runtimeStateManager.getStateContainer().previous();
+		IRuntimeState state = runtimeStateManager.getStateContainer().relativePrevious();
 		if(state != null)
 		{
 			// creating an annotation layer

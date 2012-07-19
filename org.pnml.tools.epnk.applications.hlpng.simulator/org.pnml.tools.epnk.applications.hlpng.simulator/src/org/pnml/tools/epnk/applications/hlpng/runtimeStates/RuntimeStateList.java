@@ -1,62 +1,64 @@
 package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-public class RuntimeStateList implements IRuntimeStateContainer
+public class RuntimeStateList implements IRuntimeStateContainer, 
+		Iterator<IRuntimeState>
 {
-	private List<IRuntimeState> stateList = new ArrayList<IRuntimeState>();
-	private IRuntimeState current = null;
+	private RuntimeState root = null;
+	private RuntimeState iterCurr = null;
+	
+	private RuntimeState current = null;
 	
 	@Override
     public boolean add(IRuntimeState state)
     {
-		boolean needToClean = false;
+		RuntimeState rs = (RuntimeState)state;
 		
-		// the current state does not match the last one in the list
-	    if(stateList.contains(this.current) &&
-	    		!this.current.equals(stateList.get(stateList.size() - 1)))
-	    {
-	    	int index = stateList.indexOf(this.current);
-	    	int size = stateList.size();
-	    	
-	    	for(int i = index + 1; i < size; size--)
-	    	{
-	    		stateList.remove(i);
-	    	}
-	    	
-	    	needToClean = true;
-	    }
-	    	
-	    this.stateList.add(state);
-	    this.current = state;
-	    
-	    return needToClean;
+		if(root == null)
+		{
+			root = rs;
+			current = root;
+			return false;
+		}
+		
+		boolean neadToClean = false;
+		
+		// the current state is not the last one in the list
+		if(current.getNext() != null)
+		{
+			neadToClean = true;
+		}
+		
+		current.setNext(rs);
+		rs.setPrevious(current);
+		current = rs;
+		
+		return neadToClean;
+    }
+	
+	@Override
+    public IRuntimeState relativeNext()
+    {
+		if(current.getNext() != null)
+		{
+			current = current.getNext();
+			return current;
+		}
+		
+		return null;
     }
 
 	@Override
-    public IRuntimeState next()
+    public IRuntimeState relativePrevious()
     {
-		int index = this.stateList.indexOf(current) + 1;
-	    if(index >= 0 && index < stateList.size())
-	    {
-	    	current = stateList.get(index);
-	    	return getCurrent();
-	    }
-	    return null;
-    }
-
-	@Override
-    public IRuntimeState previous()
-    {
-		int index = this.stateList.indexOf(current) - 1;
-		if(index >= 0 && index < stateList.size())
-	    {
-	    	current = stateList.get(index);
-	    	return getCurrent();
-	    }
-	    return null;
+		if(current.getPrevious() != null)
+		{
+			current = current.getPrevious();
+			return current;
+		}
+		
+		return null;
     }
 
 	@Override
@@ -68,12 +70,52 @@ public class RuntimeStateList implements IRuntimeStateContainer
 	@Override
 	public void setCurrent(IRuntimeState current)
     {
-		this.current = current;
+		RuntimeState rs = (RuntimeState)current;
+		if(rs.getPrevious() == null && rs.getNext() == null)
+		{
+			throw new RuntimeException("The state currently is not in the state list." +
+					" First you need to add() it!");
+		}
+		
+		this.current = (RuntimeState)current;
     }
 
+	/*
+	 *  iterator/iterable methods(non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	@Override
     public Iterator<IRuntimeState> iterator()
     {
-	    return stateList.iterator();
+		iterCurr = root;
+		
+	    return this;
+    }
+
+	@Override
+    public boolean hasNext()
+    {
+		if(iterCurr.getNext() != null)
+		{
+			return true;
+		}
+		
+	    return false;
+    }
+
+	@Override
+    public IRuntimeState next()
+    {
+	    RuntimeState s = iterCurr;
+	    
+	    iterCurr = iterCurr.getNext();
+	    
+	    return s;
+    }
+
+	@Override
+    public void remove()
+    {
+	    throw new UnsupportedOperationException();
     }
 }
