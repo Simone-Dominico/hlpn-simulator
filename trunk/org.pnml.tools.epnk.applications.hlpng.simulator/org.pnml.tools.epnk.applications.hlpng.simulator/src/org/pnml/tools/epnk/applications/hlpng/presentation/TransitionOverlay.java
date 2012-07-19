@@ -17,14 +17,16 @@ public class TransitionOverlay extends AbstractRectangleOverlay
 {
 	final protected Transition transition;
 	final protected TransitionMarking marking;
+	final protected ISimulator simulator;
 
 	public TransitionOverlay(final IApplicationWithPresentation simulator, 
 			final IFigure figure, final Transition transition, final TransitionMarking marking)
 	{
-		super(simulator, figure);
+		super(figure);
 		
 		this.transition = transition;
 		this.marking = marking;
+		this.simulator = (ISimulator)simulator;
 		
 		currentState = new TransitionReadyState(this);
 		currentState.handle();
@@ -47,7 +49,7 @@ public class TransitionOverlay extends AbstractRectangleOverlay
     {
 		if(action instanceof FiringModePopupMenuItem)
 		{
-			((ISimulator)application).fire(((FiringModePopupMenuItem)action).getMode(), true);	
+			simulator.fire(((FiringModePopupMenuItem)action).getMode(), true);	
 		}
     }
 	
