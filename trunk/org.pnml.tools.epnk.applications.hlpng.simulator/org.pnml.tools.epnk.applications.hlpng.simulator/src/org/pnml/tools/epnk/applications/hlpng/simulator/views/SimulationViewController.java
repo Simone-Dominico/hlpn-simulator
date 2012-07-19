@@ -232,7 +232,7 @@ public class SimulationViewController implements ISimulationViewController
 		clear();
 		if(simulationView != null) 
 		{
-			simulationView.setCurrentController(null);
+			simulationView.reset(this);
 		}
 	}
 }

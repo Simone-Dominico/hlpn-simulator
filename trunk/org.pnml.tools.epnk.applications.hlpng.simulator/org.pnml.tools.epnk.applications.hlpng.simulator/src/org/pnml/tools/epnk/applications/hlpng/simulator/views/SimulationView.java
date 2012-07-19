@@ -121,6 +121,16 @@ public class SimulationView extends ViewPart
 		}
 	}
 	
+	public void reset(ISimulationViewController controller)
+	{
+		if(currentController != null && controller == currentController)
+		{
+			viewer.removeSelectionChangedListener(currentController);
+			this.currentController = null;
+			contributeToActionBars(getViewSite(), null);
+		}
+	}
+	
 	public void setCurrentController(ISimulationViewController controller)
     {
 		// removing old one
