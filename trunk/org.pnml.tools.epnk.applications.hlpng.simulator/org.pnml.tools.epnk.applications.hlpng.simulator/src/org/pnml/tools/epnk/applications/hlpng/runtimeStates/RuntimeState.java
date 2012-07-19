@@ -13,6 +13,9 @@ import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
 public class RuntimeState implements IRuntimeState
 {
+	private RuntimeState previous = null;
+	private RuntimeState next = null;
+	
 	// place <=> runtime value
 	private Map<IDWrapper, IMSValue> values = new HashMap<IDWrapper, IMSValue>();
 	// transition <=> firing modes
@@ -142,5 +145,25 @@ public class RuntimeState implements IRuntimeState
 	public Map<IDWrapper, List<FiringMode>> getModes()
     {
     	return modes;
+    }
+
+	public RuntimeState getPrevious()
+    {
+    	return previous;
+    }
+
+	public void setPrevious(RuntimeState previous)
+    {
+    	this.previous = previous;
+    }
+
+	public RuntimeState getNext()
+    {
+    	return next;
+    }
+
+	public void setNext(RuntimeState next)
+    {
+    	this.next = next;
     }
 }
