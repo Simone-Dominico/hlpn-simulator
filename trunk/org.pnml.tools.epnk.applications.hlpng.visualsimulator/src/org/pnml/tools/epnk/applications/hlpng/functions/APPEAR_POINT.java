@@ -14,12 +14,7 @@ import Appearence.Shape;
 
 public class APPEAR_POINT extends AbstractFunction
 {
-	private Map<String, Integer> visibleObjects = null;
-	
-	public APPEAR_POINT()
-    {
-	    this.visibleObjects = new HashMap<String, Integer>();
-    }
+	private Map<String, Integer> visibleObjects = new HashMap<String, Integer>();
 
 	@Override
 	public IValue execute(List<IValue> values)

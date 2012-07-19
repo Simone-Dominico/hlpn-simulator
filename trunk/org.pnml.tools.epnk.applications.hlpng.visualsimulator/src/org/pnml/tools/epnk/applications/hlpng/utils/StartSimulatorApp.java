@@ -30,6 +30,7 @@ import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.MSListFactory;
 import org.pnml.tools.epnk.applications.hlpng.simulator.VisualSimulator;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
+import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
@@ -131,7 +132,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
     					factory);
     			
     			// creates simulation view controller
-    			ISimulationViewController controller = new VisualSimulationViewController();
+    			ISimulationViewController controller = new SimulationViewController();
     			controller.setSimulator(simulator);
     			simulator.setSimulationViewController(controller);
     			
