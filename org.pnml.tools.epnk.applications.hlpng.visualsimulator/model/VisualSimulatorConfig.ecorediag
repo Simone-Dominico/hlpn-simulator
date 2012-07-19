@@ -12,9 +12,9 @@
       <styles xmi:type="notation:SortingStyle" xmi:id="_8tDCoY07EeG1LdO4xpkH0Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_8tDCoo07EeG1LdO4xpkH0Q"/>
     </children>
-    <styles xmi:type="notation:ShapeStyle" xmi:id="_8s__UY07EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_8s__UY07EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="8047085" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="VisualSimulatorConfig.ecore#//VisualSimulatorConfig"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8s__Uo07EeG1LdO4xpkH0Q" x="51" y="227"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8s__Uo07EeG1LdO4xpkH0Q" x="12" y="24"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_BPBZAI08EeG1LdO4xpkH0Q" type="1001">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BPHfoI08EeG1LdO4xpkH0Q" source="Shortcut">
@@ -31,9 +31,9 @@
       <styles xmi:type="notation:SortingStyle" xmi:id="_BPGRgo08EeG1LdO4xpkH0Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_BPGRg408EeG1LdO4xpkH0Q"/>
     </children>
-    <styles xmi:type="notation:ShapeStyle" xmi:id="_BPCAEI08EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="15053796" lineColor="8421504"/>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_BPCAEI08EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="platform:/resource/AppearenceEditor/model/AppearenceEditor.ecore#//Shapes"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BPCAEY08EeG1LdO4xpkH0Q" x="372" y="156"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BPCAEY08EeG1LdO4xpkH0Q" x="300" y="12"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_D9rXoI08EeG1LdO4xpkH0Q" type="1001">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_D9tM0I08EeG1LdO4xpkH0Q" source="Shortcut">
@@ -50,9 +50,9 @@
       <styles xmi:type="notation:SortingStyle" xmi:id="_D9slx408EeG1LdO4xpkH0Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_D9slyI08EeG1LdO4xpkH0Q"/>
     </children>
-    <styles xmi:type="notation:ShapeStyle" xmi:id="_D9rXoY08EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" fillColor="15053796" lineColor="8421504"/>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_D9rXoY08EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="platform:/resource/GEditor/model/GEditor.ecore#//Geometry"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D9rXoo08EeG1LdO4xpkH0Q" x="372" y="264"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_D9rXoo08EeG1LdO4xpkH0Q" x="300" y="108"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_4vPwUI07EeG1LdO4xpkH0Q"/>
   <element xmi:type="ecore:EPackage" href="VisualSimulatorConfig.ecore#/"/>
@@ -80,7 +80,7 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_JIX64Y08EeG1LdO4xpkH0Q" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_JIX64o08EeG1LdO4xpkH0Q" fontColor="4210752" fontName="Ubuntu" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="VisualSimulatorConfig.ecore#//VisualSimulatorConfig/geometry"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JIX64408EeG1LdO4xpkH0Q" points="[25, 3, -203, -25]$[229, 10, 1, -18]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JIX64408EeG1LdO4xpkH0Q" points="[0, 13, -176, -60]$[0, 73, -176, 0]$[160, 73, -16, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JIblQI08EeG1LdO4xpkH0Q" id="(0.8387096774193549,0.6904761904761905)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JIblQY08EeG1LdO4xpkH0Q" id="(0.16,0.2923076923076923)"/>
   </edges>
