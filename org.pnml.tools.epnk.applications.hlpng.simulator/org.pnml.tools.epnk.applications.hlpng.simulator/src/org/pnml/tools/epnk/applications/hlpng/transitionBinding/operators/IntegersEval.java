@@ -1,6 +1,5 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,9 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleansFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.GreaterThan;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.LessThan;
@@ -24,18 +25,17 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 public class IntegersEval implements IEvaluator
 {
 	@Override
-	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
-		Operator operator = (Operator) term;
-		List<IValue> values = new ArrayList<IValue>();
-		for(Term subterm : operator.getSubterm())
+		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
+		if(!p.getKey())
 		{
-			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
-			values.add(value);
+			return p.getValue();
 		}
-		
-		if(operator instanceof NumberConstant)
+			
+		final List<ITermWrapper> values = p.getValue().getSubterms();
+		if(term instanceof NumberConstant)
 		{
 			if(values.size() != 0)
 			{
@@ -43,11 +43,11 @@ public class IntegersEval implements IEvaluator
 			}
 			
 			NumberValue v = null;
-			if(operator.getSort() instanceof Positive)
+			if(term.getSort() instanceof Positive)
 			{
 				v = new PosValue();
 			}
-			else if(operator.getSort() instanceof Natural)
+			else if(term.getSort() instanceof Natural)
 			{
 				v = new NatValue();
 			}
@@ -58,12 +58,12 @@ public class IntegersEval implements IEvaluator
 
 			if(v != null)
 			{
-				v.setSort(operator.getSort());
-				v.setN(((NumberConstant)operator).getValue());
+				v.setSort(term.getSort());
+				v.setN(((NumberConstant)term).getValue());
 			}
 			return v;
 		}
-		if(operator instanceof LessThan)
+		if(term instanceof LessThan)
 		{
 			if(values.size() != 2)
 			{
@@ -84,7 +84,7 @@ public class IntegersEval implements IEvaluator
 			
 			return result;
 		}
-		if(operator instanceof GreaterThan)
+		if(term instanceof GreaterThan)
 		{
 			if(values.size() != 2)
 			{
@@ -105,7 +105,7 @@ public class IntegersEval implements IEvaluator
 			
 			return result;
 		}
-		if(operator instanceof Modulo)
+		if(term instanceof Modulo)
 		{
 			if(values.size() != 2)
 			{
@@ -113,6 +113,7 @@ public class IntegersEval implements IEvaluator
 			}
 			
 			NumberValue v = null;
+			Operator operator = (Operator) term;
 			if(operator.getOutputSort() instanceof Positive)
 			{
 				v = new PosValue();
