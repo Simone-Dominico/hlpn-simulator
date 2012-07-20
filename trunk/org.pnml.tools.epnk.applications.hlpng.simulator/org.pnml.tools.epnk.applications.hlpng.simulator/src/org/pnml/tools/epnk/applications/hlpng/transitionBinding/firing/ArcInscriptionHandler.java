@@ -105,7 +105,6 @@ public class ArcInscriptionHandler
 		{
 			allNumberOf.add(((NumberOf)operator));
 		}
-		// TODO mla
 		else if(operator instanceof Add)
 		{
 			for(Term subterm : operator.getSubterm())

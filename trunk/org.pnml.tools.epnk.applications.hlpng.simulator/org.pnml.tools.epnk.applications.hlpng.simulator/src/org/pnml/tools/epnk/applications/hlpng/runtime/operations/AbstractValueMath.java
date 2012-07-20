@@ -54,7 +54,7 @@ public class AbstractValueMath
 		return listValue;
 	}
 	
-	public static IValue at(ListValue l, int index)
+	public static ITermWrapper at(ListValue l, int index)
 	{
 		if(l.getElements().size() > index)
 		{

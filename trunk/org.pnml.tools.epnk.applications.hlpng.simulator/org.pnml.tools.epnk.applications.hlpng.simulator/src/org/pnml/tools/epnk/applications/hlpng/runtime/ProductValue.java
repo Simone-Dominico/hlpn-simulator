@@ -3,16 +3,18 @@ package org.pnml.tools.epnk.applications.hlpng.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
+
 public class ProductValue extends AbstractValue
 {
-	private List<IValue> components = new ArrayList<IValue>();
+	private List<ITermWrapper> components = new ArrayList<ITermWrapper>();
 
-	public List<IValue> getComponents()
+	public List<ITermWrapper> getComponents()
     {
     	return components;
     }
 
-	public void setComponents(List<IValue> components)
+	public void setComponents(List<ITermWrapper> components)
     {
     	this.components = components;
     }
@@ -21,7 +23,7 @@ public class ProductValue extends AbstractValue
     public String toString()
     {
 		StringBuffer buffer = new StringBuffer("(");
-		for(IValue value : components)
+		for(ITermWrapper value : components)
 		{
 			buffer.append(value.toString() + ",");
 		}
