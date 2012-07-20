@@ -1,11 +1,18 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class TermWrapper
+public class TermWrapper implements ITermWrapper
 {
 	protected Term rootTerm = null;
 	
+	final protected List<ITermWrapper> subterms = new ArrayList<ITermWrapper>();
+	
+	@Override
 	public Term getRootTerm()
     {
     	return rootTerm;
@@ -55,5 +62,15 @@ public class TermWrapper
 		    return false;
 	    }
 	    return true;
+    }
+	@Override
+	public List<ITermWrapper> getSubterms()
+    {
+    	return subterms;
+    }
+	@Override
+    public String toString()
+    {
+	    return Arrays.deepToString(subterms.toArray());
     }
 }
