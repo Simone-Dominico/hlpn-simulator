@@ -68,7 +68,8 @@ public class TransitionManager
 					
 					if(place != null)
 					{
-						map.put(new IDWrapper(place), new ArcInscriptionHandler(term, comparatorManager));	
+						map.put(new IDWrapper(place), 
+								new ArcInscriptionHandler(term, comparatorManager, evaluationManager));	
 					}
 				}
 			}

@@ -10,6 +10,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.NumberConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
@@ -26,7 +27,8 @@ public class ArcInscriptionHandler
 	
 	private List<NumberOf> allNumberOf = new ArrayList<NumberOf>();
 	
-	public ArcInscriptionHandler(Operator operator, ComparisonManager comparisonManager)
+	public ArcInscriptionHandler(Operator operator, 
+			ComparisonManager comparisonManager, EvaluationManager evaluationManager)
 	{
 		this.operator = operator;
 		this.comparisonManager = comparisonManager;
