@@ -84,6 +84,11 @@ public class AbstractValueMath
     public static IMSValue subtract(IMSValue msSet, ITermWrapper value, int multiplicity,
     		RuntimeValueFactory factory)
     {
+    	if(!msSet.contains(value) || msSet.get(value) < multiplicity)
+    	{
+    		throw new ArithmeticException("Cannot subtract " + value + " from " + msSet);
+    	}
+    	
     	IMSValue newMsSet = add(msSet, value, multiplicity * -1, factory);
     	
     	Integer count = newMsSet.get(value);
