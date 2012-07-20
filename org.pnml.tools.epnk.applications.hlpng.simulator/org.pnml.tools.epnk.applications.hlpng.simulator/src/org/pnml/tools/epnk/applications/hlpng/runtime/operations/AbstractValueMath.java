@@ -7,6 +7,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ListValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 
 public class AbstractValueMath
@@ -62,7 +63,7 @@ public class AbstractValueMath
 		return null;
 	}
 	
-    public static IMSValue add(IMSValue msSet, IValue value, Integer multiplicity,
+    public static IMSValue add(IMSValue msSet, ITermWrapper value, Integer multiplicity,
     		RuntimeValueFactory factory)
     {
     	IMSValue mainSet = lightCopy(msSet, factory);
@@ -80,7 +81,7 @@ public class AbstractValueMath
     	return mainSet;
     }
     
-    public static IMSValue subtract(IMSValue msSet, IValue value, int multiplicity,
+    public static IMSValue subtract(IMSValue msSet, ITermWrapper value, int multiplicity,
     		RuntimeValueFactory factory)
     {
     	IMSValue newMsSet = add(msSet, value, multiplicity * -1, factory);
@@ -98,7 +99,7 @@ public class AbstractValueMath
     public static IMSValue subtract(IMSValue msSet1, IMSValue msSet2, RuntimeValueFactory factory)
     {
     	IMSValue newMsSet = lightCopy(msSet1, factory);
-    	for(Entry<IValue, Integer> entry : msSet2.entrySet())
+    	for(Entry<ITermWrapper, Integer> entry : msSet2.entrySet())
     	{
     		newMsSet = subtract(newMsSet, entry.getKey(), entry.getValue(), factory);
     	}
@@ -110,12 +111,12 @@ public class AbstractValueMath
     	IMSValue msSet = factory.createMSValue();
     	msSet.setSort(msSet1.getSort());
     	
-        for(Entry<IValue, Integer> entry : msSet1.entrySet())
+        for(Entry<ITermWrapper, Integer> entry : msSet1.entrySet())
         {
         	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue(), factory);
         }
         
-        for(Entry<IValue, Integer> entry : msSet2.entrySet())
+        for(Entry<ITermWrapper, Integer> entry : msSet2.entrySet())
         {
         	msSet = AbstractValueMath.add(msSet, entry.getKey(), entry.getValue(), factory);
         }
@@ -136,9 +137,9 @@ public class AbstractValueMath
     // msSet1 <= msSet2
     public static boolean lessEqual(IMSValue msSet1, IMSValue msSet2)
     {    	
-        for(Entry<IValue, Integer> entry1 : msSet1.entrySet())
+        for(Entry<ITermWrapper, Integer> entry1 : msSet1.entrySet())
         {
-        	IValue key = entry1.getKey();
+        	ITermWrapper key = entry1.getKey();
         	Integer value = entry1.getValue();
         	
         	if(!msSet2.contains(key) || value > msSet2.get(key))
