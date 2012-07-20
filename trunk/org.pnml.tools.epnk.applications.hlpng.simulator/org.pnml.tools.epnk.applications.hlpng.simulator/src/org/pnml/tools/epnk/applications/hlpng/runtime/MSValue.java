@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
+
 public class MSValue extends AbstractValue implements IMSValue
 {
-	private Map<IValue, Integer> values = new HashMap<IValue, Integer>();
+	private Map<ITermWrapper, Integer> values = new HashMap<ITermWrapper, Integer>();
 	
 	MSValue(){}
 
 	@Override
-    public Collection<Entry<IValue, Integer>> entrySet()
+    public Collection<Entry<ITermWrapper, Integer>> entrySet()
     {
 	    return values.entrySet();
     }
@@ -24,33 +26,33 @@ public class MSValue extends AbstractValue implements IMSValue
     }
 	
 	@Override
-    public boolean contains(IValue value)
+    public boolean contains(ITermWrapper value)
     {
 	    return values.containsKey(value);
     }
 	
 	@Override
-    public Integer get(IValue value)
+    public Integer get(ITermWrapper value)
     {
 	    return values.get(value);
     }
 	
 	@Override
-    public void put(IValue value, Integer multiplicity)
+    public void put(ITermWrapper value, Integer multiplicity)
     {
 	    values.put(value, multiplicity);
     }
 	
 	@Override
-    public void remove(IValue value)
+    public void remove(ITermWrapper value)
     {
 	    values.remove(value);
     }
 	
 	@Override
-    public void putAll(Collection<Entry<IValue, Integer>> entrySet)
+    public void putAll(Collection<Entry<ITermWrapper, Integer>> entrySet)
     {
-	    for(Entry<IValue, Integer> entry : entrySet)
+	    for(Entry<ITermWrapper, Integer> entry : entrySet)
 	    {
 	    	values.put(entry.getKey(), entry.getValue());
 	    }
@@ -67,12 +69,12 @@ public class MSValue extends AbstractValue implements IMSValue
     {
     	StringBuffer buffer = new StringBuffer();
     	
-    	for(Entry<IValue, Integer> entry : entrySet())
+    	for(Entry<ITermWrapper, Integer> entry : entrySet())
     	{
     		buffer.append(entry.getValue());
     		buffer.append("`");
     		
-    		IValue value = entry.getKey();
+    		ITermWrapper value = entry.getKey();
     		if(value instanceof IMSValue)
     		{
     			buffer.append("(" + value.toString() + ")");
