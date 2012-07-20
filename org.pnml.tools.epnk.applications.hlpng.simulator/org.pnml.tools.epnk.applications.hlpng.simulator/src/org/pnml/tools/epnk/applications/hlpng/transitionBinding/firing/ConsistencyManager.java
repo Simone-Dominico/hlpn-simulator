@@ -45,7 +45,7 @@ public class ConsistencyManager
 		
 		if(value instanceof IMSValue)
 		{
-			for(Entry<IValue, Integer> entry : ((IMSValue)value).entrySet())
+			for(Entry<ITermWrapper, Integer> entry : ((IMSValue)value).entrySet())
 			{
 				Integer n = entry.getValue();
 				if(n == null || n < 0)
@@ -95,7 +95,7 @@ public class ConsistencyManager
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<TermWrapper, IValue> params : varSets)
 		{
-			boolean conditionSatisfied = false;
+			boolean conditionSatisfied = true;
 			
 			if(transition.getCondition() != null && 
 					transition.getCondition().getStructure() != null)
@@ -105,10 +105,10 @@ public class ConsistencyManager
 	                ITermWrapper conditionValue = 
 	                		evaluationManager.evaluate(
 	                				transition.getCondition().getStructure(), params);
-	                if(conditionValue instanceof IValue)
+	                if(!(conditionValue instanceof IValue) || 
+	                		!((BooleanValue)conditionValue).getValue())
 	                {
-	                	conditionSatisfied = ((BooleanValue)conditionValue).getValue();
-	                	conditionSatisfied = true;
+	                	conditionSatisfied = false;
 	                }
                 }
                 catch(Exception e){}
