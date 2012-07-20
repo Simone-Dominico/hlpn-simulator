@@ -95,22 +95,23 @@ public class ConsistencyManager
 		List<FiringMode> assignemnts = new ArrayList<FiringMode>();
 		for(Map<TermWrapper, IValue> params : varSets)
 		{
-			boolean conditionSatisfied = true;
+			boolean conditionSatisfied = false;
 			
 			if(transition.getCondition() != null && 
 					transition.getCondition().getStructure() != null)
 			{
 				try
                 {
-	                IValue conditionValue = 
+	                ITermWrapper conditionValue = 
 	                		evaluationManager.evaluate(
 	                				transition.getCondition().getStructure(), params);
-	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();
+	                if(conditionValue instanceof IValue)
+	                {
+	                	conditionSatisfied = ((BooleanValue)conditionValue).getValue();
+	                	conditionSatisfied = true;
+	                }
                 }
-                catch(Exception e)
-                {
-                	conditionSatisfied = false;
-                }
+                catch(Exception e){}
 			}
 			
 			if(conditionSatisfied)

@@ -103,7 +103,7 @@ public class RuntimeStateManager
                 }
                 catch(UnknownVariableException e)
                 {
-	                e.printStackTrace();
+	                System.err.println("ERR: " + e);
                 }
 			}
 			
@@ -218,19 +218,20 @@ public class RuntimeStateManager
 				
 				// one of the outgoing arc has no inscription
 				Arc hlArc = (Arc)arc;
-				if(hlArc.getHlinscription() != null && hlArc.getHlinscription().getStructure() != null)
+				if(hlArc.getHlinscription() != null && 
+						hlArc.getHlinscription().getStructure() != null)
 				{
 					try
 	                {
-		                IValue inscriptionValue = evalManager.
-		                		evaluate(hlArc.getHlinscription().getStructure(), firingMode.getParams());
+		                IValue inscriptionValue = (IValue)evalManager.evaluate(
+		                		hlArc.getHlinscription().getStructure(), firingMode.getParams());
 		                
 		                newMarking = AbstractValueMath.append(currentMarking,
 		                		(IMSValue)inscriptionValue, runtimeValueFactory);
 	                }
-	                catch(UnknownVariableException e)
+	                catch(Exception e)
 	                {
-		                e.printStackTrace();
+		                System.err.println("ERR: " + e);
 	                }	
 				}
 				else
