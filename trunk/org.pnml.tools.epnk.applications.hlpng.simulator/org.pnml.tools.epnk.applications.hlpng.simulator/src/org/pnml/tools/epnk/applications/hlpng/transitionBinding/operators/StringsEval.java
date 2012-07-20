@@ -1,32 +1,32 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.Concatenation;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.strings.StringConstant;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class StringsEval implements IEvaluator
 {
 	@Override
-	public IValue evaluate(Term term, EvaluationManager evaluationManager,
+	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
-		Operator operator = (Operator) term;
-		List<IValue> values = new ArrayList<IValue>();
-		for(Term subterm : operator.getSubterm())
+		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
+		if(!p.getKey())
 		{
-			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
-			values.add(value);
+			return p.getValue();
 		}
-		if(operator instanceof StringConstant)
+			
+		final List<ITermWrapper> values = p.getValue().getSubterms();
+		if(term instanceof StringConstant)
 		{
 			if(values.size() != 0)
 			{
@@ -34,12 +34,12 @@ public class StringsEval implements IEvaluator
 			}
 			
 			StringValue value = new StringValue();
-			value.setSort(operator.getSort());
-			value.setData(((StringConstant)operator).getValue());
+			value.setSort(term.getSort());
+			value.setData(((StringConstant)term).getValue());
 			
 			return value;
 		}
-		if(operator instanceof Concatenation)
+		if(term instanceof Concatenation)
 		{
 			if(values.size() < 1)
 			{
@@ -47,7 +47,7 @@ public class StringsEval implements IEvaluator
 			}
 			
 			StringBuffer text = new StringBuffer();
-			for(IValue value : values)
+			for(ITermWrapper value : values)
 			{
 				text.append(((StringValue)value).getData());
 			}
