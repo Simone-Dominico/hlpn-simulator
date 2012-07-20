@@ -19,7 +19,7 @@ public class ListComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, IValue testValue,
+	public boolean compare(Term refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 	    if(!(refValue instanceof MakeList || testValue instanceof ListValue) ||
