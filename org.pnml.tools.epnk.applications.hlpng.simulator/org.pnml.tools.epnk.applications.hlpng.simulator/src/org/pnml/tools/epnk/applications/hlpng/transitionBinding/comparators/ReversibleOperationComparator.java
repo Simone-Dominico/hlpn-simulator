@@ -25,7 +25,7 @@ public class ReversibleOperationComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, IValue testValue,
+	public boolean compare(Term refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		boolean cannotEval = false;
@@ -45,12 +45,12 @@ public class ReversibleOperationComparator implements IComparable
 			
 			if(assignments.containsKey(operation))
 			{
-				assignments.get(operation).getValues().add(testValue);
+				assignments.get(operation).getValues().add(((IValue)testValue));
 			}
 			else
 			{
 				TermAssignment ve = new TermAssignment();
-				ve.getValues().add(testValue);
+				ve.getValues().add(((IValue)testValue));
 				ve.setTermWrapper(operation);
 
 				assignments.put(operation, ve);

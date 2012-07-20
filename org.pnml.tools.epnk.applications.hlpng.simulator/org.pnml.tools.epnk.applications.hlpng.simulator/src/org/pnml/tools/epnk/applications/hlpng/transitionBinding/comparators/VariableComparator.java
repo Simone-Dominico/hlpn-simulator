@@ -12,7 +12,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 public class VariableComparator implements IComparable
 {
 	@Override
-	public boolean compare(Term refValue, IValue testValue,
+	public boolean compare(Term refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
 	{
 		if(!(refValue instanceof Variable))
@@ -28,12 +28,12 @@ public class VariableComparator implements IComparable
 		
 		if(assignments.containsKey(rv))
 		{
-			assignments.get(rv).getValues().add(testValue);
+			assignments.get(rv).getValues().add(((IValue)testValue));
 		}
 		else
 		{
 			TermAssignment ve = new TermAssignment();
-			ve.getValues().add(testValue);
+			ve.getValues().add(((IValue)testValue));
 			ve.setTermWrapper(rv);
 
 			assignments.put(rv, ve);

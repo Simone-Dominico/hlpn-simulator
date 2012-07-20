@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -37,6 +36,19 @@ public class ArcInscriptionHandler
 		{
 			findAllNumberOf((MultiSetOperator)operator, allNumberOf);
 		}
+		
+		for(NumberOf nof : allNumberOf)
+		{
+			try
+            {
+	            ITermWrapper w = evaluationManager.evaluate(nof, null);
+	            System.out.println(w);
+            }
+            catch(Exception e)
+            {
+	            System.out.println(e);
+            }
+		}
 	}
 	
 	public Map<TermWrapper, TermAssignment> match(IMSValue value)
@@ -46,7 +58,6 @@ public class ArcInscriptionHandler
 		for(NumberOf nof : allNumberOf)
 		{
 			contains(value, comparisonManager, nof, assignments);
-			
 		}
 		return assignments;
 	}
@@ -58,9 +69,9 @@ public class ArcInscriptionHandler
 		Term refMul = numberOf.getSubterm().get(0);
 		Term refValue = numberOf.getSubterm().get(1);
 		
-		for(Entry<IValue, Integer> entry : multiset.entrySet())
+		for(Entry<ITermWrapper, Integer> entry : multiset.entrySet())
 		{
-			IValue testValue = entry.getKey();
+			ITermWrapper testValue = entry.getKey();
 			
 			if(comparisonManager.compare(refValue, testValue, assignments))
 			{
@@ -94,6 +105,7 @@ public class ArcInscriptionHandler
 		{
 			allNumberOf.add(((NumberOf)operator));
 		}
+		// TODO mla
 		else if(operator instanceof Add)
 		{
 			for(Term subterm : operator.getSubterm())

@@ -17,6 +17,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.All;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
 
 public class MultisetsEval implements IEvaluator
@@ -36,7 +37,7 @@ public class MultisetsEval implements IEvaluator
 		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
 		if(!p.getKey())
 		{
-			return p.getValue();
+			//return p.getValue();
 		}
 			
 		final List<ITermWrapper> values = p.getValue().getSubterms();
@@ -46,21 +47,29 @@ public class MultisetsEval implements IEvaluator
 			IMSValue set = this.factory.createMSValue();
 			set.setSort(term.getSort());
 
-			int multiplicity = ((NumberValue)values.get(0)).getN();
-			if(values.get(1) instanceof IMSValue)
+			if(values.get(0) instanceof NumberValue)
 			{
-				for(Entry<IValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
+				int multiplicity = ((NumberValue)values.get(0)).getN();
+				
+				if(values.get(1) instanceof IMSValue)
 				{
-					IMSValue msValue = this.factory.createMSValue();
-					msValue.setSort(value.getKey().getSort());
-					msValue.put(value.getKey(), value.getValue());
-					
-					set = AbstractValueMath.add(set, msValue, multiplicity, this.factory);
+					for(Entry<ITermWrapper, Integer> value : ((IMSValue)values.get(1)).entrySet())
+					{
+						IMSValue msValue = this.factory.createMSValue();
+						msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+						msValue.put(value.getKey(), value.getValue());
+						
+						set = AbstractValueMath.add(set, msValue, multiplicity, this.factory);
+					}
+				}
+				else
+				{
+					set = AbstractValueMath.add(set, values.get(1), multiplicity, this.factory);	
 				}
 			}
 			else
 			{
-				set = AbstractValueMath.add(set, (IValue)values.get(1), multiplicity, this.factory);	
+				throw new UnknownVariableException("A multiplicity has unresolved variables.");
 			}
 
 		    return set;

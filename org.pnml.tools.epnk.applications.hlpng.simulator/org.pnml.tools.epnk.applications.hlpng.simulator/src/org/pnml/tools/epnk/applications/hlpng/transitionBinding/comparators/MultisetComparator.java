@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
@@ -25,12 +26,12 @@ public class MultisetComparator implements IComparable
 	}
 	
 	@Override
-    public boolean compare(Term refValue, IValue testValue,
+    public boolean compare(Term refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		if(!(refValue instanceof MultiSetOperator || testValue instanceof IMSValue) ||
-	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||
-	    				refValue.getSort().equals(testValue.getSort())))
+	    		!(refValue.getSort().isSuperSortOf(((IValue)testValue).getSort()) ||
+	    				refValue.getSort().equals(((IValue)testValue).getSort())))
 	    {
 	    	return false;
 	    }
@@ -43,14 +44,14 @@ public class MultisetComparator implements IComparable
 			return false;
 		}
 
-		List<Entry<IValue, Integer>> entries = 
-				new ArrayList<Entry<IValue, Integer>>(v2.entrySet());
+		List<Entry<ITermWrapper, Integer>> entries = 
+				new ArrayList<Entry<ITermWrapper, Integer>>(v2.entrySet());
 		
     	for(int i = 0; i < v1.getSubterm().size(); i++)
     	{    		
     		NumberOf nof = (NumberOf)v1.getSubterm().get(i);
     		
-    		IValue value = entries.get(i).getKey();
+    		ITermWrapper value = entries.get(i).getKey();
     		Integer m = entries.get(i).getValue();
     		PosValue multiplicity = new PosValue();
     		multiplicity.setN(m);

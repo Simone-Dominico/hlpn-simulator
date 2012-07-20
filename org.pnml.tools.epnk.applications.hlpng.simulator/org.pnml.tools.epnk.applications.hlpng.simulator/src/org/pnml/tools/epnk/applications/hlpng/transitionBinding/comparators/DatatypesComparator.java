@@ -2,9 +2,9 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 
 import java.util.Map;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.DotValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
@@ -19,26 +19,26 @@ public class DatatypesComparator implements IComparable
 {
 
 	@Override
-	public boolean compare(Term refValue, IValue testValue,
+	public boolean compare(Term refValue, Object testValue,
 	        Map<TermWrapper, TermAssignment> assignments)
 	{
 		if(refValue instanceof BooleanConstant && testValue instanceof BooleanValue &&
-	    		(refValue.getSort().equals(testValue.getSort()) ||
-	    				refValue.getSort().isSuperSortOf(testValue.getSort())) && 
+	    		(refValue.getSort().equals(((IValue)testValue).getSort()) ||
+	    				refValue.getSort().isSuperSortOf(((IValue)testValue).getSort())) && 
 	    		((BooleanConstant)refValue).isValue() == ((BooleanValue)testValue).getValue())
 	    {
 	    	return true;
 	    }
 		if(refValue instanceof NumberConstant && testValue instanceof NumberValue &&
-	    		(refValue.getSort().equals(testValue.getSort()) ||
-	    				refValue.getSort().isSuperSortOf(testValue.getSort())) && 
+	    		(refValue.getSort().equals(((IValue)testValue).getSort()) ||
+	    				refValue.getSort().isSuperSortOf(((IValue)testValue).getSort())) && 
 	    		((NumberConstant)refValue).getValue() == ((NumberValue)testValue).getN())
 	    {
 	    	return true;
 	    }
 		if(refValue instanceof StringConstant && testValue instanceof StringValue &&
-	    		(refValue.getSort().equals(testValue.getSort()) ||
-	    				refValue.getSort().isSuperSortOf(testValue.getSort())) && 
+	    		(refValue.getSort().equals(((IValue)testValue).getSort()) ||
+	    				refValue.getSort().isSuperSortOf(((IValue)testValue).getSort())) && 
 	    		((StringConstant)refValue).getValue().equals(((StringValue)testValue).getData()))
 	    {
 	    	return true;
