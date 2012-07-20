@@ -117,9 +117,6 @@ public class VariableWrapper extends TermWrapper
 	@Override
     public String toString()
     {
-	    return "VariableWrapper [variable=" + variable.getRefvariable().getName() + ", hashCode="
-	            + hashCode + "]";
+	    return variable.getRefvariable().getName();
     }
-
-
 }

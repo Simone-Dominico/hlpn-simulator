@@ -1,8 +1,9 @@
 package org.pnml.tools.epnk.applications.hlpng.runtime;
 
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
-public abstract class AbstractValue implements IValue
+public abstract class AbstractValue extends TermWrapper implements IValue
 {
 	protected Sort sort;
 
