@@ -1,36 +1,37 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.BooleanValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.And;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleanConstant;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.BooleansFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.Equality;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.Inequality;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.booleans.Or;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class BooleansEval implements IEvaluator
 {
 
 	@Override
-	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
-		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
-		if(!p.getKey())
+		Operator operator = (Operator) term;
+		List<IValue> values = new ArrayList<IValue>();
+		for(Term subterm : operator.getSubterm())
 		{
-			return p.getValue();
+			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
+			values.add(value);
 		}
-			
-		final List<ITermWrapper> values = p.getValue().getSubterms();
-		if(term instanceof Or)
+		
+		if(operator instanceof Or)
 		{
 			if(values.size() < 2)
 			{
@@ -43,7 +44,7 @@ public class BooleansEval implements IEvaluator
 
 			for(int i = 0; i < values.size() && !result.getValue(); i++)
 			{
-				ITermWrapper value = values.get(i);
+				IValue value = values.get(i);
 				if(((BooleanValue)value).getValue())
 				{
 					result.setValue(true);
@@ -52,7 +53,7 @@ public class BooleansEval implements IEvaluator
 			
 			return result;
 		}
-		if(term instanceof And)
+		if(operator instanceof And)
 		{
 			if(values.size() < 2)
 			{
@@ -65,7 +66,7 @@ public class BooleansEval implements IEvaluator
 
 			for(int i = 0; i < values.size() && result.getValue(); i++)
 			{
-				ITermWrapper value = values.get(i);
+				IValue value = values.get(i);
 				if(!((BooleanValue)value).getValue())
 				{
 					result.setValue(false);
@@ -74,7 +75,7 @@ public class BooleansEval implements IEvaluator
 			
 			return result;
 		}
-		if(term instanceof Inequality)
+		if(operator instanceof Inequality)
 		{
 			if(values.size() != 2)
 			{
@@ -95,7 +96,7 @@ public class BooleansEval implements IEvaluator
 			
 			return result;
 		}
-		if(term instanceof Equality)
+		if(operator instanceof Equality)
 		{
 			if(values.size() != 2)
 			{
@@ -117,7 +118,7 @@ public class BooleansEval implements IEvaluator
 			
 			return result;
 		}
-		if(term instanceof BooleanConstant)
+		if(operator instanceof BooleanConstant)
 		{
 			if(values.size() != 0)
 			{
@@ -125,8 +126,8 @@ public class BooleansEval implements IEvaluator
 			}
 			
 			BooleanValue value = new BooleanValue();
-			value.setSort(term.getSort());
-			value.setValue(((BooleanConstant)term).isValue());
+			value.setSort(operator.getSort());
+			value.setValue(((BooleanConstant)operator).isValue());
 			
 			return value;
 		}

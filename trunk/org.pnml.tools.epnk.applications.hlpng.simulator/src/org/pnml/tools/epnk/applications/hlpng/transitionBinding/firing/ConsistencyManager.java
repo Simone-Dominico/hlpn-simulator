@@ -45,7 +45,7 @@ public class ConsistencyManager
 		
 		if(value instanceof IMSValue)
 		{
-			for(Entry<ITermWrapper, Integer> entry : ((IMSValue)value).entrySet())
+			for(Entry<IValue, Integer> entry : ((IMSValue)value).entrySet())
 			{
 				Integer n = entry.getValue();
 				if(n == null || n < 0)
@@ -102,16 +102,15 @@ public class ConsistencyManager
 			{
 				try
                 {
-	                ITermWrapper conditionValue = 
+	                IValue conditionValue = 
 	                		evaluationManager.evaluate(
 	                				transition.getCondition().getStructure(), params);
-	                if(!(conditionValue instanceof IValue) || 
-	                		!((BooleanValue)conditionValue).getValue())
-	                {
-	                	conditionSatisfied = false;
-	                }
+	                conditionSatisfied = ((BooleanValue)conditionValue).getValue();
                 }
-                catch(Exception e){}
+                catch(Exception e)
+                {
+                	conditionSatisfied = false;
+                }
 			}
 			
 			if(conditionSatisfied)

@@ -1,5 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,15 +10,13 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.All;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserSort;
 
 public class MultisetsEval implements IEvaluator
@@ -31,62 +30,53 @@ public class MultisetsEval implements IEvaluator
 	}
 	
 	@Override
-	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
-		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
-		if(!p.getKey())
+		Operator operator = (Operator) term;
+		List<IValue> values = new ArrayList<IValue>();
+		for(Term subterm : operator.getSubterm())
 		{
-			//return p.getValue();
+			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
+			values.add(value);
 		}
-			
-		final List<ITermWrapper> values = p.getValue().getSubterms();
-
-		if(term instanceof NumberOf)
+		if(operator instanceof NumberOf)
 		{
 			IMSValue set = this.factory.createMSValue();
-			set.setSort(term.getSort());
+			set.setSort(operator.getSort());
 
-			if(values.get(0) instanceof NumberValue)
+			int multiplicity = ((NumberValue)values.get(0)).getN();
+			if(values.get(1) instanceof IMSValue)
 			{
-				int multiplicity = ((NumberValue)values.get(0)).getN();
-				
-				if(values.get(1) instanceof IMSValue)
+				for(Entry<IValue, Integer> value : ((IMSValue)values.get(1)).entrySet())
 				{
-					for(Entry<ITermWrapper, Integer> value : ((IMSValue)values.get(1)).entrySet())
-					{
-						IMSValue msValue = this.factory.createMSValue();
-						msValue.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
-						msValue.put(value.getKey(), value.getValue());
-						
-						set = AbstractValueMath.add(set, msValue, multiplicity, this.factory);
-					}
-				}
-				else
-				{
-					set = AbstractValueMath.add(set, values.get(1), multiplicity, this.factory);	
+					IMSValue msValue = this.factory.createMSValue();
+					msValue.setSort(value.getKey().getSort());
+					msValue.put(value.getKey(), value.getValue());
+					
+					set = AbstractValueMath.add(set, msValue, multiplicity, this.factory);
 				}
 			}
 			else
 			{
-				throw new UnknownVariableException("A multiplicity has unresolved variables.");
+				set = AbstractValueMath.add(set, values.get(1), multiplicity, this.factory);	
 			}
 
 		    return set;
 		}
-		if(term instanceof Add)
+		if(operator instanceof Add)
 		{
 			IMSValue set = this.factory.createMSValue();
-			set.setSort(term.getSort());
+			set.setSort(operator.getSort());
 			
-			for(ITermWrapper value : values)
+			for(IValue value : values)
 			{
 				IMSValue ms = (IMSValue) value;
 				set = AbstractValueMath.append(set, ms, this.factory);
 			}
 			return set;
 		}
-		if(term instanceof Subtract)
+		if(operator instanceof Subtract)
 		{
 			IMSValue set = (IMSValue) values.get(0);
 			
@@ -97,9 +87,9 @@ public class MultisetsEval implements IEvaluator
 			}
 			return set;
 		}
-		if(term instanceof All)
+		if(operator instanceof All)
 		{
-			All allOp = (All) term;
+			All allOp = (All) operator;
 			return sortEvaluator.evaluate(allOp.getRefsort());
 		}
 		return null;

@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
@@ -26,32 +25,12 @@ public class MultisetComparator implements IComparable
 	}
 	
 	@Override
-    public boolean compare(Object refValue, Object testValue,
+    public boolean compare(Term refValue, IValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
-		if(refValue instanceof IMSValue && testValue instanceof IMSValue)
-		{
-			IMSValue refms = (IMSValue) refValue;
-			IMSValue testms = (IMSValue) testValue;
-			
-			for(final Entry<ITermWrapper, Integer> refentry : refms.entrySet())
-			{
-				final ITermWrapper refkey = refentry.getKey();
-				
-				for(final Entry<ITermWrapper, Integer> testentry : testms.entrySet())
-				{
-					final ITermWrapper testkey = testentry.getKey();
-					
-					comparisonManager.compare(refkey, testkey, assignments);
-				}
-			}
-			
-			return true;
-		}
-		
 		if(!(refValue instanceof MultiSetOperator || testValue instanceof IMSValue) ||
-	    		!(((Term)refValue).getSort().isSuperSortOf(((IValue)testValue).getSort()) ||
-	    				((Term)refValue).getSort().equals(((IValue)testValue).getSort())))
+	    		!(refValue.getSort().isSuperSortOf(testValue.getSort()) ||
+	    				refValue.getSort().equals(testValue.getSort())))
 	    {
 	    	return false;
 	    }
@@ -64,14 +43,14 @@ public class MultisetComparator implements IComparable
 			return false;
 		}
 
-		List<Entry<ITermWrapper, Integer>> entries = 
-				new ArrayList<Entry<ITermWrapper, Integer>>(v2.entrySet());
+		List<Entry<IValue, Integer>> entries = 
+				new ArrayList<Entry<IValue, Integer>>(v2.entrySet());
 		
     	for(int i = 0; i < v1.getSubterm().size(); i++)
     	{    		
     		NumberOf nof = (NumberOf)v1.getSubterm().get(i);
     		
-    		ITermWrapper value = entries.get(i).getKey();
+    		IValue value = entries.get(i).getKey();
     		Integer m = entries.get(i).getValue();
     		PosValue multiplicity = new PosValue();
     		multiplicity.setN(m);

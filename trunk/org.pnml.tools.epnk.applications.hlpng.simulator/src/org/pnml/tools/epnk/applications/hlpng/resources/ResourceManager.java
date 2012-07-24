@@ -9,11 +9,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.applications.hlpng.runtime.IntValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.MSValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NatValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
-import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.DatatypesComparator;
@@ -26,7 +21,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.User
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SortEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEval;
@@ -141,8 +135,7 @@ public class ResourceManager
 		comparisonManager.register(StringConstantImpl.class.getPackage(), datatypesComparator);
 		
 		comparisonManager.register(TupleImpl.class, new TupleComparator(comparisonManager));
-		final MultisetComparator multisetComparator = new MultisetComparator(comparisonManager);
-		comparisonManager.register(MultiSetOperatorImpl.class, multisetComparator);
+		comparisonManager.register(MultiSetOperatorImpl.class, new MultisetComparator(comparisonManager));
 		comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
 		comparisonManager.register(MakeListImpl.class, new ListComparator(comparisonManager));
 		
@@ -153,16 +146,8 @@ public class ResourceManager
 		comparisonManager.register(SubtractionImpl.class, binEval);
 		comparisonManager.register(DivisionImpl.class, binEval);
 		
-		VariableComparator variableComparator = new VariableComparator();
-		comparisonManager.register(VariableImpl.class, variableComparator);
+		comparisonManager.register(VariableImpl.class, new VariableComparator());
 		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());
-		
-		comparisonManager.register(NumberValue.class, datatypesComparator);
-		comparisonManager.register(PosValue.class, datatypesComparator);
-		comparisonManager.register(NatValue.class, datatypesComparator);
-		comparisonManager.register(IntValue.class, datatypesComparator);
-		comparisonManager.register(MSValue.class, multisetComparator);
-		comparisonManager.register(VariableWrapper.class, variableComparator);
 		
 		return comparisonManager;
 	}
