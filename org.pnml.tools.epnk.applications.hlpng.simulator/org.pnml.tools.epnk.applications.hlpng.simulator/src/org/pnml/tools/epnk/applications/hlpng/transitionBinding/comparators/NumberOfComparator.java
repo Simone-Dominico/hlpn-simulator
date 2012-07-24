@@ -10,7 +10,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssig
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
-import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class NumberOfComparator implements IComparable
 {
@@ -22,7 +21,7 @@ public class NumberOfComparator implements IComparable
 	}
 	
 	@Override
-    public boolean compare(Term refValue, Object testValue,
+    public boolean compare(Object refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		if(!(refValue instanceof NumberOf || testValue instanceof IMSValue))

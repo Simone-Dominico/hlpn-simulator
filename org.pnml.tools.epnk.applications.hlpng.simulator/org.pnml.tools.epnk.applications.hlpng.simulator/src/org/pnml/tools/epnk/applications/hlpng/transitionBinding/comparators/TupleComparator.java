@@ -19,7 +19,7 @@ public class TupleComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, Object testValue,
+	public boolean compare(Object refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		// FIXME: mla: errors in home made sort comparison

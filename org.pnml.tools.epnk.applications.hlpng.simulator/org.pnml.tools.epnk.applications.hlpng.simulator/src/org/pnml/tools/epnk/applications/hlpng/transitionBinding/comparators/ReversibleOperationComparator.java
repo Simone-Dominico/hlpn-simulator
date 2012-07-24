@@ -25,13 +25,13 @@ public class ReversibleOperationComparator implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Term refValue, Object testValue,
+	public boolean compare(Object refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
 		boolean cannotEval = false;
 		try
         {
-            Set<IValue> evals = evaluationManager.evaluateAll(refValue, assignments);
+            Set<IValue> evals = evaluationManager.evaluateAll(((Term)refValue), assignments);
             return evals.contains(testValue);
         }
         catch(UnknownVariableException e)
@@ -40,8 +40,8 @@ public class ReversibleOperationComparator implements IComparable
         }
 		if(cannotEval)
 		{
-			AbstractReversibleOperation operation = reversibleOperationManager.createHandler(refValue.getClass());
-			operation.setRootTerm(refValue);
+			AbstractReversibleOperation operation = reversibleOperationManager.createHandler(((Term)refValue).getClass());
+			operation.setRootTerm(((Term)refValue));
 			
 			if(assignments.containsKey(operation))
 			{
