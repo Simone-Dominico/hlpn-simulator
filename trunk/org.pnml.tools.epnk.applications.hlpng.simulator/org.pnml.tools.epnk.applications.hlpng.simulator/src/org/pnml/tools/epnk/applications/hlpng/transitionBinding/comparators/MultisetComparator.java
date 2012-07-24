@@ -26,12 +26,32 @@ public class MultisetComparator implements IComparable
 	}
 	
 	@Override
-    public boolean compare(Term refValue, Object testValue,
+    public boolean compare(Object refValue, Object testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
+		if(refValue instanceof IMSValue && testValue instanceof IMSValue)
+		{
+			IMSValue refms = (IMSValue) refValue;
+			IMSValue testms = (IMSValue) testValue;
+			
+			for(final Entry<ITermWrapper, Integer> refentry : refms.entrySet())
+			{
+				final ITermWrapper refkey = refentry.getKey();
+				
+				for(final Entry<ITermWrapper, Integer> testentry : testms.entrySet())
+				{
+					final ITermWrapper testkey = testentry.getKey();
+					
+					comparisonManager.compare(refkey, testkey, assignments);
+				}
+			}
+			
+			return true;
+		}
+		
 		if(!(refValue instanceof MultiSetOperator || testValue instanceof IMSValue) ||
-	    		!(refValue.getSort().isSuperSortOf(((IValue)testValue).getSort()) ||
-	    				refValue.getSort().equals(((IValue)testValue).getSort())))
+	    		!(((Term)refValue).getSort().isSuperSortOf(((IValue)testValue).getSort()) ||
+	    				((Term)refValue).getSort().equals(((IValue)testValue).getSort())))
 	    {
 	    	return false;
 	    }
