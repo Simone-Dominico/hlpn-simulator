@@ -145,10 +145,11 @@ public class ResourceManager
 		comparisonManager.register(MultiplicationImpl.class, termComparator);
 		comparisonManager.register(SubtractionImpl.class, termComparator);
 		comparisonManager.register(DivisionImpl.class, termComparator);;
-		comparisonManager.setDefaultComparator(termComparator);
 		
 		comparisonManager.register(VariableImpl.class, new VariableComparator());
 		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());
+		
+		comparisonManager.setDefaultComparator(termComparator);
 		
 		return comparisonManager;
 	}
