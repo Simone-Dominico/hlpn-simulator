@@ -7,7 +7,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.pnml.tools.epnk.applications.hlpng.dialogs.InputDialogJob;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -55,23 +58,20 @@ public class VariableResolver
             final TermAssignment termAssignment = pair.getValue();
             final Set<TermWrapper> varSet = pair.getKey();
             
-            Set<TermWrapper> allVars = null;
             boolean showDialog = true;
             
             while(showDialog)
             {
+            	// is reversible
                 if(dependencyManager.isReversible(termAssignment.getTermWrapper()))
                 {
                     AbstractReversibleOperation op = ((AbstractReversibleOperation) termAssignment
                             .getTermWrapper());
+                    // can resolve all unknown variables 
                     if(reversibleOperationManager.resolveAll(termAssignment.getValues(),
                             op, termMap))
                     {
                         showDialog = false;
-                    }
-                    else if(allVars == null)
-                    {
-                        allVars = dependencyManager.getVars(termAssignment.getTermWrapper());
                     }
                 }
                 // a dialog pops up to ask for a sufficient solution
@@ -80,7 +80,7 @@ public class VariableResolver
                     final String termTxt = (new Serializer(null, rules))
                             .unparse(termAssignment.getTermWrapper().getRootTerm(), "Term");
                     final Map<String, String> knownValues = new HashMap<String, String>();
-                    for(TermWrapper var : allVars)
+                    for(TermWrapper var : dependencyManager.getVars(termAssignment.getTermWrapper()))
                     {
                         if(termMap.containsKey(var))
                         {
@@ -90,22 +90,31 @@ public class VariableResolver
                                     termMap.get(var).getValues().toString());
                         }
                     }
-                    final InputDialogJob inputThread = 
-                            new InputDialogJob(display, knownValues, 
-                                    "The Simulator cannot solve the following equation:\n"
-                                            + termTxt + "=" + termAssignment.getValues() + "\n"
-                                            + "Please, provide a sufficient part of the solution!",
-                                    "Currently the following variable bindings are known:",
-                                    varSet);
-                    display.syncExec(inputThread);
                     
-                    if(!inputThread.isCanceled())
+                    if(varSet.size() > 0)
                     {
-                        parseSolution(inputThread.getMapping(), evaluationManager, termMap, varSet);
+                    	final InputDialogJob inputThread = 
+                                new InputDialogJob(display, knownValues, 
+                                        "The Simulator cannot solve the following equation:\n"
+                                                + termTxt + "=" + termAssignment.getValues() + "\n"
+                                                + "Please, provide a sufficient part of the solution!",
+                                        "Currently the following variable bindings are known:",
+                                        varSet);
+                        display.syncExec(inputThread);
+                        
+                        if(!inputThread.isCanceled())
+                        {
+                            parseSolution(inputThread.getMapping(), evaluationManager, termMap, varSet, 
+                            		display.getActiveShell());
+                        }
+                        else
+                        {
+                            showDialog = false;
+                        }
                     }
                     else
                     {
-                        showDialog = false;
+                    	showDialog = false;
                     }
                 }
             }
@@ -117,7 +126,7 @@ public class VariableResolver
     private static void parseSolution(final Map<TermWrapper, String> map, 
             final EvaluationManager evaluationManager, 
             final Map<TermWrapper, TermAssignment> termMap,
-            final Set<TermWrapper> varSet)
+            final Set<TermWrapper> varSet, final Shell shell)
     {
         for(Entry<TermWrapper, String> entry : map.entrySet())
         {
@@ -125,26 +134,45 @@ public class VariableResolver
             {
                 Term term = HLPNGParser.getHLPNGParser().parseTerm(entry.getValue());
 
-                if(term != null
-                        && isGroundTerm(term)
-                        && entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
+                if(term != null)
                 {
-                    TermWrapper variable = entry.getKey();
+                	if(isGroundTerm(term))
+                	{
+                		if(entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
+                		{
+                			TermWrapper variable = entry.getKey();
 
-                    final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
+                            final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
 
-                    if(termMap.containsKey(variable))
-                    {
-                        termMap.get(variable).getValues().addAll(values);
-                    }
-                    else
-                    {
-                        TermAssignment ta = new TermAssignment();
-                        ta.getValues().addAll(values);
-                        ta.setTermWrapper(variable);
+                            if(termMap.containsKey(variable))
+                            {
+                                termMap.get(variable).getValues().addAll(values);
+                            }
+                            else
+                            {
+                                TermAssignment ta = new TermAssignment();
+                                ta.getValues().addAll(values);
+                                ta.setTermWrapper(variable);
 
-                        termMap.put(variable, ta);
-                    }
+                                termMap.put(variable, ta);
+                            }	
+                		}
+                		else
+                		{
+                			MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                    		mb.setMessage("The required sort is: " + 
+                    				entry.getKey().getRootTerm().getSort() + "\n" +
+                    						"The given term sort is " + term.getSort());
+                    		mb.open();
+                		}	
+                	}
+                	else
+                	{
+                		MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                		mb.setMessage("The term " + entry.getValue() + " is not a " +
+                				"ground term!");
+                		mb.open();
+                	}
                 }
             }
             catch(Exception e)
