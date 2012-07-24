@@ -15,7 +15,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Data
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ListComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.MultisetComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.NumberOfComparator;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ReversibleOperationComparator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TermComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.TupleComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.UserOperatorComparator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.VariableComparator;
@@ -139,12 +139,13 @@ public class ResourceManager
 		comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
 		comparisonManager.register(MakeListImpl.class, new ListComparator(comparisonManager));
 		
-		ReversibleOperationComparator binEval = 
-				new ReversibleOperationComparator(evaluationManager, reversibleOperationManager);
-		comparisonManager.register(AdditionImpl.class, binEval);
-		comparisonManager.register(MultiplicationImpl.class, binEval);
-		comparisonManager.register(SubtractionImpl.class, binEval);
-		comparisonManager.register(DivisionImpl.class, binEval);
+		TermComparator termComparator = 
+				new TermComparator(evaluationManager, reversibleOperationManager);
+		comparisonManager.register(AdditionImpl.class, termComparator);
+		comparisonManager.register(MultiplicationImpl.class, termComparator);
+		comparisonManager.register(SubtractionImpl.class, termComparator);
+		comparisonManager.register(DivisionImpl.class, termComparator);;
+		comparisonManager.setDefaultComparator(termComparator);
 		
 		comparisonManager.register(VariableImpl.class, new VariableComparator());
 		comparisonManager.register(UserOperatorImpl.class, new UserOperatorComparator());
