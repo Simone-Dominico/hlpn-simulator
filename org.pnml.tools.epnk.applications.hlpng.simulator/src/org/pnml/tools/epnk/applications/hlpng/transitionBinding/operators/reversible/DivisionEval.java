@@ -1,15 +1,15 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.NumberValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
@@ -45,16 +45,16 @@ public class DivisionEval extends AbstractIntegerOperation
     }
 
 	@Override
-	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
-		Pair<Boolean, ITermWrapper> p = evaluationManager.evalSubterms(term, assignments);
-		if(!p.getKey())
-		{
-			return p.getValue();
+		Operator operator = (Operator) term;
+		List<IValue> values = new ArrayList<IValue>();
+		for(Term subterm : operator.getSubterm())
+		{ 
+			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
+			values.add(value);
 		}
-			
-		final List<ITermWrapper> values = p.getValue().getSubterms();
 		if(values.size() < 1)
 		{
 			throw new RuntimeException("Not enough arguments!");

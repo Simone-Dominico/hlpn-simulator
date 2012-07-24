@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
@@ -30,7 +29,7 @@ public class EvaluationManager implements IEvaluator
 		handlers.remove(targetObject);
 	}
 	
-	public ITermWrapper evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
+	public IValue evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		IEvaluator evaluator = getHandler(term.getClass());
 		
@@ -42,12 +41,8 @@ public class EvaluationManager implements IEvaluator
 		if(assignments == null || assignments.size() == 0)
 		{
 			Set<IValue> result = new HashSet<IValue>();
-			ITermWrapper value = evaluate(term, null);
-			if(!(value instanceof IValue))
-			{
-				throw new UnknownVariableException("At least one of the variables is not known!");
-			}
-			result.add((IValue)value);
+			IValue value = evaluate(term, null);
+			result.add(value);
 			return result;
 		}
 		// only one variable
@@ -63,12 +58,7 @@ public class EvaluationManager implements IEvaluator
 					Map<TermWrapper, IValue> map = new HashMap<TermWrapper, IValue>();
 					map.put(ve.getTermWrapper(), value);
 					
-					ITermWrapper v = evaluate(term, map);
-					if(!(value instanceof IValue))
-					{
-						throw new UnknownVariableException("At least one of the variables is not known!");
-					}
-					result.add((IValue)v);
+					result.add(evaluate(term, map));
 				}
 			}
 			return result;
@@ -101,12 +91,8 @@ public class EvaluationManager implements IEvaluator
 			{
 				assignmentSet.put(p.getKey(), p.getValue());
 			}
-			ITermWrapper value = evaluate(term, assignmentSet);
-			if(!(value instanceof IValue))
-			{
-				throw new UnknownVariableException("At least one of the variables is not known!");
-			}
-			result.add((IValue)value);
+			IValue value = evaluate(term, assignmentSet);
+			result.add(value);
 		}
 		return result;
 	}
@@ -162,7 +148,7 @@ public class EvaluationManager implements IEvaluator
     }
 
 	@Override
-    public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
+    public IValue evaluate(Term term, EvaluationManager evaluationManager,
             Map<TermWrapper, IValue> assignments)
             throws UnknownVariableException
     {
@@ -173,25 +159,4 @@ public class EvaluationManager implements IEvaluator
 		}
 	    throw new RuntimeException("Do not know how to evaluate: " + term.getClass());
     }
-	
-	public Pair<Boolean, ITermWrapper> evalSubterms(Term term, 
-			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
-	{
-		TermWrapper wrapper = new TermWrapper();
-		wrapper.setRootTerm(term);
-		
-		boolean complete = true;
-		Operator operator = (Operator) term;
-		for(Term subterm : operator.getSubterm())
-		{
-			ITermWrapper value = evaluate(subterm, this, assignments);
-			wrapper.getSubterms().add(value);
-			if(!(value instanceof IValue))
-			{
-				complete = false;
-			}
-		}
-		
-		return new Pair<Boolean, ITermWrapper>(complete, wrapper);
-	}
 }

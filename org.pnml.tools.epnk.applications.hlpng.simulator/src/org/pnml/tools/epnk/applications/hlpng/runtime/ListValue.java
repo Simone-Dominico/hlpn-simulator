@@ -3,18 +3,16 @@ package org.pnml.tools.epnk.applications.hlpng.runtime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
-
 public class ListValue extends AbstractValue
 {
-	private List<ITermWrapper> elements = new ArrayList<ITermWrapper>();
+	private List<IValue> elements = new ArrayList<IValue>();
 
-	public List<ITermWrapper> getElements()
+	public List<IValue> getElements()
     {
     	return elements;
     }
 
-	public void setElements(List<ITermWrapper> elements)
+	public void setElements(List<IValue> elements)
     {
     	this.elements = elements;
     }
@@ -68,7 +66,7 @@ public class ListValue extends AbstractValue
 			buffer.append(elements.get(0).toString());
 			for(int i = 1; i < elements.size(); i++)
 			{
-				ITermWrapper el = elements.get(i);
+				IValue el = elements.get(i);
 				buffer.append("," + el.toString());
 			}	
 		}

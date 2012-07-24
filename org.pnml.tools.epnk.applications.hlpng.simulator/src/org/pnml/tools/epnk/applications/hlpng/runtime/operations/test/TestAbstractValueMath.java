@@ -16,7 +16,6 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.PosValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.IntegersFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
@@ -47,11 +46,11 @@ public class TestAbstractValueMath extends AbstractValueMath
     	assertEquals(testSet.size(), 1);
   
     	{
-        	List<Entry<ITermWrapper, Integer>> initListValues = 
-        			new ArrayList<Entry<ITermWrapper, Integer>>(initial.entrySet());
+        	List<Entry<IValue, Integer>> initListValues = 
+        			new ArrayList<Entry<IValue, Integer>>(initial.entrySet());
 
-        	List<Entry<ITermWrapper, Integer>> testListValues = 
-        			new ArrayList<Entry<ITermWrapper, Integer>>(testSet.entrySet());
+        	List<Entry<IValue, Integer>> testListValues = 
+        			new ArrayList<Entry<IValue, Integer>>(testSet.entrySet());
         	
         	assertEquals(initListValues.get(0), testListValues.get(0));
     	}

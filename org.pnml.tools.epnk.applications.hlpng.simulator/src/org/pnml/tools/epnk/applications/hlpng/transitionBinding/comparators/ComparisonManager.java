@@ -3,8 +3,10 @@ package org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ComparisonManager implements IComparable
 {
@@ -21,7 +23,7 @@ public class ComparisonManager implements IComparable
 	}
 	
 	@Override
-	public boolean compare(Object refValue, Object testValue, 
+	public boolean compare(Term refValue, IValue testValue, 
 			Map<TermWrapper, TermAssignment> assignments)
 	{
 		IComparable comparator = getComparator(refValue.getClass());
@@ -33,7 +35,7 @@ public class ComparisonManager implements IComparable
 		throw new RuntimeException("Do not know how to compare: " + refValue.getClass());
 	}
 	
-	private IComparable getComparator(Class<? extends Object> targetClass)
+	private IComparable getComparator(Class<? extends Term> targetClass)
 	{
 		if(handlers.containsKey(targetClass))
 		{
