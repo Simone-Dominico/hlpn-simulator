@@ -5,16 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
-
 public class MSValue extends AbstractValue implements IMSValue
 {
-	private Map<ITermWrapper, Integer> values = new HashMap<ITermWrapper, Integer>();
+	private Map<IValue, Integer> values = new HashMap<IValue, Integer>();
 	
 	MSValue(){}
 
 	@Override
-    public Collection<Entry<ITermWrapper, Integer>> entrySet()
+    public Collection<Entry<IValue, Integer>> entrySet()
     {
 	    return values.entrySet();
     }
@@ -26,33 +24,33 @@ public class MSValue extends AbstractValue implements IMSValue
     }
 	
 	@Override
-    public boolean contains(ITermWrapper value)
+    public boolean contains(IValue value)
     {
 	    return values.containsKey(value);
     }
 	
 	@Override
-    public Integer get(ITermWrapper value)
+    public Integer get(IValue value)
     {
 	    return values.get(value);
     }
 	
 	@Override
-    public void put(ITermWrapper value, Integer multiplicity)
+    public void put(IValue value, Integer multiplicity)
     {
 	    values.put(value, multiplicity);
     }
 	
 	@Override
-    public void remove(ITermWrapper value)
+    public void remove(IValue value)
     {
 	    values.remove(value);
     }
 	
 	@Override
-    public void putAll(Collection<Entry<ITermWrapper, Integer>> entrySet)
+    public void putAll(Collection<Entry<IValue, Integer>> entrySet)
     {
-	    for(Entry<ITermWrapper, Integer> entry : entrySet)
+	    for(Entry<IValue, Integer> entry : entrySet)
 	    {
 	    	values.put(entry.getKey(), entry.getValue());
 	    }
@@ -69,12 +67,12 @@ public class MSValue extends AbstractValue implements IMSValue
     {
     	StringBuffer buffer = new StringBuffer();
     	
-    	for(Entry<ITermWrapper, Integer> entry : entrySet())
+    	for(Entry<IValue, Integer> entry : entrySet())
     	{
     		buffer.append(entry.getValue());
     		buffer.append("`");
     		
-    		ITermWrapper value = entry.getKey();
+    		IValue value = entry.getKey();
     		if(value instanceof IMSValue)
     		{
     			buffer.append("(" + value.toString() + ")");

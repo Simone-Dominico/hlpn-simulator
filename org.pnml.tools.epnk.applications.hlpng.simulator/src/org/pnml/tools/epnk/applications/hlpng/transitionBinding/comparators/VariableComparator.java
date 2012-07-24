@@ -6,21 +6,15 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class VariableComparator implements IComparable
 {
 	@Override
-	public boolean compare(Object refValue, Object testValue,
+	public boolean compare(Term refValue, IValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
 	{
-		if(refValue instanceof VariableWrapper)
-		{
-			updateAssignments(assignments, (VariableWrapper)refValue, (IValue)testValue);
-			
-			return true;
-		}
-		
 		if(!(refValue instanceof Variable))
 		{
 			throw new RuntimeException("Wrong comparator: a reference value is" +
@@ -32,26 +26,20 @@ public class VariableComparator implements IComparable
 		rv.setRootTerm(var);
 		rv.setVariable(var);
 		
-		updateAssignments(assignments, rv, (IValue) testValue);
-
-		return true;
-	}
-	
-	private static void updateAssignments(Map<TermWrapper, TermAssignment> assignments,
-			VariableWrapper wrapper, IValue value)
-	{
-		if(assignments.containsKey(wrapper))
+		if(assignments.containsKey(rv))
 		{
-			assignments.get(wrapper).getValues().add(value);
+			assignments.get(rv).getValues().add(testValue);
 		}
 		else
 		{
 			TermAssignment ve = new TermAssignment();
-			ve.getValues().add(value);
-			ve.setTermWrapper(wrapper);
+			ve.getValues().add(testValue);
+			ve.setTermWrapper(rv);
 
-			assignments.put(wrapper, ve);
+			assignments.put(rv, ve);
 		}
+
+		return true;
 	}
 
 }

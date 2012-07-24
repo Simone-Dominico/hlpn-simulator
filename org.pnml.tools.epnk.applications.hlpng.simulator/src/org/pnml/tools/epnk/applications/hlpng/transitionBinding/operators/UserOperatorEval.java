@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.ITermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.arbitrarydeclarations.ArbitraryOperator;
@@ -25,7 +24,7 @@ public class UserOperatorEval implements IEvaluator
 	}
 	
 	@Override
-	public ITermWrapper evaluate(Term term, EvaluationManager evaluationManager,
+	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{		
 		UserOperator userOperator = (UserOperator)term;
@@ -37,11 +36,7 @@ public class UserOperatorEval implements IEvaluator
 			for(int i = 0; i < userOperator.getSubterm().size(); i++)
 			{
 				Term subterm = userOperator.getSubterm().get(i);
-				ITermWrapper value = evaluationManager.evaluate(subterm, assignments);
-				if(!(value instanceof IValue))
-				{
-					throw new UnknownVariableException("At least one of the variables is not known!");
-				}
+				IValue value = evaluationManager.evaluate(subterm, assignments);
 				
 				VariableWrapper varWrapper = new VariableWrapper();
 				Variable var = TermsFactory.eINSTANCE.createVariable();
@@ -49,7 +44,7 @@ public class UserOperatorEval implements IEvaluator
 				varWrapper.setRootTerm(var);
 				varWrapper.setVariable(var);
 				
-				newAssignments.put(varWrapper, (IValue)value);
+				newAssignments.put(varWrapper, value);
 			}	
 			return evaluationManager.evaluate(namedOperator.getDef(), newAssignments);
 		}
