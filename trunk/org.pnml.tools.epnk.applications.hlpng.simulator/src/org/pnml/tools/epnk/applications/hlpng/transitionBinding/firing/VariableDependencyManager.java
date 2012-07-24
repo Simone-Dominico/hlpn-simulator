@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.BuiltInOperator;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.MultiSetOperator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
@@ -123,8 +124,9 @@ public class VariableDependencyManager
         	if(obj instanceof Term)
         	{
         		Term subTerm = (Term)obj;
-                if(subTerm instanceof BuiltInOperator &&
-                		!reversibleOperationManager.contains(subTerm.getClass()))
+                if((subTerm instanceof BuiltInOperator &&
+                		!reversibleOperationManager.contains(subTerm.getClass())) ||
+                		subTerm instanceof MultiSetOperator)
                 {
                     return false;
                 }	
