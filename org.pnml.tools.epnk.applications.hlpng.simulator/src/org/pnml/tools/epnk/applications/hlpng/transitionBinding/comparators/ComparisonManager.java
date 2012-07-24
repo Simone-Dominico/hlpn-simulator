@@ -10,6 +10,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class ComparisonManager implements IComparable
 {
+	private IComparable defaultComparator = null;
 	private Map<Object, IComparable> handlers = new HashMap<Object, IComparable>();
 	
 	public void register(Object targetObject, IComparable comparator)
@@ -32,7 +33,7 @@ public class ComparisonManager implements IComparable
 			return comparator.compare(refValue, testValue, assignments);
 		}
 		
-		throw new RuntimeException("Do not know how to compare: " + refValue.getClass());
+		return defaultComparator.compare(refValue, testValue, assignments);
 	}
 	
 	private IComparable getComparator(Class<? extends Term> targetClass)
@@ -47,4 +48,9 @@ public class ComparisonManager implements IComparable
 		}
 		return null;
 	}
+
+	public void setDefaultComparator(IComparable defaultComparator)
+    {
+    	this.defaultComparator = defaultComparator;
+    }
 }

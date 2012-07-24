@@ -8,16 +8,15 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssig
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class ReversibleOperationComparator implements IComparable
+public class TermComparator implements IComparable
 {
 	private EvaluationManager evaluationManager = null;
 	private ReversibleOperationManager reversibleOperationManager = null;
 	
-	public ReversibleOperationComparator(EvaluationManager evaluationManager,
+	public TermComparator(EvaluationManager evaluationManager,
 			ReversibleOperationManager reversibleOperationManager)
 	{
 		this.evaluationManager = evaluationManager;
@@ -28,34 +27,39 @@ public class ReversibleOperationComparator implements IComparable
 	public boolean compare(Term refValue, IValue testValue,
             Map<TermWrapper, TermAssignment> assignments)
     {
-		boolean cannotEval = false;
+		// simple evaluation
 		try
         {
             Set<IValue> evals = evaluationManager.evaluateAll(refValue, assignments);
             return evals.contains(testValue);
         }
-        catch(UnknownVariableException e)
-        {
-        	cannotEval = true;
-        }
-		if(cannotEval)
+        catch(UnknownVariableException e){}
+		
+		TermWrapper operation = null;
+		// is it possible to reverse?
+		if(reversibleOperationManager.contains(refValue.getClass()))
 		{
-			AbstractReversibleOperation operation = reversibleOperationManager.createHandler(refValue.getClass());
-			operation.setRootTerm(refValue);
-			
-			if(assignments.containsKey(operation))
-			{
-				assignments.get(operation).getValues().add(testValue);
-			}
-			else
-			{
-				TermAssignment ve = new TermAssignment();
-				ve.getValues().add(testValue);
-				ve.setTermWrapper(operation);
-
-				assignments.put(operation, ve);
-			}
+			operation = reversibleOperationManager.createHandler(refValue.getClass());
 		}
+		else
+		{
+			operation = new TermWrapper();
+		}
+		
+		operation.setRootTerm(refValue);
+		if(assignments.containsKey(operation))
+		{
+			assignments.get(operation).getValues().add(testValue);
+		}
+		else
+		{
+			TermAssignment ve = new TermAssignment();
+			ve.getValues().add(testValue);
+			ve.setTermWrapper(operation);
+
+			assignments.put(operation, ve);
+		}
+		
 		return true;
     }
 }
