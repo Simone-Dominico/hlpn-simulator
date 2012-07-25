@@ -70,7 +70,14 @@ public class AbstractValueMath
     	if(mainSet.contains(value))
         {
     		Integer newMultiplicity = mainSet.get(value) + multiplicity;
-    		mainSet.put(value, newMultiplicity);
+    		if(newMultiplicity != 0)
+    		{
+    			mainSet.put(value, newMultiplicity);
+    		}
+    		else
+    		{
+    			mainSet.remove(value);
+    		}
         }
     	else
     	{
@@ -87,7 +94,7 @@ public class AbstractValueMath
     	
     	Integer count = newMsSet.get(value);
     	
-    	if(count == null || count == 0)
+    	if(count == null)
     	{
     		newMsSet.remove(value);
     	}
