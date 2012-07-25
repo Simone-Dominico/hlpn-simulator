@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.presentation.popup.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
-import org.pnml.tools.epnk.applications.presentation.actions.IAction;
-import org.pnml.tools.epnk.applications.presentation.decorations.AbstractRectangleOverlay;
-import org.pnml.tools.epnk.applications.presentation.popup.AbstractMenuItem;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class TransitionOverlay extends AbstractRectangleOverlay

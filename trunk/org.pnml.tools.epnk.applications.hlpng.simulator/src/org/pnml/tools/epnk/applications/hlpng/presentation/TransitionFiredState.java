@@ -1,8 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.presentation;
 
 import org.eclipse.draw2d.ColorConstants;
-import org.pnml.tools.epnk.applications.presentation.decorations.AbstractRectangleOverlay;
-import org.pnml.tools.epnk.applications.presentation.decorations.IState;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.IState;
 
 public class TransitionFiredState implements IState
 {

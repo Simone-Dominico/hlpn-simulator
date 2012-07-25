@@ -6,12 +6,12 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.LabelLayer;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.TopRightLabel;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
+import org.pnml.tools.epnk.applications.hlpng.presentation.popup.SelectionHandler;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
-import org.pnml.tools.epnk.applications.presentation.decorations.LabelLayer;
-import org.pnml.tools.epnk.applications.presentation.decorations.TopRightLabel;
-import org.pnml.tools.epnk.applications.presentation.popup.SelectionHandler;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
 import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
