@@ -8,6 +8,8 @@ import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
+import org.pnml.tools.epnk.applications.hlpng.presentation.animation.IWorker;
+import org.pnml.tools.epnk.applications.hlpng.presentation.animation.PeriodicalWorkerJob;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.NetMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.NetMarkingManager;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
@@ -21,8 +23,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringSt
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
-import org.pnml.tools.epnk.applications.presentation.animation.IWorker;
-import org.pnml.tools.epnk.applications.presentation.animation.PeriodicalWorkerJob;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
