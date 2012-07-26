@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
+import org.pnml.tools.epnk.applications.hlpng.runtime.ProductValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 
 import Appearence.Shape;
@@ -19,11 +20,13 @@ public class APPEAR_POINT extends AbstractFunction
 	@Override
 	public IValue execute(List<IValue> values)
 	{
+		ProductValue productValue = (ProductValue)values.get(0);
+		
 		// model object comes first
-		StringValue modelStr = (StringValue)values.get(0);
+		StringValue modelStr = (StringValue)productValue.getComponents().get(0);
 		
 		// geometry object comes second
-		StringValue geoStr = (StringValue)values.get(1);
+		StringValue geoStr = (StringValue)productValue.getComponents().get(1);
 				
 		Shape shape = shapeMap.get(modelStr.getData());
 		GObject gObj = geometryMap.get(geoStr.getData());

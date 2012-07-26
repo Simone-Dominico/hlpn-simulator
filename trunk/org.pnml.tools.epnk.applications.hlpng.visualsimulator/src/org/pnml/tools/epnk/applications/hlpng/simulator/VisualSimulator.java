@@ -333,7 +333,9 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 					for(Entry<IValue, Integer> entry : msValue.entrySet())
 					{
 						IValue value = entry.getKey();
-						appearFunction.execute(((ProductValue)value).getComponents());
+						List<IValue> list = new ArrayList<IValue>();
+						list.add(value);
+						appearFunction.execute(list);
 						triggerFunction.execute(((ProductValue)value).getComponents());
 					}
 				}
