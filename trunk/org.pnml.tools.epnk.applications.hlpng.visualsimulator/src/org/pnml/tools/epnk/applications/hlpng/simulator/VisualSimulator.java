@@ -317,8 +317,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 				{
 					for(Entry<IValue, Integer> entry : msValue.entrySet())
 					{
-						appear(((ProductValue)entry.getKey()).getComponents(), 
-								simulator.geometryMap, simulator.shapeMap, 
+						appear((ProductValue)entry.getKey(), simulator.geometryMap, simulator.shapeMap, 
 								simulator.animator, simulator);
 					}
 				}
@@ -367,17 +366,17 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 		display(simulator, simulator.runtimeStateManager.getCurrentState());
 	}
 	
-	private static void appear(List<IValue> values, Map<String, GObject> geometryMap,
+	private static void appear(ProductValue pValue, Map<String, GObject> geometryMap,
 			Map<String, Shape> shapeMap, IAnimator animator, VisualSimulator simulator)
 	{
 		// model object comes first
-		StringValue modelStr = (StringValue)values.get(0);
+		StringValue modelStr = (StringValue)pValue.getComponents().get(0);
 		
 		// geometry object comes second
-		StringValue geoStr = (StringValue)values.get(1);
+		StringValue geoStr = (StringValue)pValue.getComponents().get(1);
 		
 		// speed comes third
-		NumberValue speed = (NumberValue)values.get(2);
+		NumberValue speed = (NumberValue)pValue.getComponents().get(2);
 		
 		Shape shape = shapeMap.get(modelStr.getData());
 		GObject gObj = geometryMap.get(geoStr.getData());

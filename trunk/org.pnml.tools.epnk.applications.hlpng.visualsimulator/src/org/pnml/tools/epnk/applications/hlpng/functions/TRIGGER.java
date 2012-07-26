@@ -2,8 +2,10 @@ package org.pnml.tools.epnk.applications.hlpng.functions;
 
 import java.util.List;
 
+import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 
 import Appearence.Shape;
 
@@ -21,7 +23,10 @@ public class TRIGGER extends AbstractFunction
 		
 		visualSimulator.registerAnimation(visualSimulator.getModelId(shape.getId()));
 		
-		return null;
+		IMSValue ms = factory.createMSValue();
+		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+		
+		return ms;
 	}
 
 }
