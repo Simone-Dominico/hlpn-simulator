@@ -1397,10 +1397,7 @@
             </namedsort>
             <arbitraryoperator id="id6" name="APPEAR_POINT">
               <input>
-                <string/>
-              </input>
-              <input>
-                <string/>
+                <usersort declaration="id5"/>
               </input>
               <output>
                 <multisetsort>
@@ -1477,10 +1474,14 @@
                       <subterm>
                         <useroperator declaration="id6">
                           <subterm>
-                            <variable refvariable="id11"/>
-                          </subterm>
-                          <subterm>
-                            <variable refvariable="id12"/>
+                            <tuple>
+                              <subterm>
+                                <variable refvariable="id11"/>
+                              </subterm>
+                              <subterm>
+                                <variable refvariable="id12"/>
+                              </subterm>
+                            </tuple>
                           </subterm>
                         </useroperator>
                       </subterm>
@@ -1527,7 +1528,7 @@
    STATIC_MODEL=(TYPE*LOCATION);
 
 opsymbols
-   APPEAR_POINT:STRING,STRING->MS(STATIC_MODEL),
+   APPEAR_POINT:STATIC_MODEL->MS(STATIC_MODEL),
    TRIGGER:STRING->MS(STATIC_MODEL),
    MOVE:STRING,STRING,INT->MS(DYNAMIC_MODEL),
    READY:STRING->BOOL;
@@ -1535,7 +1536,7 @@ opsymbols
 ops&#xD;
   show(signal:STRING, location:STRING) =  
 	1`(signal,location)++
-	APPEAR_POINT(signal,location)++
+	APPEAR_POINT((signal,location))++
 	TRIGGER(signal);
 
 vars
