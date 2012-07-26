@@ -91,8 +91,8 @@ public class EvaluationValidator extends AbstractModelConstraint
 			
 			List<org.pnml.tools.epnk.pnmlcoremodel.Arc> arcs = 
 					new ArrayList<org.pnml.tools.epnk.pnmlcoremodel.Arc>();
-			arcs.addAll(transition.getIn());
-			arcs.addAll(transition.getOut());
+			arcs.addAll(flatAccess.getIn(transition));
+			arcs.addAll(flatAccess.getOut(transition));
 			
 			for(org.pnml.tools.epnk.pnmlcoremodel.Arc a : arcs)
 			{
