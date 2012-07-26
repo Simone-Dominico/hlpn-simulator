@@ -147,7 +147,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="408" y="144" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="444" y="168" width="-1" height="-1"/>
           </children>
           <children xsi:type="notation:Shape" visible="true" type="2001" element="p8" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="0" lineWidth="-1" roundedBendpointsRadius="0">
             <layoutConstraint xsi:type="notation:Bounds" x="504" y="468" width="-1" height="-1"/>
@@ -658,9 +658,9 @@
             <offset x="29.0" y="6.0"/>
           </graphics>
           <structure>
-            <add>
+            <useroperator declaration="id8">
               <subterm>
-                <useroperator declaration="id8">
+                <tuple>
                   <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
@@ -670,34 +670,11 @@
                   <subterm>
                     <variable refvariable="id14"/>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <variable refvariable="id13"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="track1"/>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id14"/>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
-              </subterm>
-            </add>
+            </useroperator>
           </structure>
-          <text>MOVE(type, &quot;track1&quot;, speed)++
-1`(type, &quot;track1&quot;, speed)</text>
+          <text>MOVE((type, &quot;track1&quot;, speed))</text>
         </hlinscription>
       </arc>
       <place id="p3">
@@ -793,9 +770,9 @@
             <offset x="47.0" y="21.0"/>
           </graphics>
           <structure>
-            <add>
+            <useroperator declaration="id8">
               <subterm>
-                <useroperator declaration="id8">
+                <tuple>
                   <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
@@ -805,34 +782,11 @@
                   <subterm>
                     <variable refvariable="id14"/>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <variable refvariable="id13"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="track2"/>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id14"/>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
-              </subterm>
-            </add>
+            </useroperator>
           </structure>
-          <text>MOVE(type, &quot;track2&quot;, speed)++
-1`(type, &quot;track2&quot;, speed)</text>
+          <text>MOVE((type, &quot;track2&quot;, speed))</text>
         </hlinscription>
       </arc>
       <transition id="t4">
@@ -898,9 +852,9 @@
             <offset x="-36.0" y="-47.0"/>
           </graphics>
           <structure>
-            <add>
+            <useroperator declaration="id8">
               <subterm>
-                <useroperator declaration="id8">
+                <tuple>
                   <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
@@ -910,34 +864,11 @@
                   <subterm>
                     <variable refvariable="id14"/>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <variable refvariable="id13"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="track3"/>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id14"/>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
-              </subterm>
-            </add>
+            </useroperator>
           </structure>
-          <text>MOVE(type, &quot;track3&quot;, speed)++
-1`(type, &quot;track3&quot;, speed)</text>
+          <text>MOVE((type, &quot;track3&quot;, speed))</text>
         </hlinscription>
       </arc>
       <arc id="a10" source="rp3" target="t3">
@@ -1064,12 +995,12 @@
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="50.0" y="-23.0"/>
+            <offset x="86.0" y="1.0"/>
           </graphics>
           <structure>
-            <add>
+            <useroperator declaration="id8">
               <subterm>
-                <useroperator declaration="id8">
+                <tuple>
                   <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
@@ -1079,34 +1010,11 @@
                   <subterm>
                     <variable refvariable="id14"/>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <variable refvariable="id13"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="track4"/>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id14"/>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
-              </subterm>
-            </add>
+            </useroperator>
           </structure>
-          <text>MOVE(type, &quot;track4&quot;, speed)++
-1`(type, &quot;track4&quot;, speed)</text>
+          <text>MOVE((type, &quot;track4&quot;, speed))</text>
         </hlinscription>
       </arc>
       <place id="p8">
@@ -1187,9 +1095,9 @@
             <offset x="-175.0" y="66.0"/>
           </graphics>
           <structure>
-            <add>
+            <useroperator declaration="id8">
               <subterm>
-                <useroperator declaration="id8">
+                <tuple>
                   <subterm>
                     <variable refvariable="id13"/>
                   </subterm>
@@ -1199,34 +1107,11 @@
                   <subterm>
                     <variable refvariable="id14"/>
                   </subterm>
-                </useroperator>
+                </tuple>
               </subterm>
-              <subterm>
-                <numberof>
-                  <subterm>
-                    <numberconstant value="1">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                  <subterm>
-                    <tuple>
-                      <subterm>
-                        <variable refvariable="id13"/>
-                      </subterm>
-                      <subterm>
-                        <stringconstant value="track5"/>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id14"/>
-                      </subterm>
-                    </tuple>
-                  </subterm>
-                </numberof>
-              </subterm>
-            </add>
+            </useroperator>
           </structure>
-          <text>MOVE(type, &quot;track5&quot;, speed)++
-1`(type, &quot;track5&quot;, speed)</text>
+          <text>MOVE((type, &quot;track5&quot;, speed))</text>
         </hlinscription>
       </arc>
       <referencePlace id="rp1" ref="TrafficLight2">
@@ -1373,7 +1258,7 @@
         </graphics>
         <structure>
           <declarations>
-            <namedsort id="id1" name="TYPE">
+            <namedsort id="id1" name="ID">
               <string/>
             </namedsort>
             <namedsort id="id2" name="LOCATION">
@@ -1407,7 +1292,7 @@
             </arbitraryoperator>
             <arbitraryoperator id="id7" name="TRIGGER">
               <input>
-                <string/>
+                <usersort declaration="id1"/>
               </input>
               <output>
                 <multisetsort>
@@ -1417,13 +1302,7 @@
             </arbitraryoperator>
             <arbitraryoperator id="id8" name="MOVE">
               <input>
-                <string/>
-              </input>
-              <input>
-                <string/>
-              </input>
-              <input>
-                <integer/>
+                <usersort declaration="id4"/>
               </input>
               <output>
                 <multisetsort>
@@ -1433,7 +1312,7 @@
             </arbitraryoperator>
             <arbitraryoperator id="id9" name="READY">
               <input>
-                <string/>
+                <usersort declaration="id1"/>
               </input>
               <output>
                 <bool/>
@@ -1451,41 +1330,18 @@
               <def>
                 <add>
                   <subterm>
-                    <add>
+                    <useroperator declaration="id6">
                       <subterm>
-                        <numberof>
+                        <tuple>
                           <subterm>
-                            <numberconstant value="1">
-                              <positive/>
-                            </numberconstant>
+                            <variable refvariable="id11"/>
                           </subterm>
                           <subterm>
-                            <tuple>
-                              <subterm>
-                                <variable refvariable="id11"/>
-                              </subterm>
-                              <subterm>
-                                <variable refvariable="id12"/>
-                              </subterm>
-                            </tuple>
+                            <variable refvariable="id12"/>
                           </subterm>
-                        </numberof>
+                        </tuple>
                       </subterm>
-                      <subterm>
-                        <useroperator declaration="id6">
-                          <subterm>
-                            <tuple>
-                              <subterm>
-                                <variable refvariable="id11"/>
-                              </subterm>
-                              <subterm>
-                                <variable refvariable="id12"/>
-                              </subterm>
-                            </tuple>
-                          </subterm>
-                        </useroperator>
-                      </subterm>
-                    </add>
+                    </useroperator>
                   </subterm>
                   <subterm>
                     <useroperator declaration="id7">
@@ -1521,32 +1377,31 @@
           </declarations>
         </structure>
         <text>sorts
-   TYPE=STRING,
+   ID=STRING,
    LOCATION=STRING,
    SPEED=NAT,
-   DYNAMIC_MODEL=(TYPE*LOCATION*SPEED),
-   STATIC_MODEL=(TYPE*LOCATION);
+   DYNAMIC_MODEL=(ID*LOCATION*SPEED),
+   STATIC_MODEL=(ID*LOCATION);
 
 opsymbols
    APPEAR_POINT:STATIC_MODEL->MS(STATIC_MODEL),
-   TRIGGER:STRING->MS(STATIC_MODEL),
-   MOVE:STRING,STRING,INT->MS(DYNAMIC_MODEL),
-   READY:STRING->BOOL;
+   TRIGGER:ID->MS(STATIC_MODEL),
+   MOVE:DYNAMIC_MODEL->MS(DYNAMIC_MODEL),
+   READY:ID->BOOL;
 
 ops&#xD;
   show(signal:STRING, location:STRING) =  
-	1`(signal,location)++
 	APPEAR_POINT((signal,location))++
 	TRIGGER(signal);
 
 vars
-  type:TYPE,
+  type:ID,
   speed:SPEED,
   l_d:LOCATION,
   l_s:LOCATION,
   l_s2:LOCATION,
   s:STATIC_MODEL,
-  t_s:TYPE;</text>
+  t_s:ID;</text>
       </declaration>
     </page>
     <page id="TrafficLight2Page">
