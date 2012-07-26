@@ -56,7 +56,7 @@ public class TransitionManager
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : flatAccess.getTransitions())
 		{
 			Map<IDWrapper, ArcInscriptionHandler> map = new HashMap<IDWrapper, ArcInscriptionHandler>();
-			for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : transition.getIn())
+			for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : flatAccess.getIn(transition))
 			{
 				Arc hlArc = (Arc) arc;
 				if(hlArc.getHlinscription() != null && 
