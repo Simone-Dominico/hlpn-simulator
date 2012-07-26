@@ -43,9 +43,6 @@ public abstract class AbstractFunction implements IEvaluator
 			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
 			values.add(value);
 		}
-			
-		IMSValue ms = factory.createMSValue();
-		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
 		
 		IValue value = execute(values);
 		if(value != null)
@@ -53,6 +50,14 @@ public abstract class AbstractFunction implements IEvaluator
 			return value;
 		}
 		
+		IMSValue ms = factory.createMSValue();
+		ms.setSort(TermsFactory.eINSTANCE.createMultiSetSort());
+		
+		for(IValue v : values)
+		{
+			ms.put(v, 1);
+		}
+
 		return ms;
 	}
 	
