@@ -193,7 +193,7 @@ public class RuntimeStateManager
 		}
 		
 		// updates outgoing places
-		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : firingMode.getTransition().getOut())
+		for(org.pnml.tools.epnk.pnmlcoremodel.Arc arc : flatAccess.getOut(firingMode.getTransition()))
 		{
 			Place place = (Place)flatAccess.resolve((PlaceNode)arc.getTarget());
 			if(place != null)
