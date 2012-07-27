@@ -19,7 +19,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class MFunction extends AbstractFunction implements IEvaluator
+public class MFunction extends AbstractFunction
 {
     private List<IValue> messages = null;
     private List<NodeWrapper> nodes = null;

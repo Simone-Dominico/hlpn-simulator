@@ -23,7 +23,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class InputFunction extends AbstractFunction implements IEvaluator, ISortEvaluator
+public class InputFunction extends AbstractFunction implements ISortEvaluator
 {
 	protected List<Category> categories = null;
 	private List<NodeWrapper> nodes = null;

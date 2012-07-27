@@ -17,7 +17,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class RFFunction extends AbstractFunction implements IEvaluator
+public class RFFunction extends AbstractFunction
 {
     private List<IValue> messages = null;
 
