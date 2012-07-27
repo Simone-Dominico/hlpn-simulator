@@ -20,7 +20,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class NFunction extends AbstractFunction implements IEvaluator
+public class NFunction extends AbstractFunction
 {
 	private Integer[][] graph = null;
 	private Map<String, NodeWrapper> nodeMap = null;
