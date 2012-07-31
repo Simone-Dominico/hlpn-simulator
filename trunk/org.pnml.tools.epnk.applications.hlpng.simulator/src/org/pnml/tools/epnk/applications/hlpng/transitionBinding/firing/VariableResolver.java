@@ -130,55 +130,58 @@ public class VariableResolver
     {
         for(Entry<TermWrapper, String> entry : map.entrySet())
         {
-            try
-            {
-                Term term = HLPNGParser.getHLPNGParser().parseTerm(entry.getValue());
-
-                if(term != null)
+        	for(String value : entry.getValue().split(";\\s*"))
+        	{
+                try
                 {
-                	if(isGroundTerm(term))
-                	{
-                		if(entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
-                		{
-                			TermWrapper variable = entry.getKey();
+                    Term term = HLPNGParser.getHLPNGParser().parseTerm(value);
 
-                            final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
+                    if(term != null)
+                    {
+                    	if(isGroundTerm(term))
+                    	{
+                    		if(entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
+                    		{
+                    			TermWrapper variable = entry.getKey();
 
-                            if(termMap.containsKey(variable))
-                            {
-                                termMap.get(variable).getValues().addAll(values);
-                            }
-                            else
-                            {
-                                TermAssignment ta = new TermAssignment();
-                                ta.getValues().addAll(values);
-                                ta.setTermWrapper(variable);
+                                final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
 
-                                termMap.put(variable, ta);
-                            }	
-                		}
-                		else
-                		{
-                			MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
-                    		mb.setMessage("The required sort is: " + 
-                    				entry.getKey().getRootTerm().getSort() + "\n" +
-                    						"The given term sort is " + term.getSort());
+                                if(termMap.containsKey(variable))
+                                {
+                                    termMap.get(variable).getValues().addAll(values);
+                                }
+                                else
+                                {
+                                    TermAssignment ta = new TermAssignment();
+                                    ta.getValues().addAll(values);
+                                    ta.setTermWrapper(variable);
+
+                                    termMap.put(variable, ta);
+                                }	
+                    		}
+                    		else
+                    		{
+                    			MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                        		mb.setMessage("The required sort is: " + 
+                        				entry.getKey().getRootTerm().getSort() + "\n" +
+                        						"The given term sort is " + term.getSort());
+                        		mb.open();
+                    		}	
+                    	}
+                    	else
+                    	{
+                    		MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                    		mb.setMessage("The term " + value + " is not a " +
+                    				"ground term!");
                     		mb.open();
-                		}	
-                	}
-                	else
-                	{
-                		MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
-                		mb.setMessage("The term " + entry.getValue() + " is not a " +
-                				"ground term!");
-                		mb.open();
-                	}
+                    	}
+                    }
                 }
-            }
-            catch(Exception e)
-            {
-                System.err.println("WRN: " + e.getMessage());
-            }
+                catch(Exception e)
+                {
+                    System.err.println("WRN: " + e.getMessage());
+                }	
+        	}
         }
     }
     
