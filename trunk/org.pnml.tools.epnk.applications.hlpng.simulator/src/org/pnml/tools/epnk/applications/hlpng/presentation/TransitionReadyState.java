@@ -18,7 +18,7 @@ public class TransitionReadyState implements IState
 	{
 		overlay.setForegroundColor(ColorConstants.green);
 		overlay.setBackgroundColor(ColorConstants.green);
-		overlay.setState(new TransitionFiredState(overlay));
+		overlay.setState(new TransitionSelectedState(overlay));
 	}
 
 }
