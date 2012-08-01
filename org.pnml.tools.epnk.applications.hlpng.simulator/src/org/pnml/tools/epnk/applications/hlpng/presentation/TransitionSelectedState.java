@@ -4,11 +4,11 @@ import org.eclipse.draw2d.ColorConstants;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.IState;
 
-public class TransitionFiredState implements IState
+public class TransitionSelectedState implements IState
 {
 	protected AbstractRectangleOverlay overlay = null;
 	
-	public TransitionFiredState(AbstractRectangleOverlay overlay)
+	public TransitionSelectedState(AbstractRectangleOverlay overlay)
 	{
 		this.overlay = overlay;
 	}
