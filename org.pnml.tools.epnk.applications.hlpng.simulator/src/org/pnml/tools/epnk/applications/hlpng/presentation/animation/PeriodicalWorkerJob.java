@@ -14,7 +14,6 @@ import org.eclipse.ui.progress.UIJob;
 public class PeriodicalWorkerJob extends UIJob
 {
 	private IWorker worker = null;
-	private boolean stopped = true;
 	
 	public PeriodicalWorkerJob(Display jobDisplay, String name, IWorker worker)
     {
@@ -23,20 +22,10 @@ public class PeriodicalWorkerJob extends UIJob
 	    this.worker = worker;
     }
 
-	public boolean isStopped()
-    {
-    	return stopped;
-    }
-
-	public void setStopped(boolean stopped)
-    {
-    	this.stopped = stopped;
-    }
-
 	@Override
     public IStatus runInUIThread(IProgressMonitor monitor)
     {
-	    if(!stopped)
+	    if(!worker.isCompleted())
 	    {
 	    	worker.work();
 	    	schedule(worker.getSimulationPause());	

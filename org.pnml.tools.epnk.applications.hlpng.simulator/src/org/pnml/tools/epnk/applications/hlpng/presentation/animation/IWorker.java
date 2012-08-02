@@ -9,4 +9,5 @@ public interface IWorker
 {
 	public void work();
 	public long getSimulationPause();
+	public boolean isCompleted();
 }
