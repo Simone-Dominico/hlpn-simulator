@@ -48,6 +48,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	protected boolean autoModeEnabled;
 	
 	protected IFiringStrategy firingStrategy = null;
+	protected boolean completed = true;
 
 	private Action[] actions;
 	
@@ -186,10 +187,10 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
 	public void auto()
 	{
-		if(autoMode.isStopped())
+		if(completed)
 		{
 			autoModeEnabled = true;
-			autoMode.setStopped(false);
+			completed = false;
 			autoMode.runInUIThread(null);
 		}
 	}
@@ -197,7 +198,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	@Override
 	public void stop()
 	{
-		autoMode.setStopped(true);
+		completed = true;
 		autoModeEnabled = false;
 	}
 	
@@ -380,4 +381,10 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     {
     	this.simulationViewController = simulationViewController;
     }
+	
+	@Override
+	public boolean isCompleted()
+	{
+		return completed;
+	}
 }
