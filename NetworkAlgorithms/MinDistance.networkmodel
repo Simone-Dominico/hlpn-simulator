@@ -5,13 +5,13 @@
   <network xsi:type="networkmodel:Node" label="D" out="//@network.10" in="//@network.6 //@network.8 //@network.9" category="//@categories.1"/>
   <network xsi:type="networkmodel:Node" label="E" out="//@network.9 //@network.11" in="//@network.7" category="//@categories.1"/>
   <network xsi:type="networkmodel:Node" label="B" in="//@network.10 //@network.11" category="//@categories.0"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="C" source="A"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="D" source="A"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="E" source="C"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="D" source="C"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="D" source="E"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="B" source="D"/>
-  <network xsi:type="networkmodel:DirectedEdge" target="B" source="E"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="A" target="C"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="A" target="D"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="C" target="E"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="C" target="D"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="E" target="D"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="D" target="B"/>
+  <network xsi:type="networkmodel:DirectedEdge" source="E" target="B"/>
   <categories name="R" node="A B"/>
   <categories name="I" node="C D E"/>
 </networkmodel:Network>
