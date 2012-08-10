@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
@@ -15,7 +16,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
 public class UserOperatorEval implements IEvaluator
 {
-	private IEvaluator arbitraryOperatorEvaluator = null;
+	private List<IEvaluator> arbitraryOperatorEvaluators = null;
 	private EvaluationManager evaluationManager = null;
 	
 	public UserOperatorEval(EvaluationManager evaluationManager)
@@ -50,20 +51,26 @@ public class UserOperatorEval implements IEvaluator
 		}
 		if(userOperator.getDeclaration() instanceof ArbitraryOperator)
 		{
-			return arbitraryOperatorEvaluator.evaluate(term, evaluationManager, assignments);
+			for(IEvaluator aEval : arbitraryOperatorEvaluators)
+			{
+				if(aEval.validate(term) == null)
+				{
+					return aEval.evaluate(term, evaluationManager, assignments);
+				}
+			}
 		}
 		
 		throw new RuntimeException("Unknown user operator: " + term);
 	}
 
-	public IEvaluator getArbitraryOperatorEvaluator()
+	public List<IEvaluator> getArbitraryOperatorEvaluators()
     {
-    	return arbitraryOperatorEvaluator;
+    	return arbitraryOperatorEvaluators;
     }
 
-	public void setArbitraryOperatorEvaluator(IEvaluator arbitraryOperatorEvaluator)
+	public void setArbitraryOperatorEvaluators(List<IEvaluator> evals)
     {
-    	this.arbitraryOperatorEvaluator = arbitraryOperatorEvaluator;
+    	this.arbitraryOperatorEvaluators = evals;
     }
 
 	@Override
@@ -85,13 +92,25 @@ public class UserOperatorEval implements IEvaluator
 		}
 		if(userOperator.getDeclaration() instanceof ArbitraryOperator)
 		{
-			if(arbitraryOperatorEvaluator == null)
+			if(arbitraryOperatorEvaluators == null || arbitraryOperatorEvaluators.size() == 0)
 			{
 				ArbitraryOperator op = (ArbitraryOperator) userOperator.getDeclaration();
 				
 				return "The arbitrary operator\n" + op.getName();
 			}
-			return arbitraryOperatorEvaluator.validate(term);
+			for(IEvaluator aEval : arbitraryOperatorEvaluators)
+			{
+				if(aEval.validate(term) == null)
+				{
+					return null;
+				}
+			}
+			
+			if(term instanceof UserOperator)
+			{
+				String name = ((UserOperator)term).getDeclaration().getName();
+				return "(user defined) " + name;
+			}
 		}
 		
 		throw new RuntimeException("Unknown user operator: " + term);

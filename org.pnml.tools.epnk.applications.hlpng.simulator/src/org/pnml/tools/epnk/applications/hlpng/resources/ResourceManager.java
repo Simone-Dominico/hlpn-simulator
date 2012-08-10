@@ -1,6 +1,8 @@
 package org.pnml.tools.epnk.applications.hlpng.resources;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -22,6 +24,8 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Vari
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.BooleansEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ISortEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.SortEvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.DotsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
@@ -31,6 +35,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Multis
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.StringsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.TermsEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserSortEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.VariableEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AdditionEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.DivisionEval;
@@ -60,7 +65,8 @@ public class ResourceManager
 	public static EvaluationManager createEvaluationManager(RuntimeValueFactory factory,
 			String extensionId)
 	{
-		EvaluationManager evaluationManager = new EvaluationManager();
+		final EvaluationManager evaluationManager = new EvaluationManager();
+		final SortEvaluationManager sortManager = new SortEvaluationManager();
 		// integers package
 		evaluationManager.register(NumberConstantImpl.class.getPackage(), new IntegersEval());
 		// booleans package
@@ -81,6 +87,8 @@ public class ResourceManager
 		// user operations
 		UserOperatorEval userOperatorEval = new UserOperatorEval(evaluationManager);
 		evaluationManager.register(UserOperatorImpl.class, userOperatorEval);
+		UserSortEval userSortEval = new UserSortEval();
+		sortManager.register(UserSortImpl.class, userSortEval);
 		
 		evaluationManager.register(AdditionImpl.class, new AdditionEval());
 		evaluationManager.register(MultiplicationImpl.class, new MultiplicationEval());
@@ -90,23 +98,28 @@ public class ResourceManager
 		// user extensions
 		if(extensionId != null)
 		{
+			final List<IEvaluator> userExt = new ArrayList<IEvaluator>();
+			final List<ISortEvaluator> userSortExt = new ArrayList<ISortEvaluator>();
+			
 			IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor(extensionId);
 			for(IConfigurationElement e : config)
 			{
 				try
 				{
 					IUserExtensions arbitraryOperatorEval = (IUserExtensions) e.createExecutableExtension("class");
-					userOperatorEval.setArbitraryOperatorEvaluator(arbitraryOperatorEval);
-					
-					SortEvaluationManager manager = new SortEvaluationManager();
-					manager.register(UserSortImpl.class, arbitraryOperatorEval);
-					multisetsEval.setSortEvaluator(manager);
+					userExt.add(arbitraryOperatorEval);
+					userSortExt.add(arbitraryOperatorEval);
 				}
 				catch(CoreException e1)
 				{
 					e1.printStackTrace();
 				}
-			}	
+			}
+			
+			userOperatorEval.setArbitraryOperatorEvaluators(userExt);
+			userSortEval.setArbitraryOperatorEvaluators(userSortExt);
+			
+			multisetsEval.setSortEvaluator(sortManager);
 		}
 
 		return evaluationManager;

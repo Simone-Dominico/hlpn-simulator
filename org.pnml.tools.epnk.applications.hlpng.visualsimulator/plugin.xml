@@ -21,7 +21,7 @@
                id="org.pnml.tools.epnk.applications.hlpng.simulator.newAction"
                label="Start Visual Simulator App"
                menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
-               tooltip="Start high level Petri Net graph 3D visualization simulator">
+               tooltip="Start a high level Petri Net simulator for 3D visualization">
          </action>
       </objectContribution>
    </extension>
