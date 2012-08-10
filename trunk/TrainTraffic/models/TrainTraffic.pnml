@@ -415,7 +415,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="156" y="108" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="156" y="84" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2008" element="//@net.0/@page.1/@pageLabelProxy.0">
             <children xsi:type="notation:DecorationNode" visible="true" type="5003"/>
@@ -625,8 +625,8 @@
           <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.1/@toolspecific.0/@diagram/@children.28" target="//@net.0/@page.1/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
-            <bendpoints xsi:type="notation:RelativeBendpoints" points="[0, 0, 74, 59]$[-81, -78, -7, -19]"/>
-            <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.34375,0.0)"/>
+            <bendpoints xsi:type="notation:RelativeBendpoints" points="[-4, 0, 19, -76]$[-16, 0, 7, -76]$[-16, 57, 7, -19]"/>
+            <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.02702702702702703,0.3333333333333333)"/>
           </edges>
           <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.1/@toolspecific.0/@diagram/@children.30" target="//@net.0/@page.1/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
@@ -706,7 +706,7 @@
         </type>
         <hlinitialMarking>
           <graphics>
-            <offset x="40.0" y="-41.0"/>
+            <offset x="40.0" y="-65.0"/>
           </graphics>
           <structure>
             <add>
