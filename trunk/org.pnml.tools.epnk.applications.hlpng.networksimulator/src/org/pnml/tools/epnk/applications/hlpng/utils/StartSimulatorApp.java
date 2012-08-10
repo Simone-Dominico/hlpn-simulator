@@ -15,6 +15,7 @@ import networkmodel.UndirectedEdge;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -50,6 +51,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.Comp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.RandomFiringStrategy;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UserOperatorEval;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.validation.ValidationDelegateClientSelector;
@@ -118,9 +120,16 @@ public class StartSimulatorApp implements IObjectActionDelegate
                  
             UserOperatorEval userOperatorEval = 
                     (UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-            NetworkExtensionManager extensionManager = 
-            		(NetworkExtensionManager)userOperatorEval.getArbitraryOperatorEvaluator();
-            updateExtensionManager((Network)resource.getContents().get(0), nodes, extensionManager);
+            NetworkExtensionManager extensionManager = null;
+            for(IEvaluator eval : userOperatorEval.getArbitraryOperatorEvaluators())
+            {
+            	if(eval instanceof NetworkExtensionManager)
+            	{
+            		extensionManager = (NetworkExtensionManager) eval;
+            	}
+            }
+            updateExtensionManager((Network)resource.getContents().get(0), 
+    				nodes, extensionManager);
 
             // init the reversible operation manager
             ReversibleOperationManager reversibleOperationManager = 
@@ -152,21 +161,31 @@ public class StartSimulatorApp implements IObjectActionDelegate
             }
     		else
     		{
-                // init HLPNG simualtor
-                NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
-                        comparisonManager, reversibleOperationManager,
-                        Display.getCurrent().getSystemFont(), runtimeValueFactory,
-                        extensionManager, strategy);
-                
-    			// creates simulation view controller
-    			ISimulationViewController controller = new SimulationViewController();
-    			controller.setSimulator(simulator);
-    			simulator.setSimulationViewController(controller);
+                try
+                {
+	                // init HLPNG simualtor
+	                NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
+	                        comparisonManager, reversibleOperationManager,
+	                        Display.getCurrent().getSystemFont(), runtimeValueFactory,
+	                        extensionManager, strategy);
+	                
+	                // creates simulation view controller
+	                ISimulationViewController controller = new SimulationViewController();
+	                controller.setSimulator(simulator);
+	                simulator.setSimulationViewController(controller);
 
-                // registers the simulator
-                Activator activator = Activator.getInstance();
-                ApplicationRegistry registry = activator.getApplicationRegistry();
-                registry.addApplication(simulator);	
+	                // registers the simulator
+	                Activator activator = Activator.getInstance();
+	                ApplicationRegistry registry = activator.getApplicationRegistry();
+	                registry.addApplication(simulator);
+                }
+                catch(Exception e)
+                {
+                	IStatus s = new Status(Status.ERROR, status.getPlugin(), 
+    						"Are you running the Simulator on a network scheme model?\n" +
+    						"The Simulator is only applicable on network schemes.");
+    				ErrorDialog.openError(null, "Error", "Launching the Simulator failed.\n", s);
+                }	
     		}
         }
         else

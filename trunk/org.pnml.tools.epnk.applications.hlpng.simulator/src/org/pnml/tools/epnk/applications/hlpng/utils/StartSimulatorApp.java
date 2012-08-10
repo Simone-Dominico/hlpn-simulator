@@ -1,6 +1,7 @@
 package org.pnml.tools.epnk.applications.hlpng.utils;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.service.IBatchValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
@@ -70,19 +71,29 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		else
 		{
 			// creates a simulator
-			HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
-					comparisonManager, reversibleOperationManager,
-					Display.getDefault().getSystemFont(), runtimeValueFactory, 
-					strategy, true, Display.getCurrent());
-			// creates simulation view controller
-			ISimulationViewController controller = new SimulationViewController();
-			controller.setSimulator(application);
-			application.setSimulationViewController(controller);
-						
-			// registers the simulator
-			Activator activator = Activator.getInstance();
-			ApplicationRegistry registry = activator.getApplicationRegistry();
-			registry.addApplication(application);	
+			try
+			{
+				HLSimulator application = new HLSimulator(petrinet, evaluationManager, 
+						comparisonManager, reversibleOperationManager,
+						Display.getDefault().getSystemFont(), runtimeValueFactory, 
+						strategy, true, Display.getCurrent());
+				// creates simulation view controller
+				ISimulationViewController controller = new SimulationViewController();
+				controller.setSimulator(application);
+				application.setSimulationViewController(controller);
+							
+				// registers the simulator
+				Activator activator = Activator.getInstance();
+				ApplicationRegistry registry = activator.getApplicationRegistry();
+				registry.addApplication(application);	
+			}
+			catch (Exception e) 
+			{
+				IStatus s = new Status(Status.ERROR, status.getPlugin(), 
+						"Are you running the Simulator on a usual high level Petri net?\n" +
+						"The Simulator is not applicable on network schemes or 3D visualization.");
+				ErrorDialog.openError(null, "Error", "Launching the Simulator failed.\n", s);
+			}
 		}
 	}
 	

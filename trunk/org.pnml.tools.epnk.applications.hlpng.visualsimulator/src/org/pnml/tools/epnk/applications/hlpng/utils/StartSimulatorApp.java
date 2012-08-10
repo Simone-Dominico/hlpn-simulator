@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -102,8 +103,15 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			// set the Animator to each user defined evaluator
 			UserOperatorEval userOperatorEval = 
 					(UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-			ExtensionManager extensionManager = 
-					(ExtensionManager)userOperatorEval.getArbitraryOperatorEvaluator();
+			ExtensionManager extensionManager = null;
+			for(IEvaluator eval : userOperatorEval.getArbitraryOperatorEvaluators())
+			{
+				if(eval instanceof ExtensionManager)
+				{
+					extensionManager = (ExtensionManager) eval;
+				}
+			}
+					
 			for(IEvaluator eval : extensionManager.getEvaluators())
 			{
 				((AbstractFunction)eval).setAnimator(animator);
@@ -123,23 +131,33 @@ public class StartSimulatorApp implements IObjectActionDelegate
 	        }
 			else
 			{
-    			// init HLPNG simualtor
-    			VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
-    					comparisonManager, reversibleOperationManager,
-    					Display.getCurrent().getSystemFont(), animator, 
-    					config.getGeometry().getGlobalAppearancePath(), 
-    					config.getGeometry(), config.getShapes(), extensionManager,
-    					factory);
-    			
-    			// creates simulation view controller
-    			ISimulationViewController controller = new SimulationViewController();
-    			controller.setSimulator(simulator);
-    			simulator.setSimulationViewController(controller);
-    			
-    			// registers the simulator
-    			Activator activator = Activator.getInstance();
-    			ApplicationRegistry registry = activator.getApplicationRegistry();
-    			registry.addApplication(simulator);
+    			try
+                {
+	                // init HLPNG simualtor
+	                VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
+	                		comparisonManager, reversibleOperationManager,
+	                		Display.getCurrent().getSystemFont(), animator, 
+	                		config.getGeometry().getGlobalAppearancePath(), 
+	                		config.getGeometry(), config.getShapes(), extensionManager,
+	                		factory);
+	                
+	                // creates simulation view controller
+	                ISimulationViewController controller = new SimulationViewController();
+	                controller.setSimulator(simulator);
+	                simulator.setSimulationViewController(controller);
+	                
+	                // registers the simulator
+	                Activator activator = Activator.getInstance();
+	                ApplicationRegistry registry = activator.getApplicationRegistry();
+	                registry.addApplication(simulator);
+                }
+                catch(Exception e)
+                {
+                	IStatus s = new Status(Status.ERROR, status.getPlugin(), 
+    						"Are you running the Simulator on a model for 3D visualization?\n" +
+    						"The Simulator is only applicable on 3D visualizations.");
+    				ErrorDialog.openError(null, "Error", "Launching the Simulator failed.\n", s);
+                }
 			}
 		}
 		else
