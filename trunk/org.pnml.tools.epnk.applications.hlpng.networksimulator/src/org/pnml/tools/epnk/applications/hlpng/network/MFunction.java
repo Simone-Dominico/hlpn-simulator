@@ -1,4 +1,4 @@
-package org.pnml.tools.epnk.applications.hlpng.network.consensus;
+package org.pnml.tools.epnk.applications.hlpng.network;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +12,14 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
+import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
-public class RFFunction extends AbstractFunction
+public class MFunction extends AbstractFunction
 {
-    private List<IValue> messages = null;
-
     @Override
     public IValue evaluate(Term term, EvaluationManager evaluationManager,
             Map<TermWrapper, IValue> assignments) throws UnknownVariableException
@@ -39,8 +38,7 @@ public class RFFunction extends AbstractFunction
         IMSValue msValue = runtimeValueFactory.createMSValue();
         msValue.setSort(uOp.getOutputSort());
         
-        List<IValue> list = new ArrayList<IValue>(values);
-        for(IValue value : getMessagesBySender(list.get(0), messages))
+        for(IValue value : getMessages(graph, nodeIdMap))
         {
             msValue.put(value, 1);
         }
@@ -48,34 +46,40 @@ public class RFFunction extends AbstractFunction
         return msValue;
     }
     
-    private static List<IValue> getMessagesBySender(IValue sender, List<IValue> allMessages)
+    private static List<IValue> getMessages(Integer[][] graph,
+            Map<Integer, NodeWrapper> nodeIdMap)
     {
-        List<IValue> messages = new ArrayList<IValue>();
-        
-        for(IValue pValue : allMessages)
-        {
-            StringValue s = (StringValue)((ProductValue)pValue).getComponents().get(0);
-            if(s.getData().equals(((StringValue)sender).getData()))
-            {
-                messages.add(pValue);
-            }
-        }
-        return messages;
+    	List<IValue> messages = new ArrayList<IValue>();
+    	for(int i = 0; i < graph.length; i++)
+    	{
+    		for(int j = 0; j < graph[i].length; j++)
+        	{
+        		if(graph[i][j] != null)
+        		{
+        			StringValue strVal0 = new StringValue();
+                    strVal0.setData(nodeIdMap.get(i).getNode().getLabel());
+                    strVal0.setSort(TermsFactory.eINSTANCE.createUserSort());
+                    
+                    StringValue strVal1 = new StringValue();
+                    strVal1.setData(nodeIdMap.get(j).getNode().getLabel());
+                    strVal1.setSort(TermsFactory.eINSTANCE.createUserSort());
+                    
+                    ProductValue pValue = new ProductValue();
+                    pValue.setSort(TermsFactory.eINSTANCE.createProductSort());
+                    pValue.getComponents().add(strVal0);
+                    pValue.getComponents().add(strVal1);
+                    
+                    messages.add(pValue);   
+        		}
+        	}
+    	}
+    		 
+        return messages; 
     }
-    
+
 	@Override
     public String validate(Object term)
     {
 	    return null;
-    }
-
-	public List<IValue> getMessages()
-    {
-    	return messages;
-    }
-
-	public void setMessages(List<IValue> messages)
-    {
-    	this.messages = messages;
     }
 }
