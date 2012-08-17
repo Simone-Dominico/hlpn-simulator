@@ -37,14 +37,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.activator.Activator;
 import org.pnml.tools.epnk.applications.hlpng.contributors.NetworkExtensionManager;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.MFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.RBFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.RFFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.echo.M1Function;
-import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
+import org.pnml.tools.epnk.applications.hlpng.network.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
+import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -129,7 +126,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
             	}
             }
             updateExtensionManager((Network)resource.getContents().get(0), 
-    				nodes, extensionManager);
+    				nodes, extensionManager, runtimeValueFactory);
 
             // init the reversible operation manager
             ReversibleOperationManager reversibleOperationManager = 
@@ -164,11 +161,11 @@ public class StartSimulatorApp implements IObjectActionDelegate
                 try
                 {
 	                // init HLPNG simualtor
-	                NetworkSimulator simulator = new NetworkSimulator(petrinet, evaluationManager, 
+                	HLSimulator simulator = new HLSimulator(petrinet, evaluationManager, 
 	                        comparisonManager, reversibleOperationManager,
 	                        Display.getCurrent().getSystemFont(), runtimeValueFactory,
-	                        extensionManager, strategy);
-	                
+	                        strategy, true, Display.getCurrent());
+
 	                // creates simulation view controller
 	                ISimulationViewController controller = new SimulationViewController();
 	                controller.setSimulator(simulator);
@@ -226,7 +223,8 @@ public class StartSimulatorApp implements IObjectActionDelegate
     public void setActivePart(IAction action, IWorkbenchPart targetPart){}
     
     private static void updateExtensionManager(Network network, 
-    		List<NodeWrapper> nodes, NetworkExtensionManager extensionManager)
+    		List<NodeWrapper> nodes, NetworkExtensionManager extensionManager,
+    		RuntimeValueFactory runtimeValueFactory)
     {
         Map<String, NodeWrapper> nodeNameMap = new HashMap<String, NodeWrapper>();
         Map<Integer, NodeWrapper> nodeIdMap = new HashMap<Integer, NodeWrapper>();
@@ -257,35 +255,33 @@ public class StartSimulatorApp implements IObjectActionDelegate
         	extensionManager.getInputFunction().setCategories(network.getCategories());
         	extensionManager.getInputFunction().setNodes(nodes);
         	
+        	// sender
+        	extensionManager.getSender().setGraph(graph);
+        	extensionManager.getSender().setNodeIdMap(nodeIdMap);
+        	extensionManager.getSender().setNodeMap(nodeNameMap);
+        	
+        	// receiver
+        	extensionManager.getReceiver().setGraph(graph);
+        	extensionManager.getReceiver().setNodeIdMap(nodeIdMap);
+        	extensionManager.getReceiver().setNodeMap(nodeNameMap);
+        	
+        	// messages
+        	extensionManager.getMessages().setGraph(graph);
+        	extensionManager.getMessages().setNodeIdMap(nodeIdMap);
+        	extensionManager.getMessages().setNodeMap(nodeNameMap);
+        	
             // min dist
         	NFunction nf = (NFunction) extensionManager.getEvaluator("N");
         	nf.setGraph(graph);
         	nf.setNodeIdMap(nodeIdMap);
         	nf.setNodeMap(nodeNameMap);
-
-            // consensus in networks
-            MFunction mFunction = (MFunction) extensionManager.getEvaluator("M");
-            mFunction.setNodes(nodes);
-            
-            RFFunction fFunction = (RFFunction) extensionManager.getEvaluator("RF");
-            fFunction.setMessages(mFunction.getMessages());
-            RBFunction bFunction = (RBFunction) extensionManager.getEvaluator("RB");
-            bFunction.setMessages(mFunction.getMessages());
-            
-            // echo
-            {
-            	M1Function mf = (M1Function) extensionManager.getEvaluator("M1");
-                mf.setGraph(graph);
-                mf.setNodeIdMap(nodeIdMap);
-                mf.setNodeMap(nodeNameMap);
-            }
-            {
-            	M2Function mf = (M2Function) extensionManager.getEvaluator("M2");
-                mf.setGraph(graph);
-                mf.setNodeIdMap(nodeIdMap);
-                mf.setNodeMap(nodeNameMap);
-            }
         }
+        
+        for(IEvaluator evaluator : extensionManager.getEvaluators())
+		{
+			AbstractFunction function = (AbstractFunction) evaluator;
+			function.setRuntimeValueFactory(runtimeValueFactory);
+		}
     }
     
 

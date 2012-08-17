@@ -15,7 +15,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Evalua
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.ISortEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.utils.AbstractFunction;
 import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;

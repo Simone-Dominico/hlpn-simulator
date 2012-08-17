@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.pnml.tools.epnk.applications.hlpng.network.InputFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.MFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.RBFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.consensus.RFFunction;
-import org.pnml.tools.epnk.applications.hlpng.network.echo.M1Function;
-import org.pnml.tools.epnk.applications.hlpng.network.echo.M2Function;
+import org.pnml.tools.epnk.applications.hlpng.network.MFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.RFunction;
+import org.pnml.tools.epnk.applications.hlpng.network.SFunction;
 import org.pnml.tools.epnk.applications.hlpng.network.mindist.NFunction;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions.IUserExtensions;
@@ -28,26 +26,32 @@ public class NetworkExtensionManager implements IUserExtensions
 {
 	private Map<String, IEvaluator> handlers = new HashMap<String, IEvaluator>();
 	private InputFunction inputFunction = null;
+	private SFunction sender = null;
+	private RFunction receiver = null;
+	private MFunction messages = null;
 	
 	public NetworkExtensionManager()
 	{
 		this.inputFunction = new InputFunction();
+		this.sender = new SFunction();
+		this.receiver = new RFunction();
+		this.messages = new MFunction();
 		
+		register("S", sender);
+        register("R", receiver);
+        register("M", messages);
+        
 		// min dist
         register("N", new NFunction());
-        register("R", inputFunction);
+        register("ROOT", inputFunction);
+        register("I", inputFunction);
         
         // consensus in networks
         register("U", inputFunction);
-        register("M", new MFunction());
-        register("RF", new RFFunction());
-        register("RB", new RBFunction());
 
         // echo
         register("Initiators", inputFunction);
         register("Others", inputFunction);
-        register("M1", new M1Function());
-        register("M2", new M2Function());
 	}
 	
 	public void register(String name, IEvaluator eval)
@@ -124,5 +128,20 @@ public class NetworkExtensionManager implements IUserExtensions
 	    	return inputFunction.evaluate(sort);
 	    }
 	    return null;
+    }
+
+	public SFunction getSender()
+    {
+    	return sender;
+    }
+
+	public RFunction getReceiver()
+    {
+    	return receiver;
+    }
+
+	public MFunction getMessages()
+    {
+    	return messages;
     }
 }
