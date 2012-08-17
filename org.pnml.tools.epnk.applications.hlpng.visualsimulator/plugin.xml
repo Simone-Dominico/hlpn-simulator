@@ -6,7 +6,7 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             objectClass="org.pnml.tools.epnk.pnmlcoremodel.PetriNet"
-            id="org.pnml.tools.epnk.applications.hlpng.simulator.startsimulatorapp">
+            id="org.pnml.tools.epnk.applications.hlpng.simulator.startvisualsimulatorapp">
          <menu
                label="ePNK"
                path="additions"
@@ -18,7 +18,7 @@
          <action
                class="org.pnml.tools.epnk.applications.hlpng.utils.StartSimulatorApp"
                enablesFor="1"
-               id="org.pnml.tools.epnk.applications.hlpng.simulator.newAction"
+               id="org.pnml.tools.epnk.applications.hlpng.simulator.startvisualsimulatorapp"
                label="Start Visual Simulator App"
                menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
                tooltip="Start a high level Petri Net simulator for 3D visualization">
