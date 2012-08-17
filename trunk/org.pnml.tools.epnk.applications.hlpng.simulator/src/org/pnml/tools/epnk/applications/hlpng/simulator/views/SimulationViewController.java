@@ -16,6 +16,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
 public class SimulationViewController implements ISimulationViewController
 {
@@ -49,7 +50,7 @@ public class SimulationViewController implements ISimulationViewController
 				{
 					final String[] text = new String[] 
 							{
-								firingMode.getTransition().getId(), 
+								getName(firingMode.getTransition()), 
 								firingMode.toString()
 							};
 
@@ -72,6 +73,15 @@ public class SimulationViewController implements ISimulationViewController
 		}
 	}
 	
+	private static String getName(Transition t)
+	{
+		if(t.getName() != null)
+		{
+			return t.getName().getText();
+		}
+		return t.getId();
+	}
+	
 	@Override
     public void record(final IRuntimeState runtimeState)
 	{
@@ -81,7 +91,7 @@ public class SimulationViewController implements ISimulationViewController
 			
 			final String[] text = new String[] 
 					{
-						firingMode.getTransition().getId(), 
+						getName(firingMode.getTransition()), 
 						firingMode.toString()
 					};
 

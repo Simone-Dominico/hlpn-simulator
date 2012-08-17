@@ -19,8 +19,8 @@ public class SimulationView extends ViewPart
 	 */
 	public static final String ID = "org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView";
 
-	private static final String[] columnHead = new String[] { "Transition ID", "Firing mode" };
-	private static final int[] columnWidth = new int[] { 100, 500 };
+	private static final String[] columnHead = new String[] { "Transition name", "Firing mode" };
+	private static final int[] columnWidth = new int[] { 150, 500 };
 	private static final int[] columnAlignment = new int[] { SWT.LEFT, SWT.LEFT };
 
 	private TableViewer viewer;
