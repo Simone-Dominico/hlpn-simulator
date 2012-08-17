@@ -99,6 +99,19 @@ public class TransitionManager
 					throws DependencyException, UnknownVariableException
 	{		
 		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
+		
+		// no incoming arcs
+		if(incomingArcs.keySet().size() == 0)
+		{
+			List<FiringMode> modes = new ArrayList<FiringMode>();
+			FiringMode mode = new FiringMode();
+			mode.setTransition(transition);
+			mode.setParams(new HashMap<TermWrapper,IValue>());
+			mode.setValues(new HashMap<IDWrapper, IMSValue>());
+			modes.add(mode);
+			return modes;
+		}
+		
 		// each inscription variable/term assignments
 		Map<TermWrapper, TermAssignment> globalMap = new HashMap<TermWrapper, TermAssignment>();
 
