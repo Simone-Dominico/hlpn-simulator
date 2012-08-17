@@ -12,6 +12,6 @@
   <network xsi:type="networkmodel:DirectedEdge" source="E" target="D"/>
   <network xsi:type="networkmodel:DirectedEdge" source="D" target="B"/>
   <network xsi:type="networkmodel:DirectedEdge" source="E" target="B"/>
-  <categories name="R" node="A B"/>
+  <categories name="ROOT" node="A B"/>
   <categories name="I" node="C D E"/>
 </networkmodel:Network>
