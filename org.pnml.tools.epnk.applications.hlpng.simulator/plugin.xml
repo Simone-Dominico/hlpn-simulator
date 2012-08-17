@@ -20,7 +20,7 @@
          <action
                class="org.pnml.tools.epnk.applications.hlpng.utils.StartSimulatorApp"
                enablesFor="1"
-               id="org.pnml.tools.epnk.applications.hlpng.simulator.newAction"
+               id="org.pnml.tools.epnk.applications.hlpng.simulator.startsimulatorapp"
                label="Start Simulator App"
                menubarPath="org.pnml.tools.epnk.actions.standardmenu/group1"
                tooltip="Start high level Petri Net graph simulator">
