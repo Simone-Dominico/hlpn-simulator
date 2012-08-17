@@ -89,6 +89,7 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			}
 			catch (Exception e) 
 			{
+				System.err.println(e);
 				IStatus s = new Status(Status.ERROR, status.getPlugin(), 
 						"Are you running the Simulator on a usual high level Petri net?\n" +
 						"The Simulator is not applicable on network schemes or 3D visualization.");
