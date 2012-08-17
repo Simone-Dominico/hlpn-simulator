@@ -15,4 +15,5 @@ public interface ISimulationViewController extends ISelectionChangedListener
 	public Action[] getActions();
 	public void setSimulator(ISimulator simulator);
 	public void shutDown();
+	public void highlightLine(int index);
 }

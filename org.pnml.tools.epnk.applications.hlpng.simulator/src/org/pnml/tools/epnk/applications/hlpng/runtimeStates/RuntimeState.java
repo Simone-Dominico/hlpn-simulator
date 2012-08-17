@@ -166,4 +166,18 @@ public class RuntimeState implements IRuntimeState
     {
     	this.next = next;
     }
+	
+	public int getIndex()
+	{
+		int i = 0;
+		
+		RuntimeState tmp = this;
+		while(tmp.previous != null)
+		{
+			tmp = tmp.previous;
+			i++;
+		}
+		
+		return i;
+	}
 }

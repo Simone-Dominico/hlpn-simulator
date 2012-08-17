@@ -15,6 +15,7 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.marking.NetMarkingMan
 import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.RuntimeStateManager;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
@@ -363,6 +364,11 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	{
 		NetMarking netMarking = netManager.createNetMarking(state);
 		netAnnotations.setCurrent(netMarking);
+		
+		if(simulationViewController != null)
+		{
+			simulationViewController.highlightLine(((RuntimeState)state).getIndex());
+		}
 	}
 
 	@Override
