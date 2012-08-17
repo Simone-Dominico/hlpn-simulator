@@ -577,7 +577,7 @@
             <offset x="-68.0" y="-32.0"/>
           </graphics>
           <structure>
-            <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+            <usersort declaration="id1"/>
           </structure>
           <text>SITE</text>
         </type>
@@ -586,7 +586,7 @@
             <offset x="-42.0" y="25.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.0"/>
+            <useroperator declaration="id3"/>
           </structure>
           <text>U()</text>
         </hlinitialMarking>
@@ -743,7 +743,7 @@
             <offset x="-57.0" y="12.0"/>
           </graphics>
           <structure>
-            <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.1"/>
+            <usersort declaration="id2"/>
           </structure>
           <text>MESSAGE</text>
         </type>
@@ -752,7 +752,7 @@
             <offset x="55.0" y="36.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.1"/>
+            <useroperator declaration="id4"/>
           </structure>
           <text>M()</text>
         </hlinitialMarking>
@@ -768,13 +768,13 @@
             <offset x="-15.0" y="9.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.2">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>RF(x)</text>
+          <text>R(x)</text>
         </hlinscription>
       </arc>
       <arc id="a6" source="p2" target="t3">
@@ -787,13 +787,13 @@
             <offset x="-20.0" y="7.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.2">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>RF(x)</text>
+          <text>R(x)</text>
         </hlinscription>
       </arc>
       <arc id="a7" source="p2" target="t2">
@@ -806,13 +806,13 @@
             <offset x="-50.0" y="21.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.2">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>RF(x)</text>
+          <text>R(x)</text>
         </hlinscription>
       </arc>
       <arc id="a8" source="p1" target="t3">
@@ -887,7 +887,7 @@
             <offset x="-64.0" y="21.0"/>
           </graphics>
           <structure>
-            <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.1"/>
+            <usersort declaration="id2"/>
           </structure>
           <text>MESSAGE</text>
         </type>
@@ -933,13 +933,13 @@
             <offset x="-7.0" y="9.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="//@net.0/@page.0/@declaration.2/@structure/@declaration.3">
+            <useroperator declaration="id5">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
             </useroperator>
           </structure>
-          <text>RB(x)</text>
+          <text>S(x)</text>
         </hlinscription>
       </arc>
       <transition id="t4">
@@ -1058,7 +1058,7 @@
             <offset x="40.0" y="41.0"/>
           </graphics>
           <structure>
-            <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+            <usersort declaration="id1"/>
           </structure>
           <text>SITE</text>
         </type>
@@ -1118,11 +1118,11 @@
         </graphics>
         <structure>
           <declarations>
-            <arbitrarysort name="SITE"/>
-            <namedsort name="MESSAGE">
+            <arbitrarysort id="id1" name="SITE"/>
+            <namedsort id="id2" name="MESSAGE">
               <productsort>
-                <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
-                <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+                <usersort declaration="id1"/>
+                <usersort declaration="id1"/>
               </productsort>
             </namedsort>
           </declarations>
@@ -1140,10 +1140,10 @@ sorts
         <structure>
           <declarations>
             <variabledecl id="id7" name="x">
-              <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+              <usersort declaration="id1"/>
             </variabledecl>
             <variabledecl id="id8" name="y">
-              <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+              <usersort declaration="id1"/>
             </variabledecl>
           </declarations>
         </structure>
@@ -1158,37 +1158,37 @@ sorts
         </graphics>
         <structure>
           <declarations>
-            <arbitraryoperator name="U">
+            <arbitraryoperator id="id3" name="U">
               <output>
                 <multisetsort>
-                  <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+                  <usersort declaration="id1"/>
                 </multisetsort>
               </output>
             </arbitraryoperator>
-            <arbitraryoperator name="M">
+            <arbitraryoperator id="id4" name="M">
               <output>
                 <multisetsort>
-                  <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.1"/>
+                  <usersort declaration="id2"/>
                 </multisetsort>
               </output>
             </arbitraryoperator>
-            <arbitraryoperator name="RF">
+            <arbitraryoperator id="id5" name="S">
               <input>
-                <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+                <usersort declaration="id1"/>
               </input>
               <output>
                 <multisetsort>
-                  <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.1"/>
+                  <usersort declaration="id2"/>
                 </multisetsort>
               </output>
             </arbitraryoperator>
-            <arbitraryoperator name="RB">
+            <arbitraryoperator id="id6" name="R">
               <input>
-                <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.0"/>
+                <usersort declaration="id1"/>
               </input>
               <output>
                 <multisetsort>
-                  <usersort declaration="//@net.0/@page.0/@declaration.0/@structure/@declaration.1"/>
+                  <usersort declaration="id2"/>
                 </multisetsort>
               </output>
             </arbitraryoperator>
@@ -1197,8 +1197,8 @@ sorts
         <text>opsymbols
    U:->MS(SITE),
    M:->MS(MESSAGE),
-   RF:SITE->MS(MESSAGE),
-   RB:SITE->MS(MESSAGE);</text>
+   S:SITE->MS(MESSAGE),
+   R:SITE->MS(MESSAGE);</text>
       </declaration>
     </page>
   </net>

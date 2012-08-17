@@ -383,6 +383,10 @@
         <labelProxy label="//@net.0/@page.0/@object.16/@hlinscription"/>
         <labelProxy label="//@net.0/@page.0/@object.17/@hlinscription"/>
       </toolspecific>
+      <graphics>
+        <line shape="line" color="#000000" width="1.0"/>
+        <fill color="#ffffff"/>
+      </graphics>
       <place id="p1">
         <name>
           <graphics>
@@ -410,7 +414,7 @@
           <structure>
             <useroperator declaration="id4"/>
           </structure>
-          <text>R()</text>
+          <text>ROOT()</text>
         </hlinitialMarking>
       </place>
       <transition id="t1">
@@ -450,7 +454,7 @@
             <offset x="6.0" y="26.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="id6"/>
+            <useroperator declaration="id5"/>
           </structure>
           <text>I()</text>
         </hlinitialMarking>
@@ -546,7 +550,7 @@
             <offset x="-46.0" y="-5.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="id5">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
@@ -603,7 +607,7 @@
             <offset x="12.0" y="6.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="id5">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
@@ -782,7 +786,7 @@
             <offset x="-92.0" y="1.0"/>
           </graphics>
           <structure>
-            <useroperator declaration="id5">
+            <useroperator declaration="id6">
               <subterm>
                 <variable refvariable="id7"/>
               </subterm>
@@ -886,14 +890,21 @@
                 <natural/>
               </productsort>
             </namedsort>
-            <arbitraryoperator id="id4" name="R">
+            <arbitraryoperator id="id4" name="ROOT">
               <output>
                 <multisetsort>
                   <usersort declaration="id1"/>
                 </multisetsort>
               </output>
             </arbitraryoperator>
-            <arbitraryoperator id="id5" name="N">
+            <arbitraryoperator id="id5" name="I">
+              <output>
+                <multisetsort>
+                  <usersort declaration="id1"/>
+                </multisetsort>
+              </output>
+            </arbitraryoperator>
+            <arbitraryoperator id="id6" name="N">
               <input>
                 <usersort declaration="id1"/>
               </input>
@@ -906,21 +917,6 @@
                 </multisetsort>
               </output>
             </arbitraryoperator>
-            <namedoperator id="id6" name="I">
-              <parameter/>
-              <def>
-                <subtract>
-                  <subterm>
-                    <all>
-                      <usersort declaration="id1"/>
-                    </all>
-                  </subterm>
-                  <subterm>
-                    <useroperator declaration="id4"/>
-                  </subterm>
-                </subtract>
-              </def>
-            </namedoperator>
           </declarations>
         </structure>
         <text>sortsymbols
@@ -931,12 +927,9 @@ sorts
    DISTANCE=(AGENT*NAT);
 
 opsymbols
-   R:->MS(AGENT),
-   N:AGENT,NAT->MS(MESSAGE);
-
-ops
-   I()=all:AGENT -- R();
-</text>
+   ROOT:->MS(AGENT),
+   I:->MS(AGENT),
+   N:AGENT,NAT->MS(MESSAGE);</text>
       </declaration>
       <declaration>
         <graphics>
