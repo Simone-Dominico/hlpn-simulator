@@ -24,7 +24,6 @@ public class SimulationViewController implements ISimulationViewController
 	private final SimulationViewController me = this;
 	
 	protected ISimulator simulator = null;
-	protected SimulationView simulationView = null;
 	protected Display display = null;
 	protected List<TableRecord> records = new ArrayList<TableRecord>();
 	
@@ -32,7 +31,7 @@ public class SimulationViewController implements ISimulationViewController
 
 	public SimulationViewController()
 	{
-		init();
+		this.display = Display.getCurrent();
 	}
 
 	@Override
@@ -62,6 +61,7 @@ public class SimulationViewController implements ISimulationViewController
 			}
 		}
 		
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null) 
 		{	
 			display.asyncExec(new Runnable()
@@ -100,7 +100,8 @@ public class SimulationViewController implements ISimulationViewController
 		
 		// registers the record
 		this.records.add(record);
-			
+		
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null) 
 		{
 			display.asyncExec(new Runnable()
@@ -116,10 +117,12 @@ public class SimulationViewController implements ISimulationViewController
 	@Override
     public void clear()
 	{
+		// clears the records
+		this.records.clear();
+					
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null) 
 		{
-			// clears the records
-			this.records.clear();
 			display.syncExec(new Runnable()
 			{
 				public void run()
@@ -133,6 +136,7 @@ public class SimulationViewController implements ISimulationViewController
 	@Override
     public void setCurrent()
 	{
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null) 
 		{
 			simulationView.setCurrentController(me);
@@ -147,32 +151,28 @@ public class SimulationViewController implements ISimulationViewController
 		}
 	}
 	
-	private void init()
+	private SimulationView getSimulationView()
     {
 		try
 		{
     		if(PlatformUI.getWorkbench() != null && 
     				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
-    				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null &&
-    				simulationView == null)
+    				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
     		{
     			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
     			IViewPart view = activePage.findView(SimulationView.ID);
     			
     			if(view instanceof SimulationView)
     			{
-    				simulationView = (SimulationView) view;	
+    				return (SimulationView) view;	
     			}
-    		}
-    		if(display == null)
-    		{
-    			display = Display.getCurrent();
     		}
 		}
 		catch(Exception e)
 		{
 			System.err.println(e.getMessage());
 		}
+		return null;
     }
 
 	@Override
@@ -183,6 +183,7 @@ public class SimulationViewController implements ISimulationViewController
 	
 	private void callback()
 	{
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null)
 		{
 			Object data = currentData(simulationView.getViewer());
@@ -244,6 +245,7 @@ public class SimulationViewController implements ISimulationViewController
 	public void shutDown()
 	{
 		clear();
+		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null) 
 		{
 			simulationView.reset(this);
