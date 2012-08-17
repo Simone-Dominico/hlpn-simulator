@@ -1,8 +1,6 @@
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
-import simulator.ISimulator;
-
-public interface IVisualSimulator extends ISimulator
+public interface IVisualSimulator extends dk.dtu.imm.se2.group6.interfaces.ISimulator
 {
 	public void registerAnimation(int id);
 	public boolean isReady(int id);
