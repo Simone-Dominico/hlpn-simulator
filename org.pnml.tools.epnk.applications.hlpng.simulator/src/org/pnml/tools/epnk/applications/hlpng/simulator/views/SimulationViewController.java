@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.pnml.tools.epnk.applications.hlpng.resources.ResourceManager;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeStateContainer;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
@@ -37,32 +38,32 @@ public class SimulationViewController implements ISimulationViewController
 	@Override
     public void resetRecords(final IRuntimeStateContainer runtimeStates)
 	{
-		if(simulationView != null) 
+		this.records = new ArrayList<TableRecord>();
+		
+		for(IRuntimeState runtimeState : runtimeStates)
 		{
-			this.records = new ArrayList<TableRecord>();
+			FiringMode firingMode = runtimeState.getFiringMode();
 			
-			for(IRuntimeState runtimeState : runtimeStates)
+			// the last state does not have a firing mode assigned
+			if(firingMode != null)
 			{
-				FiringMode firingMode = runtimeState.getFiringMode();
-				
-				// the last state does not have a firing mode assigned
-				if(firingMode != null)
-				{
-					final String[] text = new String[] 
-							{
-								getName(firingMode.getTransition()), 
-								firingMode.toString()
-							};
+				final String[] text = new String[] 
+						{
+							getName(firingMode.getTransition()), 
+							firingMode.toString()
+						};
 
-					final TableRecord record = new TableRecord();
-					record.setData(runtimeState);
-					record.setText(text);
-					
-					// registers the record
-					this.records.add(record);	
-				}
+				final TableRecord record = new TableRecord();
+				record.setData(runtimeState);
+				record.setText(text);
+				
+				// registers the record
+				this.records.add(record);	
 			}
-			
+		}
+		
+		if(simulationView != null) 
+		{	
 			display.asyncExec(new Runnable()
 			{
 				public void run()
@@ -85,22 +86,23 @@ public class SimulationViewController implements ISimulationViewController
 	@Override
     public void record(final IRuntimeState runtimeState)
 	{
+		FiringMode firingMode = runtimeState.getFiringMode();
+		
+		final String[] text = new String[] 
+				{
+					getName(firingMode.getTransition()), 
+					firingMode.toString()
+				};
+
+		final TableRecord record = new TableRecord();
+		record.setData(runtimeState);
+		record.setText(text);
+		
+		// registers the record
+		this.records.add(record);
+			
 		if(simulationView != null) 
 		{
-			FiringMode firingMode = runtimeState.getFiringMode();
-			
-			final String[] text = new String[] 
-					{
-						getName(firingMode.getTransition()), 
-						firingMode.toString()
-					};
-
-			final TableRecord record = new TableRecord();
-			record.setData(runtimeState);
-			record.setText(text);
-			
-			// registers the record
-			this.records.add(record);
 			display.asyncExec(new Runnable()
 			{
 				public void run()
@@ -211,20 +213,22 @@ public class SimulationViewController implements ISimulationViewController
 			
 			// clear
 			{
-				actions[0] = new Action("Clear all")
+				actions[0] = new Action("Reset")
 				{
 					public void run()
 					{
-						if(simulationView != null)
-						{
-							simulationView.getViewer().getTable().removeAll();
-							records.clear();	
-						}
+						simulator.reset();
 					}
 				};
-				actions[0].setToolTipText("Clear all");
-				actions[0].setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-				        .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));	
+				actions[0].setToolTipText("Reset");
+				{
+					ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+							ResourceManager.SIMULATOR_PLUGIN_ID);
+					if(desc != null)
+					{
+						actions[0].setImageDescriptor(desc);	
+					}
+				}	
 			}
 		}
 		return actions;
