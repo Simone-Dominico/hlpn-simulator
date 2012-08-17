@@ -7,6 +7,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IViewPart;
@@ -186,7 +187,7 @@ public class SimulationViewController implements ISimulationViewController
 		final SimulationView simulationView = getSimulationView();
 		if(simulationView != null)
 		{
-			Object data = currentData(simulationView.getViewer());
+			Object data = currentData(simulationView.getViewer(), display);
 			if(data != null && simulator != null)
 			{
 				simulator.show((IRuntimeState)data);
@@ -194,15 +195,44 @@ public class SimulationViewController implements ISimulationViewController
 		}
 	}
 
-	private static Object currentData(TableViewer viewer)
+	private static Object currentData(TableViewer viewer, Display display)
 	{
+		viewer.getTable().getItems()[0].setGrayed(true);
 		TableItem[] items = viewer.getTable().getSelection();
 		if(items != null && items.length > 0)
 		{
-			return items[0].getData();
+			final TableItem item = items[0]; 
+			
+			markCurrentLine(viewer, item, display);
+					
+			return item.getData();
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public void highlightLine(int index)
+	{
+		final SimulationView simulationView = getSimulationView();
+		if(simulationView != null && index >= 0 && 
+				index < simulationView.getViewer().getTable().getItemCount()) 
+		{
+			markCurrentLine(simulationView.getViewer(), 
+					simulationView.getViewer().getTable().getItem(index), display);
+		}
+	}
+	
+	private static void markCurrentLine(TableViewer viewer, TableItem item, Display display)
+	{
+		for(final TableItem i : viewer.getTable().getItems())
+		{
+			i.setForeground(new Color(display, 0, 0, 0));
+			i.setBackground(new Color(display, 255, 255, 255));
+		}
+		
+		item.setForeground(new Color(display, 255, 255, 255));
+		item.setBackground(new Color(display, 0, 200, 0));
 	}
 	
 	@Override
