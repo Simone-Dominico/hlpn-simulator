@@ -45,7 +45,7 @@ public class NetMarkingManager
         	Transition transition = (Transition)wrapper.getId();
         	// marks as fired
         	if(state.getFiringMode() != null && 
-        			state.getFiringMode().getTransition().getId().equals(transition.getId()))
+        			state.getFiringMode().getTransition().equals(transition))
         	{
         		marking.setFired(true);
         	}
