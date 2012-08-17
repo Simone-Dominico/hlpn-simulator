@@ -211,6 +211,16 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			simulationViewController.shutDown();
 		}
 	}
+	
+	@Override
+	public String getStatus()
+	{
+		if(completed)
+		{
+			return "idle";
+		}
+		return "running";
+	}
 
 	@Override
     public void work()
