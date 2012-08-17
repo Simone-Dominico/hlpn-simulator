@@ -6,24 +6,23 @@ public class IDWrapper
 {
 	private ID id = null;
 
-	private Integer hashCodeCache = null;
-	
 	public IDWrapper(ID id)
 	{
 		this.id = id;
 	}
 	
+	public ID getId()
+    {
+    	return id;
+    }
+
 	@Override
     public int hashCode()
     {
-		if(hashCodeCache == null)
-		{
-			final int prime = 31;
-		    int result = 1;
-		    result = prime * result + ((id.getId() == null) ? 0 : id.getId().hashCode());
-		    hashCodeCache = result;
-		}
-	    return hashCodeCache;
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((id == null) ? 0 : id.hashCode());
+	    return result;
     }
 
 	@Override
@@ -42,22 +41,17 @@ public class IDWrapper
 		    return false;
 	    }
 	    IDWrapper other = (IDWrapper) obj;
-	    if(id.getId() == null)
+	    if(id == null)
 	    {
-		    if(other.id.getId() != null)
+		    if(other.id != null)
 		    {
 			    return false;
 		    }
 	    }
-	    else if(!id.getId().equals(other.id.getId()))
+	    else if(!id.equals(other.id))
 	    {
 		    return false;
 	    }
 	    return true;
-    }
-
-	public ID getId()
-    {
-    	return id;
     }
 }
