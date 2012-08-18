@@ -253,7 +253,7 @@ public class SimulationViewController implements ISimulationViewController
 				};
 				actions[0].setToolTipText("Reset");
 				{
-					ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+					ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/terminatedlaunch_obj.gif",
 							ResourceManager.SIMULATOR_PLUGIN_ID);
 					if(desc != null)
 					{
