@@ -11,20 +11,17 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.popup.AbstractMenuIte
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class TransitionOverlay extends AbstractRectangleOverlay
 {
-	final protected Transition transition;
 	final protected TransitionMarking marking;
 	final protected ISimulator simulator;
 
 	public TransitionOverlay(final IApplicationWithPresentation simulator, 
-			final IFigure figure, final Transition transition, final TransitionMarking marking)
+			final IFigure figure, final TransitionMarking marking)
 	{
 		super(figure);
 		
-		this.transition = transition;
 		this.marking = marking;
 		this.simulator = (ISimulator)simulator;
 		
