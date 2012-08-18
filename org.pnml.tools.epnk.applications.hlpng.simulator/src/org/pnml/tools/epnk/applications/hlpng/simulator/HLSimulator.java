@@ -91,8 +91,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	    		this.runtimeValueFactory, this.transitionManager, this.evaluationManager);
 	    
 		this.presentationManager = new SimulatorPresentationManager(this, font);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet,  
-				comparisonManager, reversibleOperationManager);
+		this.netMarkingManager= new NetMarkingManager(this.petrinet, this.flatAccess);
 		
 		// computing initial state
 		IRuntimeState initialState = this.runtimeStateManager.
@@ -281,7 +280,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			actions[0].setText("Previous");
 			actions[0].setToolTipText("Show previous");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/back.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/nav_backward.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -297,7 +296,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			actions[1].setText("Run");
 			actions[1].setToolTipText("Automatic mode");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/play.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/lrun_obj.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -314,7 +313,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			actions[2].setText("Stop");
 			actions[2].setToolTipText("Stop current execution");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/stop.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/pause.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -331,7 +330,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			actions[3].setText("Next");
 			actions[3].setToolTipText("Show next");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/next.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/nav_forward.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -348,7 +347,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			actions[4].setText("Reset");
 			actions[4].setToolTipText("Show reset");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/terminatedlaunch_obj.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{

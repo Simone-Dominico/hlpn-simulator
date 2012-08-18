@@ -245,7 +245,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[0].setText("Start");
 			actions[0].setToolTipText("Start the simulation");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/play.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/lrun_obj.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -262,7 +262,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[1].setText("Stop");
 			actions[1].setToolTipText("Stop the simulation");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/stop.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/pause.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
@@ -280,7 +280,7 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator
 			actions[2].setText("Reset");
 			actions[2].setToolTipText("Reset the simulation");
 			{
-				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/reset.png",
+				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/terminatedlaunch_obj.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
 				if(desc != null)
 				{
