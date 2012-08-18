@@ -12,8 +12,6 @@ import org.pnml.tools.epnk.applications.hlpng.presentation.marking.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.popup.SelectionHandler;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Place;
-import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class SimulatorPresentationManager implements IPresentationManager
 {
@@ -36,10 +34,9 @@ public class SimulatorPresentationManager implements IPresentationManager
 		if(objectAnnotation instanceof TransitionMarking)
 		{			
 			TransitionMarking marking = (TransitionMarking) objectAnnotation;
-			Transition transition = marking.getTransition();
 
 			TransitionOverlay coloredMarking = new TransitionOverlay(simulator,
-					graphicalEditPart.getFigure(), transition, marking);
+					graphicalEditPart.getFigure(), marking);
 			coloredMarking.addMouseListener(selectionHandler);
 			
 			if(marking.isFired())
@@ -52,7 +49,7 @@ public class SimulatorPresentationManager implements IPresentationManager
 		else if(objectAnnotation instanceof PlaceMarking)
 		{
 			PlaceMarking marking = (PlaceMarking) objectAnnotation;
-			Place place = marking.getPlace();
+			org.pnml.tools.epnk.pnmlcoremodel.Object place = marking.getObject();
 			
 			StringBuffer names = new StringBuffer();
 			if(place.getName() != null)
