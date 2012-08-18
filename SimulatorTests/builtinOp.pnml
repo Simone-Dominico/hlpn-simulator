@@ -47,7 +47,7 @@
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="360" y="96" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="300" y="96" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.5">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
@@ -235,7 +235,7 @@
         </graphics>
         <hlinscription>
           <graphics>
-            <offset x="12.0" y="43.0"/>
+            <offset x="-48.0" y="43.0"/>
           </graphics>
           <structure>
             <numberof>
@@ -245,20 +245,15 @@
                 </numberconstant>
               </subterm>
               <subterm>
-                <mod>
+                <stringlength>
                   <subterm>
-                    <variable refvariable="id1"/>
+                    <stringconstant value="12"/>
                   </subterm>
-                  <subterm>
-                    <numberconstant value="2">
-                      <positive/>
-                    </numberconstant>
-                  </subterm>
-                </mod>
+                </stringlength>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(x % 2)</text>
+          <text>1`(stringlength(&quot;12&quot;))</text>
         </hlinscription>
       </arc>
       <declaration>
