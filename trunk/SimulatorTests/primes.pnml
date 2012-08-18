@@ -5,139 +5,92 @@
       <toolspecific tool="org.pnml.tools.epnk.diagraminfo" version="0.9.2">
         <pageLabelProxy label="//@net.0/@page.0/@declaration.0"/>
         <diagram visible="true" type="PNMLCoreModel" element="pg1" name="Page null" measurementUnit="Pixel">
-          <children xsi:type="notation:Shape" visible="true" type="2001" element="p1" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
-            <layoutConstraint xsi:type="notation:Bounds" x="191" y="100" width="-1" height="-1"/>
+          <children xsi:type="notation:Shape" visible="true" type="2001" element="p1" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="0" lineWidth="-1" roundedBendpointsRadius="0">
+            <layoutConstraint xsi:type="notation:Bounds" x="83" y="124" width="-1" height="-1"/>
           </children>
-          <children xsi:type="notation:Shape" visible="true" type="2003" element="t1" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
-            <layoutConstraint xsi:type="notation:Bounds" x="456" y="108" width="-1" height="-1"/>
+          <children xsi:type="notation:Shape" visible="true" type="2003" element="t1" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="0" lineWidth="-1" roundedBendpointsRadius="0">
+            <layoutConstraint xsi:type="notation:Bounds" x="348" y="132" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2008" element="//@net.0/@page.0/@pageLabelProxy.0">
             <children xsi:type="notation:DecorationNode" visible="true" type="5003"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="12" y="72" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="24" y="44" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.0">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="166" y="151" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="96" y="176" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.1">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="132" y="84" width="61" height="13"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="24" y="108" width="61" height="13"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.2">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="442" y="163" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="336" y="216" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.3">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="322" y="163" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="214" y="187" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.4">
             <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
             <styles xsi:type="notation:DescriptionStyle" description=""/>
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="322" y="43" width="-1" height="-1"/>
-          </children>
-          <children xsi:type="notation:Shape" visible="true" type="2001" element="p2" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="11579568" lineWidth="-1" roundedBendpointsRadius="0">
-            <layoutConstraint xsi:type="notation:Bounds" x="456" y="32" width="-1" height="-1"/>
-          </children>
-          <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.5">
-            <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
-            <styles xsi:type="notation:DescriptionStyle" description=""/>
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="492" y="72" width="-1" height="-1"/>
-          </children>
-          <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.6">
-            <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
-            <styles xsi:type="notation:DescriptionStyle" description=""/>
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="432" y="36" width="-1" height="-1"/>
-          </children>
-          <children visible="true" type="2009" element="//@net.0/@page.0/@labelproxy.7">
-            <children xsi:type="notation:DecorationNode" visible="true" type="5004"/>
-            <styles xsi:type="notation:DescriptionStyle" description=""/>
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <styles xsi:type="notation:FillStyle" fillColor="16777215" transparency="-1"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="504" y="36" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="214" y="67" width="-1" height="-1"/>
           </children>
           <styles xsi:type="notation:DiagramStyle" pageX="0" pageY="0" pageWidth="100" pageHeight="100" description=""/>
-          <edges xsi:type="notation:Connector" visible="true" type="4001" element="mult" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4001" element="mult" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[19, -6, -246, -14]$[135, -41, -130, -49]$[245, 0, -20, -8]"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4001" element="addition" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4001" element="addition" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[-20, 3, 245, 11]$[-142, 23, 123, 31]$[-246, -4, 19, 4]"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.3" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.3" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[16, 15, -36, -33]$[48, 28, -4, -20]"/>
             <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.34375,0.0)"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.4" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.4" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[0, 0, 11, -26]$[-12, 6, -1, -20]"/>
             <sourceAnchor xsi:type="notation:IdentityAnchor" id="(1.0,1.0)"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.5" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.5" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[-8, -15, 34, 57]$[-22, -72, 20, 0]"/>
             <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.390625,1.0)"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.6" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.6" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[-6, -7, 10, 27]$[-21, -29, -5, 5]"/>
             <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.47368421052631576,0.7761194029850746)"/>
           </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.7" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
+          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.7" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.0" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="0" lineWidth="-1">
             <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
             <element xsi:nil="true"/>
             <bendpoints xsi:type="notation:RelativeBendpoints" points="[-5, 8, 15, -26]$[-18, 31, 2, -3]"/>
             <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.49056603773584906,0.2)"/>
-          </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4001" element="a1" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.8" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.1" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <bendpoints xsi:type="notation:RelativeBendpoints" points="[0, 20, 0, -43]$[0, 56, 0, -7]"/>
-            <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.5,0.175)"/>
-          </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.9" target="//@net.0/@page.0/@toolspecific.0/@diagram/@edges.7" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <element xsi:nil="true"/>
-            <bendpoints xsi:type="notation:RelativeBendpoints" points="[-22, 2, 58, -2]$[-80, 10, 0, 6]"/>
-            <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.171875,0.06666666666666667)"/>
-            <targetAnchor xsi:type="notation:IdentityAnchor" id="(0.46153846153846156,0.28)"/>
-          </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.10" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.8" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <element xsi:nil="true"/>
-            <bendpoints xsi:type="notation:RelativeBendpoints" points="[-60, -4, 64, -2]$[-119, 17, 5, 19]"/>
-            <sourceAnchor xsi:type="notation:IdentityAnchor" id="(0.46875,1.0)"/>
-          </edges>
-          <edges xsi:type="notation:Connector" visible="true" type="4004" source="//@net.0/@page.0/@toolspecific.0/@diagram/@children.11" target="//@net.0/@page.0/@toolspecific.0/@diagram/@children.8" roundedBendpointsRadius="0" routing="Manual" smoothness="None" avoidObstructions="false" closestDistance="false" jumpLinkStatus="None" jumpLinkType="Semicircle" jumpLinksReverse="false" lineColor="11579568" lineWidth="-1">
-            <styles xsi:type="notation:FontStyle" fontColor="0" fontName="Ubuntu" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false"/>
-            <element xsi:nil="true"/>
-            <bendpoints xsi:type="notation:RelativeBendpoints" points="[-64, -5, 89, 2]$[-149, -27, 4, -20]"/>
           </edges>
         </diagram>
         <labelProxy label="//@net.0/@page.0/@object.0/@type"/>
@@ -145,9 +98,6 @@
         <labelProxy label="//@net.0/@page.0/@object.1/@condition"/>
         <labelProxy label="//@net.0/@page.0/@object.3/@hlinscription"/>
         <labelProxy label="//@net.0/@page.0/@object.2/@hlinscription"/>
-        <labelProxy label="//@net.0/@page.0/@object.5/@hlinscription"/>
-        <labelProxy label="//@net.0/@page.0/@object.4/@type"/>
-        <labelProxy label="//@net.0/@page.0/@object.4/@hlinitialMarking"/>
       </toolspecific>
       <graphics>
         <line shape="line" color="#b0b0b0" width="1.0"/>
@@ -155,12 +105,12 @@
       </graphics>
       <place id="p1">
         <graphics>
-          <position x="190.5" y="99.5"/>
+          <position x="82.5" y="123.5"/>
           <dimension x="40.0" y="40.0"/>
         </graphics>
         <type>
           <graphics>
-            <offset x="-24.0" y="52.0"/>
+            <offset x="14.0" y="53.0"/>
           </graphics>
           <structure>
             <integer/>
@@ -208,12 +158,12 @@
       </place>
       <transition id="t1">
         <graphics>
-          <position x="455.5" y="107.5"/>
+          <position x="347.5" y="131.5"/>
           <dimension x="40.0" y="40.0"/>
         </graphics>
         <condition>
           <graphics>
-            <offset x="-13.0" y="56.0"/>
+            <offset x="-11.0" y="85.0"/>
           </graphics>
           <structure>
             <and>
@@ -248,9 +198,9 @@
       </transition>
       <arc id="mult" source="p1" target="t1">
         <graphics>
-          <position x="209.0" y="93.0"/>
-          <position x="325.0" y="58.0"/>
-          <position x="435.0" y="99.0"/>
+          <position x="101.0" y="117.0"/>
+          <position x="217.0" y="82.0"/>
+          <position x="327.0" y="123.0"/>
         </graphics>
         <hlinscription>
           <graphics>
@@ -264,41 +214,25 @@
                 </numberconstant>
               </subterm>
               <subterm>
-                <addition>
+                <mult>
                   <subterm>
-                    <subtraction>
-                      <subterm>
-                        <mult>
-                          <subterm>
-                            <variable refvariable="id1"/>
-                          </subterm>
-                          <subterm>
-                            <variable refvariable="id2"/>
-                          </subterm>
-                        </mult>
-                      </subterm>
-                      <subterm>
-                        <variable refvariable="id3"/>
-                      </subterm>
-                    </subtraction>
+                    <variable refvariable="id1"/>
                   </subterm>
                   <subterm>
-                    <numberconstant value="5">
-                      <positive/>
-                    </numberconstant>
+                    <variable refvariable="id2"/>
                   </subterm>
-                </addition>
+                </mult>
               </subterm>
             </numberof>
           </structure>
-          <text>1`(x*y-z+5)</text>
+          <text>1`(x*y)</text>
         </hlinscription>
       </arc>
       <arc id="addition" source="t1" target="p1">
         <graphics>
-          <position x="435.0" y="110.0"/>
-          <position x="313.0" y="130.0"/>
-          <position x="209.0" y="103.0"/>
+          <position x="327.0" y="134.0"/>
+          <position x="205.0" y="154.0"/>
+          <position x="101.0" y="127.0"/>
         </graphics>
         <hlinscription>
           <graphics>
@@ -335,68 +269,9 @@
           <text>1`x++1`y</text>
         </hlinscription>
       </arc>
-      <place id="p2">
-        <graphics>
-          <position x="455.5" y="31.5"/>
-          <dimension x="40.0" y="40.0"/>
-        </graphics>
-        <type>
-          <graphics>
-            <offset x="-23.0" y="5.0"/>
-          </graphics>
-          <structure>
-            <integer/>
-          </structure>
-          <text>INT</text>
-        </type>
-        <hlinitialMarking>
-          <graphics>
-            <offset x="49.0" y="5.0"/>
-          </graphics>
-          <structure>
-            <numberof>
-              <subterm>
-                <numberconstant value="1">
-                  <positive/>
-                </numberconstant>
-              </subterm>
-              <subterm>
-                <numberconstant value="5">
-                  <positive/>
-                </numberconstant>
-              </subterm>
-            </numberof>
-          </structure>
-          <text>1`5</text>
-        </hlinitialMarking>
-      </place>
-      <arc id="a1" source="p2" target="t1">
-        <graphics>
-          <position x="455.0" y="51.0"/>
-          <position x="455.0" y="87.0"/>
-        </graphics>
-        <hlinscription>
-          <graphics>
-            <offset x="37.0" y="3.0"/>
-          </graphics>
-          <structure>
-            <numberof>
-              <subterm>
-                <numberconstant value="1">
-                  <positive/>
-                </numberconstant>
-              </subterm>
-              <subterm>
-                <variable refvariable="id3"/>
-              </subterm>
-            </numberof>
-          </structure>
-          <text>1`z</text>
-        </hlinscription>
-      </arc>
       <declaration>
         <graphics>
-          <offset x="12.0" y="72.0"/>
+          <offset x="24.0" y="44.0"/>
         </graphics>
         <structure>
           <declarations>
@@ -406,13 +281,10 @@
             <variabledecl id="id2" name="y">
               <integer/>
             </variabledecl>
-            <variabledecl id="id3" name="z">
-              <integer/>
-            </variabledecl>
           </declarations>
         </structure>
         <text>vars
-  x:INT, y:INT,z:INT;</text>
+  x:INT, y:INT;</text>
       </declaration>
     </page>
   </net>
