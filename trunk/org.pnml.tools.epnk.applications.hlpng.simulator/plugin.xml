@@ -76,7 +76,7 @@
       <view
             category="org.pnml.tools.epnk.applications.hlpng.simulator.simulation.view"
             class="org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView"
-            icon="icons/sample.gif"
+            icon="icons/favicon.ico"
             id="org.pnml.tools.epnk.applications.hlpng.simulator.views.SimulationView"
             name="Simulation View">
       </view>
