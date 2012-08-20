@@ -27,12 +27,20 @@ public class SimulationViewController implements ISimulationViewController
 	protected ISimulator simulator = null;
 	protected Display display = null;
 	protected List<TableRecord> records = new ArrayList<TableRecord>();
+	protected IWorkbenchPage activePage = null;
 	
 	private Action[] actions = null;
 
 	public SimulationViewController()
 	{
 		this.display = Display.getCurrent();
+		
+		if(PlatformUI.getWorkbench() != null && 
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
+				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
+		{
+			this.activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		}
 	}
 
 	@Override
@@ -156,11 +164,8 @@ public class SimulationViewController implements ISimulationViewController
     {
 		try
 		{
-    		if(PlatformUI.getWorkbench() != null && 
-    				PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
-    				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null)
+    		if(activePage != null)
     		{
-    			IWorkbenchPage activePage = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
     			IViewPart view = activePage.findView(SimulationView.ID);
     			
     			if(view instanceof SimulationView)
