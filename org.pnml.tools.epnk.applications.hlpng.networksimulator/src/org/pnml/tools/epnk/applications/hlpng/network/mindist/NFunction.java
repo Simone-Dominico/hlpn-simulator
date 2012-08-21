@@ -14,7 +14,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapp
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.utils.NodeWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.TermsFactory;
@@ -22,10 +21,6 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.UserOperator;
 
 public class NFunction extends AbstractFunction
 {
-	private Integer[][] graph = null;
-	private Map<String, NodeWrapper> nodeMap = null;
-	private Map<Integer, NodeWrapper> nodeIdMap = null;
-	
 	@Override
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
@@ -71,35 +66,5 @@ public class NFunction extends AbstractFunction
     public String validate(Object term)
     {
 	    return null;
-    }
-
-	public Integer[][] getGraph()
-    {
-    	return graph;
-    }
-
-	public void setGraph(Integer[][] graph)
-    {
-    	this.graph = graph;
-    }
-
-	public Map<String, NodeWrapper> getNodeMap()
-    {
-    	return nodeMap;
-    }
-
-	public void setNodeMap(Map<String, NodeWrapper> nodeMap)
-    {
-    	this.nodeMap = nodeMap;
-    }
-
-	public Map<Integer, NodeWrapper> getNodeIdMap()
-    {
-    	return nodeIdMap;
-    }
-
-	public void setNodeIdMap(Map<Integer, NodeWrapper> nodeIdMap)
-    {
-    	this.nodeIdMap = nodeIdMap;
     }
 }
