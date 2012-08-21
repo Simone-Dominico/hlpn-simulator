@@ -13,6 +13,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMa
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Add;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.All;
+import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Empty;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.NumberOf;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.multisets.Subtract;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
@@ -92,6 +93,13 @@ public class MultisetsEval implements IEvaluator
             All allOp = (All) operator;
             return sortEvaluator.evaluate(allOp.getRefsort());
         }
+        if(operator instanceof Empty)
+        {
+        	IMSValue msValue = this.factory.createMSValue();
+        	msValue.setSort(operator.getOutputSort());
+        	
+        	return msValue;
+        }
         return null;
     }
 
@@ -115,6 +123,10 @@ public class MultisetsEval implements IEvaluator
         if(term instanceof Subtract)
         {
             return null;
+        }
+        if(term instanceof Empty)
+        {
+        	return null;
         }
         if(term instanceof All)
         {
