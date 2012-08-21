@@ -42,7 +42,8 @@ import Appearence.Shapes;
 import dk.dtu.imm.se2.group6.interfaces.IAnimator;
 import dk.dtu.imm.se2.group6.visual.Animator;
 
-public class VisualSimulator extends HLSimulator implements IVisualSimulator
+public class VisualSimulator extends HLSimulator implements IVisualSimulator,
+	dk.dtu.imm.se2.group6.interfaces.ISimulator
 {
 	private Action[] actions = null;
 	
