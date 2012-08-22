@@ -63,13 +63,15 @@ public class VariableResolver
             while(showDialog)
             {
             	// is reversible
-                if(dependencyManager.isReversible(termAssignment.getTermWrapper()))
+                if(dependencyManager.isReversible(termAssignment.getTermWrapper()) &&
+                		reversibleOperationManager.contains(termAssignment.
+                				getTermWrapper().getRootTerm().getClass()))
                 {
-                    AbstractReversibleOperation op = ((AbstractReversibleOperation) termAssignment
-                            .getTermWrapper());
+                    AbstractReversibleOperation op = reversibleOperationManager.
+                    		createHandler(termAssignment.getTermWrapper().getRootTerm().getClass());
                     // can resolve all unknown variables 
                     if(reversibleOperationManager.resolveAll(termAssignment.getValues(),
-                            op, termMap))
+                            op, termAssignment.getTermWrapper().getRootTerm(), termMap))
                     {
                         showDialog = false;
                     }

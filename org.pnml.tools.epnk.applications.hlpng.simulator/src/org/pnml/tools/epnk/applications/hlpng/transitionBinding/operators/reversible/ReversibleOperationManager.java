@@ -59,14 +59,14 @@ public class ReversibleOperationManager
 	}
 	
 	public boolean resolve(IValue result, IReversibleOperation operation,
-			Map<TermWrapper, TermAssignment> knownVariables)
+			Term term, Map<TermWrapper, TermAssignment> knownVariables)
 	{
 		Term unknownTerm = null;
 		int numberOfUnknowns = 0;
 		List<Boolean> termEval = new ArrayList<Boolean>();
 		List<Set<IValue>> known = new ArrayList<Set<IValue>>();
 		
-		for(Term arg : ((Operator)operation.getRootTerm()).getSubterm())
+		for(Term arg : ((Operator)term).getSubterm())
 		{
 			try
             {
@@ -140,18 +140,17 @@ public class ReversibleOperationManager
 		}
 		
 		IReversibleOperation op = createHandler(unknownTerm.getClass());
-		op.setRootTerm(unknownTerm);
-		
+
 		List<IValue> resultList = new ArrayList<IValue>();
 		for(List<IValue> args : setsOfResults)
 		{
 			resultList.add(operation.reverseAll(result, args, termEval.get(0)));
 		}
-		return resolveAll(resultList, op, knownVariables);
+		return resolveAll(resultList, op, unknownTerm, knownVariables);
 	}
 	
 	public boolean resolveAll(Collection<IValue> result, IReversibleOperation operation,
-			Map<TermWrapper, TermAssignment> knownVariables)
+			Term term, Map<TermWrapper, TermAssignment> knownVariables)
 	{
 		List<Map<TermWrapper, TermAssignment>> copies = new ArrayList<Map<TermWrapper,TermAssignment>>();
 		for(IValue value : result)
@@ -159,7 +158,7 @@ public class ReversibleOperationManager
 			Map<TermWrapper, TermAssignment> copy = copyMap(knownVariables);
 			copies.add(copy);
 			
-			if(!resolve(value, operation, copy))
+			if(!resolve(value, operation, term, copy))
 			{
 				return false;
 			}

@@ -152,8 +152,7 @@ public class ResourceManager
 		comparisonManager.register(NumberOfImpl.class, new NumberOfComparator(comparisonManager));
 		comparisonManager.register(MakeListImpl.class, new ListComparator(comparisonManager));
 		
-		TermComparator termComparator = 
-				new TermComparator(evaluationManager, reversibleOperationManager);
+		TermComparator termComparator = new TermComparator(evaluationManager);
 		comparisonManager.register(AdditionImpl.class, termComparator);
 		comparisonManager.register(MultiplicationImpl.class, termComparator);
 		comparisonManager.register(SubtractionImpl.class, termComparator);
