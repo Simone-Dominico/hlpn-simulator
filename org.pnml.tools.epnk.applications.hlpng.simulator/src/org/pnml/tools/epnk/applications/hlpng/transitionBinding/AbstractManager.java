@@ -20,9 +20,9 @@ public abstract class AbstractManager<K, T> implements IManager<K, T>
 	}
 	
 	@Override
-	public boolean contains(Object target)
+	public boolean contains(Class<? extends T> o)
 	{
-		return handlers.containsKey(target);
+		return handlers.containsKey(o);
 	}
 	
 	@Override
