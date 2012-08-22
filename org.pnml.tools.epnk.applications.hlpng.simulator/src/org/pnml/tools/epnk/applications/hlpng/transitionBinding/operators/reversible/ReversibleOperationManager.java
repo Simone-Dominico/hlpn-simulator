@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.AbstractManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.VariableWrapper;
@@ -17,37 +18,20 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Variable;
 
-public class ReversibleOperationManager
+public class ReversibleOperationManager  extends AbstractManager<IReversibleOperation, Term>
 {
 	private EvaluationManager evaluationManager = null;
-	private Map<Class<? extends Term>, IReversibleOperation> handlers = null;
-	
+
 	public ReversibleOperationManager(EvaluationManager evaluationManager)
 	{
 		this.evaluationManager = evaluationManager;
-		this.handlers = new HashMap<Class<? extends Term>, IReversibleOperation>();
-	}
-	
-	public void register(Class<? extends Term> targetClass, IReversibleOperation operator)
-	{
-		handlers.put(targetClass, operator);
-	}
-	
-	public void unregister(Class<? extends Term> targetClass)
-	{
-		handlers.remove(targetClass);
 	}
 
-	public boolean contains(Class<? extends Term> targetClass)
-	{
-		return handlers.containsKey(targetClass);
-	}
-	
 	private IReversibleOperation createHandler(Class<? extends Term> c)
 	{
 		try
         {
-			Object obj = handlers.get(c).getClass().newInstance();
+			Object obj = getHandler(c).getClass().newInstance();
 	        return (IReversibleOperation)obj;
         }
         catch(Exception e)
