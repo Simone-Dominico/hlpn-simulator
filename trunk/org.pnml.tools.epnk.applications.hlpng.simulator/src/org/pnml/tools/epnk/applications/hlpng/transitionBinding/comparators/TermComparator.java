@@ -8,19 +8,15 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssig
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
 public class TermComparator implements IComparable
 {
 	private EvaluationManager evaluationManager = null;
-	private ReversibleOperationManager reversibleOperationManager = null;
 	
-	public TermComparator(EvaluationManager evaluationManager,
-			ReversibleOperationManager reversibleOperationManager)
+	public TermComparator(EvaluationManager evaluationManager)
 	{
 		this.evaluationManager = evaluationManager;
-		this.reversibleOperationManager = reversibleOperationManager;
 	}
 	
 	@Override
@@ -35,17 +31,7 @@ public class TermComparator implements IComparable
         }
         catch(UnknownVariableException e){}
 		
-		TermWrapper operation = null;
-		// is it possible to reverse?
-		if(reversibleOperationManager.contains(refValue.getClass()))
-		{
-			operation = reversibleOperationManager.createHandler(refValue.getClass());
-		}
-		else
-		{
-			operation = new TermWrapper();
-		}
-		
+		final TermWrapper operation = new TermWrapper();
 		operation.setRootTerm(refValue);
 		if(assignments.containsKey(operation))
 		{
