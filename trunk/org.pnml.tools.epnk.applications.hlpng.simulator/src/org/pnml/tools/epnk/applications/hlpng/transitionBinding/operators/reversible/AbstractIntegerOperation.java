@@ -12,7 +12,7 @@ import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.integers.Positive;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Sort;
 
-public abstract class AbstractIntegerOperation extends AbstractReversibleOperation
+public abstract class AbstractIntegerOperation implements IReversibleOperation
 {
 	protected abstract int computeTotal(int a, int b);
 	protected abstract int computeFirstArg(int result, int[] a);

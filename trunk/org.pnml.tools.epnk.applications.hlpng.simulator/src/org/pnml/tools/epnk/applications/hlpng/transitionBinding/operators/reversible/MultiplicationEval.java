@@ -41,37 +41,41 @@ public class MultiplicationEval extends AbstractIntegerOperation
 	@Override
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
-	{
-		Operator operator = (Operator) term;
+	{	
 		List<IValue> values = new ArrayList<IValue>();
-		for(Term subterm : operator.getSubterm())
 		{
-			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
-			values.add(value);
+			Operator operator = (Operator) term;
+			for(Term subterm : operator.getSubterm())
+			{ 
+				IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
+				values.add(value);
+			}
+			if(values.size() < 1)
+			{
+				throw new RuntimeException("Not enough arguments!");
+			}
 		}
 		
-		if(values.size() < 1)
+		int mult = 1;
 		{
-			throw new RuntimeException("Not enough arguments!");
+			for(IValue v : values)
+			{
+				mult *= ((NumberValue)v).getN();
+			}	
 		}
-			
+		
 		IValue result = null;
 		{
 			NumberValue number = (NumberValue)values.get(0);
 			
 			Sort sort = number.getSort();
-			NumberValue res=  createResultObject(sort);
+			NumberValue res =  createResultObject(sort);
 			res.setSort(sort);
-			res.setN(1);
+			res.setN(mult);
 			
 			result = res;
 		}
-		
-		for(IValue value : values)
-		{
-			result = evaluate(result, value, (Operator)rootTerm);
-		}
-		
+
 		return result;
 	}
 
