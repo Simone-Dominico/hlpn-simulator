@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.pnml.tools.epnk.applications.hlpng.dialogs.InputDialogJob;
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
-import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.AbstractReversibleOperation;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.concretesyntax.HLPNGParser;
@@ -67,11 +66,9 @@ public class VariableResolver
                 		reversibleOperationManager.contains(termAssignment.
                 				getTermWrapper().getRootTerm().getClass()))
                 {
-                    AbstractReversibleOperation op = reversibleOperationManager.
-                    		createHandler(termAssignment.getTermWrapper().getRootTerm().getClass());
                     // can resolve all unknown variables 
                     if(reversibleOperationManager.resolveAll(termAssignment.getValues(),
-                            op, termAssignment.getTermWrapper().getRootTerm(), termMap))
+                            termAssignment.getTermWrapper().getRootTerm(), termMap))
                     {
                         showDialog = false;
                     }

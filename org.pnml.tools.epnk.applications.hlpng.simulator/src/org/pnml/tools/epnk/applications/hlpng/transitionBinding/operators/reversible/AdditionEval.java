@@ -18,32 +18,41 @@ public class AdditionEval extends AbstractIntegerOperation
 	@Override
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
-	{
-		Operator operator = (Operator) term;
+	{	
 		List<IValue> values = new ArrayList<IValue>();
-		for(Term subterm : operator.getSubterm())
 		{
-			IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
-			values.add(value);
+			Operator operator = (Operator) term;
+			for(Term subterm : operator.getSubterm())
+			{ 
+				IValue value = evaluationManager.evaluate(subterm, evaluationManager, assignments);
+				values.add(value);
+			}
+			if(values.size() < 1)
+			{
+				throw new RuntimeException("Not enough arguments!");
+			}
 		}
-			
+		
+		int sum = 0;
+		{
+			for(IValue v : values)
+			{
+				sum += ((NumberValue)v).getN();
+			}	
+		}
+		
 		IValue result = null;
 		{
 			NumberValue number = (NumberValue)values.get(0);
 			
 			Sort sort = number.getSort();
-			NumberValue res=  createResultObject(sort);
+			NumberValue res =  createResultObject(sort);
 			res.setSort(sort);
-			res.setN(0);
+			res.setN(sum);
 			
 			result = res;
 		}
-		
-		for(IValue value : values)
-		{
-			result = evaluate(result, value, (Operator)rootTerm);
-		}
-		
+
 		return result;
 	}
 	
