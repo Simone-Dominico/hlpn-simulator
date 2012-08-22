@@ -6,7 +6,7 @@ public interface IManager<K, T>
 	
 	public void unregister(Object o);
 
-	public boolean contains(Object o);
+	public boolean contains(Class<? extends T> o);
 	
 	public K getHandler(Class<? extends T> o);
 }
