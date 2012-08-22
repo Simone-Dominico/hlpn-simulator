@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IValue;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.AbstractManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermAssignment;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TermWrapper;
 import org.pnml.tools.epnk.applications.hlpng.utils.CartesianProduct;
@@ -15,21 +16,9 @@ import org.pnml.tools.epnk.applications.hlpng.utils.Pair;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Operator;
 import org.pnml.tools.epnk.pntypes.hlpngs.datatypes.terms.Term;
 
-public class EvaluationManager implements IEvaluator
+public class EvaluationManager extends AbstractManager<IEvaluator, Term> implements IEvaluator
 {
-	private Map<Object, IEvaluator> handlers = new HashMap<Object, IEvaluator>();
-	
-	public void register(Object targetObject, IEvaluator operator)
-	{
-		handlers.put(targetObject, operator);
-	}
-	
-	public void unregister(Object targetObject)
-	{
-		handlers.remove(targetObject);
-	}
-	
-	public IValue evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
+		public IValue evaluate(Term term, Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
 		IEvaluator evaluator = getHandler(term.getClass());
 		
@@ -95,19 +84,6 @@ public class EvaluationManager implements IEvaluator
 			result.add(value);
 		}
 		return result;
-	}
-	
-	public IEvaluator getHandler(Class<? extends Term> targetClass)
-	{
-		if(handlers.containsKey(targetClass))
-		{
-			return handlers.get(targetClass);
-		}
-		if(handlers.containsKey(targetClass.getPackage()))
-		{
-			return handlers.get(targetClass.getPackage());
-		}
-		return null;
 	}
 	
 	@Override
