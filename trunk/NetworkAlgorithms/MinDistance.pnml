@@ -15,7 +15,7 @@
           <children visible="true" type="2008" element="//@net.0/@page.0/@pageLabelProxy.0">
             <children xsi:type="notation:DecorationNode" visible="true" type="5003" element="//@net.0/@page.0/@pageLabelProxy.0"/>
             <styles xsi:type="notation:ShapeStyle" fontColor="0" fontName="Tahoma" fontHeight="9" bold="false" italic="false" underline="false" strikeThrough="false" description="" fillColor="16777215" transparency="-1" lineColor="16777215" lineWidth="-1" roundedBendpointsRadius="0"/>
-            <layoutConstraint xsi:type="notation:Bounds" x="684" y="24" width="-1" height="-1"/>
+            <layoutConstraint xsi:type="notation:Bounds" x="684" y="36" width="-1" height="-1"/>
           </children>
           <children visible="true" type="2008" element="//@net.0/@page.0/@pageLabelProxy.1">
             <children xsi:type="notation:DecorationNode" visible="true" type="5003" element="//@net.0/@page.0/@pageLabelProxy.1"/>
@@ -873,7 +873,7 @@
       </arc>
       <declaration>
         <graphics>
-          <offset x="684.0" y="24.0"/>
+          <offset x="684.0" y="36.0"/>
         </graphics>
         <structure>
           <declarations>
