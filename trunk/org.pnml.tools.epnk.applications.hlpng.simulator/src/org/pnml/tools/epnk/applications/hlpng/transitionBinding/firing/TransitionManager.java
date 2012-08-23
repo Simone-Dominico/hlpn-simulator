@@ -94,6 +94,16 @@ public class TransitionManager
 	    return (Rules) rulesObj;
 	}
 	
+	private static List<FiringMode> checkEmptyFiringMode(Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
+			Map<IDWrapper, IMSValue> runtimeValues, Transition transition, EvaluationManager evaluationManager) 
+					throws UnknownVariableException
+	{
+		List<Map<TermWrapper, IValue>> varSets = new ArrayList<Map<TermWrapper,IValue>>();
+		varSets.add(new HashMap<TermWrapper, IValue>());
+		
+		return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
+	}
+	
 	public List<FiringMode> checkTransition(Transition transition, 
 			Map<IDWrapper, IMSValue> runtimeValues) 
 					throws DependencyException, UnknownVariableException
@@ -103,13 +113,7 @@ public class TransitionManager
 		// no incoming arcs
 		if(incomingArcs.keySet().size() == 0)
 		{
-			List<FiringMode> modes = new ArrayList<FiringMode>();
-			FiringMode mode = new FiringMode();
-			mode.setTransition(transition);
-			mode.setParams(new HashMap<TermWrapper,IValue>());
-			mode.setValues(new HashMap<IDWrapper, IMSValue>());
-			modes.add(mode);
-			return modes;
+			return checkEmptyFiringMode(incomingArcs, runtimeValues, transition, evaluationManager);
 		}
 		
 		// each inscription variable/term assignments
@@ -129,6 +133,12 @@ public class TransitionManager
 			intersection(globalMap, assignments);
 		}
 
+		// no variables in input arc inscriptions
+		if(globalMap.size() == 0)
+		{
+			return checkEmptyFiringMode(incomingArcs, runtimeValues, transition, evaluationManager);
+		}
+		
 		// resolving undefined variables
 		VariableResolver resolver = new VariableResolver(globalMap, 
 				reversibleOperationManager, evaluationManager, rules, display);
@@ -136,7 +146,7 @@ public class TransitionManager
 		
 		// filtering non consistent assignments
 		globalMap = ConsistencyManager.checkParams(globalMap);
-		
+
 		// there is only 1 variable
 		if(globalMap.keySet().size() == 1)
 		{
