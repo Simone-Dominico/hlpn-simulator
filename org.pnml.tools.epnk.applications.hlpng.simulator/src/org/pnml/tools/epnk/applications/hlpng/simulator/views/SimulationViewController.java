@@ -236,8 +236,8 @@ public class SimulationViewController implements ISimulationViewController
 			i.setBackground(new Color(display, 255, 255, 255));
 		}
 		
-		item.setForeground(new Color(display, 255, 255, 255));
-		item.setBackground(new Color(display, 0, 200, 0));
+		item.setForeground(new Color(display, 0, 0, 255));
+		item.setBackground(new Color(display, 192, 192, 192));
 	}
 	
 	@Override
