@@ -345,7 +345,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 			};
 			actions[4].setId("reset");
 			actions[4].setText("Reset");
-			actions[4].setToolTipText("Show reset");
+			actions[4].setToolTipText("Reset");
 			{
 				ImageDescriptor desc = ResourceManager.getImageDescriptor("icons/terminatedlaunch_obj.gif",
 						ResourceManager.SIMULATOR_PLUGIN_ID);
