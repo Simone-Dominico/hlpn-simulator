@@ -73,9 +73,11 @@ public class NetworkExtensionManager implements IUserExtensions
 	public IValue evaluate(Term term, EvaluationManager evaluationManager,
 			Map<TermWrapper, IValue> assignments) throws UnknownVariableException
 	{
+		// a name of a user defined function
 		String name = ((UserOperator)term).getDeclaration().getName();
+		// find an evaluator associated with this name
 		IEvaluator eval = this.handlers.get(name);
-		
+		// let the evaluator to do the job
 	    return eval.evaluate(term, evaluationManager, assignments);
     }
 
