@@ -41,6 +41,22 @@ public class DropDownAction extends Action implements IMenuCreator
 			actions.add(action);
 		}
 		{
+			Action action = new Action("100 ms", Action.AS_CHECK_BOX)
+			{
+				public void run()
+				{
+					for(Action action : actions)
+					{
+						action.setChecked(false);
+					}
+					this.setChecked(true);
+					
+					simulator.setSimulationPause(100);
+				}
+			};
+			actions.add(action);
+		}
+		{
 			Action action = new Action("500 ms", Action.AS_CHECK_BOX)
 			{
 				public void run()
