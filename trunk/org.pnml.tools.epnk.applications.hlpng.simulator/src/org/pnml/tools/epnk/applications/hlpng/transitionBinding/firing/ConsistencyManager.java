@@ -119,41 +119,47 @@ public class ConsistencyManager
 				assignment.setParams(params);
 				assignment.setTransition(transition);
 				
-				boolean matched = true;
-				for(IDWrapper placeId : incomingArcs.keySet())
-				{
-					if(matched)
-					{
-						IMSValue runtimeValue = runtimeValues.get(placeId);
-						// it may be not possible to initialize some of the variables
-						IMSValue inscriptionValue = null;
-	                    try
-	                    {
-		                    inscriptionValue = (IMSValue)evaluationManager
-		                    		.evaluate(incomingArcs.get(placeId).getOperator(), params);
-		                    
-		                    if(ConsistencyManager.check(inscriptionValue, null) && 
-		                    		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
-		                    {
-		                    	assignment.getValues().put(placeId, inscriptionValue);	
-		                    }
-		                    else
-		                    {
-		                    	matched = false;
-		                    }
-	                    }
-	                    catch(Exception e)
-	                    {
-	                    	matched = false;
-	                    }
-					}
-				}
-				if(matched)
+				if(checkInscriptions(assignment, incomingArcs, runtimeValues,
+						evaluationManager, params))
 				{
 					assignemnts.add(assignment);
 				}
 			}	
 		}
 		return assignemnts;
+	}
+	
+	private static boolean checkInscriptions(FiringMode assignment,
+			Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
+			Map<IDWrapper, IMSValue> runtimeValues,
+			EvaluationManager evaluationManager,
+			Map<TermWrapper, IValue> params)
+	{
+		for(IDWrapper placeId : incomingArcs.keySet())
+		{
+			IMSValue runtimeValue = runtimeValues.get(placeId);
+			// it may be not possible to initialize some of the variables
+			IMSValue inscriptionValue = null;
+            try
+            {
+                inscriptionValue = (IMSValue)evaluationManager
+                		.evaluate(incomingArcs.get(placeId).getOperator(), params);
+                
+                if(ConsistencyManager.check(inscriptionValue, null) && 
+                		AbstractValueMath.lessEqual(inscriptionValue, runtimeValue))
+                {
+                	assignment.getValues().put(placeId, inscriptionValue);	
+                }
+                else
+                {
+                	return false;
+                }
+            }
+            catch(Exception e)
+            {
+            	return false;
+            }
+		}
+		return true;
 	}
 }
