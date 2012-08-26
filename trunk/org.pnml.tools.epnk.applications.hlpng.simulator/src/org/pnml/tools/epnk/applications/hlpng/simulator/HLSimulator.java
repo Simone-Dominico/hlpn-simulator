@@ -4,7 +4,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
-import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
@@ -24,6 +23,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringSt
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
+import org.pnml.tools.epnk.applications.presentation.IPresentationManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
@@ -72,14 +72,14 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	    
 	    this.font = font;
 		
-	    this.flatAccess = new FlatAccess(this.petrinet);
+	    this.flatAccess = new FlatAccess(getPetrinet());
 	    
 	    if(init)
 	    {
 	    	init();	
 	    }
     }
-	
+
 	@Override
 	public void init()
 	{
@@ -91,7 +91,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	    		this.runtimeValueFactory, this.transitionManager, this.evaluationManager);
 	    
 		this.presentationManager = new SimulatorPresentationManager(this, font);
-		this.netMarkingManager= new NetMarkingManager(this.petrinet, this.flatAccess);
+		this.netMarkingManager= new NetMarkingManager(getPetrinet(), this.flatAccess);
 		
 		// computing initial state
 		IRuntimeState initialState = this.runtimeStateManager.
@@ -254,16 +254,12 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     	this.autoModeEnabled = autoModeEnabled;
     }
 	
+	@Override
 	public IPresentationManager getPresentationManager()
     {
     	return presentationManager;
     }
 
-	public void setPresentationManager(IPresentationManager presentationManager)
-    {
-    	this.presentationManager = presentationManager;
-    }
-	
 	@Override
     public Action[] getActions()
     {
