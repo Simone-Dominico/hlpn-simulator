@@ -20,11 +20,6 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public class PopupMenu
 {
 	public static final String OWNER = "owner";

@@ -22,11 +22,6 @@ import org.eclipse.ui.PlatformUI;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public class SelectionHandler implements SelectionListener, MouseListener
 {	
 	protected IApplicationWithPresentation application = null;

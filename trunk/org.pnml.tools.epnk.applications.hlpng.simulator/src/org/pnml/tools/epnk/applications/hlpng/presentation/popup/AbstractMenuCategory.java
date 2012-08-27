@@ -12,11 +12,6 @@ package org.pnml.tools.epnk.applications.hlpng.presentation.popup;
 
 import java.util.List;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public class AbstractMenuCategory extends AbstractMenuItem
 {
 

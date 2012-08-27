@@ -15,11 +15,6 @@ import java.util.List;
 
 import org.pnml.tools.epnk.annotations.netannotations.impl.NetAnnotationImpl;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public class NetMarking extends NetAnnotationImpl
 {
 	private List<AbstractMarking> markings = new ArrayList<AbstractMarking>();
