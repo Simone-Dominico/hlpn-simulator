@@ -1,9 +1,20 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Mindaugas Laganeckas.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Mindaugas Laganeckas - initial API and implementation
+ ******************************************************************************/
 package org.pnml.tools.epnk.applications.hlpng.simulator;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
+import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.NetAnnotations;
 import org.pnml.tools.epnk.applications.Application;
 import org.pnml.tools.epnk.applications.hlpng.presentation.SimulatorPresentationManager;
@@ -23,7 +34,6 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IFiringSt
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
-import org.pnml.tools.epnk.applications.presentation.IPresentationManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
 
