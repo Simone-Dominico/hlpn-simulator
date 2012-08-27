@@ -16,11 +16,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.progress.UIJob;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public class PeriodicalWorkerJob extends UIJob
 {
 	private IWorker worker = null;

@@ -16,11 +16,6 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 
-/*
- * Author: Mindaugas Laganeckas
- * Email: s100972@student.dtu.dk
- */
-
 public abstract class AbstractRectangleOverlay extends RectangleFigure implements IStateContext,
 	IActionProvider
 {
