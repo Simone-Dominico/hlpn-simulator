@@ -37,6 +37,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.StringValue;
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.HLSimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.comparators.ComparisonManager;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.IEvaluator;
@@ -357,10 +358,12 @@ public class VisualSimulator extends HLSimulator implements IVisualSimulator,
 	{
 		IRuntimeState state = simulator.runtimeStateManager.getCurrentState();
 		simulator.updateTransitionBinding(state);
+		
 		while(state.getTransitions().size() > 0)
 		{
-			List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
-			simulator.fire(state.getFiringModes(transitions.get(0)).get(0), true);
+			final List<IDWrapper> transitions = new ArrayList<IDWrapper>(state.getTransitions());
+			final List<FiringMode> modes = state.getFiringModes(transitions.get(0)).getModes();
+			simulator.fire(modes.get(0), true);
 			
 			state = simulator.runtimeStateManager.getCurrentState();
 		}
