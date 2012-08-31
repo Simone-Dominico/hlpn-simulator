@@ -68,7 +68,7 @@ public class RFunction extends AbstractFunction
         {
             if(graph[receiverIndex][i] != null)
             {
-                StringValue sender = new StringValue();
+                StringValue sender = new Agent();
                 sender.setData(nodeIdMap.get(i).getNode().getLabel());
                 sender.setSort(TermsFactory.eINSTANCE.createUserSort());
                 

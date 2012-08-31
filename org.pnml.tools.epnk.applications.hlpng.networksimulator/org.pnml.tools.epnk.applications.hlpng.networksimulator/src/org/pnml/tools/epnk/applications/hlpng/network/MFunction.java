@@ -66,11 +66,11 @@ public class MFunction extends AbstractFunction
         	{
         		if(graph[i][j] != null)
         		{
-        			StringValue strVal0 = new StringValue();
+        			StringValue strVal0 = new Agent();
                     strVal0.setData(nodeIdMap.get(i).getNode().getLabel());
                     strVal0.setSort(TermsFactory.eINSTANCE.createUserSort());
                     
-                    StringValue strVal1 = new StringValue();
+                    StringValue strVal1 = new Agent();
                     strVal1.setData(nodeIdMap.get(j).getNode().getLabel());
                     strVal1.setSort(TermsFactory.eINSTANCE.createUserSort());
                     

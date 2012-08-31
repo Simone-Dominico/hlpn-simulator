@@ -68,7 +68,7 @@ public class SFunction extends AbstractFunction
         {
             if(graph[senderIndex][i] != null)
             {           
-                StringValue receiver = new StringValue();
+                StringValue receiver = new Agent();
                 receiver.setData(nodeIdMap.get(i).getNode().getLabel());
                 receiver.setSort(TermsFactory.eINSTANCE.createUserSort());
                 
