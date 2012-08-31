@@ -59,7 +59,7 @@ public class InputFunction extends AbstractFunction implements ISortEvaluator
 		
 		for(Node n : nodesInCategory)
 		{
-			StringValue sValue = new StringValue();
+			StringValue sValue = new Agent();
 			sValue.setData(n.getLabel());
 			sValue.setSort(TermsFactory.eINSTANCE.createUserSort());
 			
@@ -105,7 +105,7 @@ public class InputFunction extends AbstractFunction implements ISortEvaluator
 		}
 		for(Node n : nodesInCategory)
 		{
-			StringValue sValue = new StringValue();
+			StringValue sValue = new Agent();
 			sValue.setData(n.getLabel());
 			sValue.setSort(TermsFactory.eINSTANCE.createUserSort());
 			
