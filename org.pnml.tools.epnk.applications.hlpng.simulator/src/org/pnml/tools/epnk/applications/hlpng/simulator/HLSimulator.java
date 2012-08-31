@@ -36,6 +36,7 @@ import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.Evalua
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.reversible.ReversibleOperationManager;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class HLSimulator extends Application implements ISimulator, IWorker
 {
@@ -55,7 +56,7 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	protected PeriodicalWorkerJob autoMode = null;
 	protected ISimulationViewController simulationViewController = null;
 	
-	protected long simulationPause = 500;
+	protected long simulationPause = 100;
 	protected boolean autoModeEnabled;
 	
 	protected IFiringStrategy firingStrategy = null;
@@ -145,6 +146,27 @@ public class HLSimulator extends Application implements ISimulator, IWorker
     {
 		// updates state transition binding
 		this.runtimeStateManager.updateState(state);
+    }
+	
+	@Override
+    public void updateTransitionBinding()
+    {
+		updateTransitionBinding(runtimeStateManager.getCurrentState());
+    }
+	
+	@Override
+    public void updateTransitionBinding(IRuntimeState state,
+            Transition transition)
+    {
+		// updates concrete transition binding
+		this.runtimeStateManager.updateState(state, transition);
+		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
+    }
+	
+	@Override
+    public void updateTransitionBinding(Transition transition)
+    {
+		updateTransitionBinding(runtimeStateManager.getCurrentState(), transition);
     }
 	
 	@Override
