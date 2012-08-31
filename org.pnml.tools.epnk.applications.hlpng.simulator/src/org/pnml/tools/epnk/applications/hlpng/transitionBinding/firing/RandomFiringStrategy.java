@@ -24,7 +24,15 @@ public class RandomFiringStrategy implements IFiringStrategy
 	{
 		Map<IDWrapper, TransitionCheck> modes = currentMarking.getModes();
 		
-		List<IDWrapper> transitions = new ArrayList<IDWrapper>(modes.keySet());
+		List<IDWrapper> transitions = new ArrayList<IDWrapper>();
+		for(IDWrapper transition : modes.keySet())
+		{
+			if(modes.get(transition) != null && modes.get(transition).isSuccess())
+			{
+				transitions.add(transition);
+			}
+		}
+		
 		int tIndex = getIndex(transitions.size());
 		
 		if(tIndex == -1)
