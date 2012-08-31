@@ -11,13 +11,13 @@
 package org.pnml.tools.epnk.applications.hlpng.runtimeStates;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtime.IMSValue;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionCheck;
 import org.pnml.tools.epnk.pnmlcoremodel.Place;
 import org.pnml.tools.epnk.pnmlcoremodel.Transition;
 
@@ -29,7 +29,7 @@ public class RuntimeState implements IRuntimeState
 	// place <=> runtime value
 	private Map<IDWrapper, IMSValue> values = new HashMap<IDWrapper, IMSValue>();
 	// transition <=> firing modes
-	private Map<IDWrapper, List<FiringMode>> modes = new HashMap<IDWrapper, List<FiringMode>>();
+	private Map<IDWrapper, TransitionCheck> modes = new HashMap<IDWrapper, TransitionCheck>();
 	
 	private FiringMode firingMode = null;
 
@@ -109,19 +109,25 @@ public class RuntimeState implements IRuntimeState
     }
 
 	@Override
-    public void addFiringModes(Transition transition, List<FiringMode> modeList)
+    public void addFiringModes(Transition transition, TransitionCheck modeList)
     {
 		modes.put(new IDWrapper(transition), modeList);
     }
+	
+	@Override
+	public void removeFiringModes(Transition transition)
+	{
+		modes.remove(new IDWrapper(transition));
+	}
 
 	@Override
-    public List<FiringMode> getFiringModes(Transition transition)
+    public TransitionCheck getFiringModes(Transition transition)
     {
 	    return modes.get(new IDWrapper(transition));
     }
 	
 	@Override
-    public List<FiringMode> getFiringModes(IDWrapper wrapper)
+    public TransitionCheck getFiringModes(IDWrapper wrapper)
     {
 	    return modes.get(wrapper);
     }
@@ -152,7 +158,7 @@ public class RuntimeState implements IRuntimeState
 	}
 	
 	@Override
-	public Map<IDWrapper, List<FiringMode>> getModes()
+	public Map<IDWrapper, TransitionCheck> getModes()
     {
     	return modes;
     }

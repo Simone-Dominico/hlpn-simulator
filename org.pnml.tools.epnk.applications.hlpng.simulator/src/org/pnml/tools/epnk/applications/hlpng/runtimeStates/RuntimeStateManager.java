@@ -22,6 +22,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtime.RuntimeValueFactory;
 import org.pnml.tools.epnk.applications.hlpng.runtime.operations.AbstractValueMath;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionCheck;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.TransitionManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.EvaluationManager;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.operators.UnknownVariableException;
@@ -59,24 +60,40 @@ public class RuntimeStateManager
     {
     	state.getModes().clear();
     	
-    	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(state.getValues(),
-    			flatAccess.getTransitions(), transitionManager);
+    	Map<IDWrapper, TransitionCheck> firingModes = computeFiringModes(state.getValues(),
+    			flatAccess.getTransitions(), transitionManager, false);
         
         for(IDWrapper transition : firingModes.keySet())
         {
         	state.addFiringModes((Transition)transition.getId(), firingModes.get(transition));
         }
     }
+    
+    public void updateState(IRuntimeState state, Transition transition)
+    {
+    	// clearing transition firing modes
+    	state.removeFiringModes(transition);
+    	
+    	// computing transition firing modes
+    	TransitionCheck check = checkTransition(state.getValues(), 
+    			transition, transitionManager, true);
+
+    	if(check != null)
+    	{
+    		state.addFiringModes(transition, check);
+    	}
+    }
 	
-    public IRuntimeState createNextState(IRuntimeState prevState, FiringMode firingMode)
+    public IRuntimeState createNextState(IRuntimeState prevState, 
+    		FiringMode firingMode)
     {
     	Map<IDWrapper, IMSValue> currentValues = prevState.getClonedValues();
     	
     	Map<IDWrapper, IMSValue> result = createNextMarking(evaluationManager, 
     			currentValues, firingMode, flatAccess, runtimeValueFactory);
     	
-    	Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(result,
-    			flatAccess.getTransitions(), transitionManager);
+    	Map<IDWrapper, TransitionCheck> firingModes = computeFiringModes(result,
+    			flatAccess.getTransitions(), transitionManager, false);
         
     	IRuntimeState runtimeState = new RuntimeState();
     	for(IDWrapper place : result.keySet())
@@ -126,8 +143,8 @@ public class RuntimeStateManager
 			runtimeState.addValue(hlPlace, msValue);
 		}
         
-        Map<IDWrapper, List<FiringMode>> firingModes = computeFiringModes(runtimeState.getValues(),
-    			flatAccess.getTransitions(), transitionManager);
+        Map<IDWrapper, TransitionCheck> firingModes = computeFiringModes(runtimeState.getValues(),
+    			flatAccess.getTransitions(), transitionManager, false);
         
         for(IDWrapper transition : firingModes.keySet())
         {
@@ -156,35 +173,46 @@ public class RuntimeStateManager
     	return stateContainer;
     }
     
-	private static Map<IDWrapper, List<FiringMode>> computeFiringModes(Map<IDWrapper, IMSValue> runtimeValues,
+	private static Map<IDWrapper, TransitionCheck> computeFiringModes(Map<IDWrapper, IMSValue> runtimeValues,
 			List<org.pnml.tools.epnk.pnmlcoremodel.Transition> transitions,
-			TransitionManager transitionManager)
+			TransitionManager transitionManager, boolean force)
 	{
-		Map<IDWrapper, List<FiringMode>> modes = new HashMap<IDWrapper, List<FiringMode>>();
+		Map<IDWrapper, TransitionCheck> modes = new HashMap<IDWrapper, TransitionCheck>();
 		
 		for(org.pnml.tools.epnk.pnmlcoremodel.Transition transition : transitions)
 		{
-			Transition hlTransition = (Transition)transition;
-			List<FiringMode> assignments = null;
-            try
-            {
-            	assignments = transitionManager.checkTransition(hlTransition, 
-            			runtimeValues);
-            }
-            catch(Exception e)
-            {
-	            e.printStackTrace();
-            }
-            finally
-            {
-            	if(assignments != null && assignments.size() > 0)
-            	{
-            		modes.put(new IDWrapper(hlTransition), assignments);
-            	}
-            }
+			TransitionCheck check = checkTransition(runtimeValues,
+					(Transition)transition, transitionManager, force);
+			
+			if(check != null)
+        	{
+        		modes.put(new IDWrapper(transition), check);	
+        	}
 		}
 		return modes;
 	}
+	
+	private static TransitionCheck checkTransition(Map<IDWrapper, IMSValue> runtimeValues,
+			Transition hlTransition, TransitionManager transitionManager, boolean force)
+	{
+        try
+        {
+        	final TransitionCheck check = 
+        			transitionManager.checkTransition(hlTransition, runtimeValues, force);
+        	if(check != null && 
+        			(!check.isSuccess() || (check.getModes() != null &&
+        			check.getModes().size() > 0)))
+        	{
+        		return check;	
+        	}
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+        return null;
+	}	
 	
 	private static Map<IDWrapper, IMSValue> createNextMarking(EvaluationManager evalManager,
 			Map<IDWrapper, IMSValue> oldValuesMap, FiringMode firingMode, FlatAccess flatAccess,
