@@ -19,6 +19,7 @@ public class TransitionMarking extends AbstractMarking
 {
 	private List<FiringMode> modes = new ArrayList<FiringMode>();
 	private boolean fired = false;
+	private boolean success = false;
 	
 	public List<FiringMode> getModes()
     {
@@ -35,5 +36,13 @@ public class TransitionMarking extends AbstractMarking
 	public void setFired(boolean fired)
     {
     	this.fired = fired;
+    }
+	public boolean isSuccess()
+    {
+    	return success;
+    }
+	public void setSuccess(boolean success)
+    {
+    	this.success = success;
     }
 }
