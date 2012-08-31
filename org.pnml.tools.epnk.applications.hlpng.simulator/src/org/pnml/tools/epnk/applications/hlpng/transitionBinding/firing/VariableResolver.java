@@ -58,7 +58,7 @@ public class VariableResolver
         this.dependencyManager = new VariableDependencyManager(tm, reversibleOperationManager);
     }
     
-    public Map<TermWrapper, TermAssignment> solve()
+    public boolean solve(boolean force)
     {
         while(dependencyManager.hasNext())
         {
@@ -86,8 +86,6 @@ public class VariableResolver
                 // a dialog pops up to ask for a sufficient solution
                 if(showDialog)
                 {
-                    final String termTxt = (new Serializer(null, rules))
-                            .unparse(termAssignment.getTermWrapper().getRootTerm(), "Term");
                     final Map<String, String> knownValues = new HashMap<String, String>();
                     for(TermWrapper var : dependencyManager.getVars(termAssignment.getTermWrapper()))
                     {
@@ -100,8 +98,16 @@ public class VariableResolver
                         }
                     }
                     
+                    // let's leave it for now
+                    if(!force && varSet.size() > 0)
+                    {
+                    	return false;
+                    }
                     if(varSet.size() > 0)
                     {
+                    	final String termTxt = (new Serializer(null, rules))
+                                .unparse(termAssignment.getTermWrapper().getRootTerm(), "Term");
+                    	
                     	final InputDialogJob inputThread = 
                                 new InputDialogJob(display, knownValues, 
                                         "The Simulator cannot solve the following equation:\n"
@@ -113,12 +119,13 @@ public class VariableResolver
                         
                         if(!inputThread.isCanceled())
                         {
-                            parseSolution(inputThread.getMapping(), evaluationManager, termMap, varSet, 
+                            parseSolution(inputThread.getMapping(), 
+                            		evaluationManager, termMap, varSet, 
                             		display.getActiveShell());
                         }
                         else
                         {
-                            showDialog = false;
+                            return false;
                         }
                     }
                     else
@@ -128,8 +135,8 @@ public class VariableResolver
                 }
             }
         }
-        
-        return termMap;
+        // all variables were resolved successfully
+        return true;
     }
     
     private static void parseSolution(final Map<TermWrapper, String> map, 
