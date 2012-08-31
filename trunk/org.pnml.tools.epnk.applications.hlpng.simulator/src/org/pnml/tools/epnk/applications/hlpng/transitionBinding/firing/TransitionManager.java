@@ -104,18 +104,20 @@ public class TransitionManager
 	    return (Rules) rulesObj;
 	}
 	
-	private static List<FiringMode> checkEmptyFiringMode(Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
+	private static TransitionCheck checkEmptyFiringMode(Map<IDWrapper, ArcInscriptionHandler> incomingArcs,
 			Map<IDWrapper, IMSValue> runtimeValues, Transition transition, EvaluationManager evaluationManager) 
 					throws UnknownVariableException
 	{
 		List<Map<TermWrapper, IValue>> varSets = new ArrayList<Map<TermWrapper,IValue>>();
 		varSets.add(new HashMap<TermWrapper, IValue>());
 		
-		return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
+		return new TransitionCheck(ConsistencyManager.
+				checkSolution(varSets, incomingArcs, 
+						runtimeValues, transition, evaluationManager), true);
 	}
 	
-	public List<FiringMode> checkTransition(Transition transition, 
-			Map<IDWrapper, IMSValue> runtimeValues) 
+	public TransitionCheck checkTransition(Transition transition, 
+			Map<IDWrapper, IMSValue> runtimeValues, boolean force) 
 					throws DependencyException, UnknownVariableException
 	{		
 		Map<IDWrapper, ArcInscriptionHandler> incomingArcs = patternMatcherMap.get(new IDWrapper(transition));
@@ -152,8 +154,12 @@ public class TransitionManager
 		// resolving undefined variables
 		VariableResolver resolver = new VariableResolver(globalMap, 
 				reversibleOperationManager, evaluationManager, rules, display);
-		globalMap = resolver.solve();
-		
+		boolean success = resolver.solve(force);
+		if(!success)
+		{
+			// terminate the check
+			return new TransitionCheck(null, false);
+		}
 		// filtering non consistent assignments
 		globalMap = ConsistencyManager.checkParams(globalMap);
 
@@ -172,7 +178,9 @@ public class TransitionManager
 					varSets.add(map);
 				}
 			}
-			return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
+			return new TransitionCheck(ConsistencyManager.
+					checkSolution(varSets, incomingArcs, 
+							runtimeValues, transition, evaluationManager), true);
 		}
 		
 		// computing Cartesian product of variable assignments
@@ -189,7 +197,9 @@ public class TransitionManager
 		}
 		
 		// evaluate each arc inscription with the given parameter set
-		return ConsistencyManager.checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager);
+		return new TransitionCheck(ConsistencyManager.
+				checkSolution(varSets, incomingArcs, 
+						runtimeValues, transition, evaluationManager), true);
 	}
 	
 	private static void intersection(Map<TermWrapper, TermAssignment> globalMap,
