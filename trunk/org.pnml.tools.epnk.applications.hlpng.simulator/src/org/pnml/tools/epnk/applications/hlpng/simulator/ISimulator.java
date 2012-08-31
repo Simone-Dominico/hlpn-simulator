@@ -14,6 +14,7 @@ import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.simulator.views.ISimulationViewController;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public interface ISimulator extends IApplicationWithPresentation
 {
@@ -26,6 +27,9 @@ public interface ISimulator extends IApplicationWithPresentation
 	public void show(IRuntimeState state);
 	public void fire(FiringMode mode, boolean updateAnnotations);
 	public void updateTransitionBinding(IRuntimeState state);
+	public void updateTransitionBinding(IRuntimeState state, Transition transition);
+	public void updateTransitionBinding();
+	public void updateTransitionBinding(Transition transition);
 	public void setSimulationPause(long simulationPause);
 	public void setSimulationViewController(ISimulationViewController simulationViewController);
 }

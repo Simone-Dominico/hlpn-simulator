@@ -65,6 +65,7 @@ public class DropDownAction extends Action implements IMenuCreator
 				}
 			};
 			actions.add(action);
+			action.setChecked(true);
 		}
 		{
 			Action action = new Action("500 ms", Action.AS_CHECK_BOX)
@@ -81,7 +82,6 @@ public class DropDownAction extends Action implements IMenuCreator
 				}
 			};
 			actions.add(action);
-			action.setChecked(true);
 		}
 		{
 			Action action = new Action("1000 ms", Action.AS_CHECK_BOX)
