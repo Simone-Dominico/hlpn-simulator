@@ -22,7 +22,7 @@ public class RandomFiringStrategy implements IFiringStrategy
 	@Override
 	public FiringMode fire(IRuntimeState currentMarking)
 	{
-		Map<IDWrapper, List<FiringMode>> modes = currentMarking.getModes();
+		Map<IDWrapper, TransitionCheck> modes = currentMarking.getModes();
 		
 		List<IDWrapper> transitions = new ArrayList<IDWrapper>(modes.keySet());
 		int tIndex = getIndex(transitions.size());
@@ -32,7 +32,7 @@ public class RandomFiringStrategy implements IFiringStrategy
 			return null;
 		}
 		
-		List<FiringMode> fModes = modes.get(transitions.get(tIndex));
+		List<FiringMode> fModes = modes.get(transitions.get(tIndex)).getModes();
 		int fIndex = getIndex(fModes.size());
 		
 		if(fIndex == -1)
