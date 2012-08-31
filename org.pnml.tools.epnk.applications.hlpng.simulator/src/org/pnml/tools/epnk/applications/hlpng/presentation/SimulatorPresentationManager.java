@@ -16,20 +16,22 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.graphics.Font;
 import org.pnml.tools.epnk.annotations.manager.IPresentationManager;
 import org.pnml.tools.epnk.annotations.netannotations.ObjectAnnotation;
+import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.LabelLayer;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.TopRightLabel;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.PlaceMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.popup.SelectionHandler;
-import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
+import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class SimulatorPresentationManager implements IPresentationManager
 {
 	protected SelectionHandler selectionHandler = null;
-	protected IApplicationWithPresentation simulator = null;
+	protected ISimulator simulator = null;
 	protected Font font = null;
 	
-	public SimulatorPresentationManager(IApplicationWithPresentation simulator, Font font)
+	public SimulatorPresentationManager(ISimulator simulator, Font font)
 	{
 		this.simulator = simulator;
 		this.selectionHandler = new SelectionHandler(simulator);
@@ -40,20 +42,34 @@ public class SimulatorPresentationManager implements IPresentationManager
 	public IFigure handle(ObjectAnnotation objectAnnotation, 
 			AbstractGraphicalEditPart graphicalEditPart)
 	{
-		IFigure figure = null;
+		final IFigure figure = graphicalEditPart.getFigure();
+		
 		if(objectAnnotation instanceof TransitionMarking)
-		{			
-			TransitionMarking marking = (TransitionMarking) objectAnnotation;
+		{
+			final TransitionMarking marking = (TransitionMarking) objectAnnotation;
 
-			TransitionOverlay coloredMarking = new TransitionOverlay(simulator,
-					graphicalEditPart.getFigure(), marking);
-			coloredMarking.addMouseListener(selectionHandler);
+			AbstractRectangleOverlay coloredMarking = null;
 			
-			if(marking.isFired())
+			if(!marking.isSuccess())
 			{
-				coloredMarking.request();	
+				coloredMarking = new TransitionUnknownState(simulator, figure, 
+						(Transition)marking.getObject());
+			}
+			else
+			{
+				if(!marking.isFired())
+				{
+					coloredMarking = new TransitionReadyState(simulator, 
+							figure, marking.getModes());	
+				}
+				else
+				{
+					coloredMarking = new TransitionSelectedState(simulator, 
+							figure, marking.getModes());
+				}
 			}
 			
+			coloredMarking.addMouseListener(selectionHandler);
 			return coloredMarking;
 		}
 		else if(objectAnnotation instanceof PlaceMarking)
@@ -67,13 +83,11 @@ public class SimulatorPresentationManager implements IPresentationManager
 				names.append(place.getName().getText() + "\n");
 			}
 			
-			IFigure mainFigure = graphicalEditPart.getFigure();
-
-			Label label = new TopRightLabel(font, marking.getMsValue().toString(), mainFigure);
+			Label label = new TopRightLabel(font, marking.getMsValue().toString(), figure);
 			
-			return new LabelLayer(mainFigure, label);
+			return new LabelLayer(figure, label);
 		}
-		return figure;
+		return null;
 	}
 	
 	@Override

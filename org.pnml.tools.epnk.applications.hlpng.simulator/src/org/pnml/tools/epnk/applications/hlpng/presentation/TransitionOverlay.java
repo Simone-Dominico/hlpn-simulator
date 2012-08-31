@@ -16,27 +16,22 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
-import org.pnml.tools.epnk.applications.hlpng.presentation.marking.TransitionMarking;
 import org.pnml.tools.epnk.applications.hlpng.presentation.popup.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
-import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
 
-public class TransitionOverlay extends AbstractRectangleOverlay
+public abstract class TransitionOverlay extends AbstractRectangleOverlay
 {
-	final protected TransitionMarking marking;
+	final protected List<FiringMode> firingModes;
 	final protected ISimulator simulator;
 
-	public TransitionOverlay(final IApplicationWithPresentation simulator, 
-			final IFigure figure, final TransitionMarking marking)
+	public TransitionOverlay(final ISimulator simulator, 
+			final IFigure figure, final List<FiringMode> firingModes)
 	{
 		super(figure);
 		
-		this.marking = marking;
-		this.simulator = (ISimulator)simulator;
-		
-		currentState = new TransitionReadyState(this);
-		currentState.handle();
+		this.firingModes = firingModes;
+		this.simulator = simulator;
 	}
 
 	@Override
@@ -44,7 +39,7 @@ public class TransitionOverlay extends AbstractRectangleOverlay
     {
 		List<IAction> actions = new ArrayList<IAction>();
 		
-		for(FiringMode mode : marking.getModes())
+		for(FiringMode mode : firingModes)
 		{
 			actions.add(getCategory(mode));
 		}
@@ -62,8 +57,12 @@ public class TransitionOverlay extends AbstractRectangleOverlay
 	
 	private static AbstractMenuItem getCategory(FiringMode mode)
 	{
-		FiringModePopupMenuItem item = new FiringModePopupMenuItem(mode.toString(), mode);
+		FiringModePopupMenuItem item = 
+				new FiringModePopupMenuItem(mode.toString(), mode);
 		
 		return item;
 	}
+
+	@Override
+    public void executeAction(){}
 }

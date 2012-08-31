@@ -10,25 +10,20 @@
  ******************************************************************************/
 package org.pnml.tools.epnk.applications.hlpng.presentation;
 
+import java.util.List;
+
 import org.eclipse.draw2d.ColorConstants;
-import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
-import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.IState;
+import org.eclipse.draw2d.IFigure;
+import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 
-public class TransitionReadyState implements IState
+public class TransitionReadyState extends TransitionOverlay
 {
-	protected AbstractRectangleOverlay overlay = null;
-	
-	public TransitionReadyState(AbstractRectangleOverlay overlay)
+	public TransitionReadyState(final ISimulator simulator, 
+			final IFigure figure, final List<FiringMode> firingModes)
 	{
-		this.overlay = overlay;
+		super(simulator, figure, firingModes);
+		this.setForegroundColor(ColorConstants.green);
+		this.setBackgroundColor(ColorConstants.green);
 	}
-	
-	@Override
-	public void handle()
-	{
-		overlay.setForegroundColor(ColorConstants.green);
-		overlay.setBackgroundColor(ColorConstants.green);
-		overlay.setState(new TransitionSelectedState(overlay));
-	}
-
 }
