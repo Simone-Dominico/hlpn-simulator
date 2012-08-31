@@ -17,4 +17,6 @@ public interface IActionProvider
 	public List<IAction> getActions();
     
     public void executeAction(IAction action);
+    
+    public void executeAction();
 }
