@@ -13,6 +13,7 @@ package org.pnml.tools.epnk.applications.hlpng.presentation.marking;
 import java.util.List;
 
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
+import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.IDWrapper;
 import org.pnml.tools.epnk.helpers.FlatAccess;
 import org.pnml.tools.epnk.pnmlcoremodel.PetriNet;
@@ -63,36 +64,49 @@ public class NetMarkingManager
             netMarking.getObjectAnnotations().add(marking);
         }
         
-        // creates a marking for enabled transitions
+        // creates a marking for transitions
         for(IDWrapper wrapper : state.getTransitions())
         {
         	final Transition transition = (Transition)wrapper.getId();
         	final boolean fired = state.getFiringMode() != null && 
         			state.getFiringMode().getTransition().equals(transition);
+        	final boolean success = state.getFiringModes(wrapper).isSuccess();
+        	final List<FiringMode> modes = state.getFiringModes(wrapper).getModes();
         	
-        	// for each respective reference transition
-            final List<RefTransition> refTransitions = flatAccess.getRefTransitions(transition);
-            if(refTransitions != null)
-            {
-            	for(RefTransition rp : refTransitions)
+        	if(!success || (modes != null && modes.size() > 0))
+        	{
+            	// for each respective reference transition
+                final List<RefTransition> refTransitions = flatAccess.getRefTransitions(transition);
+                if(refTransitions != null)
                 {
-            		TransitionMarking marking = new TransitionMarking();
-                    marking.getModes().addAll(state.getFiringModes(wrapper)); 
-                    marking.setFired(fired);
-                    marking.setObject(rp);
-                    
-                    netMarking.getMarkings().add(marking);
-                    netMarking.getObjectAnnotations().add(marking);
-                }	
-            }
-            
-            TransitionMarking marking = new TransitionMarking();
-            marking.getModes().addAll(state.getFiringModes(wrapper)); 
-            marking.setFired(fired);
-            marking.setObject(transition);
-            
-            netMarking.getMarkings().add(marking);
-            netMarking.getObjectAnnotations().add(marking);
+                	for(RefTransition rp : refTransitions)
+                    {
+                		TransitionMarking marking = new TransitionMarking();
+                		if(modes != null && modes.size() > 0)
+                		{
+                			marking.getModes().addAll(modes);	
+                		} 
+                        marking.setFired(fired);
+                        marking.setSuccess(success);
+                        marking.setObject(rp);
+                        
+                        netMarking.getMarkings().add(marking);
+                        netMarking.getObjectAnnotations().add(marking);
+                    }	
+                }
+                
+                TransitionMarking marking = new TransitionMarking();
+                if(modes != null && modes.size() > 0)
+        		{
+        			marking.getModes().addAll(modes);	
+        		}
+                marking.setFired(fired);
+                marking.setSuccess(success);
+                marking.setObject(transition);
+                
+                netMarking.getMarkings().add(marking);
+                netMarking.getObjectAnnotations().add(marking);	
+        	}
         }
 
         return netMarking;
