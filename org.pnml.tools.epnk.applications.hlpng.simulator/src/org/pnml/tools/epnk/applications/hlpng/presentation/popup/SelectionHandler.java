@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IActionProvider;
 import org.pnml.tools.epnk.applications.presentation.IApplicationWithPresentation;
 
@@ -39,7 +40,7 @@ public class SelectionHandler implements SelectionListener, MouseListener
 			MenuItem item = (MenuItem) e.getSource();
 			
 			IActionProvider actionProvider = (IActionProvider) item.getData(PopupMenu.OWNER);
-			AbstractMenuItem action = (AbstractMenuItem) item.getData(PopupMenu.DATA);
+			IAction action = (IAction) item.getData(PopupMenu.DATA);
 			actionProvider.executeAction(action);
 		}
     }
@@ -58,12 +59,27 @@ public class SelectionHandler implements SelectionListener, MouseListener
 		{
 			if(e.getSource() instanceof IActionProvider && application.showPopUpMenu())
 			{
-				final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow(); 
-				final Shell shell = window.getShell();
-				IActionProvider handler = (IActionProvider)e.getSource();
-				if(handler.getActions().size() > 0)
+				final IActionProvider handler = (IActionProvider)e.getSource();
+				
+				if(handler.getActions() != null)
 				{
-					new PopupMenu(shell, SWT.POP_UP, handler.getActions(), this, handler);
+					final IWorkbenchWindow window = PlatformUI.getWorkbench()
+							.getActiveWorkbenchWindow(); 
+					final Shell shell = window.getShell();
+					
+					if(handler.getActions().size() == 1)
+					{
+						handler.executeAction(handler.getActions().get(0));
+					}
+					else if(handler.getActions().size() > 1)
+					{
+						new PopupMenu(shell, SWT.POP_UP, handler.getActions(), 
+								this, handler);
+					}	
+				}
+				else
+				{
+					handler.executeAction();
 				}
 			}
 		}
