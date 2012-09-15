@@ -67,11 +67,7 @@ public class SelectionHandler implements SelectionListener, MouseListener
 							.getActiveWorkbenchWindow(); 
 					final Shell shell = window.getShell();
 					
-					if(handler.getActions().size() == 1)
-					{
-						handler.executeAction(handler.getActions().get(0));
-					}
-					else if(handler.getActions().size() > 1)
+					if(handler.getActions().size() > 0)
 					{
 						new PopupMenu(shell, SWT.POP_UP, handler.getActions(), 
 								this, handler);
