@@ -27,9 +27,9 @@ public interface ISimulator extends IApplicationWithPresentation
 	public void show(IRuntimeState state);
 	public void fire(FiringMode mode, boolean updateAnnotations);
 	public void updateTransitionBinding(IRuntimeState state);
-	public void updateTransitionBinding(IRuntimeState state, Transition transition);
+	public void updateTransitionBinding(IRuntimeState state, Transition transition, boolean clear);
 	public void updateTransitionBinding();
-	public void updateTransitionBinding(Transition transition);
+	public void updateTransitionBinding(Transition transition, boolean clear);
 	public void setSimulationPause(long simulationPause);
 	public void setSimulationViewController(ISimulationViewController simulationViewController);
 }

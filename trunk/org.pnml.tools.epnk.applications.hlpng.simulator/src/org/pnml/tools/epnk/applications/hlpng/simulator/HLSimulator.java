@@ -156,17 +156,17 @@ public class HLSimulator extends Application implements ISimulator, IWorker
 	
 	@Override
     public void updateTransitionBinding(IRuntimeState state,
-            Transition transition)
+            Transition transition, boolean clear)
     {
 		// updates concrete transition binding
-		this.runtimeStateManager.updateState(state, transition);
+		this.runtimeStateManager.updateState(state, transition, clear);
 		showAnnotations(state, netMarkingManager, this.getNetAnnotations());
     }
 	
 	@Override
-    public void updateTransitionBinding(Transition transition)
+    public void updateTransitionBinding(Transition transition, boolean clear)
     {
-		updateTransitionBinding(runtimeStateManager.getCurrentState(), transition);
+		updateTransitionBinding(runtimeStateManager.getCurrentState(), transition, clear);
     }
 	
 	@Override

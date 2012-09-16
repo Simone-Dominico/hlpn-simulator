@@ -60,12 +60,14 @@ public class SimulatorPresentationManager implements IPresentationManager
 				if(!marking.isFired())
 				{
 					coloredMarking = new TransitionReadyState(simulator, 
-							figure, marking.getModes());	
+							figure, marking.getModes(), marking.isManualInput(),
+							(Transition)marking.getObject());	
 				}
 				else
 				{
 					coloredMarking = new TransitionSelectedState(simulator, 
-							figure, marking.getModes());
+							figure, marking.getModes(), marking.isManualInput(),
+							(Transition)marking.getObject());
 				}
 			}
 			

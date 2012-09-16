@@ -48,6 +48,6 @@ public class TransitionUnknownState extends AbstractRectangleOverlay
 	@Override
     public void executeAction()
     {
-		simulator.updateTransitionBinding(transition);
+		simulator.updateTransitionBinding(transition, true);
     }
 }

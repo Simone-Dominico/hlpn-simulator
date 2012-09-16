@@ -11,6 +11,7 @@
 package org.pnml.tools.epnk.applications.hlpng.presentation.marking;
 
 import java.util.List;
+import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
@@ -71,7 +72,8 @@ public class NetMarkingManager
         	final boolean fired = state.getFiringMode() != null && 
         			state.getFiringMode().getTransition().equals(transition);
         	final boolean success = state.getFiringModes(wrapper).isSuccess();
-        	final List<FiringMode> modes = state.getFiringModes(wrapper).getModes();
+        	final boolean manualInput = state.getFiringModes(wrapper).isManualInput();
+        	final Set<FiringMode> modes = state.getFiringModes(wrapper).getModes();
         	
         	if(!success || (modes != null && modes.size() > 0))
         	{
@@ -88,6 +90,7 @@ public class NetMarkingManager
                 		} 
                         marking.setFired(fired);
                         marking.setSuccess(success);
+                        marking.setManualInput(manualInput);
                         marking.setObject(rp);
                         
                         netMarking.getMarkings().add(marking);
@@ -102,6 +105,7 @@ public class NetMarkingManager
         		}
                 marking.setFired(fired);
                 marking.setSuccess(success);
+                marking.setManualInput(manualInput);
                 marking.setObject(transition);
                 
                 netMarking.getMarkings().add(marking);

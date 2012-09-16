@@ -16,13 +16,15 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public class TransitionReadyState extends TransitionOverlay
 {
 	public TransitionReadyState(final ISimulator simulator, 
-			final IFigure figure, final List<FiringMode> firingModes)
+			final IFigure figure, final List<FiringMode> firingModes, 
+			final boolean manualInput, final Transition transition)
 	{
-		super(simulator, figure, firingModes);
+		super(simulator, figure, firingModes, manualInput, transition);
 		this.setForegroundColor(ColorConstants.green);
 		this.setBackgroundColor(ColorConstants.green);
 	}
