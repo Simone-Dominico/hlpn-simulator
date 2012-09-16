@@ -69,14 +69,26 @@ public class RuntimeStateManager
         }
     }
     
-    public void updateState(IRuntimeState state, Transition transition)
+    public void updateState(IRuntimeState state, Transition transition, boolean clear)
     {
+    	TransitionCheck oldCheck = null;
+    	if(!clear)
+    	{
+    		oldCheck = state.getFiringModes(transition);
+    	}
+    	
     	// clearing transition firing modes
     	state.removeFiringModes(transition);
     	
     	// computing transition firing modes
     	TransitionCheck check = checkTransition(state.getValues(), 
     			transition, transitionManager, true);
+    	// appending old modes
+    	if(oldCheck != null && oldCheck.getModes() != null && 
+    			check != null && check.getModes() != null)
+    	{
+    		check.getModes().addAll(oldCheck.getModes());
+    	}
 
     	if(check != null)
     	{
