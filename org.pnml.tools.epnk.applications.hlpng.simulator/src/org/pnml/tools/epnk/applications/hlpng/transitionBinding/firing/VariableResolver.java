@@ -58,8 +58,10 @@ public class VariableResolver
         this.dependencyManager = new VariableDependencyManager(tm, reversibleOperationManager);
     }
     
-    public boolean solve(boolean force)
+    public Solution solve(boolean force)
     {
+    	boolean manualInput = false;
+    	
         while(dependencyManager.hasNext())
         {
             final Pair<Set<TermWrapper>, TermAssignment> pair = 
@@ -101,7 +103,7 @@ public class VariableResolver
                     // let's leave it for now
                     if(!force && varSet.size() > 0)
                     {
-                    	return false;
+                    	return new Solution(false, false);
                     }
                     if(varSet.size() > 0)
                     {
@@ -119,13 +121,35 @@ public class VariableResolver
                         
                         if(!inputThread.isCanceled())
                         {
-                            parseSolution(inputThread.getMapping(), 
-                            		evaluationManager, termMap, varSet, 
-                            		display.getActiveShell());
+                        	Map<TermWrapper, TermAssignment> localTermMap = null;
+                        	try
+                            {
+                        		localTermMap = parseSolution(inputThread.getMapping(), 
+	                            		evaluationManager, varSet, display.getActiveShell());
+                        		manualInput = true;
+                            }
+                            catch(Exception e)
+                            {
+	                            System.err.println("ERR: " + e);
+                            }
+                        	if(localTermMap != null)
+                        	{
+                        		for(TermWrapper key: localTermMap.keySet())
+	                            {
+	                            	if(!termMap.containsKey(key))
+	                            	{
+	                            		termMap.put(key, localTermMap.get(key));
+	                            	}
+	                            	else
+	                            	{
+	                            		termMap.get(key).getValues().addAll(localTermMap.get(key).getValues());
+	                            	}
+	                            }
+                        	}
                         }
                         else
                         {
-                            return false;
+                        	return new Solution(false, false);
                         }
                     }
                     else
@@ -136,69 +160,66 @@ public class VariableResolver
             }
         }
         // all variables were resolved successfully
-        return true;
+        return new Solution(true, manualInput);
     }
     
-    private static void parseSolution(final Map<TermWrapper, String> map, 
-            final EvaluationManager evaluationManager, 
-            final Map<TermWrapper, TermAssignment> termMap,
-            final Set<TermWrapper> varSet, final Shell shell)
+    private static Map<TermWrapper, TermAssignment> parseSolution(final Map<TermWrapper, String> map, 
+            final EvaluationManager evaluationManager,
+            final Set<TermWrapper> varSet, final Shell shell) throws Exception
     {
+    	final Map<TermWrapper, TermAssignment> termMap = 
+    			new HashMap<TermWrapper, TermAssignment>();
+    	
         for(Entry<TermWrapper, String> entry : map.entrySet())
         {
         	for(String value : entry.getValue().split(";\\s*"))
         	{
-                try
+                Term term = HLPNGParser.getHLPNGParser().parseTerm(value);
+
+                if(term != null)
                 {
-                    Term term = HLPNGParser.getHLPNGParser().parseTerm(value);
+                	if(isGroundTerm(term))
+                	{
+                		if(entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
+                		{
+                			TermWrapper variable = entry.getKey();
 
-                    if(term != null)
-                    {
-                    	if(isGroundTerm(term))
-                    	{
-                    		if(entry.getKey().getRootTerm().getSort().isSuperSortOf(term.getSort()))
-                    		{
-                    			TermWrapper variable = entry.getKey();
+                            final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
 
-                                final Set<IValue> values = evaluationManager.evaluateAll(term, termMap);
+                            if(termMap.containsKey(variable))
+                            {
+                                termMap.get(variable).getValues().addAll(values);
+                            }
+                            else
+                            {
+                                TermAssignment ta = new TermAssignment();
+                                ta.getValues().addAll(values);
+                                ta.setTermWrapper(variable);
 
-                                if(termMap.containsKey(variable))
-                                {
-                                    termMap.get(variable).getValues().addAll(values);
-                                }
-                                else
-                                {
-                                    TermAssignment ta = new TermAssignment();
-                                    ta.getValues().addAll(values);
-                                    ta.setTermWrapper(variable);
-
-                                    termMap.put(variable, ta);
-                                }	
-                    		}
-                    		else
-                    		{
-                    			MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
-                        		mb.setMessage("The required sort is: " + 
-                        				entry.getKey().getRootTerm().getSort() + "\n" +
-                        						"The given term sort is " + term.getSort());
-                        		mb.open();
-                    		}	
-                    	}
-                    	else
-                    	{
-                    		MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
-                    		mb.setMessage("The term " + value + " is not a " +
-                    				"ground term!");
+                                termMap.put(variable, ta);
+                            }	
+                		}
+                		else
+                		{
+                			MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                    		mb.setMessage("The required sort is: " + 
+                    				entry.getKey().getRootTerm().getSort() + "\n" +
+                    						"The given term sort is " + term.getSort());
                     		mb.open();
-                    	}
-                    }
+                		}	
+                	}
+                	else
+                	{
+                		MessageBox mb = new MessageBox(shell, SWT.ICON_ERROR);
+                		mb.setMessage("The term " + value + " is not a " +
+                				"ground term!");
+                		mb.open();
+                	}
                 }
-                catch(Exception e)
-                {
-                    System.err.println("WRN: " + e.getMessage());
-                }	
+                	
         	}
         }
+        return termMap;
     }
     
     private static boolean isGroundTerm(Term term)
