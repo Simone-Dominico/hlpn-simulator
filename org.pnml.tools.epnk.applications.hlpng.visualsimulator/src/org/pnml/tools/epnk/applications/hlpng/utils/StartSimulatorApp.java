@@ -90,43 +90,39 @@ public class StartSimulatorApp implements IObjectActionDelegate
 		if(resource != null && resource.getContents().size() > 0)
 		{
 			// runtime value factory
-			MSListFactory factory = new MSListFactory();
+			final MSListFactory factory = new MSListFactory();
 			// init the evaluation manager
-			EvaluationManager evaluationManager = ResourceManager.
+			final EvaluationManager evaluationManager = ResourceManager.
 					createEvaluationManager(factory,
 							"org.pnml.tools.epnk.applications.hlpng.transitionBinding.extensions");
 
 			// init the reversible operation manager
-			ReversibleOperationManager reversibleOperationManager = 
+			final ReversibleOperationManager reversibleOperationManager = 
 					ResourceManager.createReversibleOperationManager(evaluationManager);
 					
 			// init the comparison manager
-			ComparisonManager comparisonManager = 
+			final ComparisonManager comparisonManager = 
 					ResourceManager.createComparisonManager(evaluationManager, reversibleOperationManager);
-			
-			// init animator
-			Animator animator = createAnimator(filename.replaceFirst(pnfile.getName(), ""));
-			
+						
 			// init config
-			VisualSimulatorConfig config = (VisualSimulatorConfig)resource.getContents().get(0);
+			final VisualSimulatorConfig config = (VisualSimulatorConfig)resource.getContents().get(0);
 			
 			// set the Animator to each user defined evaluator
 			UserOperatorEval userOperatorEval = 
 					(UserOperatorEval)evaluationManager.getHandler(UserOperatorImpl.class);
-			ExtensionManager extensionManager = null;
-			for(IEvaluator eval : userOperatorEval.getArbitraryOperatorEvaluators())
+			final ExtensionManager extensionManager;
 			{
-				if(eval instanceof ExtensionManager)
+				ExtensionManager extensionManagerTmp = null;
+				for(IEvaluator eval : userOperatorEval.getArbitraryOperatorEvaluators())
 				{
-					extensionManager = (ExtensionManager) eval;
-				}
+					if(eval instanceof ExtensionManager)
+					{
+						extensionManagerTmp = (ExtensionManager) eval;
+					}
+				}	
+				extensionManager = extensionManagerTmp;
 			}
-					
-			for(IEvaluator eval : extensionManager.getEvaluators())
-			{
-				((AbstractFunction)eval).setAnimator(animator);
-			}
-					
+							
 			// perform validation
 			ValidationDelegateClientSelector.running = true;
 			IBatchValidator validator = (IBatchValidator) ModelValidationService
@@ -143,23 +139,38 @@ public class StartSimulatorApp implements IObjectActionDelegate
 			{
     			try
                 {
-	                // init HLPNG simualtor
-	                VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
-	                		comparisonManager, reversibleOperationManager,
-	                		Display.getCurrent().getSystemFont(), animator, 
-	                		config.getGeometry().getGlobalAppearancePath(), 
-	                		config.getGeometry(), config.getShapes(), extensionManager,
-	                		factory);
-	                
-	                // creates simulation view controller
-	                ISimulationViewController controller = new VisSimulationViewController();
-	                controller.setSimulator(simulator);
-	                simulator.setSimulationViewController(controller);
-	                
-	                // registers the simulator
-	                Activator activator = Activator.getInstance();
-	                ApplicationRegistry registry = activator.getApplicationRegistry();
-	                registry.addApplication(simulator);
+    				Display.getCurrent().syncExec(new Runnable()
+    				{
+    					public void run()
+    					{
+    						// init animator
+    	    				Animator animator = createAnimator(filename.replaceFirst(pnfile.getName(), ""));
+
+    	    				// set the animator to the evaluators
+    	    				for(IEvaluator eval : extensionManager.getEvaluators())
+    	    				{
+    	    					((AbstractFunction)eval).setAnimator(animator);
+    	    				}
+    	    				
+    		                // init HLPNG simualtor
+    		                VisualSimulator simulator = new VisualSimulator(petrinet, evaluationManager, 
+    		                		comparisonManager, reversibleOperationManager,
+    		                		Display.getCurrent().getSystemFont(), animator, 
+    		                		config.getGeometry().getGlobalAppearancePath(), 
+    		                		config.getGeometry(), config.getShapes(), extensionManager,
+    		                		factory);
+    		                
+    		                // creates simulation view controller
+    		                ISimulationViewController controller = new VisSimulationViewController();
+    		                controller.setSimulator(simulator);
+    		                simulator.setSimulationViewController(controller);
+    		                
+    		                // registers the simulator
+    		                Activator activator = Activator.getInstance();
+    		                ApplicationRegistry registry = activator.getApplicationRegistry();
+    		                registry.addApplication(simulator);
+    					}
+    				});
                 }
                 catch(Exception e)
                 {
