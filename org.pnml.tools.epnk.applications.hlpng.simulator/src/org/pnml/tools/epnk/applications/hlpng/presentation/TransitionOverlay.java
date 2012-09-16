@@ -16,22 +16,27 @@ import java.util.List;
 import org.eclipse.draw2d.IFigure;
 import org.pnml.tools.epnk.applications.hlpng.presentation.actions.IAction;
 import org.pnml.tools.epnk.applications.hlpng.presentation.decorations.AbstractRectangleOverlay;
-import org.pnml.tools.epnk.applications.hlpng.presentation.popup.AbstractMenuItem;
 import org.pnml.tools.epnk.applications.hlpng.simulator.ISimulator;
 import org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing.FiringMode;
+import org.pnml.tools.epnk.pntypes.hlpng.pntd.hlpngdefinition.Transition;
 
 public abstract class TransitionOverlay extends AbstractRectangleOverlay
 {
 	final protected List<FiringMode> firingModes;
 	final protected ISimulator simulator;
+	final protected boolean manualInput;
+	final protected Transition transition;
 
 	public TransitionOverlay(final ISimulator simulator, 
-			final IFigure figure, final List<FiringMode> firingModes)
+			final IFigure figure, final List<FiringMode> firingModes, 
+			final boolean manualInput, final Transition transition)
 	{
 		super(figure);
 		
+		this.manualInput = manualInput;
 		this.firingModes = firingModes;
 		this.simulator = simulator;
+		this.transition = transition;
 	}
 
 	@Override
@@ -41,7 +46,16 @@ public abstract class TransitionOverlay extends AbstractRectangleOverlay
 		
 		for(FiringMode mode : firingModes)
 		{
-			actions.add(getCategory(mode));
+			FiringModePopupMenuItem item = 
+					new FiringModePopupMenuItem(mode.toString(), mode);
+			actions.add(item);
+		}
+		
+		if(manualInput)
+		{
+			FiringModePopupMenuItem item = 
+					new FiringModePopupMenuItem("Manual input", null);
+			actions.add(item);
 		}
 		return actions;
     }
@@ -51,18 +65,18 @@ public abstract class TransitionOverlay extends AbstractRectangleOverlay
     {
 		if(action instanceof FiringModePopupMenuItem)
 		{
-			simulator.fire(((FiringModePopupMenuItem)action).getMode(), true);	
+			FiringModePopupMenuItem item = (FiringModePopupMenuItem) action;
+			if(item.getMode() != null)
+			{
+				simulator.fire(item.getMode(), true);
+			}	
+			else
+			{
+				simulator.updateTransitionBinding(transition, false);
+			}
 		}
     }
 	
-	private static AbstractMenuItem getCategory(FiringMode mode)
-	{
-		FiringModePopupMenuItem item = 
-				new FiringModePopupMenuItem(mode.toString(), mode);
-		
-		return item;
-	}
-
 	@Override
     public void executeAction(){}
 }
