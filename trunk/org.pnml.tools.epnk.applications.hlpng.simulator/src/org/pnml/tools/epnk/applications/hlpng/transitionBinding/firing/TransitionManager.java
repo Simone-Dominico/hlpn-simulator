@@ -111,9 +111,8 @@ public class TransitionManager
 		List<Map<TermWrapper, IValue>> varSets = new ArrayList<Map<TermWrapper,IValue>>();
 		varSets.add(new HashMap<TermWrapper, IValue>());
 		
-		return new TransitionCheck(ConsistencyManager.
-				checkSolution(varSets, incomingArcs, 
-						runtimeValues, transition, evaluationManager), true);
+		return new TransitionCheck(new HashSet<FiringMode>(ConsistencyManager.
+				checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager)), true, false);
 	}
 	
 	public TransitionCheck checkTransition(Transition transition, 
@@ -154,11 +153,11 @@ public class TransitionManager
 		// resolving undefined variables
 		VariableResolver resolver = new VariableResolver(globalMap, 
 				reversibleOperationManager, evaluationManager, rules, display);
-		boolean success = resolver.solve(force);
-		if(!success)
+		Solution solution = resolver.solve(force);
+		if(!solution.isSuccess())
 		{
 			// terminate the check
-			return new TransitionCheck(null, false);
+			return new TransitionCheck(null, false, false);
 		}
 		// filtering non consistent assignments
 		globalMap = ConsistencyManager.checkParams(globalMap);
@@ -178,9 +177,9 @@ public class TransitionManager
 					varSets.add(map);
 				}
 			}
-			return new TransitionCheck(ConsistencyManager.
-					checkSolution(varSets, incomingArcs, 
-							runtimeValues, transition, evaluationManager), true);
+			return new TransitionCheck(new HashSet<FiringMode>(ConsistencyManager.
+					checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager)), 
+							solution.isSuccess(), solution.isManualInput());
 		}
 		
 		// computing Cartesian product of variable assignments
@@ -197,9 +196,9 @@ public class TransitionManager
 		}
 		
 		// evaluate each arc inscription with the given parameter set
-		return new TransitionCheck(ConsistencyManager.
-				checkSolution(varSets, incomingArcs, 
-						runtimeValues, transition, evaluationManager), true);
+		return new TransitionCheck(new HashSet<FiringMode>(ConsistencyManager.
+				checkSolution(varSets, incomingArcs, runtimeValues, transition, evaluationManager)), 
+						solution.isSuccess(), solution.isManualInput());
 	}
 	
 	private static void intersection(Map<TermWrapper, TermAssignment> globalMap,

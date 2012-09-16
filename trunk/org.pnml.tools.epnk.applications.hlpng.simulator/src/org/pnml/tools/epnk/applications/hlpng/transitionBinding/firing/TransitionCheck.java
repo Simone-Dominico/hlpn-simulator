@@ -8,24 +8,31 @@
  ******************************************************************************/
 package org.pnml.tools.epnk.applications.hlpng.transitionBinding.firing;
 
-import java.util.List;
+import java.util.Set;
 
 public class TransitionCheck
 {
 	private boolean success;
-	private List<FiringMode> modes;
+	private Set<FiringMode> modes;
+	private boolean manualInput;
 	
-	public TransitionCheck(final List<FiringMode> modes, final boolean success)
+	public TransitionCheck(final Set<FiringMode> modes, final boolean success,
+			final boolean manualInput)
 	{
 		this.success = success;
 		this.modes = modes;
+		this.manualInput = manualInput;
 	}
 	public boolean isSuccess()
     {
     	return success;
     }
-	public List<FiringMode> getModes()
+	public Set<FiringMode> getModes()
     {
     	return modes;
+    }
+	public boolean isManualInput()
+    {
+    	return manualInput;
     }
 }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.pnml.tools.epnk.applications.hlpng.runtimeStates.IRuntimeState;
 
@@ -40,15 +41,15 @@ public class RandomFiringStrategy implements IFiringStrategy
 			return null;
 		}
 		
-		List<FiringMode> fModes = modes.get(transitions.get(tIndex)).getModes();
+		Set<FiringMode> fModes = modes.get(transitions.get(tIndex)).getModes();
 		int fIndex = getIndex(fModes.size());
 		
 		if(fIndex == -1)
 		{
 			return null;
 		}
-		
-		return fModes.get(fIndex);
+		List<FiringMode> lModes = new ArrayList<FiringMode>(fModes);
+		return lModes.get(fIndex);
 	}
 	
 	private static int getIndex(int size)
