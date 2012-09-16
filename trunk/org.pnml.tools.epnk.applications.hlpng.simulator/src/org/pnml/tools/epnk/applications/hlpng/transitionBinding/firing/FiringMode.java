@@ -81,4 +81,48 @@ public class FiringMode
     {
     	this.transition = transition;
     }
+	@Override
+    public int hashCode()
+    {
+	    final int prime = 31;
+	    int result = 1;
+	    result = prime * result + ((params == null) ? 0 : params.hashCode());
+	    result = prime * result
+	            + ((transition == null) ? 0 : transition.hashCode());
+	    result = prime * result + ((values == null) ? 0 : values.hashCode());
+	    return result;
+    }
+	@Override
+    public boolean equals(Object obj)
+    {
+	    if(this == obj)
+		    return true;
+	    if(obj == null)
+		    return false;
+	    if(getClass() != obj.getClass())
+		    return false;
+	    FiringMode other = (FiringMode) obj;
+	    if(params == null)
+	    {
+		    if(other.params != null)
+			    return false;
+	    }
+	    else if(!params.equals(other.params))
+		    return false;
+	    if(transition == null)
+	    {
+		    if(other.transition != null)
+			    return false;
+	    }
+	    else if(!transition.equals(other.transition))
+		    return false;
+	    if(values == null)
+	    {
+		    if(other.values != null)
+			    return false;
+	    }
+	    else if(!values.equals(other.values))
+		    return false;
+	    return true;
+    }
 }
